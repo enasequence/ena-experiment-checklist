@@ -34,7 +34,10 @@ def printChecklist(checklistDict):
     outfileName = data_loc_dict["output_dir"] + checklistDict['experiment_type'] + '.json'
     ic(outfileName)
 
-    json_object = json.dumps(checklistDict, indent = 4, sort_keys = True)
+    my_list = []
+    my_list = [checklistDict]
+
+    json_object = json.dumps(my_list, indent = 4, sort_keys = True)
     with open(outfileName, "w") as outfile:
         outfile.write(json_object)
     return
@@ -110,7 +113,7 @@ def getFields(config_data):
     for etype in config_data['experimentTypes']:
         ic(etype)
         #during debugging, concentrate one at a time.
-        if etype["experiment_type"] == "METATRANSCRIPTOMIC":
+        if etype["experiment_type"] == "TEST":
             ic("good!")
         else:
             ic("no, so skipping", etype["experiment_type"])
