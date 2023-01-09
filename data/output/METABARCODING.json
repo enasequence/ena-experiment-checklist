@@ -1,5 +1,5 @@
 {
-    "_comment": "This is an experiment attribute checklist template in JSON format. Please see https://TBD for details of what is mandatory and the allowable controlled vocabulary.",
+    "_comment": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
     "checklist_id": "EXC000001",
     "checklist_name": "TBD",
     "checklist_version": "20221129",

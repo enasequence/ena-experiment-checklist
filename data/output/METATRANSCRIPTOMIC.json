@@ -1,7 +1,7 @@
 {
-    "_comment": "This is an experiment attribute checklist template in JSON format. Please see https://TBD for details of what is mandatory and the allowable controlled vocabulary.",
+    "_comment": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
     "checklist_id": "EXC000002",
-    "checklist_name": "TBD",
+    "checklist_name": "METATRANSCRIPTOMIC specific",
     "checklist_version": "20221129",
     "experiment_name": "",
     "experiment_type": "METATRANSCRIPTOMIC",
@@ -13,6 +13,13 @@
     "library_selection": "",
     "library_source": "METATRANSCRIPTOMIC",
     "library_strategy": "",
+    "pcr_primers": {
+        "fwd_name": "",
+        "fwd_seq": "",
+        "rev_name": "",
+        "rev_seq": ""
+    },
+    "pcr_protocol": "",
     "sample_accession": "",
     "study_id": ""
 }
