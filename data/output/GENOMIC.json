@@ -1,0 +1,18 @@
+{
+    "_comment": "This is an experiment attribute checklist template in JSON format. Please see https://TBD for details of what is mandatory and the allowable controlled vocabulary.",
+    "checklist_id": "EXC000003",
+    "checklist_name": "TBD",
+    "checklist_version": "20221129",
+    "experiment_name": "",
+    "experiment_type": "GENOMIC",
+    "insert_size": 0,
+    "instrument_model": "",
+    "instrument_platform": "",
+    "library_description": "",
+    "library_name": "",
+    "library_selection": "",
+    "library_source": "GENOMIC",
+    "library_strategy": "",
+    "sample_accession": "",
+    "study_id": ""
+}
