@@ -46,7 +46,7 @@
 }
 ,
 "coreFields" : {
-    "_comment" : "This is an experiment attribute checklist template in JSON format. Please see https://TBD for details of what is mandatory and the allowable controlled vocabulary.",
+    "_comment" : "This is an experiment attribute checklist template in JSON format. Please see https:// (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
     "study_id": "",
     "sample_accession": "",
     "experiment_name": "",
