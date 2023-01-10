@@ -1,5 +1,5 @@
 # a single comment
-"""Script to computationally generates the experimental checklist JSON files for users to enter data into.
+"""Script to computationally generate the experimental checklist JSON files for users to enter data into.
 It is driven by a single JSON config file.
 
 ___author___ = "woollard@ebi.ac.uk"
@@ -15,31 +15,82 @@ from icecream import ic
 # import getopt
 # import requests
 # from requests.structures import CaseInsensitiveDict
-
+import re
 # import os
 # from os.path import join, dirname
 import json
+
+
 # from jsonschema import validate
 # import pandas as pd
 
 
-def print_checklist(checklist_dict):
-    """
+class ExperimentType:
+    """ ExperimentType object
     params:
-        in: the JSON/dict to print
+        in: experiment_type string
     """
-    data_loc_dict = get_data_locations()
 
-    # ic(checklistDict)
-    outfileName = data_loc_dict["output_dir"] + checklist_dict['experiment_type'] + '.json'
-    ic(outfileName)
+    def __init__(self, experiment_type):
+        self._special_dict = None
+        self._special_fields_list = None
+        self._core_dict = None
+        self._checklist_dict = None
+        self.experiment_type = experiment_type
 
-    my_list = [checklist_dict]
-    json_object = json.dumps(my_list, indent = 4, sort_keys = True)
-    with open(outfileName, "w") as outfile:
-        outfile.write(json_object)
-    return
+    def set_special_fields_list(self, special_fields_list):
+        self._special_fields_list = special_fields_list
+    
+    def get_special_fields_list(self):
+        return self._special_fields_list
 
+    def set_checklist_dict(self, checklist_dict):
+        special_fields = []
+        tmp_dict = dict(checklist_dict)
+        for key in tmp_dict:
+            if re.search("_fields$", key):
+                special_fields.append(key)
+                del checklist_dict[key]
+        self.set_special_fields_list(special_fields)
+        self._checklist_dict = checklist_dict
+
+    def get_checklist_dict(self):
+        return self._checklist_dict
+
+    def set_special_dict(self, special_dict):
+        ic(special_dict)
+        self._special_dict = special_dict
+
+    def get_special_dict(self):
+        return self._special_dict
+
+    def get_core_dict(self):
+        return self._core_dict
+
+    def set_core_dict(self, core_dict):
+        self._core_dict = core_dict
+
+    def get_all_dict(self):
+        all_dict = {**self.get_checklist_dict(), **self.get_core_dict(), **self.get_special_dict()}
+        return all_dict
+
+    def print_checklist(self):
+        """
+        params:
+
+        """
+        data_loc_dict = get_data_locations()
+
+        all_checklist_dict = self.get_all_dict()
+        # ic(checklistDict)
+        outfileName = data_loc_dict["output_dir"] + all_checklist_dict['experiment_type'] + '.json'
+        ic(outfileName)
+
+        my_list = [all_checklist_dict]
+        json_object = json.dumps(my_list, indent = 4, sort_keys = True)
+        with open(outfileName, "w") as outfile:
+            outfile.write(json_object)
+        return
 
 def get_core_dict(config_data):
     """
@@ -64,38 +115,27 @@ def get_core_dict(config_data):
     return coreDict
 
 
-def add_specials(merged_checklist_dict, config_data, etype):
+def add_specials(experimenttype: object, config_data: object) -> object:
     """ method to check for and pull out the json for special field cases in 
         each checklist, from the config_data file.
+        The special fields like pcr_fields pull in a more complex JSON dict from the config_data
+        sets the special fields JSON for each experimemttype
     params:
-        in: mergedChecklistDict,config_data
-        rtn: mergedChecklistDict
+        in:
+        :type experimenttype: object
+        ,config_data
     """
-    ic()
-    # ic(config_data)
-    # ic(etype)
-    core = ["checklist_id", "checklist_name", "checklist_version", "experiment_type", "library_source"]
-    # core = config_data["coreFields"]
-    for field in core:
-        if field in etype:
-            del etype[field]
-            ic("del ", field)
-    """ remaining fields(hooks) are those left in the etype dict, the keys are used to fish the 
-    relevant bits of JSON from the config_data. The "hooks" are then deleted
-    """
-    # ic(etype)
-
-    for jsonKey in etype:
+    local_dict = {}
+    special_keys = list(experimenttype.get_special_fields_list())
+    for jsonKey in special_keys:
         if jsonKey in config_data:
-            ic("yipeee key exists:" + jsonKey)
-            ic(config_data[jsonKey])
-            merged_checklist_dict = {**merged_checklist_dict, **config_data[jsonKey]}
-            del merged_checklist_dict[jsonKey]
+            local_dict = {**local_dict, **config_data[jsonKey]}
         else:
-            ic("WARN key does not exist:" + jsonKey)
-            del merged_checklist_dict[jsonKey]
+            ic('WARN "special" key does not exist: "' + jsonKey + '" please check the config data in the input JSON file'
+               +' for *_fields')
+    experimenttype.set_special_dict(local_dict)
 
-    return merged_checklist_dict
+    return
 
 
 def get_fields(config_data):
@@ -105,25 +145,24 @@ def get_fields(config_data):
         rtn: mergedChecklistDict
     """
     coreDict = get_core_dict(config_data)
-    # ic(coreDict)
-    ic(config_data['experimentTypes'])
-    ic("====================================================")
+    expt_objects = {}
     for etype in config_data['experimentTypes']:
-        ic(etype)
+        # ic(etype)
+        #create a dictionary of ExperimentType objects index on the name of the experimentType
+        experimentType = ExperimentType(etype["experiment_type"])
+        expt_objects[experimentType.experiment_type] = experimentType
+
         # during debugging, concentrate one at a time.
-        if etype["experiment_type"] == "TEST":
-            ic("good!")
+        if experimentType.experiment_type == "TEST":
+            ic("good! experiment_type=",experimentType.experiment_type)
         else:
-            ic("no, so skipping", etype["experiment_type"])
+            ic("not expt type, so skipping", experimentType.experiment_type)
             continue
-        checklistDict = {}
-        for field in etype.keys():
-            # ic(config_data[etype][field]['enum'])
-            ic(field, etype[field])
-            checklistDict[field] = etype[field]
-        mergedChecklistDict = {**checklistDict, **coreDict}
-        mergedChecklistDict = add_specials(mergedChecklistDict, config_data, etype)
-        print_checklist(mergedChecklistDict)
+        experimentType.set_checklist_dict(etype)
+        experimentType.set_core_dict(coreDict)
+        add_specials(experimentType, config_data)
+
+        experimentType.print_checklist()
 
 
 def get_data_locations():
