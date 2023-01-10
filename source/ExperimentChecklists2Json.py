@@ -10,50 +10,48 @@ __docformat___ = 'reStructuredText'
 # python3 -m pydoc -w ExperimentChecklists2Json
 
 from icecream import ic
-import subprocess
-import sys
-import getopt
-import requests
-from requests.structures import CaseInsensitiveDict
+# import subprocess
+# import sys
+# import getopt
+# import requests
+# from requests.structures import CaseInsensitiveDict
 
-import os
-from os.path import join, dirname
+# import os
+# from os.path import join, dirname
 import json
-from jsonschema import validate
-import pandas as pd
+# from jsonschema import validate
+# import pandas as pd
 
 
-def printChecklist(checklistDict):
+def print_checklist(checklist_dict):
     """
     params:
         in: the JSON/dict to print
     """
     data_loc_dict = get_data_locations()
 
-    #ic(checklistDict)
-    outfileName = data_loc_dict["output_dir"] + checklistDict['experiment_type'] + '.json'
+    # ic(checklistDict)
+    outfileName = data_loc_dict["output_dir"] + checklist_dict['experiment_type'] + '.json'
     ic(outfileName)
 
-    my_list = []
-    my_list = [checklistDict]
-
+    my_list = [checklist_dict]
     json_object = json.dumps(my_list, indent = 4, sort_keys = True)
     with open(outfileName, "w") as outfile:
         outfile.write(json_object)
     return
 
 
-def getCoreDict(config_data):
+def get_core_dict(config_data):
     """
     extract the core fields as JSON entries
     params:
         in: the full config_json
         rtn: coreDict elements of the config_json
     """
-    #ic(config_data['coreFields'])
+    # ic(config_data['coreFields'])
     coreDict = {}
     for i in config_data['coreFields']:
-        #print(i)
+        # print(i)
         if isinstance(config_data['coreFields'][i], dict):
             coreDict[i] = ""
             # ic(type(config_data['coreFields'][i]))
@@ -61,12 +59,12 @@ def getCoreDict(config_data):
         else:
             # ic("!dict:" + str(config_data['coreFields'][i]))
             coreDict[i] = config_data['coreFields'][i]
-    #ic(coreDict)
+    # ic(coreDict)
     # quit()
-    return (coreDict)
+    return coreDict
 
 
-def addSpecials(mergedChecklistDict, config_data, etype):
+def add_specials(merged_checklist_dict, config_data, etype):
     """ method to check for and pull out the json for special field cases in 
         each checklist, from the config_data file.
     params:
@@ -77,7 +75,7 @@ def addSpecials(mergedChecklistDict, config_data, etype):
     # ic(config_data)
     # ic(etype)
     core = ["checklist_id", "checklist_name", "checklist_version", "experiment_type", "library_source"]
-    #core = config_data["coreFields"]
+    # core = config_data["coreFields"]
     for field in core:
         if field in etype:
             del etype[field]
@@ -85,34 +83,34 @@ def addSpecials(mergedChecklistDict, config_data, etype):
     """ remaining fields(hooks) are those left in the etype dict, the keys are used to fish the 
     relevant bits of JSON from the config_data. The "hooks" are then deleted
     """
-    #ic(etype)
+    # ic(etype)
 
     for jsonKey in etype:
         if jsonKey in config_data:
             ic("yipeee key exists:" + jsonKey)
             ic(config_data[jsonKey])
-            mergedChecklistDict = {**mergedChecklistDict, **config_data[jsonKey]}
-            del mergedChecklistDict[jsonKey]
+            merged_checklist_dict = {**merged_checklist_dict, **config_data[jsonKey]}
+            del merged_checklist_dict[jsonKey]
         else:
             ic("WARN key does not exist:" + jsonKey)
-            del mergedChecklistDict[jsonKey]
+            del merged_checklist_dict[jsonKey]
 
-    return (mergedChecklistDict)
+    return merged_checklist_dict
 
 
-def getFields(config_data):
+def get_fields(config_data):
     """ method to get all the fields needed for a particular checklist and to instruct the printing
         of the combined fields JSON to a file 
         in: config_data
         rtn: mergedChecklistDict
     """
-    coreDict = getCoreDict(config_data)
-    #ic(coreDict)
+    coreDict = get_core_dict(config_data)
+    # ic(coreDict)
     ic(config_data['experimentTypes'])
     ic("====================================================")
     for etype in config_data['experimentTypes']:
         ic(etype)
-        #during debugging, concentrate one at a time.
+        # during debugging, concentrate one at a time.
         if etype["experiment_type"] == "TEST":
             ic("good!")
         else:
@@ -124,8 +122,8 @@ def getFields(config_data):
             ic(field, etype[field])
             checklistDict[field] = etype[field]
         mergedChecklistDict = {**checklistDict, **coreDict}
-        mergedChecklistDict = addSpecials(mergedChecklistDict, config_data, etype)
-        printChecklist(mergedChecklistDict)
+        mergedChecklistDict = add_specials(mergedChecklistDict, config_data, etype)
+        print_checklist(mergedChecklistDict)
 
 
 def get_data_locations():
@@ -133,15 +131,14 @@ def get_data_locations():
     params:
         rtn: data_loc_dict
     """
-    data_loc_dict = {}
-    data_loc_dict["base_dir"] = "/Users/woollard/projects/easi-genomics/ExperimentChecklist/"
+    data_loc_dict = {"base_dir": "/Users/woollard/projects/easi-genomics/ExperimentChecklist/"}
     data_loc_dict["input_dir"] = data_loc_dict["base_dir"] + "data/input/"
     data_loc_dict["output_dir"] = data_loc_dict["base_dir"] + "data/output/"
 
     return data_loc_dict
 
 
-def readConfig():
+def read_config():
     """ readConfig
     reads the master JSON file
     This file provides all the JSON data fields etc. that are used to build the different experiment templates
@@ -155,12 +152,12 @@ def readConfig():
     f = open(filename)
     data = json.load(f)
     f.close()
-    return (data)
+    return data
 
 
 def main():
-    config_data = readConfig()
-    getFields(config_data)
+    config_data = read_config()
+    get_fields(config_data)
 
 
 if __name__ == '__main__':
