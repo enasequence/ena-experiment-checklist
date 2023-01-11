@@ -1,18 +1,22 @@
-{
-    "_comment": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
-    "checklist_id": "EXC000003",
-    "checklist_name": "TBD",
-    "checklist_version": "20221129",
-    "experiment_name": "",
-    "experiment_type": "GENOMIC",
-    "insert_size": 0,
-    "instrument_model": "",
-    "instrument_platform": "",
-    "library_description": "",
-    "library_name": "",
-    "library_selection": "",
-    "library_source": "GENOMIC",
-    "library_strategy": "",
-    "sample_accession": "",
-    "study_id": ""
-}
+[
+    {
+        "_comment": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
+        "_comment2": "This template allows 1 or more experiments' metadata to be submitted. If >1 experiments: in JSON style, please add a comma at the end of the previous record just after the closing }.",
+        "checklist_group": "GENOOMIC",
+        "checklist_id": "EXC000003",
+        "checklist_name": "GENOMIC specific",
+        "checklist_version": "20221129",
+        "experiment_name": "",
+        "experiment_type": "GENOMIC",
+        "insert_size": 0,
+        "instrument_model": "",
+        "instrument_platform": "",
+        "library_description": "",
+        "library_name": "",
+        "library_selection": "",
+        "library_source": "GENOMIC",
+        "library_strategy": "",
+        "sample_accession": "",
+        "study_id": ""
+    }
+]

@@ -45,6 +45,34 @@ class ExperimentTypeJsonSchema:
         """
         return self._core_dict['coreRules']
 
+    def get_json_schema(self):
+        """ get_json_schema
+        generate a JSON_schema as a python schema specific to an experiment type
+        This will ultimately be printed out as a json schema to validate the experiment_tyoe
+        return schema_dict
+        """
+        schema_dict = self.get_core_fields_dict()
+        return schema_dict
+
+    def print_json_schema(self):
+        """ print_json_schema
+        params:
+
+        """
+        data_loc_dict = get_data_locations()
+
+        json_schema_dict = self.get_json_schema()
+        # ic(checklistDict)
+        outfileName = data_loc_dict["output_dir"] + self.experiment_type_name + '_schema.json'
+        ic(outfileName)
+
+        """Create a list as top level """
+        my_list = [json_schema_dict]
+        json_object = json.dumps(my_list, indent = 4, sort_keys = True)
+        with open(outfileName, "w") as outfile:
+            outfile.write(json_object)
+        return
+
 
 class ExperimentType:
     """ ExperimentType object
@@ -105,23 +133,23 @@ class ExperimentType:
         all_dict = {**self.get_checklist_dict(), **self.get_core_dict(), **self.get_special_dict()}
         return all_dict
 
-    def print_checklist(self):
-        """
-        params:
-
-        """
-        data_loc_dict = get_data_locations()
-
-        all_checklist_dict = self.get_all_dict()
-        # ic(checklistDict)
-        outfileName = data_loc_dict["output_dir"] + all_checklist_dict['experiment_type'] + '.json'
-        ic(outfileName)
-
-        my_list = [all_checklist_dict]
-        json_object = json.dumps(my_list, indent = 4, sort_keys = True)
-        with open(outfileName, "w") as outfile:
-            outfile.write(json_object)
-        return
+    # def print_checklist(self):
+    #     """
+    #     params:
+    #     deprecated
+    #     """
+    #     data_loc_dict = get_data_locations()
+    #
+    #     all_checklist_dict = self.get_all_dict()
+    #     # ic(checklistDict)
+    #     outfileName = data_loc_dict["output_dir"] + all_checklist_dict['experiment_type'] + '.json'
+    #     ic(outfileName)
+    #
+    #     my_list = [all_checklist_dict]
+    #     json_object = json.dumps(my_list, indent = 4, sort_keys = True)
+    #     with open(outfileName, "w") as outfile:
+    #         outfile.write(json_object)
+    #     return
 
 
 def get_core_dict(config_data):
@@ -267,6 +295,7 @@ def print_all_checklist_json_schemas(expt_objects):
         ic(schema_obj.experiment_type_name)
         ic(schema_obj.get_core_fields_dict())
         ic(schema_obj.get_core_rules_list())
+        ic(schema_obj.print_json_schema())
 
 
 def main():
