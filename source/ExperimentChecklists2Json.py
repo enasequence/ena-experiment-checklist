@@ -24,6 +24,27 @@ import json
 # from jsonschema import validate
 # import pandas as pd
 
+class ExperimentTypeJsonSchema:
+    def __init__(self, experiment_type_obj: object, core_dict):
+        self._experimentType = experiment_type_obj
+        self.experiment_type_name = experiment_type_obj.experiment_type_name
+        self._core_dict = core_dict
+
+    def get_core_dict(self):
+        return self._core_dict
+
+    def get_core_fields_dict(self):
+        """get_core_fields_dict
+        This already has the
+        """
+        return self._core_dict['coreFields']
+
+    def get_core_rules_list(self):
+        """get_core_fields_dict
+        This already has the
+        """
+        return self._core_dict['coreRules']
+
 
 class ExperimentType:
     """ ExperimentType object
@@ -31,12 +52,13 @@ class ExperimentType:
         in: experiment_type string
     """
 
-    def __init__(self, experiment_type):
+    def __init__(self, experiment_type_name):
+        self._json_schema_obj = None
         self._special_dict = None
         self._special_fields_list = None
         self._core_dict = None
         self._checklist_dict = None
-        self.experiment_type = experiment_type
+        self.experiment_type_name = experiment_type_name
 
     def set_special_fields_list(self, special_fields_list):
         self._special_fields_list = special_fields_list
@@ -44,7 +66,17 @@ class ExperimentType:
     def get_special_fields_list(self):
         return self._special_fields_list
 
+    def set_json_schema_obj(self, schema_obj):
+        self._json_schema_obj = schema_obj
+
+    def get_json_schema_obj(self):
+        return self._json_schema_obj
+
     def set_checklist_dict(self, checklist_dict):
+        """ set_checklist_dict
+        this has extra complexity, as it is parsing our and setting the special fields too.
+        e.g. prc_fields.
+        """
         special_fields = []
         tmp_dict = dict(checklist_dict)
         for key in tmp_dict:
@@ -58,7 +90,6 @@ class ExperimentType:
         return self._checklist_dict
 
     def set_special_dict(self, special_dict):
-        ic(special_dict)
         self._special_dict = special_dict
 
     def get_special_dict(self):
@@ -92,6 +123,7 @@ class ExperimentType:
             outfile.write(json_object)
         return
 
+
 def get_core_dict(config_data):
     """
     extract the core fields as JSON entries
@@ -122,8 +154,9 @@ def add_specials(experimenttype: object, config_data: object) -> object:
         sets the special fields JSON for each experimemttype
     params:
         in:
-        :type experimenttype: object
-        ,config_data
+        :type experimenttype: object,
+        :param config_data:
+
     """
     local_dict = {}
     special_keys = list(experimenttype.get_special_fields_list())
@@ -131,38 +164,37 @@ def add_specials(experimenttype: object, config_data: object) -> object:
         if jsonKey in config_data:
             local_dict = {**local_dict, **config_data[jsonKey]}
         else:
-            ic('WARN "special" key does not exist: "' + jsonKey + '" please check the config data in the input JSON file'
-               +' for *_fields')
+            ic('WARN "special" key does not exist: "' + jsonKey +
+               '" please check the config data in the input JSON file' + ' for *_fields')
     experimenttype.set_special_dict(local_dict)
 
     return
 
 
 def get_fields(config_data):
-    """ method to get all the fields needed for a particular checklist and to instruct the printing
-        of the combined fields JSON to a file 
+    """ method to get all the fields and values needed for a particular checklist as JSON
         in: config_data
-        rtn: mergedChecklistDict
+        rtn: Dict of experimentTYpe objects
     """
     coreDict = get_core_dict(config_data)
     expt_objects = {}
     for etype in config_data['experimentTypes']:
         # ic(etype)
-        #create a dictionary of ExperimentType objects index on the name of the experimentType
+        # create a dictionary of ExperimentType objects index on the name of the experimentType
         experimentType = ExperimentType(etype["experiment_type"])
-        expt_objects[experimentType.experiment_type] = experimentType
+        expt_objects[experimentType.experiment_type_name] = experimentType
 
         # during debugging, concentrate one at a time.
-        if experimentType.experiment_type == "TEST":
-            ic("good! experiment_type=",experimentType.experiment_type)
-        else:
-            ic("not expt type, so skipping", experimentType.experiment_type)
-            continue
+        # if experimentType.experiment_type == "TEST":
+        #     ic("good! experiment_type=",experimentType.experiment_type)
+        # else:
+        #     ic("not expt type, so skipping", experimentType.experiment_type)
+        #     continue
         experimentType.set_checklist_dict(etype)
         experimentType.set_core_dict(coreDict)
         add_specials(experimentType, config_data)
 
-        experimentType.print_checklist()
+    return expt_objects
 
 
 def get_data_locations():
@@ -194,9 +226,55 @@ def read_config():
     return data
 
 
+def print_all_checklists(expt_objects):
+    """ print_all_checklists
+        params:
+        in: expt_objects dict
+        rtn: nowt
+    """
+    ic()
+    for experiment_type_name in expt_objects:
+        ic(experiment_type_name)
+        experimentType = expt_objects[experiment_type_name]
+        experimentType.print_checklist()
+
+
+def create_schema_objects(expt_objects, config_data):
+    """ print_all_checklists
+        params:
+        in: expt_objects, config_data
+        rtn: schema_objects
+    """
+    ic()
+    schema_objects = {}
+
+    for experiment_type_name in expt_objects:
+        ic(experiment_type_name)
+        experimentType: object = expt_objects[experiment_type_name]
+        schema_obj = ExperimentTypeJsonSchema(experimentType, config_data)
+        schema_objects[experiment_type_name] = schema_obj
+        experimentType.set_json_schema_obj(schema_obj)
+
+    return schema_objects
+
+
+def print_all_checklist_json_schemas(expt_objects):
+    ic()
+    for experiment_type in expt_objects:
+        ic(experiment_type)
+        experimentType = expt_objects[experiment_type]
+        schema_obj = experimentType.get_json_schema_obj()
+        ic(schema_obj.experiment_type_name)
+        ic(schema_obj.get_core_fields_dict())
+        ic(schema_obj.get_core_rules_list())
+
+
 def main():
     config_data = read_config()
-    get_fields(config_data)
+    expt_objects = get_fields(config_data)
+    # print_all_checklists(expt_objects)
+    create_schema_objects(expt_objects, config_data)
+    print_all_checklist_json_schemas(expt_objects)
 
 
 if __name__ == '__main__':
