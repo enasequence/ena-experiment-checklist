@@ -45,13 +45,34 @@ class ExperimentTypeJsonSchema:
         """
         return self._core_dict['coreRules']
 
+    def get_schema_metadata(self):
+        """get_core_fields_dict
+        This already has the
+        """
+        return self._core_dict['schemaMetadata']
+
     def get_json_schema(self):
         """ get_json_schema
         generate a JSON_schema as a python schema specific to an experiment type
         This will ultimately be printed out as a json schema to validate the experiment_tyoe
         return schema_dict
         """
-        schema_dict = self.get_core_fields_dict()
+        schema_dict = {}
+        schema_dict["checklists"] = self.get_core_fields_dict()
+        schema_dict["allOf"] = self.get_core_rules_list()
+
+        json_schema_dict = self.get_schema_metadata()
+
+        schema_dict = {**schema_dict, **json_schema_dict}
+
+        ic(schema_dict)
+
+        quit()
+        ic(schema_dict)
+
+
+
+        quit()
         return schema_dict
 
     def print_json_schema(self):
@@ -63,7 +84,7 @@ class ExperimentTypeJsonSchema:
 
         json_schema_dict = self.get_json_schema()
         # ic(checklistDict)
-        outfileName = data_loc_dict["output_dir"] + self.experiment_type_name + '_schema.json'
+        outfileName = data_loc_dict["schema_dir"] + self.experiment_type_name + '_schema.json'
         ic(outfileName)
 
         """Create a list as top level """
@@ -71,7 +92,9 @@ class ExperimentTypeJsonSchema:
         json_object = json.dumps(my_list, indent = 4, sort_keys = True)
         with open(outfileName, "w") as outfile:
             outfile.write(json_object)
+
         return
+
 
 
 class ExperimentType:
@@ -233,6 +256,7 @@ def get_data_locations():
     data_loc_dict = {"base_dir": "/Users/woollard/projects/easi-genomics/ExperimentChecklist/"}
     data_loc_dict["input_dir"] = data_loc_dict["base_dir"] + "data/input/"
     data_loc_dict["output_dir"] = data_loc_dict["base_dir"] + "data/output/"
+    data_loc_dict["schema_dir"] = data_loc_dict["base_dir"] + "data/schema/"
 
     return data_loc_dict
 

@@ -1,4 +1,11 @@
 {
+  "schemaMetadata" : {
+    "$id": "https://www.ebi.ac.u/exeriment.checklist.ena.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Experimental Checklists JSON schema",
+    "description": "Contained herein are the specific ENO experimental JSON schema describing what is need to validate specific checklists",
+    "type": "object"
+  },
   "experimentTypes": [
     {
       "checklist_id": "EXC000001",
