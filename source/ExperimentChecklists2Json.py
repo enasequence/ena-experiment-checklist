@@ -92,7 +92,6 @@ class ExperimentTypeJsonSchema:
         ic(schema_rules_dict)
         ic("=" * 80)
         json_schema_dict = self.get_schema_metadata()
-
         schema_dict = merge(schema_rules_dict, schema_core_dict, json_schema_dict)
         # **json_schema_dict}
 
