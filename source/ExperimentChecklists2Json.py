@@ -13,11 +13,6 @@ __docformat___ = 'reStructuredText'
 # python3 -m pydoc -w ExperimentChecklists2Json
 
 from icecream import ic
-# import subprocess
-# import sys
-# import getopt
-# import requests
-# from requests.structures import CaseInsensitiveDict
 import re
 # import os
 # from os.path import join, dirname
@@ -25,86 +20,92 @@ import json
 
 from mergedeep import merge
 
+
 # from jsonschema import validate
 # import pandas as pd
 
 class ExperimentTypeJsonSchema:
     """ ExperimentTypeJsonSchema
     for handling generating the Json schema to validate each specific ExperimentType
+        N.B. Currently many of the sets are not being done as they are slices of the core_dict
     """
+
     def __init__(self, experiment_type_obj: object, core_dict):
         ic()
         self._experimentType = experiment_type_obj
         self.experiment_type_name = experiment_type_obj.experiment_type_name
         self._core_dict = core_dict
-        self.set_core_fields_dict(self._core_dict['coreFields'])
-        self.set_core_rules_list(self._core_dict['coreRules'])
-        self.set_schema_metadata(self._core_dict['schemaMetadata'])
-        ic(experiment_type_obj)
-
-        quit()
+        self.set_experiment_specific_dict(experiment_type_obj.get_checklist_specific_dict())
 
     def get_core_dict(self):
         return self._core_dict
-
-
-    def set_core_fields_dict(self, core_fields_dict):
-        """Already JSON schema style"""
-        self._core_fields_dict = core_fields_dict
 
     def get_core_fields_dict(self):
         """get_core_fields_dict
         This already has the JSON schema attributes
         """
-        return self._core_fields_dict
-
-    def set_core_rules_list(self, core_rules):
-        """set_core_fields_dict
-        This already has the JSON schema attributes
-        """
-        self._core_rules = core_rules
-
+        return self._core_dict['coreFields']
 
     def get_core_rules_list(self):
         """get_core_fields_dict
 
         """
-        return self._core_rules
-
-    def set_schema_metadata(self, schema_metadata_dict):
-        """set_core_fields_dict
-           These are straight fields not needed for the validation
-        """
-        self._schema_metadata_dict = schema_metadata_dict
-        return self._schema_metadata_dict
+        return self._core_dict['coreRules']
 
     def get_schema_metadata(self):
-        """get_core_fields_dict
+        """get_schema_metadata
         """
-        return self._schema_metadata_dict
+        return self._core_dict['schemaMetadata']
+
+    def get_all_specific_fields_json_config(self):
+        """get_all_specific_fields_json_config
+                """
+        return self._core_dict["allSpecificFieldsConfig"]
+
+    def set_experiment_specific_dict(self, experiment_specific_dict):
+        """set_experiment_specific_dict
+           These are getting the JSON configuration for the non-core fields
+           only a subsection of the non-core fields are needed for each experiment type
+           + making use of the default and examples from the specific experiment fields.
+        """
+        ic(experiment_specific_dict)
+        all_specific_dict = self.get_all_specific_fields_json_config()
+        my_specific_json_config = {}
+        for field in experiment_specific_dict:
+            if field in all_specific_dict:
+                my_specific_json_config[field] = all_specific_dict[field]
+                my_specific_json_config[field]["default"] = experiment_specific_dict[field]
+                my_specific_json_config[field]["_example"] = my_specific_json_config[field]["default"]
+            else:
+                ic("WARNING: need to add json config for ", field)
+        ic(my_specific_json_config)
+        self._specific_json_config = my_specific_json_config
+
+    def get_experiment_specific_dict(self):
+        """get_experiment_specific_dict
+          getting the experiment type specific JSON configuration ( i.e. not the core fields )
+          effectively many of the fields are core, but the assigned values are not, hence handling this way.
+        """
+        return self._specific_json_config
 
     def get_json_schema(self):
         """ get_json_schema
         generate a JSON_schema as a python schema specific to an experiment type
-        This will ultimately be printed out as a json schema to validate the experiment_tyoe
+        This will ultimately be printed out as a json schema to validate the experiment_type
         return schema_dict
         """
         ic("=" * 80)
         schema_core_dict = {"checklists": {"checklist_fields_core": {"properties": self.get_core_fields_dict()}}}
         schema_rules_dict = {"checklists": {"checklist_fields_core": {"allOf": self.get_core_rules_list()}}}
+        experiment_type_specific_dict = {"checklists": {"checklist_fields_core":
+                                                        {"allOf": self.get_experiment_specific_dict()}}}
         # cl_metadata_dict["checklists"] = self.get_schema_metadata()
         """N.B. this does a deep merge of the dictionaries, most other methods did not..."""
-        schema_dict = merge(schema_rules_dict, schema_core_dict, self.get_schema_metadata())
+        schema_dict = merge(schema_rules_dict, schema_core_dict, self.get_schema_metadata(),
+                            experiment_type_specific_dict)
         # **json_schema_dict}
-
         ic(schema_dict)
 
-        quit()
-        ic(schema_dict)
-
-
-
-        quit()
         return schema_dict
 
     def print_json_schema(self):
@@ -128,7 +129,6 @@ class ExperimentTypeJsonSchema:
         return
 
 
-
 class ExperimentType:
     """ ExperimentType object
     for handling generating the Json user checklist for each ExperimentType
@@ -146,7 +146,7 @@ class ExperimentType:
 
     def set_special_fields_list(self, special_fields_list):
         self._special_fields_list = special_fields_list
-    
+
     def get_special_fields_list(self):
         return self._special_fields_list
 
@@ -231,26 +231,26 @@ def get_core_dict(config_data):
     return coreDict
 
 
-def add_specials(experimenttype: object, config_data: object) -> object:
+def add_specials(experiment_type: object, config_data: object) -> object:
     """ method to check for and pull out the json for special field cases in 
         each checklist, from the config_data file.
         The special fields like pcr_fields pull in a more complex JSON dict from the config_data
-        sets the special fields JSON for each experimemttype
+        sets the special fields JSON for each experiment type
     params:
         in:
-        :type experimenttype: object,
+        :type experiment_type: object,
         :param config_data:
 
     """
     local_dict = {}
-    special_keys = list(experimenttype.get_special_fields_list())
+    special_keys = list(experiment_type.get_special_fields_list())
     for jsonKey in special_keys:
         if jsonKey in config_data:
             local_dict = {**local_dict, **config_data[jsonKey]}
         else:
             ic('WARN "special" key does not exist: "' + jsonKey +
                '" please check the config data in the input JSON file' + ' for *_fields')
-    experimenttype.set_special_dict(local_dict)
+    experiment_type.set_special_dict(local_dict)
 
     return
 
@@ -262,10 +262,10 @@ def get_fields(config_data):
     """
     coreDict = get_core_dict(config_data)
     expt_objects = {}
-    for etype in config_data['experimentTypes']:
-        # ic(etype)
+    for e_type in config_data['experimentTypes']:
+        # ic(e_type)
         # create a dictionary of ExperimentType objects index on the name of the experimentType
-        experimentType = ExperimentType(etype["experiment_type"])
+        experimentType = ExperimentType(e_type["experiment_type"])
         expt_objects[experimentType.experiment_type_name] = experimentType
 
         # during debugging, concentrate one at a time.
@@ -274,7 +274,7 @@ def get_fields(config_data):
         # else:
         #     ic("not expt type, so skipping", experimentType.experiment_type)
         #     continue
-        experimentType.set_checklist_specific_dict(etype)
+        experimentType.set_checklist_specific_dict(e_type)
         experimentType.set_core_dict(coreDict)
         add_specials(experimentType, config_data)
 
