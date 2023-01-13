@@ -1,6 +1,9 @@
 # a single comment
 """Script to computationally generate the experimental checklist JSON files for users to enter data into.
-It is driven by a single JSON config file.
+
+* It is driven by a single JSON config file.
+* class ExperimentType -  for handling generating the Json user checklist for each ExperimentType
+* class ExperimentTypeJsonSchema - for handling generating the Json schema to validate each ExperimentType
 
 ___author___ = "woollard@ebi.ac.uk"
 ___start_date___ = "2022-11-29"
@@ -20,11 +23,15 @@ import re
 # from os.path import join, dirname
 import json
 
+from mergedeep import merge
 
 # from jsonschema import validate
 # import pandas as pd
 
 class ExperimentTypeJsonSchema:
+    """ ExperimentTypeJsonSchema
+    for handling generating the Json schema to validate each ExperimentType
+    """
     def __init__(self, experiment_type_obj: object, core_dict):
         self._experimentType = experiment_type_obj
         self.experiment_type_name = experiment_type_obj.experiment_type_name
@@ -61,15 +68,16 @@ class ExperimentTypeJsonSchema:
         return self._core_rules
 
     def set_schema_metadata(self, schema_metadata_dict):
+        """set_core_fields_dict
+           These are straight fields not needed for the validation
+        """
+        self._schema_metadata_dict = schema_metadata_dict
+        return self._schema_metadata_dict
 
-        for field in schema_metadata_dict:
-            ic(field)
-        quit()
     def get_schema_metadata(self):
         """get_core_fields_dict
-        This already has the
         """
-        return self._core_dict['schemaMetadata']
+        return self._schema_metadata_dict
 
     def get_json_schema(self):
         """ get_json_schema
@@ -77,13 +85,16 @@ class ExperimentTypeJsonSchema:
         This will ultimately be printed out as a json schema to validate the experiment_tyoe
         return schema_dict
         """
-        schema_dict = {}
-        schema_dict["checklists"] = self.get_core_fields_dict()
-        schema_dict["allOf"] = self.get_core_rules_list()
-
+        ic("=" * 80)
+        schema_core_dict = {"checklists": {"checklist_fields_core": {"properties": self.get_core_fields_dict()}}}
+        ic(schema_core_dict)
+        schema_rules_dict = {"checklists": {"checklist_fields_core": {"allOf": self.get_core_rules_list()}}}
+        ic(schema_rules_dict)
+        ic("=" * 80)
         json_schema_dict = self.get_schema_metadata()
 
-        schema_dict = {**schema_dict, **json_schema_dict}
+        schema_dict = merge(schema_rules_dict, schema_core_dict, json_schema_dict)
+        # **json_schema_dict}
 
         ic(schema_dict)
 
@@ -119,6 +130,7 @@ class ExperimentTypeJsonSchema:
 
 class ExperimentType:
     """ ExperimentType object
+    for handling generating the Json user checklist for each ExperimentType
     params:
         in: experiment_type string
     """
