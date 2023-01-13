@@ -30,15 +30,19 @@ from mergedeep import merge
 
 class ExperimentTypeJsonSchema:
     """ ExperimentTypeJsonSchema
-    for handling generating the Json schema to validate each ExperimentType
+    for handling generating the Json schema to validate each specific ExperimentType
     """
     def __init__(self, experiment_type_obj: object, core_dict):
+        ic()
         self._experimentType = experiment_type_obj
         self.experiment_type_name = experiment_type_obj.experiment_type_name
         self._core_dict = core_dict
         self.set_core_fields_dict(self._core_dict['coreFields'])
         self.set_core_rules_list(self._core_dict['coreRules'])
         self.set_schema_metadata(self._core_dict['schemaMetadata'])
+        ic(experiment_type_obj)
+
+        quit()
 
     def get_core_dict(self):
         return self._core_dict
@@ -87,12 +91,10 @@ class ExperimentTypeJsonSchema:
         """
         ic("=" * 80)
         schema_core_dict = {"checklists": {"checklist_fields_core": {"properties": self.get_core_fields_dict()}}}
-        ic(schema_core_dict)
         schema_rules_dict = {"checklists": {"checklist_fields_core": {"allOf": self.get_core_rules_list()}}}
-        ic(schema_rules_dict)
-        ic("=" * 80)
-        json_schema_dict = self.get_schema_metadata()
-        schema_dict = merge(schema_rules_dict, schema_core_dict, json_schema_dict)
+        # cl_metadata_dict["checklists"] = self.get_schema_metadata()
+        """N.B. this does a deep merge of the dictionaries, most other methods did not..."""
+        schema_dict = merge(schema_rules_dict, schema_core_dict, self.get_schema_metadata())
         # **json_schema_dict}
 
         ic(schema_dict)
@@ -154,8 +156,8 @@ class ExperimentType:
     def get_json_schema_obj(self):
         return self._json_schema_obj
 
-    def set_checklist_dict(self, checklist_dict):
-        """ set_checklist_dict
+    def set_checklist_specific_dict(self, checklist_dict):
+        """ set_checklist_specific_dict
         this has extra complexity, as it is parsing our and setting the special fields too.
         e.g. prc_fields.
         """
@@ -168,7 +170,7 @@ class ExperimentType:
         self.set_special_fields_list(special_fields)
         self._checklist_dict = checklist_dict
 
-    def get_checklist_dict(self):
+    def get_checklist_specific_dict(self):
         return self._checklist_dict
 
     def set_special_dict(self, special_dict):
@@ -184,7 +186,7 @@ class ExperimentType:
         self._core_dict = core_dict
 
     def get_all_dict(self):
-        all_dict = {**self.get_checklist_dict(), **self.get_core_dict(), **self.get_special_dict()}
+        all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
         return all_dict
 
     # def print_checklist(self):
@@ -272,7 +274,7 @@ def get_fields(config_data):
         # else:
         #     ic("not expt type, so skipping", experimentType.experiment_type)
         #     continue
-        experimentType.set_checklist_dict(etype)
+        experimentType.set_checklist_specific_dict(etype)
         experimentType.set_core_dict(coreDict)
         add_specials(experimentType, config_data)
 
