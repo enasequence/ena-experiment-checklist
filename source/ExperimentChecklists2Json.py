@@ -29,22 +29,42 @@ class ExperimentTypeJsonSchema:
         self._experimentType = experiment_type_obj
         self.experiment_type_name = experiment_type_obj.experiment_type_name
         self._core_dict = core_dict
+        self.set_core_fields_dict(self._core_dict['coreFields'])
+        self.set_core_rules_list(self._core_dict['coreRules'])
+        self.set_schema_metadata(self._core_dict['schemaMetadata'])
 
     def get_core_dict(self):
         return self._core_dict
 
+
+    def set_core_fields_dict(self, core_fields_dict):
+        """Already JSON schema style"""
+        self._core_fields_dict = core_fields_dict
+
     def get_core_fields_dict(self):
         """get_core_fields_dict
-        This already has the
+        This already has the JSON schema attributes
         """
-        return self._core_dict['coreFields']
+        return self._core_fields_dict
+
+    def set_core_rules_list(self, core_rules):
+        """set_core_fields_dict
+        This already has the JSON schema attributes
+        """
+        self._core_rules = core_rules
+
 
     def get_core_rules_list(self):
         """get_core_fields_dict
-        This already has the
-        """
-        return self._core_dict['coreRules']
 
+        """
+        return self._core_rules
+
+    def set_schema_metadata(self, schema_metadata_dict):
+
+        for field in schema_metadata_dict:
+            ic(field)
+        quit()
     def get_schema_metadata(self):
         """get_core_fields_dict
         This already has the
@@ -323,6 +343,7 @@ def print_all_checklist_json_schemas(expt_objects):
 
 
 def main():
+    ic()
     config_data = read_config()
     expt_objects = get_fields(config_data)
     # print_all_checklists(expt_objects)

@@ -1,5 +1,5 @@
 {
-  "schemaMetadata" : {
+  "schemaMetadata": {
     "$id": "https://www.ebi.ac.u/exeriment.checklist.ena.schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Experimental Checklists JSON schema",
@@ -33,16 +33,6 @@
       "checklist_version": "20221129",
       "experiment_type": "GENOMIC",
       "library_source": "GENOMIC"
-    },
-    {
-      "checklist_id": "EXC000004",
-      "checklist_name": "TRANSCRIPTOMIC specific",
-      "checklist_group": "TRANSCRIPTOMIC",
-      "checklist_version": "20221129",
-      "experiment_type": "TRANSCRIPTOMIC",
-      "library_source": "TRANSCRIPTOMIC",
-      "test": 0,
-      "pcr_fields": ""
     },
     {
       "checklist_id": "EXC00000Z",
@@ -91,97 +81,96 @@
       "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
       "type": "string"
     },
-                    "library_source": {
-                        "description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
-                        "enum": [
-                            "GENOMIC SINGLE CELL",
-                            "GENOMIC",
-                            "METAGENOMIC",
-                            "METATRANSCRIPTOMIC",
-                            "OTHER",
-                            "SYNTHETIC",
-                            "TRANSCRIPTOMIC SINGLE CELL",
-                            "TRANSCRIPTOMIC",
-                            "VIRAL RNA"
-                        ],
-                        "type": "string"
-                    },
-    "library_strategy": {
- "description": "Sequencing technique intended for this library.[INSDC]",
-                        "enum": [
-                            "AMPLICON",
-                            "ATAC-seq",
-                            "Bisulfite-Seq",
-                            "CLONE",
-                            "CLONEEND",
-                            "CTS",
-                            "ChIA-PET",
-                            "ChIP-Seq",
-                            "DNase-Hypersensitivity",
-                            "EST",
-                            "FAIRE-seq",
-                            "FINISHING",
-                            "FL-cDNA",
-                            "Hi-C",
-                            "MBD-Seq",
-                            "MNase-Seq",
-                            "MRE-Seq",
-                            "MeDIP-Seq",
-                            "OTHER",
-                            "POOLCLONE",
-                            "RAD-Seq",
-                            "RIP-Seq",
-                            "RNA-Seq",
-                            "SELEX",
-                            "Synthetic-Long-Read",
-                            "Targeted-Capture",
-                            "Tethered Chromatin Conformation Capture",
-                            "Tn-Seq",
-                            "VALIDATION",
-                            "WCS",
-                            "WGA",
-                            "WGS",
-                            "WXS",
-                            "miRNA-Seq",
-                            "ssRNA-seq"
-                        ],
-                        "type": "string"
-
+    "library_source": {
+      "description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
+      "enum": [
+        "GENOMIC SINGLE CELL",
+        "GENOMIC",
+        "METAGENOMIC",
+        "METATRANSCRIPTOMIC",
+        "OTHER",
+        "SYNTHETIC",
+        "TRANSCRIPTOMIC SINGLE CELL",
+        "TRANSCRIPTOMIC",
+        "VIRAL RNA"
+      ],
+      "type": "string"
     },
-    "library_selection":{
-                        "description": "Method used to enrich the target in the sequence library preparation. [INSDC]",
-                        "enum": [
-                            "5-methylcytidine antibody",
-                            "CAGE",
-                            "ChIP",
-                            "ChIP-Seq",
-                            "DNase",
-                            "HMPR",
-                            "Hybrid Selection",
-                            "Inverse rRNA selection",
-                            "Inverse rRNA",
-                            "MDA",
-                            "MF",
-                            "MNase",
-                            "MSLL",
-                            "Oligo-dT",
-                            "PCR",
-                            "PolyA",
-                            "RACE",
-                            "RANDOM PCR",
-                            "RANDOM",
-                            "RT-PCR",
-                            "Reduced Representation",
-                            "Restriction Digest",
-                            "cDNA",
-                            "cDNA_oligo_dT",
-                            "cDNA_randomPriming",
-                            "other",
-                            "padlock probes capture method",
-                            "size fractionation",
-                            "unspecified"
-                        ],
-                        "type": "string"
+    "library_strategy": {
+      "description": "Sequencing technique intended for this library.[INSDC]",
+      "enum": [
+        "AMPLICON",
+        "ATAC-seq",
+        "Bisulfite-Seq",
+        "CLONE",
+        "CLONEEND",
+        "CTS",
+        "ChIA-PET",
+        "ChIP-Seq",
+        "DNase-Hypersensitivity",
+        "EST",
+        "FAIRE-seq",
+        "FINISHING",
+        "FL-cDNA",
+        "Hi-C",
+        "MBD-Seq",
+        "MNase-Seq",
+        "MRE-Seq",
+        "MeDIP-Seq",
+        "OTHER",
+        "POOLCLONE",
+        "RAD-Seq",
+        "RIP-Seq",
+        "RNA-Seq",
+        "SELEX",
+        "Synthetic-Long-Read",
+        "Targeted-Capture",
+        "Tethered Chromatin Conformation Capture",
+        "Tn-Seq",
+        "VALIDATION",
+        "WCS",
+        "WGA",
+        "WGS",
+        "WXS",
+        "miRNA-Seq",
+        "ssRNA-seq"
+      ],
+      "type": "string"
+    },
+    "library_selection": {
+      "description": "Method used to enrich the target in the sequence library preparation. [INSDC]",
+      "enum": [
+        "5-methylcytidine antibody",
+        "CAGE",
+        "ChIP",
+        "ChIP-Seq",
+        "DNase",
+        "HMPR",
+        "Hybrid Selection",
+        "Inverse rRNA selection",
+        "Inverse rRNA",
+        "MDA",
+        "MF",
+        "MNase",
+        "MSLL",
+        "Oligo-dT",
+        "PCR",
+        "PolyA",
+        "RACE",
+        "RANDOM PCR",
+        "RANDOM",
+        "RT-PCR",
+        "Reduced Representation",
+        "Restriction Digest",
+        "cDNA",
+        "cDNA_oligo_dT",
+        "cDNA_randomPriming",
+        "other",
+        "padlock probes capture method",
+        "size fractionation",
+        "unspecified"
+      ],
+      "type": "string"
     },
     "library_name": {
       "description": "The name of the nucleotide sequencing library. [NCIT]",
@@ -268,33 +257,33 @@
     }
   },
   "coreRules": [
-                {
-                    "if": {
-                        "properties": {
-                            "instrument": {
-                                "const": "unspecified"
-                            }
-                        }
-                    },
-                    "then": {
-                        "required": [
-                            "platform"
-                        ]
-                    }
-                },
-                {
-                    "if": {
-                        "properties": {
-                            "library_selection": {
-                                "pattern": "PCR"
-                            }
-                        }
-                    },
-                    "then": {
-                        "required": [
-                            "pcr_primers"
-                        ]
-                    }
-                }
-            ]
+    {
+      "if": {
+        "properties": {
+          "instrument": {
+            "const": "unspecified"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "platform"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "library_selection": {
+            "pattern": "PCR"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "pcr_primers"
+        ]
+      }
+    }
+  ]
 }
