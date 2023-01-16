@@ -1,9 +1,25 @@
 # a single comment
-"""Script to computationally generate the experimental checklist JSON files for users to enter data into.
+""" ExperimentChecklists2Json.py
+Script to computationally generate the experimental checklist JSON files for users to enter data into.
 
-* It is driven by a single JSON config file.
-* class ExperimentType -  for handling generating the Json user checklist for each ExperimentType
+* It is driven by a single JSON config file in data/input.
+* class ExperimentType - for handling generating the Json user checklist for each ExperimentType
 * class ExperimentTypeJsonSchema - for handling generating the Json schema to validate each ExperimentType
+* The JSON experiment type checklists are created 1 per experiment type in the data/output
+* The JSON schema files are created 1 per checklist in the data/schema directory
+
+The single JSON config file will need to be maintained for a number of aspects including:
+* new experiment types
+* changes to the specific
+
+This script, configuration JSON and outputs ought to be considered prototypes,
+to explore what can be done and what is needed.
+
+Weaknesses currently:
+
+* the JSON config needs to be manually edited
+* very little testing is being done (need to any many tests!)
+
 
 ___author___ = "woollard@ebi.ac.uk"
 ___start_date___ = "2022-11-29"
@@ -35,6 +51,7 @@ class ExperimentTypeJsonSchema:
         self._experimentType = experiment_type_obj
         self.experiment_type_name = experiment_type_obj.experiment_type_name
         self._core_dict = core_dict
+        self._specific_json_config = ""
         self.set_experiment_specific_dict(experiment_type_obj.get_checklist_specific_dict())
 
     def get_core_dict(self):
