@@ -74,7 +74,6 @@
   "adapter_fields": {
     "adapters": ""
   },
-
   "coreFields": {
     "_comment": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
     "_comment2": "This template allows 1 or more experiments' metadata to be submitted. If >1 experiments: in JSON style, please add a comma at the end of the previous record just after the closing }.",
@@ -265,81 +264,82 @@
       "type": "string"
     }
   },
-  "allSpecificFieldsConfig" : {
+  "allSpecificFieldsConfig": {
     "_comment": "These are all possible fields not in the core, with their JSON configs",
     "checklist_id": {
-    "description": "",
-    "default": "", "_example": "",
-    "type": "string"
-  },
+      "description": "",
+      "default": "",
+      "_example": "",
+      "type": "string"
+    },
     "checklist_name": {
-        "description": "",
-        "default": "",
-        "_example": "METABARCODING specific",
-        "type": "string"
-        },
+      "description": "",
+      "default": "",
+      "_example": "METABARCODING specific",
+      "type": "string"
+    },
     "checklist_version": {
-        "description": "",
-        "default": "",
-        "_example": "20221129",
-        "type": "string"
-        },
+      "description": "",
+      "default": "",
+      "_example": "20221129",
+      "type": "string"
+    },
     "checklist_group": {
-        "description": "",
-        "default": "",
-          "_example": "20221129",
-          "type": "string"
-        },
+      "description": "",
+      "default": "",
+      "_example": "20221129",
+      "type": "string"
+    },
     "experiment_type": {
-        "description": "",
-        "default": "",
-          "_example": "",
-          "type": "string"
-        },
+      "description": "",
+      "default": "",
+      "_example": "",
+      "type": "string"
+    },
     "library_source": {
-        "description": "",
-        "default": "",
-          "_example": "",
-          "type": "string"
-        },
-                   "target_loci": {
-                        "description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted]",
-                        "enum": [
-                            "16S rRNA",
-                            "18S rRNA",
-                            "28S rRNA",
-                            "COX1",
-                            "ITS1-5.8S-ITS2",
-                            "RBCL",
-                            "exome",
-                            "matK",
-                            "other"
-                        ],
-                        "type": "string"
-                    },
-                    "target_subfragment": {
-                        "description": "",
-                        "ontology": "https://www.ebi.ac.uk/ols/ontologies/XXX",
-                        "type": "string"
-                    },
-                    "pcr_protocol": {
-                        "description": "",
-                        "field_type": "uri",
-                        "domain": "https://protocols.io",
-                        "type": "string"
-                    },
-                    "pcr_primers": {
-                        "description": "TODO",
-                        "type": "string"
-                    },
-                    "multiplex_identifiers": {
-                        "description": "TODO",
-                        "type": "string"
-                    },
-                    "adapters": {
-                        "description": "TODO",
-                        "type": "string"
-                    }
+      "description": "",
+      "default": "",
+      "_example": "",
+      "type": "string"
+    },
+    "target_loci": {
+      "description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted]",
+      "enum": [
+        "16S rRNA",
+        "18S rRNA",
+        "28S rRNA",
+        "COX1",
+        "ITS1-5.8S-ITS2",
+        "RBCL",
+        "exome",
+        "matK",
+        "other"
+      ],
+      "type": "string"
+    },
+    "target_subfragment": {
+      "description": "",
+      "ontology": "https://www.ebi.ac.uk/ols/ontologies/XXX",
+      "type": "string"
+    },
+    "pcr_protocol": {
+      "description": "",
+      "field_type": "uri",
+      "domain": "https://protocols.io",
+      "type": "string"
+    },
+    "pcr_primers": {
+      "description": "TODO",
+      "type": "string"
+    },
+    "multiplex_identifiers": {
+      "description": "TODO",
+      "type": "string"
+    },
+    "adapters": {
+      "description": "TODO",
+      "type": "string"
+    }
   },
   "coreRules": [
     {

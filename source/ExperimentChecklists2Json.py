@@ -159,6 +159,7 @@ class ExperimentType:
         self._special_fields_list = None
         self._core_dict = None
         self._checklist_dict = None
+        self._core_dict_default_values = None
         self.experiment_type_name = experiment_type_name
 
     def set_special_fields_list(self, special_fields_list):
@@ -202,27 +203,58 @@ class ExperimentType:
     def set_core_dict(self, core_dict):
         self._core_dict = core_dict
 
+    def set_core_dict_default(self, core_dict_default):
+        self._core_dict_default_values = core_dict_default
+
+    def get_core_dict_default(self):
+        return(get_core_dict_default)
+
     def get_all_dict(self):
         all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
         return all_dict
 
-    # def print_checklist(self):
-    #     """
-    #     params:
-    #     deprecated
-    #     """
-    #     data_loc_dict = get_data_locations()
-    #
-    #     all_checklist_dict = self.get_all_dict()
-    #     # ic(checklistDict)
-    #     outfileName = data_loc_dict["output_dir"] + all_checklist_dict['experiment_type'] + '.json'
-    #     ic(outfileName)
-    #
-    #     my_list = [all_checklist_dict]
-    #     json_object = json.dumps(my_list, indent = 4, sort_keys = True)
-    #     with open(outfileName, "w") as outfile:
-    #         outfile.write(json_object)
-    #     return
+    def get_all_dict_default(self):
+        all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict_default(), **self.get_special_dict()}
+        return all_dict
+
+    def print_checklist(self):
+        """
+        params:
+        deprecated
+        """
+        data_loc_dict = get_data_locations()
+
+        all_checklist_dict = self.get_all_dict()
+        ic(all_checklist_dict)
+
+        outfileName = data_loc_dict["output_dir"] + all_checklist_dict['experiment_type'] + '.json'
+        ic(outfileName)
+
+        my_list = all_checklist_dict
+        json_object = json.dumps(my_list, indent = 4, sort_keys = True)
+        with open(outfileName, "w") as outfile:
+            outfile.write(json_object)
+        return
+
+    def print_test_checklist(self):
+        """ print_test_checklist
+        as print_checklist, but uses the default values
+        params:
+        deprecated
+        """
+        data_loc_dict = get_data_locations()
+
+        all_checklist_dict = self.et_all_dict_default()
+        ic(all_checklist_dict)
+
+        outfileName = data_loc_dict["output_test_dir"] + all_checklist_dict['experiment_type'] + '.json'
+        ic(outfileName)
+
+        my_list = all_checklist_dict
+        json_object = json.dumps(my_list, indent = 4, sort_keys = True)
+        with open(outfileName, "w") as outfile:
+            outfile.write(json_object)
+        return
 
 
 def get_core_dict(config_data):
@@ -231,21 +263,34 @@ def get_core_dict(config_data):
     params:
         in: the full config_json
         rtn: coreDict elements of the config_json
+        and coreDictDefaults, as above, but has the default_values
     """
+    ic()
     # ic(config_data['coreFields'])
     coreDict = {}
-    for i in config_data['coreFields']:
+    coreDictDefaultVal = {}
+    for field in config_data['coreFields']:
         # print(i)
-        if isinstance(config_data['coreFields'][i], dict):
-            coreDict[i] = ""
+        if isinstance(config_data['coreFields'][field], dict):
+            # ic(field, " in config_data")
+            if config_data['coreFields'][field]['type'] == 'number':
+                ic(config_data['coreFields'][field])
+                coreDict[field] = config_data['coreFields'][field]['default']
+                """as they are numeric, the JSON wants a number not a string"""
+            else:
+                coreDict[field] = ""
+            if "default" in config_data['coreFields'][field]:
+                coreDictDefaultVal[field] = config_data['coreFields'][field]['default']
+            else:
+                coreDictDefaultVal[field] = ""
             # ic(type(config_data['coreFields'][i]))
             # ic("dict: " + str(config_data['coreFields'][i]))
         else:
+            # ic(field, " not in ")
             # ic("!dict:" + str(config_data['coreFields'][i]))
-            coreDict[i] = config_data['coreFields'][i]
-    # ic(coreDict)
-    # quit()
-    return coreDict
+            coreDictDefaultVal[field] = coreDict[field] = config_data['coreFields'][field]
+
+    return coreDict, coreDictDefaultVal
 
 
 def add_specials(experiment_type: object, config_data: object) -> object:
@@ -277,7 +322,7 @@ def get_fields(config_data):
         in: config_data
         rtn: Dict of experimentTYpe objects
     """
-    coreDict = get_core_dict(config_data)
+    (coreDict, coreDictDefaultVal) = get_core_dict(config_data)
     expt_objects = {}
     for e_type in config_data['experimentTypes']:
         # ic(e_type)
@@ -293,6 +338,7 @@ def get_fields(config_data):
         #     continue
         experimentType.set_checklist_specific_dict(e_type)
         experimentType.set_core_dict(coreDict)
+        experimentType.set_core_dict_default(coreDictDefaultVal)
         add_specials(experimentType, config_data)
 
     return expt_objects
@@ -306,6 +352,7 @@ def get_data_locations():
     data_loc_dict = {"base_dir": "/Users/woollard/projects/easi-genomics/ExperimentChecklist/"}
     data_loc_dict["input_dir"] = data_loc_dict["base_dir"] + "data/input/"
     data_loc_dict["output_dir"] = data_loc_dict["base_dir"] + "data/output/"
+    data_loc_dict["output_test_dir"] = data_loc_dict["base_dir"] + "data/output_test/"
     data_loc_dict["schema_dir"] = data_loc_dict["base_dir"] + "data/schema/"
 
     return data_loc_dict
@@ -376,7 +423,8 @@ def main():
     ic()
     config_data = read_config()
     expt_objects = get_fields(config_data)
-    # print_all_checklists(expt_objects)
+    print_all_checklists(expt_objects)
+    quit()
     create_schema_objects(expt_objects, config_data)
     print_all_checklist_json_schemas(expt_objects)
 
