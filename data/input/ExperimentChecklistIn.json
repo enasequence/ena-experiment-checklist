@@ -79,6 +79,7 @@
     "_comment2": "This template allows 1 or more experiments' metadata to be submitted. If >1 experiments: in JSON style, please add a comma at the end of the previous record just after the closing }.",
     "study_id": {
       "description": "",
+      "default": "my study",
       "type": "string"
     },
     "sample_accession": {
@@ -87,10 +88,12 @@
     },
     "experiment_name": {
       "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
+      "default": "my lovely TRANSCRIPTOMICS experiment",
       "type": "string"
     },
     "library_source": {
       "description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
+      "default": "TRANSCRIPTOMICS",
       "enum": [
         "GENOMIC SINGLE CELL",
         "GENOMIC",
@@ -106,6 +109,7 @@
     },
     "library_strategy": {
       "description": "Sequencing technique intended for this library.[INSDC]",
+      "default": "RNA-Seq",
       "enum": [
         "AMPLICON",
         "ATAC-seq",
@@ -147,6 +151,7 @@
     },
     "library_selection": {
       "description": "Method used to enrich the target in the sequence library preparation. [INSDC]",
+      "default": "unspecified",
       "enum": [
         "5-methylcytidine antibody",
         "CAGE",
@@ -196,6 +201,7 @@
     "instrument_platform": {
       "description": "The name of the technology platform used to perform nucleic acid sequencing. [NCIT]",
       "_example": "ILLUMINA",
+      "default": "ILLUMINA",
       "enum": [
         "BGISEQ",
         "CAPILLARY",

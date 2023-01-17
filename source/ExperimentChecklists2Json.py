@@ -207,7 +207,7 @@ class ExperimentType:
         self._core_dict_default_values = core_dict_default
 
     def get_core_dict_default(self):
-        return(get_core_dict_default)
+        return(self._core_dict_default_values)
 
     def get_all_dict(self):
         all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
@@ -225,7 +225,7 @@ class ExperimentType:
         data_loc_dict = get_data_locations()
 
         all_checklist_dict = self.get_all_dict()
-        ic(all_checklist_dict)
+        # ic(all_checklist_dict)
 
         outfileName = data_loc_dict["output_dir"] + all_checklist_dict['experiment_type'] + '.json'
         ic(outfileName)
@@ -244,8 +244,8 @@ class ExperimentType:
         """
         data_loc_dict = get_data_locations()
 
-        all_checklist_dict = self.et_all_dict_default()
-        ic(all_checklist_dict)
+        all_checklist_dict = self.get_all_dict_default()
+        # ic(all_checklist_dict)
 
         outfileName = data_loc_dict["output_test_dir"] + all_checklist_dict['experiment_type'] + '.json'
         ic(outfileName)
@@ -274,12 +274,14 @@ def get_core_dict(config_data):
         if isinstance(config_data['coreFields'][field], dict):
             # ic(field, " in config_data")
             if config_data['coreFields'][field]['type'] == 'number':
-                ic(config_data['coreFields'][field])
+                # ic(config_data['coreFields'][field])
                 coreDict[field] = config_data['coreFields'][field]['default']
                 """as they are numeric, the JSON wants a number not a string"""
             else:
                 coreDict[field] = ""
+
             if "default" in config_data['coreFields'][field]:
+                # ic(config_data['coreFields'][field]['default'])
                 coreDictDefaultVal[field] = config_data['coreFields'][field]['default']
             else:
                 coreDictDefaultVal[field] = ""
@@ -386,6 +388,7 @@ def print_all_checklists(expt_objects):
         ic(experiment_type_name)
         experimentType = expt_objects[experiment_type_name]
         experimentType.print_checklist()
+        experimentType.print_test_checklist()
 
 
 def create_schema_objects(expt_objects, config_data):
@@ -413,10 +416,10 @@ def print_all_checklist_json_schemas(expt_objects):
         ic(experiment_type)
         experimentType = expt_objects[experiment_type]
         schema_obj = experimentType.get_json_schema_obj()
-        ic(schema_obj.experiment_type_name)
-        ic(schema_obj.get_core_fields_dict())
-        ic(schema_obj.get_core_rules_list())
-        ic(schema_obj.print_json_schema())
+        # ic(schema_obj.experiment_type_name)
+        # ic(schema_obj.get_core_fields_dict())
+        # ic(schema_obj.get_core_rules_list())
+        # ic(schema_obj.print_json_schema())
 
 
 def main():
