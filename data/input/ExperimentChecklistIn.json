@@ -48,7 +48,7 @@
       "checklist_group": "TEST",
       "checklist_version": "20221129",
       "experiment_type": "TEST",
-      "library_source": "ALL SPECIFIC FIELDS",
+      "library_source": "TRANSCRIPTOMIC",
       "pcr_fields": "",
       "target_fields": "",
       "multiplex_fields": "",
@@ -93,7 +93,7 @@
     },
     "library_source": {
       "description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
-      "default": "TRANSCRIPTOMICS",
+      "default": "TRANSCRIPTOMICS---",
       "enum": [
         "GENOMIC SINGLE CELL",
         "GENOMIC",

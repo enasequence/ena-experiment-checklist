@@ -1,20 +1,8 @@
 {
-    "_comment": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
-    "_comment2": "This template allows 1 or more experiments' metadata to be submitted. If >1 experiments: in JSON style, please add a comma at the end of the previous record just after the closing }.",
     "checklist_group": "TRANSCRIPTOMIC",
     "checklist_id": "EXC000004",
     "checklist_name": "TRANSCRIPTOMIC specific",
     "checklist_version": "20221129",
-    "experiment_name": "",
     "experiment_type": "TRANSCRIPTOMIC",
-    "insert_size": 0,
-    "instrument_model": "",
-    "instrument_platform": "",
-    "library_description": "",
-    "library_name": "",
-    "library_selection": "",
-    "library_source": "",
-    "library_strategy": "",
-    "sample_accession": "",
-    "study_id": ""
+    "library_source": "TRANSCRIPTOMIC"
 }

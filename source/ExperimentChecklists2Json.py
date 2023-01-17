@@ -211,10 +211,23 @@ class ExperimentType:
 
     def get_all_dict(self):
         all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
+        all_dict = self.clean_all_dict(all_dict)
         return all_dict
 
+    def clean_all_dict(self, all_dict):
+        """clean_all_dict
+        Sometimes the checklist specific was getting overwritten, so forcing this"""
+        checklist_specific_dict = self.get_checklist_specific_dict()
+        for field in checklist_specific_dict:
+            ic(field, checklist_specific_dict[field])
+            if checklist_specific_dict != "":
+                all_dict[field] = checklist_specific_dict[field]
+        return all_dict
     def get_all_dict_default(self):
+        ic()
         all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict_default(), **self.get_special_dict()}
+        all_dict = self.clean_all_dict(all_dict)
+
         return all_dict
 
     def print_checklist(self):
@@ -242,6 +255,7 @@ class ExperimentType:
         params:
         deprecated
         """
+        ic()
         data_loc_dict = get_data_locations()
 
         all_checklist_dict = self.get_all_dict_default()
@@ -270,9 +284,12 @@ def get_core_dict(config_data):
     coreDict = {}
     coreDictDefaultVal = {}
     for field in config_data['coreFields']:
-        # print(i)
+        ic('+' * 80)
+        ic(field)
+        if field not in ["library_source"]:
+            continue
         if isinstance(config_data['coreFields'][field], dict):
-            # ic(field, " in config_data")
+            ic(field, " in config_data", config_data['coreFields'][field])
             if config_data['coreFields'][field]['type'] == 'number':
                 # ic(config_data['coreFields'][field])
                 coreDict[field] = config_data['coreFields'][field]['default']
@@ -280,15 +297,20 @@ def get_core_dict(config_data):
             else:
                 coreDict[field] = ""
 
-            if "default" in config_data['coreFields'][field]:
+            if (coreDict[field] != "") and ("default" in config_data['coreFields'][field]):
+                coreDictDefaultVal[field] = coreDict[field]
+                ic("first if:", coreDictDefaultVal[field])
+            elif "default" in config_data['coreFields'][field]:
                 # ic(config_data['coreFields'][field]['default'])
                 coreDictDefaultVal[field] = config_data['coreFields'][field]['default']
+                ic("el if:", coreDictDefaultVal[field])
             else:
                 coreDictDefaultVal[field] = ""
+                ic("else :", coreDictDefaultVal[field])
             # ic(type(config_data['coreFields'][i]))
             # ic("dict: " + str(config_data['coreFields'][i]))
         else:
-            # ic(field, " not in ")
+            ic(field, " not in config_data['coreFields']")
             # ic("!dict:" + str(config_data['coreFields'][i]))
             coreDictDefaultVal[field] = coreDict[field] = config_data['coreFields'][field]
 
@@ -330,6 +352,8 @@ def get_fields(config_data):
         # ic(e_type)
         # create a dictionary of ExperimentType objects index on the name of the experimentType
         experimentType = ExperimentType(e_type["experiment_type"])
+        # if experimentType not in ["TEST"]:
+        #     continue
         expt_objects[experimentType.experiment_type_name] = experimentType
 
         # during debugging, concentrate one at a time.
@@ -428,8 +452,9 @@ def main():
     expt_objects = get_fields(config_data)
     print_all_checklists(expt_objects)
     quit()
-    create_schema_objects(expt_objects, config_data)
     print_all_checklist_json_schemas(expt_objects)
+    create_schema_objects(expt_objects, config_data)
+
 
 
 if __name__ == '__main__':
