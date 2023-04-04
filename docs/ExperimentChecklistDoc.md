@@ -26,5 +26,6 @@ There are many advantages of JSON Schema over the older, but still venerable XML
 * Have each of the end product JSON checklists validate. that can be immediately 
 validated by user.
 
+This generates JSON templates and JSON schemas for Experiment Checklists used for the ENA. There is a pair of JSON checklist template and JSON schema for each experiment type.
 The aim is that we get higher quality metadata and due the versioning we can just 
 add improved JSON 
