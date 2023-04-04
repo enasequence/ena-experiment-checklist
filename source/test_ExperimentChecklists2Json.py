@@ -1,5 +1,8 @@
+#!/usr/bin/env python3
 import unittest
 from icecream import ic
+import sys
+from attr import define
 
 import ExperimentChecklists2Json
 
@@ -26,21 +29,30 @@ class TestExperimentChecklists2Json(unittest.TestCase):
         ic()
         ic(experiment_type_obj)
         self._experiment_type_obj = experiment_type_obj
+        ic(self._experiment_type_obj)
+        ic()
+        self.get_obj()
 
     def get_obj(self):
         ic()
-        ic(self._experiment_type_obj)
+        ic(self)
+        self._experiment_type_obj
+        ic(self.__attrs_attrs__)
         return self._experiment_type_obj
 
     def test_experiment_type_init(self):
+        ic()
         etype = self.get_etype()
         experiment_type = ExperimentChecklists2Json.ExperimentType(etype["experiment_type"])
         self.set_obj(experiment_type)
-        ic()
         self.assertIsInstance(experiment_type, ExperimentChecklists2Json.ExperimentType)  # add assertion here
 
     def test_experiment_type_name(self):
+        ic()
+        ic(self)
         experiment_type = self.get_obj()
+        ic(experiment_type)
+        ic(experiment_type.experiment_type_name)
         self.assertEqual(experiment_type.experiment_type_name, "FF")
 
 

@@ -1,4 +1,4 @@
-# a single comment
+#!/usr/bin/env python3
 """ ExperimentChecklists2Json.py
 Script to computationally generate the experimental checklist JSON files for users to enter data into.
 
@@ -207,7 +207,7 @@ class ExperimentType:
         self._core_dict_default_values = core_dict_default
 
     def get_core_dict_default(self):
-        return(self._core_dict_default_values)
+        return self._core_dict_default_values
 
     def get_all_dict(self):
         all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
@@ -223,6 +223,7 @@ class ExperimentType:
             if checklist_specific_dict != "":
                 all_dict[field] = checklist_specific_dict[field]
         return all_dict
+
     def get_all_dict_default(self):
         ic()
         all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict_default(), **self.get_special_dict()}
@@ -440,10 +441,10 @@ def print_all_checklist_json_schemas(expt_objects):
         ic(experiment_type)
         experimentType = expt_objects[experiment_type]
         schema_obj = experimentType.get_json_schema_obj()
-        # ic(schema_obj.experiment_type_name)
-        # ic(schema_obj.get_core_fields_dict())
-        # ic(schema_obj.get_core_rules_list())
-        # ic(schema_obj.print_json_schema())
+        print(schema_obj.experiment_type_name)
+        print(schema_obj.get_core_fields_dict())
+        print(schema_obj.get_core_rules_list())
+        print(schema_obj.print_json_schema())
 
 
 def main():
@@ -454,7 +455,6 @@ def main():
     quit()
     print_all_checklist_json_schemas(expt_objects)
     create_schema_objects(expt_objects, config_data)
-
 
 
 if __name__ == '__main__':
