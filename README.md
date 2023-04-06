@@ -1,8 +1,10 @@
 # ExperimentChecklist
 This generates JSON templates and JSON schemas for Experiment Checklists used for the ENA. 
-There is a pair of JSON checklist template and JSON schema for each experiment type.
+There is a pair of JSON checklist template and JSON schema for each experiment type. 
+The data and code in this repository generate these.
 
-The data and code in this repo.  generate these.
+As part of the users workflow the filled out checklist template will be validated against JSON schema.
+
 
 ![](docs/ExptChecklistpng.png)
 
@@ -20,7 +22,7 @@ User use cases have been collated and some key user and maintenance technical re
 
 ## In Essence
 * The "everything" JSON template is taken from data/input/ExperimentChecklistIn.json
-* A script runs over this and generates specific JSON templates in data/output for each experiment type
+* A script runs over this and generates specific JSON templates in data/output for each experiment type.
 
 
-[For more details)[docs/ExperimentChecklistDoc.md]
+[For more technical details](docs/ExperimentChecklistTechnicalDoc.md)

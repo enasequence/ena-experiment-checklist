@@ -1,4 +1,5 @@
-# This is the Experiment Checklist Documentation</title>
+# This is the Experiment Checklist more Technically Focused Documentation</title>
+
 
 N.B. this will probably go to READTHEDOCS
 
@@ -6,6 +7,8 @@ N.B. this will probably go to READTHEDOCS
 The Experiment Checklists are an effort to create template to capture 
 better metadata about experiments. The Sample Checklists have shown us how to usefully 
 capture metadata, but also how to do this better.
+
+[see README.md](../README.md) for more information about the purpose of this.
 
 This will include details of what is mandatory and the allowable controlled vocabulary
 
