@@ -26,3 +26,4 @@ User use cases have been collated and some key user and maintenance technical re
 
 
 [For more technical details](docs/ExperimentChecklistTechnicalDoc.md)
+[Directoru organisation overview](docs/directory_organisation_explanation.md)
