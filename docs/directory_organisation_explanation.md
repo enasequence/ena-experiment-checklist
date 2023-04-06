@@ -1,7 +1,8 @@
 # Directory Organisation 
 
 ## Background
-There is a very simple directory structure
+There is a very simple directory structure.  
+:minidisc:
 
 ## ./ directory
 * readme.md - general background
@@ -15,8 +16,6 @@ There is a very simple directory structure
 * ExperimentChecklistTechnicalDoc.md - more technical background
 * directory_organisation_explanation.md
 * ExptChecklistpng.png
-
-
 
 
 ## data directory
