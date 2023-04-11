@@ -2,11 +2,11 @@
 
 ## Background
 There is a very simple directory structure.  
-:minidisc:
+:minidisc: for :recycle: of experimental data to make it FAIR
 
 ## ./ directory
 * readme.md - general background
-* the subdirectories as listed below
+* the subdirectories are listed below
 
 ## source directory
 * ExperimentChecklists2Json.py - script that generates the **experiment checklist template** and 
@@ -21,12 +21,13 @@ There is a very simple directory structure.
 ## data directory
 ### ./examples:
 
-### ./data/input:
+### ./data/input: - JSON file that specifies for all the experiments types what fields and values are needed.
+This is what to **edit** if one wishes to make a change
 * ExperimentChecklistIn.json
 * test_ExperimentChecklistIn.json
-* test_ExperimentChecklistIn.json~
 
-### output:
+
+### output:   
 * GENOMIC.json
 * METABARCODING.json
 * METATRANSCRIPTOMIC.json
