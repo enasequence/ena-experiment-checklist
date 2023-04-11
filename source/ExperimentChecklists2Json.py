@@ -33,10 +33,11 @@ import re
 # import os
 # from os.path import join, dirname
 import json
+import sys
 
 from mergedeep import merge
-from ExperimentChecklist import *
-
+#from ExperimentChecklist import *
+# ic.disable()
 
 # from jsonschema import validate
 # import pandas as pd
@@ -131,12 +132,15 @@ class ExperimentTypeJsonSchema:
                                 experiment_type_specific_dict)
             # **json_schema_dict}
             self._schema_dict = schema_dict
+
+            ic("about to sys.exit()")
+            #sys.exit()
         ic(self._schema_dict)
 
         return self._schema_dict
 
     def print_json_schema(self):
-        """ print_json_schema to a JSON file
+        """ printout_json_schema to a JSON file
         params:
 
         """
@@ -251,24 +255,25 @@ class ExperimentType:
         ic()
         return self.get_all_dict()
 
-    # def print_checklist(self):
-    #     """
-    #     params:
-    #     deprecated
-    #     """
-    #     data_loc_dict = get_data_locations()
-    #
-    #     all_checklist_dict = self.get_all_dict()
-    #     # ic(all_checklist_dict)
-    #
-    #     outfileName = data_loc_dict["output_dir"] + all_checklist_dict['experiment_type'] + '.json'
-    #     ic(outfileName)
-    #
-    #     my_list = all_checklist_dict
-    #     json_object = json.dumps(my_list, indent = 4, sort_keys = True)
-    #     with open(outfileName, "w") as outfile:
-    #         outfile.write(json_object)
-    #     return
+    def print_checklist(self):
+        """
+        params:
+
+        """
+        ic()
+        data_loc_dict = get_data_locations()
+
+        all_checklist_dict = self.get_all_dict()
+        # ic(all_checklist_dict)
+
+        outfileName = data_loc_dict["output_dir"] + all_checklist_dict['experiment_type'] + '.json'
+        ic(outfileName)
+
+        my_list = all_checklist_dict
+        json_object = json.dumps(my_list, indent = 4, sort_keys = True)
+        with open(outfileName, "w") as outfile:
+            outfile.write(json_object)
+        return
     #
     # def print_test_checklist(self):
     #     """ print_test_checklist
@@ -380,6 +385,7 @@ def process_and_get_fields(config_data):
         # create a dictionary of ExperimentType objects index on the name of the experimentType
         experimentType = ExperimentType(e_type_slice["experiment_type"])
         ic(experimentType)
+        ic("AFTER experiment_type_name HERE")
         # if experimentType not in ["TEST"]:
         #     continue
         expt_objects_dict[experimentType.experiment_type_name] = experimentType
@@ -443,9 +449,10 @@ def print_all_checklists(expt_objects):
     ic()
     for experiment_type_name in expt_objects:
         ic(experiment_type_name)
+        ic("AFTER experiment_type_name HERE")
         experimentType = expt_objects[experiment_type_name]
         experimentType.print_checklist()
-        experimentType.print_test_checklist()
+        #experimentType.print_test_checklist()
 
 def create_schema_objects(expt_objects, config_data):
     """ print_all_checklists
@@ -458,6 +465,7 @@ def create_schema_objects(expt_objects, config_data):
 
     for experiment_type_name in expt_objects:
         ic(experiment_type_name)
+        ic("AFTER experiment_type_name HERE")
         experimentType: object = expt_objects[experiment_type_name]
         schema_objects[experiment_type_name] = ExperimentTypeJsonSchema(experimentType, config_data)
 
@@ -470,6 +478,7 @@ def print_all_checklist_json_schemas(expt_objects):
     ic()
     for experiment_type_name in expt_objects:
         ic(experiment_type_name)
+        ic("AFTER experiment_type_name HERE")
         experimentType = expt_objects[experiment_type_name]
         ic(experimentType)
         schema_obj = experimentType.get_json_schema_obj()
@@ -486,23 +495,31 @@ def print_all_checklist_json_schemas(expt_objects):
 def main():
     ic()
     debug_status = True
-    debug_status = False
+    # debug_status = False
     config_data = read_config(debug_status)
     expt_objects_dict = process_and_get_fields(config_data)
     ic(expt_objects_dict)
-    for expt_type_name in expt_objects_dict:
-        ic(expt_type_name)
-        expt_obj = expt_objects_dict[expt_type_name]
-        ic(expt_obj.get_ExperimentTypeObj_values())
+    for experiment_type_name in expt_objects_dict:
+        ic(experiment_type_name)
+        ic("AFTER experiment_type_name HERE")
+        experimentType: object = expt_objects_dict[experiment_type_name]
+        experimentType = expt_objects_dict[experiment_type_name]
+        #ic(experimentType.get_ExperimentTypeObj_values())
         ic()
+        experimentType.print_checklist()
+
+        #expt_type_obj.print_test_checklist()
 
     #print_all_checklists(expt_objects_dict)
     #
     # print_all_checklist_json_schemas(expt_objects_dict)
     schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
     for experiment_type_name in schema_obj_dict:
-        schema_obj = schema_obj_dict
-        ic(schema_obj)
+        ic(experiment_type_name)
+        ic("AFTER experiment_type_name HERE")
+        schema_obj = schema_obj_dict[experiment_type_name]
+        #ic(schema_obj.experiment_type_name)
+        print(schema_obj.print_json_schema())
 
 
 
