@@ -26,8 +26,16 @@ This is what to **edit** if one wishes to make a change
 * ExperimentChecklistIn.json
 * test_ExperimentChecklistIn.json
 
+### schema: - these are the schemas that the filled out template will be tested against.
+* GENOMIC_schema.json
+* METABARCODING_schema.json
+* METATRANSCRIPTOMIC_schema.json
+* TEST_schema.json
+* TEST_schema_hack.json
+* TEST_type_schema.json
+* TRANSCRIPTOMIC_schema.json
 
-### output:   
+### output: - - automatically generated template
 * GENOMIC.json
 * METABARCODING.json
 * METATRANSCRIPTOMIC.json
@@ -36,19 +44,10 @@ This is what to **edit** if one wishes to make a change
 * TEST_type.json
 * TRANSCRIPTOMIC.json
 
-### output_test:
+### output_test: - automatically generated template
 * GENOMIC.json
 * METABARCODING.json
 * METATRANSCRIPTOMIC.json
 * TEST.json
 * TEST_type.json
 * TRANSCRIPTOMIC.json
-
-### schema:
-* GENOMIC_schema.json
-* METABARCODING_schema.json
-* METATRANSCRIPTOMIC_schema.json
-* TEST_schema.json
-* TEST_schema_hack.json
-* TEST_type_schema.json
-* TRANSCRIPTOMIC_schema.json
