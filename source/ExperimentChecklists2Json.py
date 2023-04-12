@@ -70,6 +70,49 @@ class ExperimentTypeJsonSchema:
         """
         return self._core_dict['coreFields']
 
+    def get_core_fields_dict_keylist(self):
+        """
+
+        :return: all the CORE terms
+        """
+        return list(self._core_dict['coreFields'].keys())
+    def get_properties_required_term_list(self):
+        """
+        gets properties required terms ,does not get allOF terms
+
+        :return: list of required_term
+        """
+        required_terms = []
+        for term in self.get_core_fields_dict_keylist():
+            if "_comment" in term:
+                ic(f"exclude: {term}")
+            else:
+                required_terms.append(term)
+
+        return required_terms
+    def get_experiment_specific_dict_keylist(self):
+        """
+
+        :return: all the experiment_specific terms
+        """
+        my_dict = self.get_experiment_specific_dict()
+        return list(my_dict.keys())
+
+    def get_allof_required_term_list(self):
+        """
+        gets allOf required terms ,does not get other properties terms
+
+        :return: list of required_term
+        """
+        required_terms = []
+        for term in self.get_experiment_specific_dict_keylist():
+            if "_comment" in term:
+                ic(f"exclude: {term}")
+            else:
+                required_terms.append(term)
+
+        return required_terms
+
     def get_core_rules_list(self):
         """get_core_fields_dict
 
@@ -118,13 +161,34 @@ class ExperimentTypeJsonSchema:
         This will ultimately be printed out as a json schema to validate the experiment_type
         return schema_dict
         """
+
+        def dict2objects(my_dict):
+            """
+            create a list of JSON style objects
+            :param my_dict:
+            :return:
+            """
+            rtn_dict = []   #{"_comment3": {"description": "some", "type": "string"}}
+            #ic(rtn_dict)
+            for term in my_dict:
+                #ic(term)
+                #ic(my_dict[term])
+                data = {term: my_dict[term]}
+                rtn_dict.append(data)
+                #ic(rtn_dict)
+            return rtn_dict
+
         if hasattr(self, "_schema_dict"):
             ic("already has _schema_dict")
         else:
             ic("=" * 80)
             schema_core_dict = {"properties": self.get_core_fields_dict()}
             schema_rules_dict = {"allOf": self.get_core_rules_list()}
-            experiment_type_specific_dict = {"allOf": self.get_experiment_specific_dict()}
+            #experiment_type_specific_dict = {"allOf": [self.get_experiment_specific_dict()]}
+            #experiment_specific_dict = self.get_experiment_specific_dict()
+            experiment_type_specific_dict = {"allOf":  dict2objects(self.get_experiment_specific_dict())}
+            ic(experiment_type_specific_dict)
+            #sys.exit()
             # cl_metadata_dict["checklists"] = self.get_schema_metadata()
             """N.B. this does a deep merge of the dictionaries, most other methods did not..."""
             schema_dict = merge(schema_rules_dict, schema_core_dict, self.get_schema_metadata(),
@@ -134,7 +198,23 @@ class ExperimentTypeJsonSchema:
             #sys.exit()
             #print(schema_dict)
             # **json_schema_dict}
+
+            def list2required(term_list):
+                """
+
+                :param term_list:
+                :return: term_list[] =
+                """
+                ic(term_list)
+                tmp = {}
+                tmp["required"] = term_list
+                return(tmp)
+
+            schema_dict["allOf"].append(list2required(self.get_allof_required_term_list()))
+            schema_dict["required"] = self.get_properties_required_term_list()
+
             self._schema_dict = schema_dict
+            ic(schema_dict)
 
 
             #ic("about to sys.exit()")
@@ -230,7 +310,11 @@ class ExperimentType:
         return self._core_dict_default_values
 
     def get_all_dict(self):
+        ic()
         all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
+        ic(self.get_checklist_specific_dict())
+        ic(self.get_core_dict())
+        ic(self.get_special_dict())
         all_dict = self.clean_all_dict(all_dict)
         return all_dict
 
@@ -268,7 +352,7 @@ class ExperimentType:
         data_loc_dict = get_data_locations()
 
         all_checklist_dict = self.get_all_dict()
-        # ic(all_checklist_dict)
+        ic(all_checklist_dict)
 
         outfileName = data_loc_dict["output_dir"] + all_checklist_dict['experiment_type'] + '.json'
         ic(outfileName)
@@ -318,8 +402,8 @@ def get_core_dict(config_data):
             continue
         #ic('+' * 80)
         #ic(field)
-        if field not in ["library_source"]:
-            continue
+        # if field not in ["library_source"]:
+        #    continue
         if isinstance(config_data['coreFields'][field], dict):
             ic(field, " in config_data", config_data['coreFields'][field])
             if config_data['coreFields'][field]['type'] == 'number':
@@ -406,6 +490,7 @@ def process_and_get_fields(config_data):
         add_specials(experimentType, config_data)
         ic()
         #ic(experimentType.print_ExperimentTypeObj())
+    # sys.exit()
     return expt_objects_dict
 
 
@@ -511,6 +596,7 @@ def main():
         #ic(experimentType.get_ExperimentTypeObj_values())
         ic()
         experimentType.print_checklist()
+        sys.exit()
 
         #expt_type_obj.print_test_checklist()
 
@@ -524,6 +610,7 @@ def main():
         schema_obj = schema_obj_dict[experiment_type_name]
         #ic(schema_obj.experiment_type_name)
         print(schema_obj.print_json_schema())
+
 
 
 
