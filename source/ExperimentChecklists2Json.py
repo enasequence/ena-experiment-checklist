@@ -122,18 +122,22 @@ class ExperimentTypeJsonSchema:
             ic("already has _schema_dict")
         else:
             ic("=" * 80)
-            schema_core_dict = {"checklists": {"checklist_fields_core": {"properties": self.get_core_fields_dict()}}}
-            schema_rules_dict = {"checklists": {"checklist_fields_core": {"allOf": self.get_core_rules_list()}}}
-            experiment_type_specific_dict = {"checklists": {"checklist_fields_core":
-                                                                {"allOf": self.get_experiment_specific_dict()}}}
+            schema_core_dict = {"properties": self.get_core_fields_dict()}
+            schema_rules_dict = {"allOf": self.get_core_rules_list()}
+            experiment_type_specific_dict = {"allOf": self.get_experiment_specific_dict()}
             # cl_metadata_dict["checklists"] = self.get_schema_metadata()
             """N.B. this does a deep merge of the dictionaries, most other methods did not..."""
             schema_dict = merge(schema_rules_dict, schema_core_dict, self.get_schema_metadata(),
                                 experiment_type_specific_dict)
+            #print(schema_dict)
+            #print("get the array of")
+            #sys.exit()
+            #print(schema_dict)
             # **json_schema_dict}
             self._schema_dict = schema_dict
 
-            ic("about to sys.exit()")
+
+            #ic("about to sys.exit()")
             #sys.exit()
         ic(self._schema_dict)
 
@@ -152,8 +156,8 @@ class ExperimentTypeJsonSchema:
         ic(outfileName)
 
         """Create a list as top level """
-        my_list = [json_schema_dict]
-        json_object = json.dumps(my_list, indent = 4, sort_keys = True)
+        #my_list = [json_schema_dict]
+        json_object = json.dumps(json_schema_dict, indent = 4, sort_keys = True)
         with open(outfileName, "w") as outfile:
             outfile.write(json_object)
 
