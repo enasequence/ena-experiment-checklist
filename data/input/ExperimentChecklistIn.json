@@ -44,10 +44,10 @@
     },
     {
       "checklist_id": "EXC00000Z",
-      "checklist_name": "TEST specific",
-      "checklist_group": "TEST",
+      "checklist_name": "TEST specific anme",
+      "checklist_group": "TEST_group",
       "checklist_version": "20221129",
-      "experiment_type": "TEST",
+      "experiment_type": "TEST_type",
       "library_source": "TRANSCRIPTOMIC",
       "pcr_fields": "",
       "target_fields": "",
@@ -75,8 +75,14 @@
     "adapters": ""
   },
   "coreFields": {
-    "_comment": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
-    "_comment2": "This template allows 1 or more experiments' metadata to be submitted. If >1 experiments: in JSON style, please add a comma at the end of the previous record just after the closing }.",
+    "_comment": {
+      "description": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary."
+      "type": "string"
+    },
+    "_comment2": {
+      "description": "This template allows 1 or more experiments' metadata to be submitted. If >1 experiments: in JSON style, please add a comma at the end of the previous record just after the closing }."
+      "type": "string"
+    },
     "study_id": {
       "description": "",
       "default": "my study",
@@ -271,7 +277,10 @@
     }
   },
   "allSpecificFieldsConfig": {
-    "_comment": "These are all possible fields not in the core, with their JSON configs",
+    "_comment": {
+      "description": "These are all possible fields not in the core, with their JSON configs",
+      "type": "string"
+    },
     "checklist_id": {
       "description": "",
       "default": "",
