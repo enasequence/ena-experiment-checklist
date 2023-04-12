@@ -1,0 +1,354 @@
+{
+  "schemaMetadata": {
+    "$id": "https://www.ebi.ac.uk/exeriment.checklist.ena.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "PROTOTYPE Experimental Checklists JSON schema",
+    "description": "Contained herein are the specific ENO experimental JSON schema describing what is need to validate specific checklists",
+    "type": "object"
+  },
+  "experimentTypes": [
+    {
+      "checklist_id": "EXC00000Z",
+      "checklist_name": "TEST_name",
+      "checklist_group": "TEST_group",
+      "checklist_version": "20221129",
+      "experiment_type": "TEST_type",
+      "library_source": "TRANSCRIPTOMIC",
+      "pcr_fields": "",
+      "target_fields": "",
+      "multiplex_fields": "",
+      "adapter_fields": ""
+    }
+  ],
+  "pcr_fields": {
+    "pcr_protocol": "",
+    "pcr_primers": {
+      "fwd_name": "",
+      "fwd_seq": "",
+      "rev_name": "",
+      "rev_seq": ""
+    }
+  },
+  "target_fields": {
+    "target_loci": "",
+    "target_subfragment": ""
+  },
+  "multiplex_fields": {
+    "multiplex_identifiers": ""
+  },
+  "adapter_fields": {
+    "adapters": ""
+  },
+  "coreFields": {
+    "_comment": {
+      "description":  "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
+       "type": "string"
+    },
+    "_comment2": {
+      "description":  "This template allows 1 or more experiments' metadata to be submitted. If >1 experiments: in JSON style, please add a comma at the end of the previous record just after the closing }.",
+      "type": "string"
+    },
+    "study_id": {
+      "description": "",
+      "default": "my study",
+      "type": "string"
+    },
+    "sample_accession": {
+      "description": "This is the study accession number that starts with ERP granted after registering a study with the ENA. [ENA]",
+      "type": "string"
+    },
+    "experiment_name": {
+      "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
+      "default": "my lovely TRANSCRIPTOMICS experiment",
+      "type": "string"
+    },
+    "library_source": {
+      "description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
+      "default": "TRANSCRIPTOMICS---",
+      "enum": [
+        "GENOMIC SINGLE CELL",
+        "GENOMIC",
+        "METAGENOMIC",
+        "METATRANSCRIPTOMIC",
+        "OTHER",
+        "SYNTHETIC",
+        "TRANSCRIPTOMIC SINGLE CELL",
+        "TRANSCRIPTOMIC",
+        "VIRAL RNA"
+      ],
+      "type": "string"
+    },
+    "library_strategy": {
+      "description": "Sequencing technique intended for this library.[INSDC]",
+      "default": "RNA-Seq",
+      "enum": [
+        "AMPLICON",
+        "ATAC-seq",
+        "Bisulfite-Seq",
+        "CLONE",
+        "CLONEEND",
+        "CTS",
+        "ChIA-PET",
+        "ChIP-Seq",
+        "DNase-Hypersensitivity",
+        "EST",
+        "FAIRE-seq",
+        "FINISHING",
+        "FL-cDNA",
+        "Hi-C",
+        "MBD-Seq",
+        "MNase-Seq",
+        "MRE-Seq",
+        "MeDIP-Seq",
+        "OTHER",
+        "POOLCLONE",
+        "RAD-Seq",
+        "RIP-Seq",
+        "RNA-Seq",
+        "SELEX",
+        "Synthetic-Long-Read",
+        "Targeted-Capture",
+        "Tethered Chromatin Conformation Capture",
+        "Tn-Seq",
+        "VALIDATION",
+        "WCS",
+        "WGA",
+        "WGS",
+        "WXS",
+        "miRNA-Seq",
+        "ssRNA-seq"
+      ],
+      "type": "string"
+    },
+    "library_selection": {
+      "description": "Method used to enrich the target in the sequence library preparation. [INSDC]",
+      "default": "unspecified",
+      "enum": [
+        "5-methylcytidine antibody",
+        "CAGE",
+        "ChIP",
+        "ChIP-Seq",
+        "DNase",
+        "HMPR",
+        "Hybrid Selection",
+        "Inverse rRNA selection",
+        "Inverse rRNA",
+        "MDA",
+        "MF",
+        "MNase",
+        "MSLL",
+        "Oligo-dT",
+        "PCR",
+        "PolyA",
+        "RACE",
+        "RANDOM PCR",
+        "RANDOM",
+        "RT-PCR",
+        "Reduced Representation",
+        "Restriction Digest",
+        "cDNA",
+        "cDNA_oligo_dT",
+        "cDNA_randomPriming",
+        "other",
+        "padlock probes capture method",
+        "size fractionation",
+        "unspecified"
+      ],
+      "type": "string"
+    },
+    "library_name": {
+      "description": "The name of the nucleotide sequencing library. [NCIT]",
+      "type": "string"
+    },
+    "library_description": {
+      "description": "The free descrqqgreo iption of the nucleotide sequencing library. [NCIT adapted]",
+      "type": "string"
+    },
+    "insert_size": {
+      "default": 0,
+      "description": "The average insert size found during nucleic acid sequencing. [NCIT]",
+      "type": "number"
+    },
+    "instrument_platform": {
+      "description": "The name of the technology platform used to perform nucleic acid sequencing. [NCIT]",
+      "_example": "ILLUMINA",
+      "default": "ILLUMINA",
+      "enum": [
+        "BGISEQ",
+        "CAPILLARY",
+        "DNBSEQ",
+        "ILLUMINA",
+        "ION_TORRENT",
+        "LS454",
+        "OXFORD_NANOPORE",
+        "PACBIO_SMRT"
+      ],
+      "type": "string"
+    },
+    "instrument_model": {
+      "description": "The name and/or number associated with a specific sequencing instrument model.  [NCIT-adapted]",
+      "_example": "llumina MiSeq",
+      "default": "unspecified",
+      "enum": [
+        "454 GS 20",
+        "454 GS FLX Titanium",
+        "454 GS FLX",
+        "454 GS FLX+",
+        "454 GS Junior",
+        "454 GS",
+        "AB 310 Genetic Analyzer",
+        "AB 3130 Genetic Analyzer",
+        "AB 3130xL Genetic Analyzer",
+        "AB 3500 Genetic Analyzer",
+        "AB 3500xL Genetic Analyzer",
+        "AB 3730 Genetic Analyzer",
+        "AB 3730xL Genetic Analyzer",
+        "BGISEQ-500",
+        "DNBSEQ-G400 FAST",
+        "DNBSEQ-G400",
+        "DNBSEQ-G50",
+        "DNBSEQ-T7",
+        "GridION",
+        "HiSeq X Five",
+        "HiSeq X Ten",
+        "Illumina Genome Analyzer II",
+        "Illumina Genome Analyzer IIx",
+        "Illumina Genome Analyzer",
+        "Illumina HiScanSQ",
+        "Illumina HiSeq 1000",
+        "Illumina HiSeq 1500",
+        "Illumina HiSeq 2000",
+        "Illumina HiSeq 2500",
+        "Illumina HiSeq 3000",
+        "Illumina HiSeq 4000",
+        "Illumina MiSeq",
+        "Illumina MiniSeq",
+        "Illumina NovaSeq 6000",
+        "Illumina iSeq 100",
+        "Ion Torrent PGM",
+        "Ion Torrent Proton",
+        "Ion Torrent S5 XL",
+        "Ion Torrent S5",
+        "MinION",
+        "NextSeq 500",
+        "NextSeq 550",
+        "PacBio RS II",
+        "PacBio RS",
+        "PromethION",
+        "Sequel",
+        "unspecified"
+      ],
+      "type": "string"
+    }
+  },
+  "allSpecificFieldsConfig": {
+    "_comment": {
+      "description": "These are all possible fields not in the core, with their JSON configs",
+      "type": "string"
+    },
+    "checklist_id": {
+      "description": "",
+      "default": "",
+      "_example": "",
+      "type": "string"
+    },
+    "checklist_name": {
+      "description": "",
+      "default": "",
+      "_example": "METABARCODING specific",
+      "type": "string"
+    },
+    "checklist_version": {
+      "description": "",
+      "default": "",
+      "_example": "20221129",
+      "type": "string"
+    },
+    "checklist_group": {
+      "description": "",
+      "default": "",
+      "_example": "20221129",
+      "type": "string"
+    },
+    "experiment_type": {
+      "description": "",
+      "default": "",
+      "_example": "",
+      "type": "string"
+    },
+    "library_source": {
+      "description": "",
+      "default": "",
+      "_example": "",
+      "type": "string"
+    },
+    "target_loci": {
+      "description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted]",
+      "enum": [
+        "16S rRNA",
+        "18S rRNA",
+        "28S rRNA",
+        "COX1",
+        "ITS1-5.8S-ITS2",
+        "RBCL",
+        "exome",
+        "matK",
+        "other"
+      ],
+      "type": "string"
+    },
+    "target_subfragment": {
+      "description": "",
+      "ontology": "https://www.ebi.ac.uk/ols/ontologies/XXX",
+      "type": "string"
+    },
+    "pcr_protocol": {
+      "description": "",
+      "field_type": "uri",
+      "domain": "https://protocols.io",
+      "type": "string"
+    },
+    "pcr_primers": {
+      "description": "TODO",
+      "type": "string"
+    },
+    "multiplex_identifiers": {
+      "description": "TODO",
+      "type": "string"
+    },
+    "adapters": {
+      "description": "TODO",
+      "type": "string"
+    }
+  },
+  "coreRules": [
+    {
+      "if": {
+        "properties": {
+          "instrument": {
+            "const": "unspecified"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "platform"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "library_selection": {
+            "pattern": "PCR"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "pcr_primers"
+        ]
+      }
+    }
+  ]
+}
