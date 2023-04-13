@@ -51,11 +51,13 @@
     "study_id": {
       "description": "",
       "default": "my study",
-      "type": "string"
+      "type": "string",
+      "pattern": "(E|D|S)RP[0-9]{6,}"
     },
     "sample_accession": {
       "description": "This is the study accession number that starts with ERP granted after registering a study with the ENA. [ENA]",
-      "type": "string"
+      "type": "string",
+      "pattern": "SAM(E|D|N)[A-Z]?[0-9]+"
     },
     "experiment_name": {
       "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
@@ -247,31 +249,31 @@
       "type": "string"
     },
     "checklist_id": {
-      "description": "",
+      "description": "[PeterMU]",
       "default": "",
       "_example": "",
       "type": "string"
     },
     "checklist_name": {
-      "description": "",
+      "description": "[PeterMU]",
       "default": "",
       "_example": "METABARCODING specific",
       "type": "string"
     },
     "checklist_version": {
-      "description": "",
+      "description": "[PeterMU]",
       "default": "",
       "_example": "20221129",
       "type": "string"
     },
     "checklist_group": {
-      "description": "",
-      "default": "",
-      "_example": "20221129",
+      "description": "The collection of the experiment checklists[PeterMU]",
+      "default": "TRANSCRIPTOMIC",
+      "_example": "TRANSCRIPTOMIC",
       "type": "string"
     },
     "experiment_type": {
-      "description": "",
+      "description": "The broad type of sequencing experiment performed[PeterMU]",
       "default": "",
       "_example": "",
       "type": "string"
@@ -297,21 +299,21 @@
       "type": "string"
     },
     "pcr_protocol": {
-      "description": "",
+      "description": "PCR is a method for amplifying a DNA base sequence using multiple rounds of heat denaturation of the DNA and annealing of oligonucleotide primers complementary to flanking regions in the presence of a heat-stable polymerase. This results in duplication of the targeted DNA region. Newly synthesized DNA strands can subsequently serve as additional templates for the same primer sequences, so that successive rounds of primer annealing, strand elongation, and dissociation produce rapid and highly specific amplification of the desired sequence. PCR also can be used to detect the existence of the defined sequence in a DNA sample.[NCIT] A PCR protocol is the precise recipe followed for the type of PCR,.",
       "field_type": "uri",
       "domain": "https://protocols.io",
       "type": "string"
     },
     "pcr_primers": {
-      "description": "TODO",
+      "description": "PCR primers that were used to amplify the sequence of the targeted gene, locus or subfragment. This field should contain all the primers used for a single PCR reaction if multiple forward or reverse primers are present in a single PCR reaction. The primer sequence should be reported in uppercase letters.[INSDC]",
       "type": "string"
     },
     "multiplex_identifiers": {
-      "description": "TODO",
+      "description": "The barcoding identifiers used to label DNA fragments during muliplex sequencing",
       "type": "string"
     },
     "adapters": {
-      "description": "TODO",
+      "description": "Adapters provide priming sequences for both amplification and sequencing of the sample-library fragments. Both adapters should be reported; in uppercase letters.[INSDC]",
       "type": "string"
     }
   },
@@ -326,7 +328,7 @@
       },
       "then": {
         "required": [
-          "platform"
+          "instrument_platform"
         ]
       }
     },
