@@ -14,10 +14,8 @@ capture metadata, but also how to do this better.
 * a pair of JSON schema and JSON template per experiment type. The filled out template is validated against the schema. 
 * details of what fields mandatory 
 * conditional mandatory aspects allowed, e.g. if PCR then PCR values need to be provided.
-* allowable controlled vocabulary
-
-
-JSON schema rather than XML is the chosen technology as it has many advantages.
+* allowable controlled vocabulary 
+* JSON schema rather than XML is the chosen technology as it has many advantages.
 
 ![](ExptChecklistpng.png)
 
