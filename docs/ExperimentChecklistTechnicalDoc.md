@@ -17,7 +17,9 @@ capture metadata, but also how to do this better.
 * allowable controlled vocabulary 
 * JSON schema rather than XML is the chosen technology as it has many advantages.
 
-![](ExptChecklistpng.png)
+![](ExperimentChecklistGraphically.png)
+
+
 
 ## Technology chosen was JSON schema
 There are many advantages of JSON Schema over the older, but still venerable XML..
@@ -36,4 +38,4 @@ This generates JSON templates and JSON schemas for Experiment Checklists used fo
 The aim is that we get higher quality metadata and due to the versioning we can just 
 add improved JSON to future versions as needed, without worrying about backwards compatibility. 
 
-![](ExperimentChecklistSimple.png)
+![](ExptChecklistpng.png)
