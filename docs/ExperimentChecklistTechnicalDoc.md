@@ -10,7 +10,7 @@ capture metadata, but also how to do this better.
 
 [see README.md](../README.md) for more information about the purpose of this.
 
-## key features
+## Key Features
 * a pair of JSON schema and JSON template per experiment type. The filled out template is validated against the schema. 
 * details of what fields mandatory 
 * conditional mandatory aspects allowed, e.g. if PCR then PCR values need to be provided.
