@@ -18,8 +18,7 @@ to explore what can be done and what is needed.
 Weaknesses currently:
 
 * the JSON config needs to be manually edited
-* very little testing is being done (need to any many tests!)
-
+* very little testing is being done (need to add many more tests!)
 
 ___author___ = "woollard@ebi.ac.uk"
 ___start_date___ = "2022-11-29"
@@ -36,7 +35,7 @@ import json
 import sys
 
 from mergedeep import merge
-#from ExperimentChecklist import *
+# from ExperimentChecklist import *
 # ic.disable()
 
 # from jsonschema import validate
@@ -76,6 +75,7 @@ class ExperimentTypeJsonSchema:
         :return: all the CORE terms
         """
         return list(self._core_dict['coreFields'].keys())
+
     def get_properties_required_term_list(self):
         """
         gets properties required terms ,does not get allOF terms
@@ -90,6 +90,7 @@ class ExperimentTypeJsonSchema:
                 required_terms.append(term)
 
         return required_terms
+
     def get_experiment_specific_dict_keylist(self):
         """
 
@@ -168,14 +169,14 @@ class ExperimentTypeJsonSchema:
             :param my_dict:
             :return:
             """
-            rtn_dict = []   #{"_comment3": {"description": "some", "type": "string"}}
-            #ic(rtn_dict)
+            rtn_dict = []   # {"_comment3": {"description": "some", "type": "string"}}
+            # ic(rtn_dict)
             for term in my_dict:
-                #ic(term)
-                #ic(my_dict[term])
+                # ic(term)
+                # ic(my_dict[term])
                 data = {term: my_dict[term]}
                 rtn_dict.append(data)
-                #ic(rtn_dict)
+                # ic(rtn_dict)
             return rtn_dict
 
         if hasattr(self, "_schema_dict"):
@@ -184,19 +185,19 @@ class ExperimentTypeJsonSchema:
             ic("=" * 80)
             schema_core_dict = {"properties": self.get_core_fields_dict()}
             schema_rules_dict = {"allOf": self.get_core_rules_list()}
-            #experiment_type_specific_dict = {"allOf": [self.get_experiment_specific_dict()]}
-            #experiment_specific_dict = self.get_experiment_specific_dict()
+            # experiment_type_specific_dict = {"allOf": [self.get_experiment_specific_dict()]}
+            # experiment_specific_dict = self.get_experiment_specific_dict()
             experiment_type_specific_dict = {"allOf":  dict2objects(self.get_experiment_specific_dict())}
             ic(experiment_type_specific_dict)
-            #sys.exit()
+            # sys.exit()
             # cl_metadata_dict["checklists"] = self.get_schema_metadata()
             """N.B. this does a deep merge of the dictionaries, most other methods did not..."""
             schema_dict = merge(schema_rules_dict, schema_core_dict, self.get_schema_metadata(),
                                 experiment_type_specific_dict)
-            #print(schema_dict)
-            #print("get the array of")
-            #sys.exit()
-            #print(schema_dict)
+            # print(schema_dict)
+            # print("get the array of")
+            # sys.exit()
+            # print(schema_dict)
             # **json_schema_dict}
 
             def list2required(term_list):
@@ -206,9 +207,8 @@ class ExperimentTypeJsonSchema:
                 :return: term_list[] =
                 """
                 ic(term_list)
-                tmp = {}
-                tmp["required"] = term_list
-                return(tmp)
+                tmp = {"required": term_list}
+                return tmp
 
             schema_dict["allOf"].append(list2required(self.get_allof_required_term_list()))
             schema_dict["required"] = self.get_properties_required_term_list()
@@ -216,9 +216,8 @@ class ExperimentTypeJsonSchema:
             self._schema_dict = schema_dict
             ic(schema_dict)
 
-
-            #ic("about to sys.exit()")
-            #sys.exit()
+            # ic("about to sys.exit()")
+            # sys.exit()
         ic(self._schema_dict)
 
         return self._schema_dict
@@ -236,7 +235,7 @@ class ExperimentTypeJsonSchema:
         ic(outfileName)
 
         """Create a list as top level """
-        #my_list = [json_schema_dict]
+        # my_list = [json_schema_dict]
         json_object = json.dumps(json_schema_dict, indent = 4, sort_keys = True)
         with open(outfileName, "w") as outfile:
             outfile.write(json_object)
@@ -400,8 +399,8 @@ def get_core_dict(config_data):
     for field in config_data['coreFields']:
         if "_comment" in field:
             continue
-        #ic('+' * 80)
-        #ic(field)
+        # ic('+' * 80)
+        # ic(field)
         # if field not in ["library_source"]:
         #    continue
         if isinstance(config_data['coreFields'][field], dict):
@@ -489,7 +488,7 @@ def process_and_get_fields(config_data):
         experimentType.set_core_dict_default(coreDictDefaultVal)
         add_specials(experimentType, config_data)
         ic()
-        #ic(experimentType.print_ExperimentTypeObj())
+        # ic(experimentType.print_ExperimentTypeObj())
     # sys.exit()
     return expt_objects_dict
 
@@ -518,7 +517,7 @@ def read_config(debug_status):
     ic(debug_status)
 
     data_loc_dict = get_data_locations()
-    if debug_status == False:
+    if not debug_status:
         filename = data_loc_dict["input_dir"] + "ExperimentChecklistIn.json"
     else:
         filename = data_loc_dict["input_dir"] + "test_ExperimentChecklistIn.json"
@@ -541,7 +540,7 @@ def print_all_checklists(expt_objects):
         ic("AFTER experiment_type_name HERE")
         experimentType = expt_objects[experiment_type_name]
         experimentType.print_checklist()
-        #experimentType.print_test_checklist()
+        # experimentType.print_test_checklist()
 
 def create_schema_objects(expt_objects, config_data):
     """ print_all_checklists
@@ -557,7 +556,6 @@ def create_schema_objects(expt_objects, config_data):
         ic("AFTER experiment_type_name HERE")
         experimentType: object = expt_objects[experiment_type_name]
         schema_objects[experiment_type_name] = ExperimentTypeJsonSchema(experimentType, config_data)
-
 
     return schema_objects
 
@@ -580,7 +578,6 @@ def print_all_checklist_json_schemas(expt_objects):
         print(experimentType.print_ExperimentTypeObj())
 
 
-
 def main():
     ic()
     debug_status = True
@@ -591,16 +588,15 @@ def main():
     for experiment_type_name in expt_objects_dict:
         ic(experiment_type_name)
         ic("AFTER experiment_type_name HERE")
-        experimentType: object = expt_objects_dict[experiment_type_name]
         experimentType = expt_objects_dict[experiment_type_name]
-        #ic(experimentType.get_ExperimentTypeObj_values())
+        # ic(experimentType.get_ExperimentTypeObj_values())
         ic()
         experimentType.print_checklist()
         sys.exit()
 
-        #expt_type_obj.print_test_checklist()
+        # expt_type_obj.print_test_checklist()
 
-    #print_all_checklists(expt_objects_dict)
+    # print_all_checklists(expt_objects_dict)
     #
     # print_all_checklist_json_schemas(expt_objects_dict)
     schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
@@ -608,10 +604,8 @@ def main():
         ic(experiment_type_name)
         ic("AFTER experiment_type_name HERE")
         schema_obj = schema_obj_dict[experiment_type_name]
-        #ic(schema_obj.experiment_type_name)
+        # ic(schema_obj.experiment_type_name)
         print(schema_obj.print_json_schema())
-
-
 
 
 if __name__ == '__main__':
