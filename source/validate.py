@@ -12,6 +12,8 @@ from icecream import ic
 import json
 #import JsonSchema
 from jsonschema import validate
+import os
+import subprocess
 
 def JSONFILE2string(json_file_name):
     """
@@ -41,11 +43,36 @@ def validate_schema(basedir, schema_file):
     validation_result = validate(instance=test_json, schema=json_schema_string)
     ic(validation_result)
 
+def validate_suite(basedir):
+    """
+
+    :param basedir:
+    :return:
+    """
+    schema_dir = basedir + "data/schema/"
+    test_file_dir = basedir + "data/output_test/real_testing/"
+    testing_pairs = {}
+    testing_pairs["TEST_type_schema.json"] = []
+    testing_pairs["TEST_type_schema.json"].append("TEST_type_works.json")
+    testing_pairs["TEST_type_schema.json"].append("TEST_type_fails.json")
+
+    ic(testing_pairs)
+    for schema_file in testing_pairs:
+        for test_file in testing_pairs[schema_file]:
+            test_cmd = "node  /Users/woollard/projects/easi-genomics/biovalidator/validator-cli.js  validator-cli.js -j " \
+                   + test_file_dir + "/" + test_file + " -s " + schema_dir + "/" + schema_file + "| sed -e 's/\x1b\[[0-9;]*m//g';s/^[\]*//g"
+            #ic(test_cmd)
+            ic(f"{schema_file} {test_file}")
+            temp = subprocess.run([test_cmd], shell=True, capture_output=True)
+            output = str(temp.stdout)
+            ic(output)
 def main():
     basedir = "/Users/woollard/projects/easi-genomics/ExperimentChecklist/"
     schema_file = basedir + "data/schema/TEST_type_schema2.json"
     schema_file = basedir + "data/schema/noddy1.json"
     validate_schema(basedir, schema_file)
+
+    validate_suite(basedir)
 
 if __name__ == '__main__':
     ic()
