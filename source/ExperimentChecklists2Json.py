@@ -192,13 +192,22 @@ class ExperimentTypeJsonSchema:
             # sys.exit()
             # cl_metadata_dict["checklists"] = self.get_schema_metadata()
             """N.B. this does a deep merge of the dictionaries, most other methods did not..."""
-            schema_dict = merge(schema_rules_dict, schema_core_dict, self.get_schema_metadata(),
+            ic()
+
+            self._schema_dict = merge(schema_core_dict, self.get_schema_metadata(),
                                 experiment_type_specific_dict)
-            # print(schema_dict)
+            ic(schema_rules_dict)
+            ic(schema_rules_dict['allOf'])
+            #rules = schema_rules_dict['allOf'].pop(0)    # tried, but it would not merge
+            for rule in schema_rules_dict['allOf']:
+                ic(rule)
+                self._schema_dict['allOf'].append(rule)
+            ic(self._schema_dict['allOf'])
             # print("get the array of")
-            # sys.exit()
-            # print(schema_dict)
+            # ic(schema_dict)
             # **json_schema_dict}
+            # sys.exit()
+            return self._schema_dict
 
             def list2required(term_list):
                 """
@@ -228,9 +237,8 @@ class ExperimentTypeJsonSchema:
 
         """
         data_loc_dict = get_data_locations()
-
         json_schema_dict = self.get_json_schema()
-        # ic(checklistDict)
+        # ic(json_schema_dict)
         outfileName = data_loc_dict["schema_dir"] + self.experiment_type_name + '_schema.json'
         ic(outfileName)
 
@@ -239,8 +247,6 @@ class ExperimentTypeJsonSchema:
         json_object = json.dumps(json_schema_dict, indent = 4, sort_keys = True)
         with open(outfileName, "w") as outfile:
             outfile.write(json_object)
-
-        return
 
 
 class ExperimentType:
@@ -592,7 +598,8 @@ def main():
         # ic(experimentType.get_ExperimentTypeObj_values())
         ic()
         experimentType.print_checklist()
-        sys.exit()
+        # ic()
+        # sys.exit()
 
         # expt_type_obj.print_test_checklist()
 
