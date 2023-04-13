@@ -1,0 +1,282 @@
+{
+    "$id": "https://www.ebi.ac.uk/exeriment.checklist.ena.schema.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "allOf": [
+        {
+            "checklist_id": {
+                "_example": "EXC00000Z",
+                "default": "EXC00000Z",
+                "description": "",
+                "type": "string"
+            }
+        },
+        {
+            "checklist_name": {
+                "_example": "TEST_name",
+                "default": "TEST_name",
+                "description": "",
+                "type": "string"
+            }
+        },
+        {
+            "checklist_group": {
+                "_example": "TEST_group",
+                "default": "TEST_group",
+                "description": "",
+                "type": "string"
+            }
+        },
+        {
+            "checklist_version": {
+                "_example": "20221129",
+                "default": "20221129",
+                "description": "",
+                "type": "string"
+            }
+        },
+        {
+            "experiment_type": {
+                "_example": "TEST_type",
+                "default": "TEST_type",
+                "description": "",
+                "type": "string"
+            }
+        },
+        {
+            "library_source": {
+                "_example": "TRANSCRIPTOMIC",
+                "default": "TRANSCRIPTOMIC",
+                "description": "",
+                "type": "string"
+            }
+        },
+        {
+            "required": [
+                "checklist_id",
+                "checklist_name",
+                "checklist_group",
+                "checklist_version",
+                "experiment_type",
+                "library_source"
+            ]
+        }
+    ],
+    "description": "Contained herein are the specific ENO experimental JSON schema describing what is need to validate specific checklists",
+    "properties": {
+        "_comment": {
+            "description": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
+            "type": "string"
+        },
+        "_comment2": {
+            "description": "This template allows 1 or more experiments' metadata to be submitted. If >1 experiments: in JSON style, please add a comma at the end of the previous record just after the closing }.",
+            "type": "string"
+        },
+        "experiment_name": {
+            "default": "my lovely TRANSCRIPTOMICS experiment",
+            "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
+            "type": "string"
+        },
+        "insert_size": {
+            "default": 0,
+            "description": "The average insert size found during nucleic acid sequencing. [NCIT]",
+            "type": "number"
+        },
+        "instrument_model": {
+            "_example": "llumina MiSeq",
+            "default": "unspecified",
+            "description": "The name and/or number associated with a specific sequencing instrument model.  [NCIT-adapted]",
+            "enum": [
+                "454 GS 20",
+                "454 GS FLX Titanium",
+                "454 GS FLX",
+                "454 GS FLX+",
+                "454 GS Junior",
+                "454 GS",
+                "AB 310 Genetic Analyzer",
+                "AB 3130 Genetic Analyzer",
+                "AB 3130xL Genetic Analyzer",
+                "AB 3500 Genetic Analyzer",
+                "AB 3500xL Genetic Analyzer",
+                "AB 3730 Genetic Analyzer",
+                "AB 3730xL Genetic Analyzer",
+                "BGISEQ-500",
+                "DNBSEQ-G400 FAST",
+                "DNBSEQ-G400",
+                "DNBSEQ-G50",
+                "DNBSEQ-T7",
+                "GridION",
+                "HiSeq X Five",
+                "HiSeq X Ten",
+                "Illumina Genome Analyzer II",
+                "Illumina Genome Analyzer IIx",
+                "Illumina Genome Analyzer",
+                "Illumina HiScanSQ",
+                "Illumina HiSeq 1000",
+                "Illumina HiSeq 1500",
+                "Illumina HiSeq 2000",
+                "Illumina HiSeq 2500",
+                "Illumina HiSeq 3000",
+                "Illumina HiSeq 4000",
+                "Illumina MiSeq",
+                "Illumina MiniSeq",
+                "Illumina NovaSeq 6000",
+                "Illumina iSeq 100",
+                "Ion Torrent PGM",
+                "Ion Torrent Proton",
+                "Ion Torrent S5 XL",
+                "Ion Torrent S5",
+                "MinION",
+                "NextSeq 500",
+                "NextSeq 550",
+                "PacBio RS II",
+                "PacBio RS",
+                "PromethION",
+                "Sequel",
+                "unspecified"
+            ],
+            "type": "string"
+        },
+        "instrument_platform": {
+            "_example": "ILLUMINA",
+            "default": "ILLUMINA",
+            "description": "The name of the technology platform used to perform nucleic acid sequencing. [NCIT]",
+            "enum": [
+                "BGISEQ",
+                "CAPILLARY",
+                "DNBSEQ",
+                "ILLUMINA",
+                "ION_TORRENT",
+                "LS454",
+                "OXFORD_NANOPORE",
+                "PACBIO_SMRT"
+            ],
+            "type": "string"
+        },
+        "library_description": {
+            "description": "The free descrqqgreo iption of the nucleotide sequencing library. [NCIT adapted]",
+            "type": "string"
+        },
+        "library_name": {
+            "description": "The name of the nucleotide sequencing library. [NCIT]",
+            "type": "string"
+        },
+        "library_selection": {
+            "default": "unspecified",
+            "description": "Method used to enrich the target in the sequence library preparation. [INSDC]",
+            "enum": [
+                "5-methylcytidine antibody",
+                "CAGE",
+                "ChIP",
+                "ChIP-Seq",
+                "DNase",
+                "HMPR",
+                "Hybrid Selection",
+                "Inverse rRNA selection",
+                "Inverse rRNA",
+                "MDA",
+                "MF",
+                "MNase",
+                "MSLL",
+                "Oligo-dT",
+                "PCR",
+                "PolyA",
+                "RACE",
+                "RANDOM PCR",
+                "RANDOM",
+                "RT-PCR",
+                "Reduced Representation",
+                "Restriction Digest",
+                "cDNA",
+                "cDNA_oligo_dT",
+                "cDNA_randomPriming",
+                "other",
+                "padlock probes capture method",
+                "size fractionation",
+                "unspecified"
+            ],
+            "type": "string"
+        },
+        "library_source": {
+            "default": "TRANSCRIPTOMICS---",
+            "description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
+            "enum": [
+                "GENOMIC SINGLE CELL",
+                "GENOMIC",
+                "METAGENOMIC",
+                "METATRANSCRIPTOMIC",
+                "OTHER",
+                "SYNTHETIC",
+                "TRANSCRIPTOMIC SINGLE CELL",
+                "TRANSCRIPTOMIC",
+                "VIRAL RNA"
+            ],
+            "type": "string"
+        },
+        "library_strategy": {
+            "default": "RNA-Seq",
+            "description": "Sequencing technique intended for this library.[INSDC]",
+            "enum": [
+                "AMPLICON",
+                "ATAC-seq",
+                "Bisulfite-Seq",
+                "CLONE",
+                "CLONEEND",
+                "CTS",
+                "ChIA-PET",
+                "ChIP-Seq",
+                "DNase-Hypersensitivity",
+                "EST",
+                "FAIRE-seq",
+                "FINISHING",
+                "FL-cDNA",
+                "Hi-C",
+                "MBD-Seq",
+                "MNase-Seq",
+                "MRE-Seq",
+                "MeDIP-Seq",
+                "OTHER",
+                "POOLCLONE",
+                "RAD-Seq",
+                "RIP-Seq",
+                "RNA-Seq",
+                "SELEX",
+                "Synthetic-Long-Read",
+                "Targeted-Capture",
+                "Tethered Chromatin Conformation Capture",
+                "Tn-Seq",
+                "VALIDATION",
+                "WCS",
+                "WGA",
+                "WGS",
+                "WXS",
+                "miRNA-Seq",
+                "ssRNA-seq"
+            ],
+            "type": "string"
+        },
+        "sample_accession": {
+            "description": "This is the study accession number that starts with ERP granted after registering a study with the ENA. [ENA]",
+            "type": "string"
+        },
+        "study_id": {
+            "default": "my study",
+            "description": "",
+            "type": "string"
+        }
+    },
+    "required": [
+        "study_id",
+        "sample_accession",
+        "experiment_name",
+        "library_source",
+        "library_strategy",
+        "library_selection",
+        "library_name",
+        "library_description",
+        "insert_size",
+        "instrument_platform",
+        "instrument_model"
+    ],
+    "title": "PROTOTYPE Experimental Checklists JSON schema",
+    "type": "object"
+}

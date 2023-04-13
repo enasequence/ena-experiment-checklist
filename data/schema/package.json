@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+
+          "study_accession": {
+            "type": "string"
+          },
+          "experiment_name": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string"
+          },
+          "instrument": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "study_accession",
+          "experiment_name",
+          "instrument"
+        ]
+  }

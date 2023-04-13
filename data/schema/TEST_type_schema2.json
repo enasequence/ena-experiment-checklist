@@ -1,0 +1,37 @@
+{
+  "$id": "https://www.ebi.ac.uk/exeriment.checklist.ena.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "allOf": [
+    {
+      "checklist_group": {
+        "_example": "TEST_group",
+        "default": "TEST_group",
+        "description": "",
+        "type": "string"
+      }
+    },
+    {
+      "checklist_id": {
+        "_example": "EXC00000Z",
+        "default": "EXC00000Z",
+        "description": "",
+        "type": "string"
+      }
+    }
+  ],
+  "properties": {
+    "experiment_name": {
+      "default": "my lovely TRANSCRIPTOMICS experiment",
+      "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
+      "type": "string"
+    },
+    "insert_size": {
+      "default": 0,
+      "description": "The average insert size found during nucleic acid sequencing. [NCIT]",
+      "type": "number"
+    }
+  },
+  "description": "Contained herein are the specific ENO experimental JSON schema describing what is need to validate specific checklists",
+  "title": "PROTOTYPE Experimental Checklists JSON schema",
+  "type": "object"
+}

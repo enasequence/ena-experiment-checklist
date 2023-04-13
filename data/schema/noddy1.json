@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+
+          "checklist_group": {
+            "type": "string"
+          },
+          "checklist_id": {
+            "type": "string"
+          },
+          "checklist_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "checklist_group",
+          "checklist_id",
+          "checklist_name"
+        ]
+  }
