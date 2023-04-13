@@ -276,12 +276,6 @@
       "_example": "",
       "type": "string"
     },
-    "library_source": {
-      "description": "",
-      "default": "",
-      "_example": "",
-      "type": "string"
-    },
     "target_loci": {
       "description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted]",
       "enum": [
