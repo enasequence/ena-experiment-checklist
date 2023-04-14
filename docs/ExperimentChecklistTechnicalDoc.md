@@ -1,7 +1,17 @@
 # This is the Experiment Checklist more Technically Focused Documentation
 
-
 N.B. this will probably go to READTHEDOCS
+
+<!-- TOC -->
+* [This is the Experiment Checklist more Technically Focused Documentation](#this-is-the-experiment-checklist-more-technically-focused-documentation)
+  * [Introduction](#introduction)
+  * [Key Features](#key-features)
+  * [Technology chosen was JSON schema](#technology-chosen-was-json-schema)
+  * [Overview of How We Intend this to Work](#overview-of-how-we-intend-this-to-work)
+  * [Valdation examples](#valdation-examples)
+    * [internal testing](#internal-testing)
+    * [User Testing](#user-testing)
+<!-- TOC -->
 
 ## Introduction
 The Experiment Checklists are an effort to create template to capture 
