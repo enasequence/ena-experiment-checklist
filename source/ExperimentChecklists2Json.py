@@ -88,7 +88,9 @@ class ExperimentTypeJsonSchema:
                 ic(f"exclude: {term}")
             else:
                 required_terms.append(term)
-
+        ic()
+        # ic(required_terms)
+        # sys.exit()
         return required_terms
 
     def get_experiment_specific_dict_keylist(self):
@@ -101,7 +103,10 @@ class ExperimentTypeJsonSchema:
 
     def get_allof_required_term_list(self):
         """
-        gets allOf required terms ,does not get other properties terms
+        gets allOf terms, and returns those
+         that need to be required as list.
+         By default all are required.
+        (does not get other properties terms)
 
         :return: list of required_term
         """
@@ -181,6 +186,8 @@ class ExperimentTypeJsonSchema:
 
         if hasattr(self, "_schema_dict"):
             ic("already has _schema_dict")
+            ic("about to exit")
+            sys.exit()
         else:
             ic("=" * 80)
             schema_core_dict = {"properties": self.get_core_fields_dict()}
@@ -202,6 +209,9 @@ class ExperimentTypeJsonSchema:
             for rule in schema_rules_dict['allOf']:
                 ic(rule)
                 self._schema_dict['allOf'].append(rule)
+            ic()
+            self._schema_dict['allOf'].append({"required": self.get_allof_required_term_list()})
+            self._schema_dict["required"] = self.get_properties_required_term_list()
             ic(self._schema_dict['allOf'])
             # print("get the array of")
             # ic(schema_dict)
@@ -225,8 +235,8 @@ class ExperimentTypeJsonSchema:
             self._schema_dict = schema_dict
             ic(schema_dict)
 
-            # ic("about to sys.exit()")
-            # sys.exit()
+            ic("about to sys.exit()")
+            sys.exit()
         ic(self._schema_dict)
 
         return self._schema_dict

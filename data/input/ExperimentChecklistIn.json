@@ -44,7 +44,7 @@
     },
     {
       "checklist_id": "EXC00000Z",
-      "checklist_name": "TEST specific anme",
+      "checklist_name": "TEST specific name",
       "checklist_group": "TEST_group",
       "checklist_version": "20221129",
       "experiment_type": "TEST_type",
