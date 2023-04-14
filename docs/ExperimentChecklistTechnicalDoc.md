@@ -52,9 +52,8 @@ add improved JSON to future versions as needed, without worrying about backwards
 
 ### internal testing
 For this is it is necessary to:
-* have biovalidator installed and setup.
-* d
-current output of the validation (BTW: TEST_type is set-up to have most terms encountered across the all the experiments)
+* Have biovalidator installed and setup.
+* The current output of the validation (BTW: TEST_type is set-up to have most terms encountered across the all the experiments)
 ```
 ic| testing_pairs: {'GENOMIC_schema.json': ['GENOMIC_works.json', 'GENOMIC_fails.json'],
                     'METABARCODING_schema.json': ['METABARCODING_works.json',
