@@ -38,4 +38,43 @@ This generates JSON templates and JSON schemas for Experiment Checklists used fo
 The aim is that we get higher quality metadata and due to the versioning we can just 
 add improved JSON to future versions as needed, without worrying about backwards compatibility. 
 
+## Valdation examples
+
+### internal testing
+For this is it is necessary to:
+* have biovalidator installed and setup.
+* d
+current output of the validation (BTW: TEST_type is set-up to have most terms encountered across the all the experiments)
+```
+ic| testing_pairs: {'GENOMIC_schema.json': ['GENOMIC_works.json', 'GENOMIC_fails.json'],
+                    'METABARCODING_schema.json': ['METABARCODING_works.json',
+                                                  'METABARCODING_fails.json'],
+                    'METATRANSCRIPTOMIC_schema.json': ['METATRANSCRIPTOMIC_works.json',
+                                                       'METATRANSCRIPTOMIC_fails.json'],
+                    'TEST_type_schema.json': ['TEST_type_works.json', 'TEST_type_fails.json'],
+                    'TRANSCRIPTOMIC_schema.json': ['TRANSCRIPTOMIC_works.json',
+                                                   'TRANSCRIPTOMIC_fails.json']}
+ic| f"{schema_file} {test_file}": 'TEST_type_schema.json TEST_type_works.json'
+ic| 'No validation errors reported'
+ic| f"{schema_file} {test_file}": 'TEST_type_schema.json TEST_type_fails.json'
+The validation process has found the following error(s): .pcr_primers should have required property \'pcr_primers\'  should match "then" schema 
+/instrument_platform should be equal to one of the allowed values: ["BGISEQ","CAPILLARY","DNBSEQ","ILLUMINA","ION_TORRENT","LS454","OXFORD_NANOPORE","PACBIO_SMRT"] 
+/sample_accession should match pattern "(^SAM(E|D|N)[A-Z]?[0-9]+)|(^(E|D|S)RS[0-9]{6,})" 
+/study_id should match pattern "(^(E|D|S)RP[0-9]{6,})|(^PRJ(E|D|N)[A-Z][0-9]+)" '
+ic| f"{schema_file} {test_file}": 'METABARCODING_schema.json METABARCODING_works.json'
+ic| 'No validation errors reported'
+ic| f"{schema_file} {test_file}": 'METABARCODING_schema.json METABARCODING_fails.json'
+ic| 'No validation errors reported'
+ic| f"{schema_file} {test_file}": 'METATRANSCRIPTOMIC_schema.json METATRANSCRIPTOMIC_works.json'
+ic| 'No validation errors reported'
+ic| f"{schema_file} {test_file}": 'METATRANSCRIPTOMIC_schema.json METATRANSCRIPTOMIC_fails.json'
+ic| 'No validation errors reported'
+ic| f"{schema_file} {test_file}": 'GENOMIC_schema.json GENOMIC_works.json'
+ic| 'No validation errors reported'
+```
+### User Testing
+* users will need to validate every <mark>experiment</mark> JSON file against the relevant schema
+* We may need to get set up a web service to simplify this.
+
+***
 ![](ExptChecklistpng.png)
