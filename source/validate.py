@@ -55,6 +55,18 @@ def validate_suite(basedir):
     testing_pairs["TEST_type_schema.json"] = []
     testing_pairs["TEST_type_schema.json"].append("TEST_type_works.json")
     testing_pairs["TEST_type_schema.json"].append("TEST_type_fails.json")
+    testing_pairs["METABARCODING_schema.json"] = []
+    testing_pairs["METABARCODING_schema.json"].append("METABARCODING_works.json")
+    testing_pairs["METABARCODING_schema.json"].append("METABARCODING_fails.json")
+    testing_pairs["METATRANSCRIPTOMIC_schema.json"] = []
+    testing_pairs["METATRANSCRIPTOMIC_schema.json"].append("METATRANSCRIPTOMIC_works.json")
+    testing_pairs["METATRANSCRIPTOMIC_schema.json"].append("METATRANSCRIPTOMIC_fails.json")
+    testing_pairs["GENOMIC_schema.json"] = []
+    testing_pairs["GENOMIC_schema.json"].append("GENOMIC_works.json")
+    testing_pairs["GENOMIC_schema.json"].append("GENOMIC_fails.json")
+    testing_pairs["TRANSCRIPTOMIC_schema.json"] = []
+    testing_pairs["TRANSCRIPTOMIC_schema.json"].append("TRANSCRIPTOMIC_works.json")
+    testing_pairs["TRANSCRIPTOMIC_schema.json"].append("TRANSCRIPTOMIC_fails.json")
 
     ic(testing_pairs)
     for schema_file in testing_pairs:
@@ -65,7 +77,14 @@ def validate_suite(basedir):
             ic(f"{schema_file} {test_file}")
             temp = subprocess.run([test_cmd], shell=True, capture_output=True)
             output = str(temp.stdout)
-            ic(output)
+            if "No validation errors reported" in output:
+                ic("No validation errors reported")
+            else:
+                #ic(output)
+                output = output.replace(":\\n \\n", ":").replace("\\n,", "<-------").replace("\\t", "").replace("b' ", "")
+                output = output.replace("\\n \\nValidation finished.", "").replace("\\n", " ").replace("/", "\n/")
+                #ic(output)
+                print(output)
 def main():
     basedir = "/Users/woollard/projects/easi-genomics/ExperimentChecklist/"
     schema_file = basedir + "data/schema/TEST_type_schema2.json"
