@@ -97,7 +97,8 @@
     "experiment_name": {
       "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
       "default": "my lovely TRANSCRIPTOMICS experiment",
-      "type": "string"
+      "type": "string",
+      "minLength": 5
     },
     "library_source": {
       "description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
@@ -224,7 +225,7 @@
     },
     "instrument_model": {
       "description": "The name and/or number associated with a specific sequencing instrument model.  [NCIT-adapted]",
-      "_example": "llumina MiSeq",
+      "_example": "Illumina MiSeq",
       "default": "unspecified",
       "enum": [
         "454 GS 20",
@@ -290,13 +291,13 @@
       "type": "string"
     },
     "checklist_name": {
-      "description": "[PeterMU]",
+      "description": "A short descriptive name to human idnetify [PeterMU]",
       "default": "",
       "_example": "METABARCODING specific",
       "type": "string"
     },
     "checklist_version": {
-      "description": "[PeterMU]",
+      "description": "The version of this checklist, allows us to validate the write records against the right checklist version[PeterMU]",
       "default": "",
       "_example": "20221129",
       "type": "string"
@@ -315,6 +316,7 @@
     },
     "target_loci": {
       "description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted]",
+      "default": "16S rRNA",
       "enum": [
         "16S rRNA",
         "18S rRNA",
