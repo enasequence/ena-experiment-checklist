@@ -35,6 +35,7 @@ import json
 import sys
 
 from mergedeep import merge
+
 # from ExperimentChecklist import *
 # ic.disable()
 
@@ -42,6 +43,8 @@ from mergedeep import merge
 # import pandas as pd
 
 global glob_exp_obj
+
+
 class ExperimentTypeJsonSchema:
     """ ExperimentTypeJsonSchema
     for handling generating the Json schema to validate each specific ExperimentType
@@ -174,7 +177,7 @@ class ExperimentTypeJsonSchema:
             :param my_dict:
             :return:
             """
-            rtn_dict = []   # {"_comment3": {"description": "some", "type": "string"}}
+            rtn_dict = []  # {"_comment3": {"description": "some", "type": "string"}}
             # ic(rtn_dict)
             for term in my_dict:
                 # ic(term)
@@ -194,7 +197,7 @@ class ExperimentTypeJsonSchema:
             schema_rules_dict = {"allOf": self.get_core_rules_list()}
             # experiment_type_specific_dict = {"allOf": [self.get_experiment_specific_dict()]}
             # experiment_specific_dict = self.get_experiment_specific_dict()
-            experiment_type_specific_dict = {"allOf":  dict2objects(self.get_experiment_specific_dict())}
+            experiment_type_specific_dict = {"allOf": dict2objects(self.get_experiment_specific_dict())}
             ic(experiment_type_specific_dict)
             # sys.exit()
             # cl_metadata_dict["checklists"] = self.get_schema_metadata()
@@ -202,10 +205,10 @@ class ExperimentTypeJsonSchema:
             ic()
 
             self._schema_dict = merge(schema_core_dict, self.get_schema_metadata(),
-                                experiment_type_specific_dict)
+                                      experiment_type_specific_dict)
             ic(schema_rules_dict)
             ic(schema_rules_dict['allOf'])
-            #rules = schema_rules_dict['allOf'].pop(0)    # tried, but it would not merge
+            # rules = schema_rules_dict['allOf'].pop(0)    # tried, but it would not merge
             for rule in schema_rules_dict['allOf']:
                 ic(rule)
                 self._schema_dict['allOf'].append(rule)
@@ -400,6 +403,10 @@ class ExperimentType:
     #     return
 
 
+""" ########################"Normal routine"#####################################
+"""
+
+
 def get_core_dict(config_data):
     """
     extract the core fields as JSON entries
@@ -558,8 +565,9 @@ def print_all_checklists(expt_objects):
         experimentType.print_checklist()
         # experimentType.print_test_checklist()
 
+
 def create_schema_objects(expt_objects, config_data):
-    """ print_all_checklists
+    """ create_schema_objects
         params:
         in: expt_objects, config_data
         rtn: schema_objects_dict
@@ -572,6 +580,9 @@ def create_schema_objects(expt_objects, config_data):
         ic("AFTER experiment_type_name HERE")
         experimentType: object = expt_objects[experiment_type_name]
         schema_objects[experiment_type_name] = ExperimentTypeJsonSchema(experimentType, config_data)
+        ic()
+        ic(schema_objects[experiment_type_name].print_json_schema())
+        sys.exit()
 
     return schema_objects
 
