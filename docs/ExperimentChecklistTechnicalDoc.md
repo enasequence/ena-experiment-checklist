@@ -64,13 +64,25 @@ The validation process has found the following error(s): .pcr_primers should hav
 ic| f"{schema_file} {test_file}": 'METABARCODING_schema.json METABARCODING_works.json'
 ic| 'No validation errors reported'
 ic| f"{schema_file} {test_file}": 'METABARCODING_schema.json METABARCODING_fails.json'
-ic| 'No validation errors reported'
+b" The validation process has found the following error(s): .target_loci should have required property 'target_loci' "
 ic| f"{schema_file} {test_file}": 'METATRANSCRIPTOMIC_schema.json METATRANSCRIPTOMIC_works.json'
 ic| 'No validation errors reported'
 ic| f"{schema_file} {test_file}": 'METATRANSCRIPTOMIC_schema.json METATRANSCRIPTOMIC_fails.json'
-ic| 'No validation errors reported'
+The validation process has found the following error(s): 
+/library_strategy should be equal to one of the allowed values: ["AMPLICON","ATAC-seq","Bisulfite-Seq","CLONE","CLONEEND","CTS","ChIA-PET","ChIP-Seq","DNase-Hypersensitivity","EST","FAIRE-seq","FINISHING","FL-cDNA","Hi-C","MBD-Seq","MNase-Seq","MRE-Seq","MeDIP-Seq","OTHER","POOLCLONE","RAD-Seq","RIP-Seq","RNA-Seq","SELEX","Synthetic-Long-Read","Targeted-Capture","Tethered Chromatin Conformation Capture","Tn-Seq","VALIDATION","WCS","WGA","WGS","WXS","miRNA-Seq","ssRNA-seq"] '
 ic| f"{schema_file} {test_file}": 'GENOMIC_schema.json GENOMIC_works.json'
 ic| 'No validation errors reported'
+ic| f"{schema_file} {test_file}": 'GENOMIC_schema.json GENOMIC_fails.json'
+The validation process has found the following error(s): 
+/instrument_model should be equal to one of the allowed values: ["454 GS 20","454 GS FLX Titanium","454 GS FLX","454 GS FLX+","454 GS Junior","454 GS","AB 310 Genetic Analyzer","AB 3130 Genetic Analyzer","AB 3130xL Genetic Analyzer","AB 3500 Genetic Analyzer","AB 3500xL Genetic Analyzer","AB 3730 Genetic Analyzer","AB 3730xL Genetic Analyzer","BGISEQ-500","DNBSEQ-G400 FAST","DNBSEQ-G400","DNBSEQ-G50","DNBSEQ-T7","GridION","HiSeq X Five","HiSeq X Ten","Illumina Genome Analyzer II","Illumina Genome Analyzer IIx","Illumina Genome Analyzer","Illumina HiScanSQ","Illumina HiSeq 1000","Illumina HiSeq 1500","Illumina HiSeq 2000","Illumina HiSeq 2500","Illumina HiSeq 3000","Illumina HiSeq 4000","Illumina MiSeq","Illumina MiniSeq","Illumina NovaSeq 6000","Illumina iSeq 100","Ion Torrent PGM","Ion Torrent Proton","Ion Torrent S5 XL","Ion Torrent S5","MinION","NextSeq 500","NextSeq 550","PacBio RS II","PacBio RS","PromethION","Sequel","unspecified"] '
+ic| f"{schema_file} {test_file}": 'TRANSCRIPTOMIC_schema.json TRANSCRIPTOMIC_works.json'
+ic| 'No validation errors reported'
+ic| f"{schema_file} {test_file}": 'TRANSCRIPTOMIC_schema.json TRANSCRIPTOMIC_fails.json'
+The validation process has found the following error(s): 
+/instrument_platform should be equal to one of the allowed values: ["BGISEQ","CAPILLARY","DNBSEQ","ILLUMINA","ION_TORRENT","LS454","OXFORD_NANOPORE","PACBIO_SMRT"] 
+/library_strategy should be equal to one of the allowed values: ["AMPLICON","ATAC-seq","Bisulfite-Seq","CLONE","CLONEEND","CTS","ChIA-PET","ChIP-Seq","DNase-Hypersensitivity","EST","FAIRE-seq","FINISHING","FL-cDNA","Hi-C","MBD-Seq","MNase-Seq","MRE-Seq","MeDIP-Seq","OTHER","POOLCLONE","RAD-Seq","RIP-Seq","RNA-Seq","SELEX","Synthetic-Long-Read","Targeted-Capture","Tethered Chromatin Conformation Capture","Tn-Seq","VALIDATION","WCS","WGA","WGS","WXS","miRNA-Seq","ssRNA-seq"] 
+/sample_accession should match pattern "(^SAM(E|D|N)[A-Z]?[0-9]+)|(^(E|D|S)RS[0-9]{6,})" 
+/study_id should match pattern "(^(E|D|S)RP[0-9]{6,})|(^PRJ(E|D|N)[A-Z][0-9]+)" '
 ```
 ### User Testing
 * users will need to validate every <mark>experiment</mark> JSON file against the relevant schema
