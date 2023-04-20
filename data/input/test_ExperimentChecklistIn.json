@@ -19,6 +19,16 @@
     },
     {
       "checklist_id": "EXC000002",
+      "checklist_name": "METAGENOMIC sequencing specific",
+      "checklist_version": "20221129",
+      "checklist_group": "METAGENOMIC",
+      "experiment_type": "METAGENOMIC_SEQUENCING",
+      "library_source": "METAGENOMIC",
+      "target_loci": "",
+      "target_subfragment": ""
+    },
+    {
+      "checklist_id": "EXC000003",
       "checklist_name": "METATRANSCRIPTOMIC specific",
       "checklist_version": "20221129",
       "checklist_group": "METAGENOMIC",
@@ -27,7 +37,7 @@
       "pcr_fields": ""
     },
     {
-      "checklist_id": "EXC000003",
+      "checklist_id": "EXC000010",
       "checklist_name": "GENOMIC specific",
       "checklist_group": "GENOMIC",
       "checklist_version": "20221129",
@@ -35,7 +45,31 @@
       "library_source": "GENOMIC"
     },
     {
-      "checklist_id": "EXC00000Z",
+      "checklist_id": "EXC000011",
+      "checklist_name": "WGS specific",
+      "checklist_group": "GENOMIC",
+      "checklist_version": "20221129",
+      "experiment_type": "WHOLE_SHOTGUN_SEQUENCING",
+      "library_source": "WGS?"
+    },
+        {
+      "checklist_id": "EXC000012",
+      "checklist_name": "Viral RNA specific",
+      "checklist_group": "GENOMIC",
+      "checklist_version": "20221129",
+      "experiment_type": "VIRAL_RNA_GENOME",
+      "library_source": "???"
+    },
+            {
+      "checklist_id": "EXC000013",
+      "checklist_name": "Exome sequencig specific",
+      "checklist_group": "GENOMIC",
+      "checklist_version": "20221129",
+      "experiment_type": "EXOME_SEQUENCING",
+      "library_source": "???"
+    },
+    {
+      "checklist_id": "EXC999999",
       "checklist_name": "TEST_name",
       "checklist_group": "TEST_group",
       "checklist_version": "20221129",
@@ -47,12 +81,64 @@
       "adapter_fields": ""
     },
     {
-      "checklist_id": "EXC000004",
+      "checklist_id": "EXC000020",
       "checklist_name": "TRANSCRIPTOMIC specific",
       "checklist_group": "TRANSCRIPTOMIC",
       "checklist_version": "20221129",
       "experiment_type": "TRANSCRIPTOMIC",
       "library_source": "TRANSCRIPTOMIC"
+    },
+    {
+      "checklist_id": "EXC000021",
+      "checklist_name": "SPATIAL TRANSCRIPTOMIC specific",
+      "checklist_group": "TRANSCRIPTOMIC",
+      "checklist_version": "20221129",
+      "experiment_type": "SPATIAL_TRANSCRIPTOMIC",
+      "library_source": "TRANSCRIPTOMIC"
+    },
+    {
+      "checklist_id": "EXC000030",
+      "checklist_name": "BARCODING specific",
+      "checklist_version": "20221129",
+      "checklist_group": "GENOTYPING",
+      "experiment_type": "DNA_BARCODING",
+      "library_source": "GENOMIC???",
+      "target_loci": "",
+      "target_subfragment": ""
+    },
+        {
+      "checklist_id": "EXC000031",
+      "checklist_name": "GENOTYPING specific",
+      "checklist_version": "20221129",
+      "checklist_group": "GENOTYPING",
+      "experiment_type": "GENOTYPING",
+      "library_source": "GENOMIC???",
+      "target_loci": "",
+      "target_subfragment": ""
+    },
+    {
+      "checklist_id": "EXC000040",
+      "checklist_name": "CHROMOSOME CONFORMATION CAPTURE specific",
+      "checklist_version": "20221129",
+      "checklist_group": "BEYOND_DNA",
+      "experiment_type": "CHROMOSOME_CONFORMATION_CAPTURE",
+      "library_source": "GENOMIC???"
+    },
+    {
+      "checklist_id": "EXC000041",
+      "checklist_name": "EPIGENOMICS specific",
+      "checklist_version": "20221129",
+      "checklist_group": "BEYOND_DNA",
+      "experiment_type": "EPIGENOMICS",
+      "library_source": "GENOMIC???"
+    },
+    {
+      "checklist_id": "EXC000042",
+      "checklist_name": "DNA binding site prediction specific",
+      "checklist_version": "20221129",
+      "checklist_group": "BEYOND_DNA",
+      "experiment_type": "DNA_binding_site_prediction",
+      "library_source": "GENOMIC???"
     }
   ],
   "pcr_fields": {
@@ -304,7 +390,6 @@
       "_example": "20221129",
       "_comment": "today's date in ISO standard, bit with no separators",
       "type": "integer"
-
     },
     "checklist_group": {
       "description": "The collection of the experiment checklists[PeterMU]",
