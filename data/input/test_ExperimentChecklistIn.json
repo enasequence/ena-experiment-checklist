@@ -285,22 +285,26 @@
       "type": "string"
     },
     "checklist_id": {
-      "description": "[PeterMU]",
+      "description": "checklist identifier[PeterMU]",
       "default": "",
       "_example": "",
+      "minLength": 3,
       "type": "string"
     },
     "checklist_name": {
-      "description": "A short descriptive name to human idnetify [PeterMU]",
+      "description": "A short descriptive name to human identify [PeterMU]",
       "default": "",
       "_example": "METABARCODING specific",
+      "minLength": 3,
       "type": "string"
     },
     "checklist_version": {
       "description": "The version of this checklist, allows us to validate the write records against the right checklist version[PeterMU]",
       "default": "",
       "_example": "20221129",
-      "type": "string"
+      "_comment": "today's date in ISO standard, bit with no separators",
+      "type": "integer"
+
     },
     "checklist_group": {
       "description": "The collection of the experiment checklists[PeterMU]",
