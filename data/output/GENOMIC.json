@@ -3,6 +3,16 @@
     "checklist_id": "EXC000003",
     "checklist_name": "GENOMIC specific",
     "checklist_version": "20221129",
+    "experiment_name": "",
     "experiment_type": "GENOMIC",
-    "library_source": "GENOMIC"
+    "insert_size": 0,
+    "instrument_model": "",
+    "instrument_platform": "",
+    "library_description": "",
+    "library_name": "",
+    "library_selection": "",
+    "library_source": "GENOMIC",
+    "library_strategy": "",
+    "sample_accession": "",
+    "study_id": ""
 }
