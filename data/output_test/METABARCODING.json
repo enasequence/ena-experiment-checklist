@@ -1,0 +1,10 @@
+{
+    "checklist_group": "METAGENOMIC",
+    "checklist_id": "EXC000001",
+    "checklist_name": "METABARCODING specific",
+    "checklist_version": "20221129",
+    "experiment_type": "METABARCODING",
+    "library_source": "METAGENOMIC",
+    "target_loci": "",
+    "target_subfragment": ""
+}

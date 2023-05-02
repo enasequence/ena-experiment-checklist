@@ -1,0 +1,19 @@
+{
+    "adapters": "",
+    "checklist_group": "TEST",
+    "checklist_id": "EXC00000Z",
+    "checklist_name": "TEST specific",
+    "checklist_version": "20221129",
+    "experiment_type": "TEST",
+    "library_source": "TRANSCRIPTOMIC",
+    "multiplex_identifiers": "",
+    "pcr_primers": {
+        "fwd_name": "",
+        "fwd_seq": "",
+        "rev_name": "",
+        "rev_seq": ""
+    },
+    "pcr_protocol": "",
+    "target_loci": "",
+    "target_subfragment": ""
+}
