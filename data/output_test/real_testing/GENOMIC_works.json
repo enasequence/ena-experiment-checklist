@@ -1,18 +1,18 @@
 {
     "checklist_group": "GENOMIC",
-    "checklist_id": "EXC000010",
+    "checklist_id": "EXC000003",
     "checklist_name": "GENOMIC specific",
     "checklist_version": "20221129",
     "experiment_name": "",
     "experiment_type": "GENOMIC",
     "insert_size": 0,
-    "instrument_model": "",
-    "instrument_platform": "",
+    "instrument_model": "unspecified",
+    "instrument_platform": "ILLUMINA",
     "library_description": "",
     "library_name": "",
-    "library_selection": "",
+    "library_selection": "unspecified",
     "library_source": "GENOMIC",
-    "library_strategy": "",
-    "sample_accession": "",
-    "study_id": ""
+    "library_strategy": "WGA",
+    "sample_accession": "ERS123456",
+    "study_id": "ERP123456"
 }

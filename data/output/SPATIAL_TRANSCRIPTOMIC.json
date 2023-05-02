@@ -1,10 +1,10 @@
 {
     "checklist_group": "TRANSCRIPTOMIC",
-    "checklist_id": "EXC000020",
-    "checklist_name": "TRANSCRIPTOMIC specific",
+    "checklist_id": "EXC000021",
+    "checklist_name": "SPATIAL TRANSCRIPTOMIC specific",
     "checklist_version": "20221129",
     "experiment_name": "",
-    "experiment_type": "TRANSCRIPTOMIC",
+    "experiment_type": "SPATIAL_TRANSCRIPTOMIC",
     "insert_size": 0,
     "instrument_model": "",
     "instrument_platform": "",

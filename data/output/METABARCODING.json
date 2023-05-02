@@ -3,8 +3,18 @@
     "checklist_id": "EXC000001",
     "checklist_name": "METABARCODING specific",
     "checklist_version": "20221129",
+    "experiment_name": "",
     "experiment_type": "METABARCODING",
+    "insert_size": 0,
+    "instrument_model": "",
+    "instrument_platform": "",
+    "library_description": "",
+    "library_name": "",
+    "library_selection": "",
     "library_source": "METAGENOMIC",
+    "library_strategy": "",
+    "sample_accession": "",
+    "study_id": "",
     "target_loci": "",
     "target_subfragment": ""
 }

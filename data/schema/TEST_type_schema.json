@@ -4,25 +4,25 @@
     "allOf": [
         {
             "checklist_id": {
-                "_example": "EXC00000Z",
-                "default": "EXC00000Z",
-                "description": "",
+                "_example": "EXC000004",
+                "default": "EXC000004",
+                "description": "[PeterMU]",
                 "type": "string"
             }
         },
         {
             "checklist_name": {
-                "_example": "TEST_name",
-                "default": "TEST_name",
-                "description": "",
+                "_example": "TRANSCRIPTOMIC specific",
+                "default": "TRANSCRIPTOMIC specific",
+                "description": "[PeterMU]",
                 "type": "string"
             }
         },
         {
             "checklist_group": {
-                "_example": "TEST_group",
-                "default": "TEST_group",
-                "description": "",
+                "_example": "TRANSCRIPTOMIC",
+                "default": "TRANSCRIPTOMIC",
+                "description": "The collection of the experiment checklists[PeterMU]",
                 "type": "string"
             }
         },
@@ -30,24 +30,44 @@
             "checklist_version": {
                 "_example": "20221129",
                 "default": "20221129",
-                "description": "",
+                "description": "[PeterMU]",
                 "type": "string"
             }
         },
         {
             "experiment_type": {
-                "_example": "TEST_type",
-                "default": "TEST_type",
-                "description": "",
+                "_example": "TRANSCRIPTOMIC",
+                "default": "TRANSCRIPTOMIC",
+                "description": "The broad type of sequencing experiment performed[PeterMU]",
                 "type": "string"
             }
         },
         {
-            "library_source": {
-                "_example": "TRANSCRIPTOMIC",
-                "default": "TRANSCRIPTOMIC",
-                "description": "",
-                "type": "string"
+            "if": {
+                "properties": {
+                    "instrument": {
+                        "const": "unspecified"
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "instrument_platform"
+                ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "library_selection": {
+                        "pattern": "PCR"
+                    }
+                }
+            },
+            "then": {
+                "required": [
+                    "pcr_primers"
+                ]
             }
         },
         {
@@ -56,8 +76,7 @@
                 "checklist_name",
                 "checklist_group",
                 "checklist_version",
-                "experiment_type",
-                "library_source"
+                "experiment_type"
             ]
         }
     ],
@@ -256,11 +275,13 @@
         },
         "sample_accession": {
             "description": "This is the study accession number that starts with ERP granted after registering a study with the ENA. [ENA]",
+            "pattern": "(^SAM(E|D|N)[A-Z]?[0-9]+)|(^(E|D|S)RS[0-9]{6,})",
             "type": "string"
         },
         "study_id": {
             "default": "my study",
             "description": "",
+            "pattern": "(^(E|D|S)RP[0-9]{6,})|(^PRJ(E|D|N)[A-Z][0-9]+)",
             "type": "string"
         }
     },

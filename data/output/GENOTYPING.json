@@ -1,18 +1,20 @@
 {
-    "checklist_group": "TRANSCRIPTOMIC",
-    "checklist_id": "EXC000020",
-    "checklist_name": "TRANSCRIPTOMIC specific",
+    "checklist_group": "GENOTYPING",
+    "checklist_id": "EXC000031",
+    "checklist_name": "GENOTYPING specific",
     "checklist_version": "20221129",
     "experiment_name": "",
-    "experiment_type": "TRANSCRIPTOMIC",
+    "experiment_type": "GENOTYPING",
     "insert_size": 0,
     "instrument_model": "",
     "instrument_platform": "",
     "library_description": "",
     "library_name": "",
     "library_selection": "",
-    "library_source": "TRANSCRIPTOMIC",
+    "library_source": "GENOMIC???",
     "library_strategy": "",
     "sample_accession": "",
-    "study_id": ""
+    "study_id": "",
+    "target_loci": "",
+    "target_subfragment": ""
 }
