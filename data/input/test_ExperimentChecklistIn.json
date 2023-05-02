@@ -3,7 +3,7 @@
     "$id": "https://www.ebi.ac.uk/exeriment.checklist.ena.schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "PROTOTYPE Experimental Checklists JSON schema",
-    "description": "Contained herein are the specific ENO experimental JSON schema describing what is need to validate specific checklists",
+    "description": "Contained herein are the specific ENA experimental JSON schema describing what is need to validate specific checklists",
     "type": "object"
   },
   "experimentTypes": [
@@ -62,7 +62,7 @@
     },
             {
       "checklist_id": "EXC000013",
-      "checklist_name": "Exome sequencig specific",
+      "checklist_name": "Exome sequencing specific",
       "checklist_group": "GENOMIC",
       "checklist_version": "20221129",
       "experiment_type": "EXOME_SEQUENCING",
