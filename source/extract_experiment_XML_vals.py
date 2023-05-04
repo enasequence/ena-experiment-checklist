@@ -74,7 +74,6 @@ class SRA_SPEC:
         all_instruments = list(set(all_instruments)) # get rid of duplicates
         self.all_instruments = all_instruments
 
-        quit()
     def get_platform(self):
         return(self.platform)
 
@@ -87,7 +86,6 @@ class SRA_SPEC:
 
     def print_platform_md_list(self):
         platforms = self.get_platform_list()
-        ic(platforms)
         platforms.sort()
         for platform in platforms:
             print("- " + platform)
@@ -126,8 +124,9 @@ def get_SRA_XML_baseline():
 def main():
     sra_obj = get_SRA_XML_baseline()
     ic(sra_obj.get_platform())
-    print()
+    print("platform terms")
     sra_obj.print_platform_md_list()
+    print("instrument terms")
     sra_obj.print_instrument_md_list()
 
 if __name__ == '__main__':
