@@ -35,6 +35,7 @@ import json
 import sys
 
 from mergedeep import merge
+from extract_experiment_XML_vals import *
 
 # from ExperimentChecklist import *
 # ic.disable()
@@ -58,7 +59,25 @@ class ExperimentTypeJsonSchema:
         self._core_dict = core_dict
         self._specific_json_config = ""
         self.set_experiment_specific_dict(experiment_type_obj.get_checklist_specific_dict())
+        self.set_platform_instrument()
         experiment_type_obj.set_json_schema_obj(self)
+
+    def set_platform_instrument(self):
+        """
+         gets the platform and instrument JSON configuration ultimately from the experiment_sra_xml
+         e.g. {'BGISEQ': ['BGISEQ-500', 'MGISEQ-2000RS', 'BGISEQ-50'],
+                'DNBSEQ': ['DNBSEQ-G50','DNBSEQ-G400 FAST','DNBSEQ-T7', 'unspecified','DNBSEQ-G400']
+              }
+        :return:
+        """
+        ic()
+        ic.disable()
+        sra_experiment_xml_obj = get_SRA_XML_baseline()
+        ic.enable()
+        self.platform_instrument = sra_experiment_xml_obj.get_platform()
+
+    def get_platform_instrument(self):
+        return self.platform_instrument
 
     def get_experiment_type_name(self):
         return self.experiment_type_name
@@ -108,7 +127,7 @@ class ExperimentTypeJsonSchema:
         """
         gets allOf terms, and returns those
          that need to be required as list.
-         By default all are required.
+         By default, all are required.
         (does not get other properties terms)
 
         :return: list of required_term
@@ -609,6 +628,7 @@ def main():
     ic()
     debug_status = True
     # debug_status = False
+
     config_data = read_config(debug_status)
     expt_objects_dict = process_and_get_fields(config_data)
     ic(expt_objects_dict)
