@@ -75,8 +75,15 @@ class ExperimentTypeJsonSchema:
         sra_experiment_xml_obj = get_SRA_XML_baseline()
         ic.enable()
         self.platform_instrument = sra_experiment_xml_obj.get_platform()
+        # schema_core_dict = {"properties": self.get_core_fields_dict()}
+        # properties instrument_platform enum LIST
+        ic(self._core_dict['coreFields'])
+        self._core_dict['coreFields']["instrument_platform"]["enum"] = sra_experiment_xml_obj.get_platform_list()
+        # properties instrument_model enum LIST
+        self._core_dict['coreFields']["instrument_model"]["enum"] = sra_experiment_xml_obj.get_instrument_list()
 
     def get_platform_instrument(self):
+        # dict of platform as keys and an array of instruments for each platform
         return self.platform_instrument
 
     def get_experiment_type_name(self):
@@ -112,7 +119,8 @@ class ExperimentTypeJsonSchema:
                 required_terms.append(term)
         ic()
         # ic(required_terms)
-        # sys.exit()
+        ic("in get_properties_required_term_list")
+        sys.exit()
         return required_terms
 
     def get_experiment_specific_dict_keylist(self):
@@ -189,6 +197,8 @@ class ExperimentTypeJsonSchema:
         This will ultimately be printed out as a json schema to validate the experiment_type
         return schema_dict
         """
+        ic("get_json_schema")
+
 
         def dict2objects(my_dict):
             """
@@ -208,11 +218,18 @@ class ExperimentTypeJsonSchema:
 
         if hasattr(self, "_schema_dict"):
             ic("already has _schema_dict")
-            ic("about to exit")
-            sys.exit()
+            #ic("about to exit")
+            #sys.exit()
         else:
             ic("=" * 80)
+            ic("need to create a schema")
             schema_core_dict = {"properties": self.get_core_fields_dict()}
+            # properties instrument_platform enum LIST
+            # properties instrument_model enum LIST
+
+            ic(schema_core_dict)
+            # ic("about to exit after calling schema_core_dict")
+            # sys.exit()
             schema_rules_dict = {"allOf": self.get_core_rules_list()}
             # experiment_type_specific_dict = {"allOf": [self.get_experiment_specific_dict()]}
             # experiment_specific_dict = self.get_experiment_specific_dict()
@@ -600,7 +617,11 @@ def create_schema_objects(expt_objects, config_data):
         experimentType: object = expt_objects[experiment_type_name]
         schema_objects[experiment_type_name] = ExperimentTypeJsonSchema(experimentType, config_data)
         ic()
+        ic("FFF")
+
         ic(schema_objects[experiment_type_name].print_json_schema())
+        ic("about to exit from create_schema_objects")
+        print("about to exit from create_schema_objects")
         sys.exit()
 
     return schema_objects
