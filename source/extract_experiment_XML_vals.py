@@ -1,5 +1,14 @@
 #!/usr/bin/env python3
-"""Script of 'extractXMLvals.py' is to '
+"""Script of 'extractXMLvals.py' is to get various experiment related controlled vocabularies and dependencies from the SRA.experiment.xml
+
+1) the underlying functions are called  in the ExperimentChecklists2.josn.py script
+2) as a command line - If someone needs to repeat getting an alphabetically sorted list of terms for 1) platforms and 2) instruments run this script.
+
+Notes;
+It pulls the information from the SRA.experiment.xml. This XML is the ground truth for metadata for experiments, thus important
+to be in sync with it.
+(BTW I cheat and use a JSON rendition of the XML, as JSON is much easier to use in python.
+Uses the fairly ubiquitous jq/xq utilities. Only needed though when the XML is updated.)
 
 ___author___ = "woollard@ebi.ac.uk"
 ___start_date___ = 2023-05-03
@@ -27,6 +36,9 @@ class SRA_SPEC:
         ic("_____________________________")
         self.platform = {}
         all_instruments = []
+        # if frequent changes may be best to refactor and pull the platform names directly from the XML and dynamically re-map.
+        # it looked convoluted to do, so went for the easiest option.
+        missing_platforms = []
         for child in simple_level:
             raw_platform = child['@name'].removeprefix("type").removesuffix("Model")
             if raw_platform == "Illumina":
@@ -58,6 +70,8 @@ class SRA_SPEC:
             else:
                 platform = "not_yet_recognised"
                 # Ultima , Element, Helicos, Complete Genomics, AbiSolid
+                missing_platforms.append(raw_platform)
+
             values = child['xs:restriction']['xs:enumeration']
             instruments = []
             #ic(self.platform)
@@ -69,6 +83,12 @@ class SRA_SPEC:
             self.platform[platform].extend(instruments)
             self.platform[platform] = list(set(self.platform[platform]))   # get rid of duplicates
             all_instruments.extend(instruments)
+
+        if len(missing_platforms) > 0:
+            os.write(2, b"WARNING: the following platforms are not recognised yet, please add in before continuing!\n")
+            print(f"Missing platforms: \"{missing_platforms}\"")
+            exit()
+
 
         platforms = self.get_platform_list()
         all_instruments = list(set(all_instruments)) # get rid of duplicates
@@ -88,6 +108,9 @@ class SRA_SPEC:
         platforms = self.get_platform_list()
         platforms.sort()
         for platform in platforms:
+            if platform == "not_yet_recognised":
+                os.write(2, b"WARNING: the following platform is not recognised yet, please add in!\n")
+                print(f"MISSING platform: \"{platform}\"")
             print("- " + platform)
 
 
@@ -126,7 +149,7 @@ def main():
     ic(sra_obj.get_platform())
     print("platform terms")
     sra_obj.print_platform_md_list()
-    print("instrument terms")
+    print("\ninstrument terms")
     sra_obj.print_instrument_md_list()
 
 if __name__ == '__main__':
