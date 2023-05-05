@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Script of 'extractXMLvals.py' is to get various experiment related controlled vocabularies and dependencies from the SRA.experiment.xml
+"""Script of 'extract_experiment_XML_vals.py' is to get various experiment related controlled vocabularies and dependencies from the SRA.experiment.xml
 
 1) the underlying functions are called  in the ExperimentChecklists2.json.py script
 2) as a command line - If someone needs to repeat getting an alphabetically sorted list of terms for 1) platforms and 2) instruments run this script.
@@ -97,6 +97,9 @@ class SRA_SPEC:
     def get_platform(self):
         return(self.platform)
 
+    def get_instrument(self):
+        return(self.all_instruments)
+
     def get_platform_list(self):
         return(list(self.platform.keys()))
 
@@ -147,6 +150,9 @@ def get_SRA_XML_baseline():
 def main():
     sra_obj = get_SRA_XML_baseline()
     ic(sra_obj.get_platform())
+    ic(sra_obj.get_platform_list())
+    ic(sra_obj.get_instrument_list())
+    exit()
     print("platform terms")
     sra_obj.print_platform_md_list()
     print("\ninstrument terms")
