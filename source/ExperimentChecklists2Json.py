@@ -82,6 +82,8 @@ class ExperimentTypeJsonSchema:
         # properties instrument_model enum LIST
         self._core_dict['coreFields']["instrument_model"]["enum"] = sra_experiment_xml_obj.get_instrument_list()
 
+        self.set_platform_instrument_rules()
+
     def get_platform_instrument(self):
         # dict of platform as keys and an array of instruments for each platform
         return self.platform_instrument
@@ -111,6 +113,7 @@ class ExperimentTypeJsonSchema:
 
         :return: list of required_term
         """
+        ic("in get_properties_required_term_list")
         required_terms = []
         for term in self.get_core_fields_dict_keylist():
             if "_comment" in term:
@@ -118,9 +121,9 @@ class ExperimentTypeJsonSchema:
             else:
                 required_terms.append(term)
         ic()
-        # ic(required_terms)
-        ic("in get_properties_required_term_list")
-        sys.exit()
+        ic(required_terms)
+
+
         return required_terms
 
     def get_experiment_specific_dict_keylist(self):
@@ -149,10 +152,45 @@ class ExperimentTypeJsonSchema:
 
         return required_terms
 
+    def set_platform_instrument_rules(self):
+        """
+           set_instrument_platform_rules as instruments specific to platform, except for "unspecified"
+        :return:
+        """
+        pi = self.get_platform_instrument()
+        pi_rules = []
+        count = 0
+
+        #ic(self._core_dict['coreRules'])
+
+        for platform in pi:
+            #ic(platform)
+            pi_rule = {'if': {'properties': {'instrument_platform': {'const': ""}}}}
+            pi_rule['if']['properties']['instrument_platform']['const'] = platform
+            pi_rule['then'] = {'properties': {'instrument': {'enum': ""}}}
+            pi_rule['then']['properties']['instrument']['enum'] = pi[platform]
+            #ic(pi_rule)
+            pi_rules.append(pi_rule)
+            count += 1
+        #ic(pi_rules)
+        self._core_dict['coreRules'].extend(pi_rules)
+        #ic(self._core_dict['coreRules'])
+        #print(self._core_dict['coreRules'])
+        #sys.exit()
+
+
+    def get_instrument_platform_rules(self):
+        pass
+
     def get_core_rules_list(self):
         """get_core_fields_dict
 
         """
+        #ic(self._core_dict['coreRules'])
+        #self.get_instrument_platform_rules()
+
+        #ic("exiting at def get_core_rules_list")
+        #sys.exit()
         return self._core_dict['coreRules']
 
     def get_schema_metadata(self):
@@ -283,6 +321,7 @@ class ExperimentTypeJsonSchema:
     def print_json_schema(self):
         """ printout_json_schema to a JSON file
         params:
+        return: json too
 
         """
         data_loc_dict = get_data_locations()
@@ -296,7 +335,7 @@ class ExperimentTypeJsonSchema:
         json_object = json.dumps(json_schema_dict, indent = 4, sort_keys = True)
         with open(outfileName, "w") as outfile:
             outfile.write(json_object)
-
+        return json_object
 
 class ExperimentType:
     """ ExperimentType object
@@ -621,7 +660,6 @@ def create_schema_objects(expt_objects, config_data):
 
         ic(schema_objects[experiment_type_name].print_json_schema())
         ic("about to exit from create_schema_objects")
-        print("about to exit from create_schema_objects")
         sys.exit()
 
     return schema_objects
