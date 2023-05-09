@@ -72,15 +72,15 @@ class ExperimentTypeJsonSchema:
         """
         ic()
         ic.disable()
-        sra_experiment_xml_obj = get_SRA_XML_baseline()
+        sra_common_xml_obj = get_SRA_COMMON_XML_baseline()
         ic.enable()
-        self.platform_instrument = sra_experiment_xml_obj.get_platform()
+        self.platform_instrument = sra_common_xml_obj.get_platform()
         # schema_core_dict = {"properties": self.get_core_fields_dict()}
         # properties instrument_platform enum LIST
         ic(self._core_dict['coreFields'])
-        self._core_dict['coreFields']["instrument_platform"]["enum"] = sra_experiment_xml_obj.get_platform_list()
+        self._core_dict['coreFields']["instrument_platform"]["enum"] = sra_common_xml_obj.get_platform_list()
         # properties instrument_model enum LIST
-        self._core_dict['coreFields']["instrument_model"]["enum"] = sra_experiment_xml_obj.get_instrument_list()
+        self._core_dict['coreFields']["instrument_model"]["enum"] = sra_common_xml_obj.get_instrument_list()
 
         self.set_platform_instrument_rules()
 

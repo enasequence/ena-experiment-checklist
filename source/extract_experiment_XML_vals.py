@@ -24,7 +24,38 @@ import subprocess
 import os
 import json
 
-class SRA_SPEC:
+class SRA_EXPERIMENT_SPEC:
+
+    def __init__(self, my_sra_json):
+        self.schema_level = my_sra_json["xs:schema"]
+        #ic(self.schema_level)
+        self.process_platform()
+
+    def process_platform(self):
+        simple_level = self.schema_level["xs:simpleType"]
+        ic(simple_level)
+        ic("_____________________________")
+
+        for child in simple_level:
+            if child.get('@name'):
+                field = child['@name'].removeprefix("type")
+            else:
+                field = child['xs:restriction'].removeprefix("type")
+            if field == "LibraryStrategy":
+                ic(field)
+                #ic(simple_level[child])
+                ic(child['xs:annotation']['xs:documentation'])
+                ic(child['xs:restriction']['xs:enumeration'])
+                sys.exit()
+            else:
+                ic(field)
+
+
+        ic()
+        exit()
+
+
+class SRA_COMMON_SPEC:
     def __init__(self, my_sra_json):
         self.schema_level = my_sra_json["xs:schema"]
         #ic(self.schema_level)
@@ -124,7 +155,7 @@ class SRA_SPEC:
             print("- " + instrument)
     """=====================END OF SRA OBJ=============================="""
 
-def get_SRA_XML_baseline():
+def get_SRA_COMMON_XML_baseline():
     """
 
     :return: sra_instance
@@ -141,22 +172,51 @@ def get_SRA_XML_baseline():
     #os.system(cmd)
 
     f = open(outfullfilename)
-    my_sra_json=json.load(f)
+    my_sra_json = json.load(f)
     #ic(my_sra_json)
-    sra_instance = SRA_SPEC(my_sra_json)
+    sra_common_obj = SRA_COMMON_SPEC(my_sra_json)
     #ic(sra_instance.get_platform())
-    return(sra_instance)
+    return(sra_common_obj)
 
+
+def get_SRA_EXPERIMENT_XML_baseline():
+    """
+
+    :return: sra_instance
+    """
+    # cmd = ('date', '-u', '+%A')
+    #
+    # p = subprocess.run(cmd, capture_output = True, text = True)
+    # print(p.stdout)
+    outdir = "/Users/woollard/projects/easi-genomics/ExperimentChecklist/data/input/"
+    outfile = "SRA.experiment.json"
+    outfullfilename=outdir + outfile
+    cmd="curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.experiment.xsd | xq > " + outfullfilename
+    ic(cmd)
+    os.system(cmd)
+
+    f = open(outfullfilename)
+    my_sra_json = json.load(f)
+
+    sra_expt_obj = SRA_EXPERIMENT_SPEC(my_sra_json)
+    exit()
+    #ic(sra_instance.get_platform())
+    return(sra_common_obj)
 def main():
-    sra_obj = get_SRA_XML_baseline()
-    ic(sra_obj.get_platform())
-    ic(sra_obj.get_platform_list())
-    ic(sra_obj.get_instrument_list())
+    get_SRA_EXPERIMENT_XML_baseline()
+    quit()
+
+
+
+    sra_common_obj = get_SRA_COMMON_XML_baseline()
+    ic(sra_common_obj.get_platform())
+    ic(sra_common_obj.get_platform_list())
+    ic(sra_common_obj.get_instrument_list())
     exit()
     print("platform terms")
-    sra_obj.print_platform_md_list()
+    sra_common_obj.print_platform_md_list()
     print("\ninstrument terms")
-    sra_obj.print_instrument_md_list()
+    sra_common_obj.print_instrument_md_list()
 
 if __name__ == '__main__':
     ic()
