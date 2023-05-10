@@ -76,41 +76,62 @@ class SRA_EXPERIMENT_SPEC:
         complex_level = self.experiment_schema_level["xs:complexType"]
         #ic(complex_level)
 
-        #def process_complex():
+        def process_complex(pointer):
+            ic(pointer)
+
+            base = child['xs:complexContent']['xs:extension']
+            # ic(base)
+            # ic(base['@base'].removeprefix("com"))
+            el_base = base['xs:choice']['xs:element']
+            ic(el_base)
+            for grandchild in el_base:
+                ic(grandchild)
+                name = grandchild['@name']
+                ic(name)
+
+
 
         for child in complex_level:
             ic()
-            ic(child)
+            #ic(child)
             if child.get('@name'):
                 field = child['@name'].removeprefix("type")
                 ic(field)
-                self.PoolMemberType = {}
-                base = child['xs:complexContent']['xs:extension']
-                #ic(base)
-                #ic(base['@base'].removeprefix("com"))
-                for grandchild in base['xs:attribute']:
-                    name = grandchild['@name']
-                    # ic(grandchild['@name'])
-                    # ic(grandchild['@type'].removeprefix('xs:'))
-                    # ic(grandchild['xs:annotation']['xs:documentation'])
-                    self.PoolMemberType[name] = {}
-                    self.PoolMemberType[name]['type'] = grandchild['@type'].removeprefix('xs:')
-                    self.PoolMemberType[name]['docs'] = grandchild['xs:annotation']['xs:documentation']
-                    self.PoolMemberType[name]['value'] = ""
-                ic(self.PoolMemberType)
-                for tag in base['xs:sequence']['xs:element']:
-                    #ic(tag)
+                if field == 'SampleDescriptorType':
+                    ic(child)
+                    self.SampleDescriptor = {}
+                    process_complex(self.SampleDescriptor)
 
-                    if tag == '@name':
-                        ic(tag)
-                        tag_base = base['xs:sequence']['xs:element'][tag]
-                        ic(tag_base)
-                        ic(base['xs:sequence']['xs:element']['xs:complexType']['xs:simpleContent']['xs:extension']['xs:attribute'])
-                #ic(grandchild['@name'])
+                    sys.exit()
+                elif field == 'PoolMemberType':
+                    self.PoolMemberType = {}
+                    base = child['xs:complexContent']['xs:extension']
+                    #ic(base)
+                    #ic(base['@base'].removeprefix("com"))
+                    for grandchild in base['xs:attribute']:
+                        name = grandchild['@name']
+                        ic(grandchild['@name'])
+                        # ic(grandchild['@type'].removeprefix('xs:'))
+                        # ic(grandchild['xs:annotation']['xs:documentation'])
+                        self.PoolMemberType[name] = {}
+                        self.PoolMemberType[name]['type'] = grandchild['@type'].removeprefix('xs:')
+                        self.PoolMemberType[name]['docs'] = grandchild['xs:annotation']['xs:documentation']
+                        self.PoolMemberType[name]['value'] = ""
+                        for tag in base['xs:sequence']['xs:element']:
+                            #ic(tag)
 
+                            if tag == '@name':
+                                tag_base = base['xs:sequence']['xs:element'][tag]
+                                tag_deep_base = base['xs:sequence']['xs:element']['xs:complexType']['xs:simpleContent']['xs:extension']['xs:attribute']
+                                self.PoolMemberType[name]['sequence'] = {}
+                                self.PoolMemberType[name]['sequence'][tag_deep_base['@name']] = {}
+                                self.PoolMemberType[name]['sequence'][tag_deep_base['@name']]['type'] = tag_deep_base['@type'].removeprefix('xs:')
+                                self.PoolMemberType[name]['sequence'][tag_deep_base['@name']]['value'] = ""
+                                self.PoolMemberType[name]['sequence']['docs'] = tag_deep_base['xs:annotation']['xs:documentation']
+                    ic(self.PoolMemberType)
             else:
                 ic()
-            exit()
+
     def get_library_strategy_list(self):
         ic(self.library_strategy)
         return (list(self.library_strategy.keys()))
