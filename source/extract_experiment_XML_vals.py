@@ -25,44 +25,106 @@ import os
 import json
 
 class SRA_EXPERIMENT_SPEC:
-
-    def __init__(self, my_sra_json):
-        self.schema_level = my_sra_json["xs:schema"]
+    def __init__(self, my_sra_experiment_json, my_sra_common_json):
+        #self.common_schema_level = my_sra_common_json["xs:schema"]
+        self.experiment_schema_level = my_sra_experiment_json["xs:schema"]
+        self.process_experiment()
         #ic(self.schema_level)
-        self.process_platform()
+        #self.process_platform()
 
-    def process_platform(self):
-        simple_level = self.schema_level["xs:simpleType"]
-        ic(simple_level)
+    def process_experiment(self):
+        simple_level = self.experiment_schema_level["xs:simpleType"]
+        #ic(simple_level)
         ic("_____________________________")
 
-        for child in simple_level:
-            if child.get('@name'):
-                field = child['@name'].removeprefix("type")
-            else:
-                field = child['xs:restriction'].removeprefix("type")
-            if field == "LibraryStrategy":
-                ic(field)
-                #ic(simple_level[child])
-                ic(child['xs:annotation']['xs:documentation'])
-                ic(child['xs:restriction']['xs:enumeration'])
-                sys.exit()
-            else:
-                ic(field)
+        # def process_lib_child(child, self_child_pointer):
+        #     #ic(child['xs:annotation']['xs:documentation'])
+        #     #ic(child['xs:restriction']['xs:enumeration'])
+        #     for LibChild in child['xs:restriction']['xs:enumeration']:
+        #         term_name = LibChild['@value']
+        #         #ic(term_name)
+        #         if LibChild.get('xs:annotation'):
+        #             # ic(LibChild['xs:annotation']['xs:documentation'])
+        #             self_child_pointer[term_name] = {}
+        #             self_child_pointer[term_name]["documentation"] = LibChild['xs:annotation'][
+        #                 'xs:documentation']
 
+        # for child in simple_level:
+        #     if child.get('@name'):
+        #         field = child['@name'].removeprefix("type")
+        #     else:
+        #         field = child['xs:restriction'].removeprefix("type")
+        #     ic(field)
+        #     if field == "LibraryStrategy":
+        #         self.library_strategy = {}
+        #         #process_lib_child(child, self.library_strategy)
+        #     elif field == "LibrarySource":
+        #         self.library_source = {}
+        #         #process_lib_child(child, self.library_source)
+        #     elif field == "LibrarySelection":
+        #         self.library_selection = {}
+        #         process_lib_child(child, self.library_selection)
+        #     else:
+        #         ic("<--TBD-->")
+
+        self.process_further_expt()
 
         ic()
-        exit()
 
+    def process_further_expt(self):
+        ic()
+        complex_level = self.experiment_schema_level["xs:complexType"]
+        #ic(complex_level)
 
-class SRA_COMMON_SPEC:
-    def __init__(self, my_sra_json):
-        self.schema_level = my_sra_json["xs:schema"]
-        #ic(self.schema_level)
-        self.process_platform()
+        #def process_complex():
+
+        for child in complex_level:
+            ic()
+            ic(child)
+            if child.get('@name'):
+                field = child['@name'].removeprefix("type")
+                ic(field)
+                self.PoolMemberType = {}
+                base = child['xs:complexContent']['xs:extension']
+                #ic(base)
+                #ic(base['@base'].removeprefix("com"))
+                for grandchild in base['xs:attribute']:
+                    name = grandchild['@name']
+                    # ic(grandchild['@name'])
+                    # ic(grandchild['@type'].removeprefix('xs:'))
+                    # ic(grandchild['xs:annotation']['xs:documentation'])
+                    self.PoolMemberType[name] = {}
+                    self.PoolMemberType[name]['type'] = grandchild['@type'].removeprefix('xs:')
+                    self.PoolMemberType[name]['docs'] = grandchild['xs:annotation']['xs:documentation']
+                    self.PoolMemberType[name]['value'] = ""
+                ic(self.PoolMemberType)
+                for tag in base['xs:sequence']['xs:element']:
+                    #ic(tag)
+
+                    if tag == '@name':
+                        ic(tag)
+                        tag_base = base['xs:sequence']['xs:element'][tag]
+                        ic(tag_base)
+                        ic(base['xs:sequence']['xs:element']['xs:complexType']['xs:simpleContent']['xs:extension']['xs:attribute'])
+                #ic(grandchild['@name'])
+
+            else:
+                ic()
+            exit()
+    def get_library_strategy_list(self):
+        ic(self.library_strategy)
+        return (list(self.library_strategy.keys()))
+
+    def get_library_source_list(self):
+        ic(self.library_source)
+        return (list(self.library_source.keys()))
+
+    def get_library_selection_list(self):
+        ic(self.library_selection)
+        return (list(self.library_selection.keys()))
 
     def process_platform(self):
-        simple_level = self.schema_level["xs:simpleType"]
+        simple_level = self.common_schema_level["xs:simpleType"]
         ic(simple_level)
         ic("_____________________________")
         self.platform = {}
@@ -120,7 +182,6 @@ class SRA_COMMON_SPEC:
             print(f"Missing platforms: \"{missing_platforms}\"")
             exit()
 
-
         platforms = self.get_platform_list()
         all_instruments = list(set(all_instruments)) # get rid of duplicates
         self.all_instruments = all_instruments
@@ -137,7 +198,6 @@ class SRA_COMMON_SPEC:
     def get_instrument_list(self):
         return (self.all_instruments)
 
-
     def print_platform_md_list(self):
         platforms = self.get_platform_list()
         platforms.sort()
@@ -147,7 +207,6 @@ class SRA_COMMON_SPEC:
                 print(f"MISSING platform: \"{platform}\"")
             print("- " + platform)
 
-
     def print_instrument_md_list(self):
         all_instruments = self.get_instrument_list()
         all_instruments.sort()
@@ -155,68 +214,51 @@ class SRA_COMMON_SPEC:
             print("- " + instrument)
     """=====================END OF SRA OBJ=============================="""
 
-def get_SRA_COMMON_XML_baseline():
+def get_SRA_XML_baseline():
     """
 
     :return: sra_instance
     """
-    # cmd = ('date', '-u', '+%A')
-    #
-    # p = subprocess.run(cmd, capture_output = True, text = True)
-    # print(p.stdout)
+    ic()
+
+    def cmd2json(cmd):
+        ic(cmd)
+        # os.system(cmd)
+        f = open(outfullfilename)
+        my_sra_json = json.load(f)
+        return my_sra_json
+
     outdir = "/Users/woollard/projects/easi-genomics/ExperimentChecklist/data/input/"
     outfile = "SRA.common.json"
     outfullfilename=outdir + outfile
     cmd="curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.common.xsd | xq > " + outfullfilename
-    ic(cmd)
-    #os.system(cmd)
-
-    f = open(outfullfilename)
-    my_sra_json = json.load(f)
-    #ic(my_sra_json)
-    sra_common_obj = SRA_COMMON_SPEC(my_sra_json)
-    #ic(sra_instance.get_platform())
-    return(sra_common_obj)
-
-
-def get_SRA_EXPERIMENT_XML_baseline():
-    """
-
-    :return: sra_instance
-    """
-    # cmd = ('date', '-u', '+%A')
-    #
-    # p = subprocess.run(cmd, capture_output = True, text = True)
-    # print(p.stdout)
-    outdir = "/Users/woollard/projects/easi-genomics/ExperimentChecklist/data/input/"
     outfile = "SRA.experiment.json"
-    outfullfilename=outdir + outfile
-    cmd="curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.experiment.xsd | xq > " + outfullfilename
-    ic(cmd)
-    os.system(cmd)
+    my_sra_common_json = cmd2json(cmd)
 
-    f = open(outfullfilename)
-    my_sra_json = json.load(f)
+    outfullfilename = outdir + outfile
+    cmd = "curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.experiment.xsd | xq > " + outfullfilename
+    my_sra_experiment_json = cmd2json(cmd)
 
-    sra_expt_obj = SRA_EXPERIMENT_SPEC(my_sra_json)
-    exit()
-    #ic(sra_instance.get_platform())
-    return(sra_common_obj)
+    sra_obj = SRA_EXPERIMENT_SPEC(my_sra_experiment_json, my_sra_common_json)
+    return(sra_obj)
+
+
+
 def main():
-    get_SRA_EXPERIMENT_XML_baseline()
+    sra_obj = get_SRA_XML_baseline()
+    ic(sra_obj.get_library_strategy_list())
+    ic(sra_obj.get_library_source_list())
+    ic(sra_obj.get_library_selection_list())
     quit()
 
-
-
-    sra_common_obj = get_SRA_COMMON_XML_baseline()
-    ic(sra_common_obj.get_platform())
-    ic(sra_common_obj.get_platform_list())
-    ic(sra_common_obj.get_instrument_list())
+    ic(sra_obj.get_platform())
+    ic(sra_obj.get_platform_list())
+    ic(sra_obj.get_instrument_list())
     exit()
     print("platform terms")
-    sra_common_obj.print_platform_md_list()
+    sra_obj.print_platform_md_list()
     print("\ninstrument terms")
-    sra_common_obj.print_instrument_md_list()
+    sra_obj.print_instrument_md_list()
 
 if __name__ == '__main__':
     ic()
