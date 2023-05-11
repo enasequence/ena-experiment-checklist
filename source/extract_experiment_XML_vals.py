@@ -26,46 +26,46 @@ import json
 
 class SRA_EXPERIMENT_SPEC:
     def __init__(self, my_sra_experiment_json, my_sra_common_json):
-        #self.common_schema_level = my_sra_common_json["xs:schema"]
+        self.common_schema_level = my_sra_common_json["xs:schema"]
         self.experiment_schema_level = my_sra_experiment_json["xs:schema"]
         self.process_experiment()
         #ic(self.schema_level)
-        #self.process_platform()
+        self.process_platform()
 
     def process_experiment(self):
         simple_level = self.experiment_schema_level["xs:simpleType"]
         #ic(simple_level)
         ic("_____________________________")
 
-        # def process_lib_child(child, self_child_pointer):
-        #     #ic(child['xs:annotation']['xs:documentation'])
-        #     #ic(child['xs:restriction']['xs:enumeration'])
-        #     for LibChild in child['xs:restriction']['xs:enumeration']:
-        #         term_name = LibChild['@value']
-        #         #ic(term_name)
-        #         if LibChild.get('xs:annotation'):
-        #             # ic(LibChild['xs:annotation']['xs:documentation'])
-        #             self_child_pointer[term_name] = {}
-        #             self_child_pointer[term_name]["documentation"] = LibChild['xs:annotation'][
-        #                 'xs:documentation']
+        def process_lib_child(child, self_child_pointer):
+            #ic(child['xs:annotation']['xs:documentation'])
+            #ic(child['xs:restriction']['xs:enumeration'])
+            for LibChild in child['xs:restriction']['xs:enumeration']:
+                term_name = LibChild['@value']
+                #ic(term_name)
+                if LibChild.get('xs:annotation'):
+                    # ic(LibChild['xs:annotation']['xs:documentation'])
+                    self_child_pointer[term_name] = {}
+                    self_child_pointer[term_name]["documentation"] = LibChild['xs:annotation'][
+                        'xs:documentation']
 
-        # for child in simple_level:
-        #     if child.get('@name'):
-        #         field = child['@name'].removeprefix("type")
-        #     else:
-        #         field = child['xs:restriction'].removeprefix("type")
-        #     ic(field)
-        #     if field == "LibraryStrategy":
-        #         self.library_strategy = {}
-        #         #process_lib_child(child, self.library_strategy)
-        #     elif field == "LibrarySource":
-        #         self.library_source = {}
-        #         #process_lib_child(child, self.library_source)
-        #     elif field == "LibrarySelection":
-        #         self.library_selection = {}
-        #         process_lib_child(child, self.library_selection)
-        #     else:
-        #         ic("<--TBD-->")
+        for child in simple_level:
+            if child.get('@name'):
+                field = child['@name'].removeprefix("type")
+            else:
+                field = child['xs:restriction'].removeprefix("type")
+            ic(field)
+            if field == "LibraryStrategy":
+                self.library_strategy = {}
+                process_lib_child(child, self.library_strategy)
+            elif field == "LibrarySource":
+                self.library_source = {}
+                process_lib_child(child, self.library_source)
+            elif field == "LibrarySelection":
+                self.library_selection = {}
+                process_lib_child(child, self.library_selection)
+            else:
+                ic("<--TBD-->")
 
         self.process_further_expt()
 
@@ -77,17 +77,24 @@ class SRA_EXPERIMENT_SPEC:
         #ic(complex_level)
 
         def process_complex(pointer):
-            ic(pointer)
+            ic()
+            #ic(pointer)
 
             base = child['xs:complexContent']['xs:extension']
             # ic(base)
             # ic(base['@base'].removeprefix("com"))
             el_base = base['xs:choice']['xs:element']
-            ic(el_base)
-            for grandchild in el_base:
-                ic(grandchild)
-                name = grandchild['@name']
-                ic(name)
+            #ic(el_base)
+            ic(el_base['@name'])
+            ic(el_base['xs:annotation']['xs:documentation'])
+            #ic(el_base['xs:complexType']['xs:sequence']['xs:element'])
+            elements_base = el_base['xs:complexType']['xs:sequence']['xs:element']
+            for member in elements_base:
+                ic(member['@name'])
+                if member['@name'] == 'MEMBER':
+                    ic(member['xs:annotation']['xs:documentation'])
+                elif member['@name'] == 'DEFAULT_MEMBER':
+                    ic(member['xs:annotation']['xs:documentation'])
 
 
 
@@ -98,12 +105,11 @@ class SRA_EXPERIMENT_SPEC:
                 field = child['@name'].removeprefix("type")
                 ic(field)
                 if field == 'SampleDescriptorType':
-                    ic(child)
+                    #ic(child)
                     self.SampleDescriptor = {}
                     process_complex(self.SampleDescriptor)
-
-                    sys.exit()
                 elif field == 'PoolMemberType':
+                    ic()
                     self.PoolMemberType = {}
                     base = child['xs:complexContent']['xs:extension']
                     #ic(base)
@@ -264,18 +270,15 @@ def get_SRA_XML_baseline():
     return(sra_obj)
 
 
-
 def main():
     sra_obj = get_SRA_XML_baseline()
     ic(sra_obj.get_library_strategy_list())
     ic(sra_obj.get_library_source_list())
     ic(sra_obj.get_library_selection_list())
-    quit()
 
     ic(sra_obj.get_platform())
     ic(sra_obj.get_platform_list())
     ic(sra_obj.get_instrument_list())
-    exit()
     print("platform terms")
     sra_obj.print_platform_md_list()
     print("\ninstrument terms")
