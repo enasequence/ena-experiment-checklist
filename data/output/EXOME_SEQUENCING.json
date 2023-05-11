@@ -1,7 +1,7 @@
 {
     "checklist_group": "GENOMIC",
     "checklist_id": "EXC000013",
-    "checklist_name": "Exome sequencig specific",
+    "checklist_name": "Exome sequencing specific",
     "checklist_version": "20221129",
     "experiment_name": "",
     "experiment_type": "EXOME_SEQUENCING",
