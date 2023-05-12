@@ -1,8 +1,15 @@
 {
+    "_description": "Experiment Metadata Checklist Focused on metabarcoding",
     "checklist_group": "METAGENOMIC",
     "checklist_id": "EXC000001",
     "checklist_name": "METABARCODING specific",
-    "checklist_version": "20221129",
+    "checklist_version": "v1",
+    "coreFields": "",
+    "custom_fields": {
+        "_insert_field_a": "",
+        "_insert_field_b": "",
+        "_insert_field_c": ""
+    },
     "experiment_name": "",
     "experiment_type": "METABARCODING",
     "insert_size": 0,
@@ -13,6 +20,13 @@
     "library_selection": "",
     "library_source": "METAGENOMIC",
     "library_strategy": "",
+    "pcr_primers": {
+        "fwd_name": "",
+        "fwd_seq": "",
+        "rev_name": "",
+        "rev_seq": ""
+    },
+    "pcr_protocol": "",
     "sample_accession": "",
     "study_id": "",
     "target_loci": "",

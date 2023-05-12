@@ -1,8 +1,9 @@
 {
+    "_description": "Experiment Metadata Checklist Focused on DNA binding site prediction",
     "checklist_group": "BEYOND_DNA",
     "checklist_id": "EXC000042",
     "checklist_name": "DNA binding site prediction specific",
-    "checklist_version": "20221129",
+    "checklist_version": "v1",
     "experiment_name": "",
     "experiment_type": "DNA_binding_site_prediction",
     "insert_size": 0,

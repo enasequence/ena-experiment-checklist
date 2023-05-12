@@ -18,7 +18,6 @@
       "target_loci": "",
       "target_subfragment": "",
       "pcr_fields": "",
-      "coreFields": "",
       "custom_user_fields": ""
     },
     {
@@ -96,7 +95,6 @@
       "target_fields": "",
       "multiplex_fields": "",
       "adapter_fields": "",
-      "custom_user_fields": "",
       "custom_user_fields": ""
     },
     {
@@ -307,8 +305,8 @@
     "checklist_version": {
       "description": "The version of this checklist, allows us to validate the write records against the right checklist version[PeterMU]",
       "default": "",
-      "_example": "20221129",
-      "_comment": "today's date in ISO standard, bit with no separators",
+      "_example": "v1",
+      "_comment": "Version of the format v[[::digit::]] e..g. v2",
       "type": "integer"
     },
     "checklist_group": {

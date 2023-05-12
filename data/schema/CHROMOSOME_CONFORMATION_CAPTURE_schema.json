@@ -4,8 +4,8 @@
     "allOf": [
         {
             "checklist_id": {
-                "_example": "EXC999999",
-                "default": "EXC999999",
+                "_example": "EXC000040",
+                "default": "EXC000040",
                 "description": "checklist identifier[PeterMU]",
                 "minLength": 3,
                 "type": "string"
@@ -13,18 +13,10 @@
         },
         {
             "checklist_name": {
-                "_example": "TEST_name",
-                "default": "TEST_name",
+                "_example": "CHROMOSOME CONFORMATION CAPTURE specific",
+                "default": "CHROMOSOME CONFORMATION CAPTURE specific",
                 "description": "A short descriptive name to human identify [PeterMU]",
                 "minLength": 3,
-                "type": "string"
-            }
-        },
-        {
-            "checklist_group": {
-                "_example": "TEST_group",
-                "default": "TEST_group",
-                "description": "The collection of the experiment checklists[PeterMU]",
                 "type": "string"
             }
         },
@@ -38,9 +30,17 @@
             }
         },
         {
+            "checklist_group": {
+                "_example": "BEYOND_DNA",
+                "default": "BEYOND_DNA",
+                "description": "The collection of the experiment checklists[PeterMU]",
+                "type": "string"
+            }
+        },
+        {
             "experiment_type": {
-                "_example": "TEST_type",
-                "default": "TEST_type",
+                "_example": "CHROMOSOME_CONFORMATION_CAPTURE",
+                "default": "CHROMOSOME_CONFORMATION_CAPTURE",
                 "description": "The broad type of sequencing experiment performed[PeterMU]",
                 "type": "string"
             }
@@ -2514,11 +2514,1536 @@
             }
         },
         {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "LS454"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "454 GS FLX",
+                            "454 GS FLX Titanium",
+                            "454 GS",
+                            "454 GS Junior",
+                            "454 GS 20",
+                            "454 GS FLX+"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ILLUMINA"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "Illumina iSeq 100",
+                            "Illumina HiSeq X",
+                            "HiSeq X Five",
+                            "Illumina MiniSeq",
+                            "NextSeq 550",
+                            "Illumina NovaSeq X",
+                            "Illumina HiSeq 1500",
+                            "Illumina Genome Analyzer",
+                            "Illumina HiSeq 1000",
+                            "NextSeq 1000",
+                            "Illumina HiScanSQ",
+                            "Illumina HiSeq 3000",
+                            "Illumina NovaSeq 6000",
+                            "Illumina HiSeq 2000",
+                            "HiSeq X Ten",
+                            "Illumina HiSeq 4000",
+                            "NextSeq 500",
+                            "Illumina MiSeq",
+                            "Illumina Genome Analyzer II",
+                            "Illumina HiSeq 2500",
+                            "Illumina Genome Analyzer IIx",
+                            "NextSeq 2000"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "HELICOS"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Helicos HeliScope",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ABI_SOLID"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "AB SOLiD 4hq System",
+                            "AB SOLiD 3 Plus System",
+                            "unspecified",
+                            "AB SOLiD System",
+                            "AB SOLiD 4 System",
+                            "AB 5500xl Genetic Analyzer",
+                            "AB 5500xl-W Genetic Analysis System",
+                            "AB SOLiD System 3.0",
+                            "AB SOLiD System 2.0",
+                            "AB SOLiD PI System",
+                            "AB 5500 Genetic Analyzer"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "COMPLETE_GENOMICS"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Complete Genomics",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "BGISEQ"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "BGISEQ-500",
+                            "BGISEQ-50",
+                            "MGISEQ-2000RS"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "PACBIO_SMRT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "PacBio RS",
+                            "Sequel II",
+                            "Sequel IIe",
+                            "PacBio RS II",
+                            "Sequel"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ION_TORRENT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Ion Torrent S5 XL",
+                            "Ion Torrent S5",
+                            "Ion GeneStudio S5",
+                            "unspecified",
+                            "Ion Torrent Genexus",
+                            "Ion Torrent Proton",
+                            "Ion GeneStudio S5 Prime",
+                            "Ion GeneStudio S5 Plus",
+                            "Ion Torrent PGM"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "CAPILLARY"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "AB 3730 Genetic Analyzer",
+                            "unspecified",
+                            "AB 3130 Genetic Analyzer",
+                            "AB 3130xL Genetic Analyzer",
+                            "AB 310 Genetic Analyzer",
+                            "AB 3500xL Genetic Analyzer",
+                            "AB 3730xL Genetic Analyzer",
+                            "AB 3500 Genetic Analyzer"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "DNBSEQ"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "DNBSEQ-G400",
+                            "DNBSEQ-G50",
+                            "DNBSEQ-T7",
+                            "DNBSEQ-G400 FAST"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "OXFORD_NANOPORE"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "GridION",
+                            "PromethION",
+                            "unspecified",
+                            "MinION"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ELEMENT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Element AVITI",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ULTIMA"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "UG 100",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "LS454"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "454 GS FLX",
+                            "454 GS FLX Titanium",
+                            "454 GS",
+                            "454 GS Junior",
+                            "454 GS 20",
+                            "454 GS FLX+"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ILLUMINA"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "Illumina iSeq 100",
+                            "Illumina HiSeq X",
+                            "HiSeq X Five",
+                            "Illumina MiniSeq",
+                            "NextSeq 550",
+                            "Illumina NovaSeq X",
+                            "Illumina HiSeq 1500",
+                            "Illumina Genome Analyzer",
+                            "Illumina HiSeq 1000",
+                            "NextSeq 1000",
+                            "Illumina HiScanSQ",
+                            "Illumina HiSeq 3000",
+                            "Illumina NovaSeq 6000",
+                            "Illumina HiSeq 2000",
+                            "HiSeq X Ten",
+                            "Illumina HiSeq 4000",
+                            "NextSeq 500",
+                            "Illumina MiSeq",
+                            "Illumina Genome Analyzer II",
+                            "Illumina HiSeq 2500",
+                            "Illumina Genome Analyzer IIx",
+                            "NextSeq 2000"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "HELICOS"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Helicos HeliScope",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ABI_SOLID"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "AB SOLiD 4hq System",
+                            "AB SOLiD 3 Plus System",
+                            "unspecified",
+                            "AB SOLiD System",
+                            "AB SOLiD 4 System",
+                            "AB 5500xl Genetic Analyzer",
+                            "AB 5500xl-W Genetic Analysis System",
+                            "AB SOLiD System 3.0",
+                            "AB SOLiD System 2.0",
+                            "AB SOLiD PI System",
+                            "AB 5500 Genetic Analyzer"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "COMPLETE_GENOMICS"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Complete Genomics",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "BGISEQ"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "BGISEQ-500",
+                            "BGISEQ-50",
+                            "MGISEQ-2000RS"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "PACBIO_SMRT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "PacBio RS",
+                            "Sequel II",
+                            "Sequel IIe",
+                            "PacBio RS II",
+                            "Sequel"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ION_TORRENT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Ion Torrent S5 XL",
+                            "Ion Torrent S5",
+                            "Ion GeneStudio S5",
+                            "unspecified",
+                            "Ion Torrent Genexus",
+                            "Ion Torrent Proton",
+                            "Ion GeneStudio S5 Prime",
+                            "Ion GeneStudio S5 Plus",
+                            "Ion Torrent PGM"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "CAPILLARY"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "AB 3730 Genetic Analyzer",
+                            "unspecified",
+                            "AB 3130 Genetic Analyzer",
+                            "AB 3130xL Genetic Analyzer",
+                            "AB 310 Genetic Analyzer",
+                            "AB 3500xL Genetic Analyzer",
+                            "AB 3730xL Genetic Analyzer",
+                            "AB 3500 Genetic Analyzer"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "DNBSEQ"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "DNBSEQ-G400",
+                            "DNBSEQ-G50",
+                            "DNBSEQ-T7",
+                            "DNBSEQ-G400 FAST"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "OXFORD_NANOPORE"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "GridION",
+                            "PromethION",
+                            "unspecified",
+                            "MinION"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ELEMENT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Element AVITI",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ULTIMA"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "UG 100",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "LS454"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "454 GS FLX",
+                            "454 GS FLX Titanium",
+                            "454 GS",
+                            "454 GS Junior",
+                            "454 GS 20",
+                            "454 GS FLX+"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ILLUMINA"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "Illumina iSeq 100",
+                            "Illumina HiSeq X",
+                            "HiSeq X Five",
+                            "Illumina MiniSeq",
+                            "NextSeq 550",
+                            "Illumina NovaSeq X",
+                            "Illumina HiSeq 1500",
+                            "Illumina Genome Analyzer",
+                            "Illumina HiSeq 1000",
+                            "NextSeq 1000",
+                            "Illumina HiScanSQ",
+                            "Illumina HiSeq 3000",
+                            "Illumina NovaSeq 6000",
+                            "Illumina HiSeq 2000",
+                            "HiSeq X Ten",
+                            "Illumina HiSeq 4000",
+                            "NextSeq 500",
+                            "Illumina MiSeq",
+                            "Illumina Genome Analyzer II",
+                            "Illumina HiSeq 2500",
+                            "Illumina Genome Analyzer IIx",
+                            "NextSeq 2000"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "HELICOS"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Helicos HeliScope",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ABI_SOLID"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "AB SOLiD 4hq System",
+                            "AB SOLiD 3 Plus System",
+                            "unspecified",
+                            "AB SOLiD System",
+                            "AB SOLiD 4 System",
+                            "AB 5500xl Genetic Analyzer",
+                            "AB 5500xl-W Genetic Analysis System",
+                            "AB SOLiD System 3.0",
+                            "AB SOLiD System 2.0",
+                            "AB SOLiD PI System",
+                            "AB 5500 Genetic Analyzer"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "COMPLETE_GENOMICS"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Complete Genomics",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "BGISEQ"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "BGISEQ-500",
+                            "BGISEQ-50",
+                            "MGISEQ-2000RS"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "PACBIO_SMRT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "PacBio RS",
+                            "Sequel II",
+                            "Sequel IIe",
+                            "PacBio RS II",
+                            "Sequel"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ION_TORRENT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Ion Torrent S5 XL",
+                            "Ion Torrent S5",
+                            "Ion GeneStudio S5",
+                            "unspecified",
+                            "Ion Torrent Genexus",
+                            "Ion Torrent Proton",
+                            "Ion GeneStudio S5 Prime",
+                            "Ion GeneStudio S5 Plus",
+                            "Ion Torrent PGM"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "CAPILLARY"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "AB 3730 Genetic Analyzer",
+                            "unspecified",
+                            "AB 3130 Genetic Analyzer",
+                            "AB 3130xL Genetic Analyzer",
+                            "AB 310 Genetic Analyzer",
+                            "AB 3500xL Genetic Analyzer",
+                            "AB 3730xL Genetic Analyzer",
+                            "AB 3500 Genetic Analyzer"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "DNBSEQ"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "DNBSEQ-G400",
+                            "DNBSEQ-G50",
+                            "DNBSEQ-T7",
+                            "DNBSEQ-G400 FAST"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "OXFORD_NANOPORE"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "GridION",
+                            "PromethION",
+                            "unspecified",
+                            "MinION"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ELEMENT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Element AVITI",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ULTIMA"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "UG 100",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "LS454"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "454 GS FLX",
+                            "454 GS FLX Titanium",
+                            "454 GS",
+                            "454 GS Junior",
+                            "454 GS 20",
+                            "454 GS FLX+"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ILLUMINA"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "Illumina iSeq 100",
+                            "Illumina HiSeq X",
+                            "HiSeq X Five",
+                            "Illumina MiniSeq",
+                            "NextSeq 550",
+                            "Illumina NovaSeq X",
+                            "Illumina HiSeq 1500",
+                            "Illumina Genome Analyzer",
+                            "Illumina HiSeq 1000",
+                            "NextSeq 1000",
+                            "Illumina HiScanSQ",
+                            "Illumina HiSeq 3000",
+                            "Illumina NovaSeq 6000",
+                            "Illumina HiSeq 2000",
+                            "HiSeq X Ten",
+                            "Illumina HiSeq 4000",
+                            "NextSeq 500",
+                            "Illumina MiSeq",
+                            "Illumina Genome Analyzer II",
+                            "Illumina HiSeq 2500",
+                            "Illumina Genome Analyzer IIx",
+                            "NextSeq 2000"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "HELICOS"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Helicos HeliScope",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ABI_SOLID"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "AB SOLiD 4hq System",
+                            "AB SOLiD 3 Plus System",
+                            "unspecified",
+                            "AB SOLiD System",
+                            "AB SOLiD 4 System",
+                            "AB 5500xl Genetic Analyzer",
+                            "AB 5500xl-W Genetic Analysis System",
+                            "AB SOLiD System 3.0",
+                            "AB SOLiD System 2.0",
+                            "AB SOLiD PI System",
+                            "AB 5500 Genetic Analyzer"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "COMPLETE_GENOMICS"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Complete Genomics",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "BGISEQ"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "BGISEQ-500",
+                            "BGISEQ-50",
+                            "MGISEQ-2000RS"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "PACBIO_SMRT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "PacBio RS",
+                            "Sequel II",
+                            "Sequel IIe",
+                            "PacBio RS II",
+                            "Sequel"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ION_TORRENT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Ion Torrent S5 XL",
+                            "Ion Torrent S5",
+                            "Ion GeneStudio S5",
+                            "unspecified",
+                            "Ion Torrent Genexus",
+                            "Ion Torrent Proton",
+                            "Ion GeneStudio S5 Prime",
+                            "Ion GeneStudio S5 Plus",
+                            "Ion Torrent PGM"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "CAPILLARY"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "AB 3730 Genetic Analyzer",
+                            "unspecified",
+                            "AB 3130 Genetic Analyzer",
+                            "AB 3130xL Genetic Analyzer",
+                            "AB 310 Genetic Analyzer",
+                            "AB 3500xL Genetic Analyzer",
+                            "AB 3730xL Genetic Analyzer",
+                            "AB 3500 Genetic Analyzer"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "DNBSEQ"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "DNBSEQ-G400",
+                            "DNBSEQ-G50",
+                            "DNBSEQ-T7",
+                            "DNBSEQ-G400 FAST"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "OXFORD_NANOPORE"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "GridION",
+                            "PromethION",
+                            "unspecified",
+                            "MinION"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ELEMENT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Element AVITI",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ULTIMA"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "UG 100",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "LS454"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "454 GS FLX",
+                            "454 GS FLX Titanium",
+                            "454 GS",
+                            "454 GS Junior",
+                            "454 GS 20",
+                            "454 GS FLX+"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ILLUMINA"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "Illumina iSeq 100",
+                            "Illumina HiSeq X",
+                            "HiSeq X Five",
+                            "Illumina MiniSeq",
+                            "NextSeq 550",
+                            "Illumina NovaSeq X",
+                            "Illumina HiSeq 1500",
+                            "Illumina Genome Analyzer",
+                            "Illumina HiSeq 1000",
+                            "NextSeq 1000",
+                            "Illumina HiScanSQ",
+                            "Illumina HiSeq 3000",
+                            "Illumina NovaSeq 6000",
+                            "Illumina HiSeq 2000",
+                            "HiSeq X Ten",
+                            "Illumina HiSeq 4000",
+                            "NextSeq 500",
+                            "Illumina MiSeq",
+                            "Illumina Genome Analyzer II",
+                            "Illumina HiSeq 2500",
+                            "Illumina Genome Analyzer IIx",
+                            "NextSeq 2000"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "HELICOS"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Helicos HeliScope",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ABI_SOLID"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "AB SOLiD 4hq System",
+                            "AB SOLiD 3 Plus System",
+                            "unspecified",
+                            "AB SOLiD System",
+                            "AB SOLiD 4 System",
+                            "AB 5500xl Genetic Analyzer",
+                            "AB 5500xl-W Genetic Analysis System",
+                            "AB SOLiD System 3.0",
+                            "AB SOLiD System 2.0",
+                            "AB SOLiD PI System",
+                            "AB 5500 Genetic Analyzer"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "COMPLETE_GENOMICS"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Complete Genomics",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "BGISEQ"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "BGISEQ-500",
+                            "BGISEQ-50",
+                            "MGISEQ-2000RS"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "PACBIO_SMRT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "PacBio RS",
+                            "Sequel II",
+                            "Sequel IIe",
+                            "PacBio RS II",
+                            "Sequel"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ION_TORRENT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Ion Torrent S5 XL",
+                            "Ion Torrent S5",
+                            "Ion GeneStudio S5",
+                            "unspecified",
+                            "Ion Torrent Genexus",
+                            "Ion Torrent Proton",
+                            "Ion GeneStudio S5 Prime",
+                            "Ion GeneStudio S5 Plus",
+                            "Ion Torrent PGM"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "CAPILLARY"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "AB 3730 Genetic Analyzer",
+                            "unspecified",
+                            "AB 3130 Genetic Analyzer",
+                            "AB 3130xL Genetic Analyzer",
+                            "AB 310 Genetic Analyzer",
+                            "AB 3500xL Genetic Analyzer",
+                            "AB 3730xL Genetic Analyzer",
+                            "AB 3500 Genetic Analyzer"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "DNBSEQ"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "unspecified",
+                            "DNBSEQ-G400",
+                            "DNBSEQ-G50",
+                            "DNBSEQ-T7",
+                            "DNBSEQ-G400 FAST"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "OXFORD_NANOPORE"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "GridION",
+                            "PromethION",
+                            "unspecified",
+                            "MinION"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ELEMENT"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "Element AVITI",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "instrument_platform": {
+                        "const": "ULTIMA"
+                    }
+                }
+            },
+            "then": {
+                "properties": {
+                    "instrument": {
+                        "enum": [
+                            "UG 100",
+                            "unspecified"
+                        ]
+                    }
+                }
+            }
+        },
+        {
             "required": [
                 "checklist_id",
                 "checklist_name",
-                "checklist_group",
                 "checklist_version",
+                "checklist_group",
                 "experiment_type"
             ]
         }

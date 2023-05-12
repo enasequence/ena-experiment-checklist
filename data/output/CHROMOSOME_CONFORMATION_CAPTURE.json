@@ -1,8 +1,14 @@
 {
+    "_description": "Experiment Metadata Checklist Focused on chromosome conformation capture",
     "checklist_group": "BEYOND_DNA",
     "checklist_id": "EXC000040",
     "checklist_name": "CHROMOSOME CONFORMATION CAPTURE specific",
-    "checklist_version": "20221129",
+    "checklist_version": "v1",
+    "custom_fields": {
+        "_insert_field_a": "",
+        "_insert_field_b": "",
+        "_insert_field_c": ""
+    },
     "experiment_name": "",
     "experiment_type": "CHROMOSOME_CONFORMATION_CAPTURE",
     "insert_size": 0,

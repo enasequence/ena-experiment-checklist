@@ -1,8 +1,14 @@
 {
+    "_description": "Experiment Metadata Checklist Focused on Viral RNA",
     "checklist_group": "GENOMIC",
     "checklist_id": "EXC000012",
     "checklist_name": "Viral RNA specific",
-    "checklist_version": "20221129",
+    "checklist_version": "v1",
+    "custom_fields": {
+        "_insert_field_a": "",
+        "_insert_field_b": "",
+        "_insert_field_c": ""
+    },
     "experiment_name": "",
     "experiment_type": "VIRAL_RNA_GENOME",
     "insert_size": 0,
