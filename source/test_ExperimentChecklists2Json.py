@@ -176,7 +176,7 @@ class TestExperimentChecklists2Json(unittest.TestCase):
                              'unspecified'], 'type': 'string'},
                 'library_name': {'description': 'The name of the nucleotide sequencing library. [NCIT]',
                                  'type': 'string'}, 'library_description': {
-                    'description': 'The free descrqqgreo iption of the nucleotide sequencing library. [NCIT adapted]',
+                    'description': 'The free description of the nucleotide sequencing library. [NCIT adapted]',
                     'type': 'string'}, 'insert_size': {'default': 0,
                                                        'description': 'The average insert size found during nucleic acid sequencing. [NCIT]',
                                                        'type': 'number'}, 'instrument_platform': {
