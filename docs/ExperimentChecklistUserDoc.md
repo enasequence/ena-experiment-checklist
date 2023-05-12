@@ -8,8 +8,15 @@ N.B. this will probably go to READTHEDOCS
   * [Key Features](#key-features)
   * [Technology chosen was JSON schema](#technology-chosen-was-json-schema)
   * [Overview of How We Intend this to Work](#overview-of-how-we-intend-this-to-work)
-  * [Testing](#testing)
-  * [Introduction to Testing pre-submission](#introduction-to-testing-pre-submission)
+  * [Guide on How To Find the right Template and to Fill it out](#guide-on-how-to-find-the-right-template-and-to-fill-it-out)
+  * [Specific Fields](#specific-fields)
+    * [The custom fields](#the-custom-fields)
+  * [Interfaces](#interfaces)
+    * [filling templates manually](#filling-templates-manually)
+    * [filling templates with a GUI?](#filling-templates-with-a-gui)
+    * [filling templates programmatically](#filling-templates-programmatically)
+  * [Validating](#validating)
+  * [Introduction to Validating your Experiment metadata pre-submission](#introduction-to-validating-your-experiment-metadata-pre-submission)
     * [Internal Testing](#internal-testing)
 <!-- TOC -->
 
