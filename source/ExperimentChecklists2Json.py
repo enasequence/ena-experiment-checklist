@@ -72,15 +72,15 @@ class ExperimentTypeJsonSchema:
         """
         ic()
         ic.disable()
-        sra_common_xml_obj = get_SRA_COMMON_XML_baseline()
+        sra_xml_obj = get_SRA_XML_baseline()
         ic.enable()
-        self.platform_instrument = sra_common_xml_obj.get_platform()
+        self.platform_instrument = sra_xml_obj.get_platform()
         # schema_core_dict = {"properties": self.get_core_fields_dict()}
         # properties instrument_platform enum LIST
         ic(self._core_dict['coreFields'])
-        self._core_dict['coreFields']["instrument_platform"]["enum"] = sra_common_xml_obj.get_platform_list()
+        self._core_dict['coreFields']["instrument_platform"]["enum"] = sra_xml_obj.get_platform_list()
         # properties instrument_model enum LIST
-        self._core_dict['coreFields']["instrument_model"]["enum"] = sra_common_xml_obj.get_instrument_list()
+        self._core_dict['coreFields']["instrument_model"]["enum"] = sra_xml_obj.get_instrument_list()
 
         self.set_platform_instrument_rules()
 
@@ -526,8 +526,6 @@ def get_core_dict(config_data):
             ic(field, " not in config_data['coreFields']")
             # ic("!dict:" + str(config_data['coreFields'][i]))
             coreDictDefaultVal[field] = coreDict[field] = config_data['coreFields'][field]
-    ic()
-
     return coreDict, coreDictDefaultVal
 
 
@@ -692,17 +690,20 @@ def main():
     expt_objects_dict = process_and_get_fields(config_data)
     ic(expt_objects_dict)
     for experiment_type_name in expt_objects_dict:
+        if experiment_type_name != 'TEST_type':
+            continue
         ic(experiment_type_name)
         ic("AFTER experiment_type_name HERE")
         experimentType = expt_objects_dict[experiment_type_name]
-        # ic(experimentType.get_ExperimentTypeObj_values())
+        ic(experimentType.get_ExperimentTypeObj_values())
         ic()
-        experimentType.print_checklist()
+        #experimentType.print_checklist()
         # ic()
         # sys.exit()
 
         # expt_type_obj.print_test_checklist()
-
+    ic()
+    exit()
     # print_all_checklists(expt_objects_dict)
     #
     # print_all_checklist_json_schemas(expt_objects_dict)
