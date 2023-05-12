@@ -68,6 +68,9 @@ class SRA_EXPERIMENT_SPEC:
                 ic("<--TBD-->")
 
         self.process_further_expt()
+        ic(self.get_targetted_loci_list())
+
+        #exit()
 
         ic()
 
@@ -96,7 +99,7 @@ class SRA_EXPERIMENT_SPEC:
                 elif member['@name'] == 'DEFAULT_MEMBER':
                     ic(member['xs:annotation']['xs:documentation'])
 
-
+        self.locus = {}
 
         for child in complex_level:
             ic()
@@ -108,6 +111,31 @@ class SRA_EXPERIMENT_SPEC:
                     #ic(child)
                     self.SampleDescriptor = {}
                     process_complex(self.SampleDescriptor)
+                elif field == 'LibraryDescriptorType':
+                    ic()
+                    #ic(child)
+                    el_base = child['xs:sequence']['xs:element']
+                    for grandchild in el_base:
+                        #ic(grandchild)
+                        if grandchild['@name'] == 'TARGETED_LOCI':
+                            loci_base = grandchild['xs:complexType']['xs:sequence']['xs:element']['xs:complexType']['xs:attribute']
+                            #ic(loci_base)
+                            for locus in loci_base:
+                                #ic(locus)
+
+                                if locus.get('xs:simpleType'):
+                                    locus_base = locus['xs:simpleType']['xs:restriction']['xs:enumeration']
+                                    for locus_val in locus_base:
+                                        #ic(locus_val)
+                                        value = locus_val['@value']
+                                        #ic(value)
+                                        self.locus[value] = {}
+                                        self.locus[value] = locus_val['xs:annotation']['xs:documentation']
+                                        #ic(self.locus)
+                            ic(self.locus)
+
+
+
                 elif field == 'PoolMemberType':
                     ic()
                     self.PoolMemberType = {}
@@ -137,6 +165,9 @@ class SRA_EXPERIMENT_SPEC:
                     ic(self.PoolMemberType)
             else:
                 ic()
+
+        ic()
+
 
     def get_library_strategy_list(self):
         #ic(self.library_strategy)
@@ -234,6 +265,13 @@ class SRA_EXPERIMENT_SPEC:
         """
         return list(self.all_instruments)
 
+    def get_targetted_loci_dict(self):
+        return self.locus
+    def get_targetted_loci_list(self):
+        targetted_loci = list(self.get_targetted_loci_dict().keys())
+        targetted_loci.sort()
+        return targetted_loci
+
     def print_platform_md_list(self):
         platforms = self.get_platform_list()
         for platform in platforms:
@@ -287,10 +325,13 @@ def main():
     ic(sra_obj.get_platform())
     ic(sra_obj.get_platform_list())
     ic(sra_obj.get_instrument_list())
-    print("platform terms")
-    sra_obj.print_platform_md_list()
-    print("\ninstrument terms")
-    sra_obj.print_instrument_md_list()
+    # print("platform terms")
+    # sra_obj.print_platform_md_list()
+    # print("\ninstrument terms")
+    # sra_obj.print_instrument_md_list()
+
+    ic(sra_obj.get_targetted_loci_list())
+    ic()
 
 if __name__ == '__main__':
     ic()

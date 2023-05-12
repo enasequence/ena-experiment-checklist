@@ -10,162 +10,132 @@
     {
       "checklist_id": "EXC000001",
       "checklist_name": "METABARCODING specific",
-      "_description": "Experiment Metadata Checklist Focused on metabarcoding",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "checklist_group": "METAGENOMIC",
       "experiment_type": "METABARCODING",
       "library_source": "METAGENOMIC",
       "target_loci": "",
-      "target_subfragment": "",
-      "pcr_fields": "",
-      "custom_user_fields": ""
+      "target_subfragment": ""
     },
     {
       "checklist_id": "EXC000002",
       "checklist_name": "METAGENOMIC sequencing specific",
-      "_description": "Experiment Metadata Checklist Focused on metagenomics",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "checklist_group": "METAGENOMIC",
       "experiment_type": "METAGENOMIC_SEQUENCING",
       "library_source": "METAGENOMIC",
       "target_loci": "",
-      "target_subfragment": "",
-      "custom_user_fields": ""
+      "target_subfragment": ""
     },
     {
       "checklist_id": "EXC000003",
       "checklist_name": "METATRANSCRIPTOMIC specific",
-      "_description": "Experiment Metadata Checklist Focused on metatranscriptomics",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "checklist_group": "METAGENOMIC",
       "experiment_type": "METATRANSCRIPTOMIC",
       "library_source": "METATRANSCRIPTOMIC",
-      "pcr_fields": "",
-      "custom_user_fields": ""
+      "pcr_fields": ""
     },
     {
       "checklist_id": "EXC000010",
       "checklist_name": "GENOMIC specific",
-      "_description": "Experiment Metadata Checklist Focused on genomics",
       "checklist_group": "GENOMIC",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "experiment_type": "GENOMIC",
-      "library_source": "GENOMIC",
-      "custom_user_fields": ""
+      "library_source": "GENOMIC"
     },
     {
       "checklist_id": "EXC000011",
       "checklist_name": "WGS specific",
-      "_description": "Experiment Metadata Checklist Focused on Whole Genome Sequencing",
       "checklist_group": "GENOMIC",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "experiment_type": "WHOLE_SHOTGUN_SEQUENCING",
-      "library_source": "WGS?",
-      "custom_user_fields": ""
+      "library_source": "WGS?"
     },
-    {
+        {
       "checklist_id": "EXC000012",
       "checklist_name": "Viral RNA specific",
-      "_description": "Experiment Metadata Checklist Focused on Viral RNA",
       "checklist_group": "GENOMIC",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "experiment_type": "VIRAL_RNA_GENOME",
-      "library_source": "???",
-      "custom_user_fields": ""
+      "library_source": "???"
     },
-    {
+            {
       "checklist_id": "EXC000013",
       "checklist_name": "Exome sequencing specific",
-      "_description": "Experiment Metadata Checklist Focused on exome sequencing",
       "checklist_group": "GENOMIC",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "experiment_type": "EXOME_SEQUENCING",
-      "library_source": "???",
-      "custom_user_fields": ""
+      "library_source": "???"
     },
     {
       "checklist_id": "EXC999999",
       "checklist_name": "TEST_name",
-      "_description": "Experiment Metadata Checklist Focused on TEST",
       "checklist_group": "TEST_group",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "experiment_type": "TEST_type",
       "library_source": "TRANSCRIPTOMIC",
       "pcr_fields": "",
       "target_fields": "",
       "multiplex_fields": "",
-      "adapter_fields": "",
-      "custom_user_fields": ""
+      "adapter_fields": ""
     },
     {
       "checklist_id": "EXC000020",
       "checklist_name": "TRANSCRIPTOMIC specific",
-      "_description": "Experiment Metadata Checklist Focused on transcriptomics",
       "checklist_group": "TRANSCRIPTOMIC",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "experiment_type": "TRANSCRIPTOMIC",
-      "library_source": "TRANSCRIPTOMIC",
-      "custom_user_fields": ""
+      "library_source": "TRANSCRIPTOMIC"
     },
     {
       "checklist_id": "EXC000021",
       "checklist_name": "SPATIAL TRANSCRIPTOMIC specific",
-      "_description": "Experiment Metadata Checklist Focused on SPATIAL TRANSCRIPTOMIC",
       "checklist_group": "TRANSCRIPTOMIC",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "experiment_type": "SPATIAL_TRANSCRIPTOMIC",
-      "library_source": "TRANSCRIPTOMIC",
-      "custom_user_fields": ""
+      "library_source": "TRANSCRIPTOMIC"
     },
     {
       "checklist_id": "EXC000030",
       "checklist_name": "BARCODING specific",
-      "_description": "Experiment Metadata Checklist Focused on barcoding",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "checklist_group": "GENOTYPING",
       "experiment_type": "DNA_BARCODING",
       "library_source": "GENOMIC???",
       "target_loci": "",
-      "target_subfragment": "",
-      "custom_user_fields": ""
+      "target_subfragment": ""
     },
-    {
+        {
       "checklist_id": "EXC000031",
       "checklist_name": "GENOTYPING specific",
-      "_description": "Experiment Metadata Checklist Focused on genotyping",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "checklist_group": "GENOTYPING",
       "experiment_type": "GENOTYPING",
       "library_source": "GENOMIC???",
       "target_loci": "",
-      "target_subfragment": "",
-      "custom_user_fields": ""
+      "target_subfragment": ""
     },
     {
       "checklist_id": "EXC000040",
       "checklist_name": "CHROMOSOME CONFORMATION CAPTURE specific",
-      "_description": "Experiment Metadata Checklist Focused on chromosome conformation capture",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "checklist_group": "BEYOND_DNA",
       "experiment_type": "CHROMOSOME_CONFORMATION_CAPTURE",
-      "library_source": "GENOMIC???",
-      "custom_user_fields": ""
+      "library_source": "GENOMIC???"
     },
     {
       "checklist_id": "EXC000041",
       "checklist_name": "EPIGENOMICS specific",
-      "_description": "Experiment Metadata Checklist Focused on epigenomics",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "checklist_group": "BEYOND_DNA",
       "experiment_type": "EPIGENOMICS",
-      "library_source": "GENOMIC???",
-      "custom_user_fields": ""
+      "library_source": "GENOMIC???"
     },
     {
       "checklist_id": "EXC000042",
       "checklist_name": "DNA binding site prediction specific",
-      "_description": "Experiment Metadata Checklist Focused on DNA binding site prediction",
-      "checklist_version": "v1",
+      "checklist_version": "20221129",
       "checklist_group": "BEYOND_DNA",
       "experiment_type": "DNA_binding_site_prediction",
       "library_source": "GENOMIC???"
@@ -178,13 +148,6 @@
       "fwd_seq": "",
       "rev_name": "",
       "rev_seq": ""
-    }
-  },
-  "custom_user_fields": {
-    "custom_fields": {
-      "_insert_field_a": "",
-      "_insert_field_b": "",
-      "_insert_field_c": ""
     }
   },
   "target_fields": {
@@ -225,9 +188,19 @@
     },
     "library_source": {
       "description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
-      "default": "TRANSCRIPTOMIC",
-      "enum": [],
-      "dict": {
+      "default": "TRANSCRIPTOMICS---",
+      "enum": [
+        "GENOMIC SINGLE CELL",
+        "GENOMIC",
+        "METAGENOMIC",
+        "METATRANSCRIPTOMIC",
+        "OTHER",
+        "SYNTHETIC",
+        "TRANSCRIPTOMIC SINGLE CELL",
+        "TRANSCRIPTOMIC",
+        "VIRAL RNA"
+      ],
+      "dict" : {
         "GENOMIC": "Genomic DNA (includes PCR products from genomic DNA).",
         "GENOMIC_SINGLE_CELL": "",
         "TRANSCRIPTOMIC": "Transcription products or non genomic DNA (EST, cDNA, RT-PCR, screened libraries).",
@@ -236,19 +209,86 @@
         "SYNTHETIC": "Synthetic DNA.",
         "VIRAL RNA": "Viral RNA.",
         "OTHER": "Other, unspecified, or unknown library source material."
-      },
+      }
+      ,
       "type": "string"
     },
     "library_strategy": {
       "description": "Sequencing technique intended for this library.[INSDC]",
       "default": "RNA-Seq",
-      "enum": [],
+      "enum": [
+        "AMPLICON",
+        "ATAC-seq",
+        "Bisulfite-Seq",
+        "CLONE",
+        "CLONEEND",
+        "CTS",
+        "ChIA-PET",
+        "ChIP-Seq",
+        "DNase-Hypersensitivity",
+        "EST",
+        "FAIRE-seq",
+        "FINISHING",
+        "FL-cDNA",
+        "Hi-C",
+        "MBD-Seq",
+        "MNase-Seq",
+        "MRE-Seq",
+        "MeDIP-Seq",
+        "OTHER",
+        "POOLCLONE",
+        "RAD-Seq",
+        "RIP-Seq",
+        "RNA-Seq",
+        "SELEX",
+        "Synthetic-Long-Read",
+        "Targeted-Capture",
+        "Tethered Chromatin Conformation Capture",
+        "Tn-Seq",
+        "VALIDATION",
+        "WCS",
+        "WGA",
+        "WGS",
+        "WXS",
+        "miRNA-Seq",
+        "ssRNA-seq"
+      ],
       "type": "string"
     },
     "library_selection": {
       "description": "Method used to enrich the target in the sequence library preparation. [INSDC]",
       "default": "unspecified",
-      "enum": [],
+      "enum": [
+        "5-methylcytidine antibody",
+        "CAGE",
+        "ChIP",
+        "ChIP-Seq",
+        "DNase",
+        "HMPR",
+        "Hybrid Selection",
+        "Inverse rRNA selection",
+        "Inverse rRNA",
+        "MDA",
+        "MF",
+        "MNase",
+        "MSLL",
+        "Oligo-dT",
+        "PCR",
+        "PolyA",
+        "RACE",
+        "RANDOM PCR",
+        "RANDOM",
+        "RT-PCR",
+        "Reduced Representation",
+        "Restriction Digest",
+        "cDNA",
+        "cDNA_oligo_dT",
+        "cDNA_randomPriming",
+        "other",
+        "padlock probes capture method",
+        "size fractionation",
+        "unspecified"
+      ],
       "type": "string"
     },
     "library_name": {
@@ -269,18 +309,71 @@
       "_example": "ILLUMINA",
       "default": "ILLUMINA",
       "enum": [
+        "BGISEQ",
+        "CAPILLARY",
+        "DNBSEQ",
+        "ILLUMINA",
+        "ION_TORRENT",
+        "LS454",
+        "OXFORD_NANOPORE",
+        "PACBIO_SMRT"
       ],
-      "type": "string",
-      "_comment": " will get values from the sra.experiment_xml"
+      "type": "string"
     },
     "instrument_model": {
       "description": "The name and/or number associated with a specific sequencing instrument model.  [NCIT-adapted]",
       "_example": "Illumina MiSeq",
       "default": "unspecified",
       "enum": [
+        "454 GS 20",
+        "454 GS FLX Titanium",
+        "454 GS FLX",
+        "454 GS FLX+",
+        "454 GS Junior",
+        "454 GS",
+        "AB 310 Genetic Analyzer",
+        "AB 3130 Genetic Analyzer",
+        "AB 3130xL Genetic Analyzer",
+        "AB 3500 Genetic Analyzer",
+        "AB 3500xL Genetic Analyzer",
+        "AB 3730 Genetic Analyzer",
+        "AB 3730xL Genetic Analyzer",
+        "BGISEQ-500",
+        "DNBSEQ-G400 FAST",
+        "DNBSEQ-G400",
+        "DNBSEQ-G50",
+        "DNBSEQ-T7",
+        "GridION",
+        "HiSeq X Five",
+        "HiSeq X Ten",
+        "Illumina Genome Analyzer II",
+        "Illumina Genome Analyzer IIx",
+        "Illumina Genome Analyzer",
+        "Illumina HiScanSQ",
+        "Illumina HiSeq 1000",
+        "Illumina HiSeq 1500",
+        "Illumina HiSeq 2000",
+        "Illumina HiSeq 2500",
+        "Illumina HiSeq 3000",
+        "Illumina HiSeq 4000",
+        "Illumina MiSeq",
+        "Illumina MiniSeq",
+        "Illumina NovaSeq 6000",
+        "Illumina iSeq 100",
+        "Ion Torrent PGM",
+        "Ion Torrent Proton",
+        "Ion Torrent S5 XL",
+        "Ion Torrent S5",
+        "MinION",
+        "NextSeq 500",
+        "NextSeq 550",
+        "PacBio RS II",
+        "PacBio RS",
+        "PromethION",
+        "Sequel",
+        "unspecified"
       ],
-      "type": "string",
-      "_comment": " will get values from the sra.experiment_xml"
+      "type": "string"
     }
   },
   "allSpecificFieldsConfig": {
@@ -305,8 +398,8 @@
     "checklist_version": {
       "description": "The version of this checklist, allows us to validate the write records against the right checklist version[PeterMU]",
       "default": "",
-      "_example": "v1",
-      "_comment": "Version of the format v[[::digit::]] e..g. v2",
+      "_example": "20221129",
+      "_comment": "today's date in ISO standard, bit with no separators",
       "type": "integer"
     },
     "checklist_group": {
@@ -325,6 +418,15 @@
       "description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted]",
       "default": "16S rRNA",
       "enum": [
+        "16S rRNA",
+        "18S rRNA",
+        "28S rRNA",
+        "COX1",
+        "ITS1-5.8S-ITS2",
+        "RBCL",
+        "exome",
+        "matK",
+        "other"
       ],
       "type": "string"
     },
