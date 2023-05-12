@@ -81,6 +81,9 @@ class ExperimentTypeJsonSchema:
         self._core_dict['coreFields']["instrument_platform"]["enum"] = sra_xml_obj.get_platform_list()
         # properties instrument_model enum LIST
         self._core_dict['coreFields']["instrument_model"]["enum"] = sra_xml_obj.get_instrument_list()
+        self._core_dict['coreFields']["library_source"]["enum"] = sra_xml_obj.get_library_source_list()
+        self._core_dict['coreFields']["library_selection"]["enum"] = sra_xml_obj.get_library_selection_list()
+        self._core_dict['coreFields']["library_strategy"]["enum"] = sra_xml_obj.get_library_strategy_list()
 
         self.set_platform_instrument_rules()
 
@@ -313,7 +316,7 @@ class ExperimentTypeJsonSchema:
             ic(schema_dict)
 
             ic("about to sys.exit()")
-            sys.exit()
+            #sys.exit()
         ic(self._schema_dict)
 
         return self._schema_dict
@@ -658,7 +661,7 @@ def create_schema_objects(expt_objects, config_data):
 
         ic(schema_objects[experiment_type_name].print_json_schema())
         ic("about to exit from create_schema_objects")
-        sys.exit()
+        #sys.exit()
 
     return schema_objects
 
@@ -703,7 +706,7 @@ def main():
 
         # expt_type_obj.print_test_checklist()
     ic()
-    exit()
+    #exit()
     # print_all_checklists(expt_objects_dict)
     #
     # print_all_checklist_json_schemas(expt_objects_dict)

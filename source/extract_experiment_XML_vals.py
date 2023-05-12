@@ -140,15 +140,15 @@ class SRA_EXPERIMENT_SPEC:
 
     def get_library_strategy_list(self):
         ic(self.library_strategy)
-        return (list(self.library_strategy.keys()))
+        return (list(self.library_strategy.keys()).sort())
 
     def get_library_source_list(self):
         ic(self.library_source)
-        return (list(self.library_source.keys()))
+        return (list(self.library_source.keys()).sort())
 
     def get_library_selection_list(self):
         ic(self.library_selection)
-        return (list(self.library_selection.keys()))
+        return (list(self.library_selection.keys()).sort())
 
     def process_platform(self):
         simple_level = self.common_schema_level["xs:simpleType"]
@@ -211,6 +211,7 @@ class SRA_EXPERIMENT_SPEC:
 
         platforms = self.get_platform_list()
         all_instruments = list(set(all_instruments)) # get rid of duplicates
+        all_instruments.sort()
         self.all_instruments = all_instruments
 
     def get_platform(self):
@@ -220,14 +221,21 @@ class SRA_EXPERIMENT_SPEC:
         return(self.all_instruments)
 
     def get_platform_list(self):
-        return(list(self.platform.keys()))
+        """
+        :return: platform_list - alphabetically sorted
+        """
+        platforms = list(self.platform.keys())
+        platforms.sort()
+        return platforms
 
     def get_instrument_list(self):
-        return (self.all_instruments)
+        """
+        :return: instrument_list - alphabetically sorted
+        """
+        return list(self.all_instruments)
 
     def print_platform_md_list(self):
         platforms = self.get_platform_list()
-        platforms.sort()
         for platform in platforms:
             if platform == "not_yet_recognised":
                 os.write(2, b"WARNING: the following platform is not recognised yet, please add in!\n")
