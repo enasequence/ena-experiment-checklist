@@ -19,6 +19,7 @@ better metadata about experiments. The Sample Checklists have shown us how to us
 capture metadata, but also how to do this better.
 
 [see README.md](../README.md) for more information about the purpose of this.
+[for user aspects](ExperimentChecklistUserDoc.md)
 
 ## Key Features
 * a pair of JSON schema and JSON template per experiment type. The filled out template is validated against the schema. 
