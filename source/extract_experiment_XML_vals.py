@@ -139,25 +139,25 @@ class SRA_EXPERIMENT_SPEC:
                 ic()
 
     def get_library_strategy_list(self):
-        ic(self.library_strategy)
+        #ic(self.library_strategy)
         return (list(self.library_strategy.keys()).sort())
 
     def get_library_source_list(self):
-        ic(self.library_source)
+        #ic(self.library_source)
         return (list(self.library_source.keys()).sort())
 
     def get_library_selection_list(self):
-        ic(self.library_selection)
+        #ic(self.library_selection)
         return (list(self.library_selection.keys()).sort())
 
     def process_platform(self):
         simple_level = self.common_schema_level["xs:simpleType"]
-        ic(simple_level)
-        ic("_____________________________")
+        #ic(simple_level)
+        #ic("_____________________________")
         self.platform = {}
         all_instruments = []
         # if frequent changes may be best to refactor and pull the platform names directly from the XML and dynamically re-map.
-        # it looked convoluted to do, so went for the easiest option.
+        # it looked convoluted in the XML and JSON to do, so went for the easiest option.
         missing_platforms = []
         for child in simple_level:
             raw_platform = child['@name'].removeprefix("type").removesuffix("Model")
