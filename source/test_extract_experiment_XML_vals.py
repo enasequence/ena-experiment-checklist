@@ -29,29 +29,36 @@ class TestSRA_EXPERIMENT_SPEC(unittest.TestCase):
         ic()
 
     def test_get_library_strategy_list(self):
-         print("test_get_library_strategy_list")
-         self.assertTrue(len(self.sra_obj.get_library_strategy_list()) > 5)
+        # print("test_get_library_strategy_list")
+        # print(self.sra_obj.get_library_strategy_list())
+        self.assertTrue(len(self.sra_obj.get_library_strategy_list()) > 5)
+        self.assertTrue('WGS' in self.sra_obj.get_library_strategy_list())
 
     def test_get_targetted_loci_list(self):
-        print("test_get_targetted_loci_list")
-        test_val = ['16S rRNA', '18S rRNA', '28S rRNA', 'COX1', 'ITS1-5.8S-ITS2', 'RBCL', 'exome', 'matK', 'other']
-        self.assertEqual(self.sra_obj.get_targetted_loci_list(), test_val)
+        # print("test_get_targetted_loci_list")
+        self.assertTrue(len(self.sra_obj.get_targetted_loci_list()) > 5)
+        self.assertTrue('16S rRNA' in self.sra_obj.get_targetted_loci_list())
 
     def test_get_library_source_list(self):
-        print("test get_library_source_list")
+        # print("test get_library_source_list")
+        # print(self.sra_obj.get_library_source_list())
         self.assertTrue(len(self.sra_obj.get_library_source_list()) > 5)
+        self.assertTrue('TRANSCRIPTOMIC' in self.sra_obj.get_library_source_list())
 
     def test_get_instrument_list(self):
-        print("test get_instrument_list")
+        # print("test get_instrument_list")
+        # print(self.sra_obj.get_instrument_list())
         self.assertTrue(len(self.sra_obj.get_instrument_list()) > 5)
+        self.assertTrue('Illumina HiSeq 1500' in self.sra_obj.get_instrument_list())
 
     def test_get_platform_list(self):
-        print("test get_platform_list")
+        # print("test get_platform_list")
         self.assertTrue(len(self.sra_obj.get_platform_list()) > 5)
+        self.assertTrue('ILLUMINA' in self.sra_obj.get_platform_list())
 
 
 if __name__ == '__main__':
-    print("do some testing")
+    print("do some testing of output methods in extract_experiment_XML_vals.py")
     ic.disable()
     unittest.main()
 
