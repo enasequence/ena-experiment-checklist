@@ -33,23 +33,27 @@ class SRA_EXPERIMENT_SPEC:
         self.process_platform()
 
     def process_experiment(self):
+        ic()
         simple_level = self.experiment_schema_level["xs:simpleType"]
         #ic(simple_level)
         ic("_____________________________")
 
         def process_lib_child(child, self_child_pointer):
+            ic()
+            ic(self_child_pointer)
             #ic(child['xs:annotation']['xs:documentation'])
             #ic(child['xs:restriction']['xs:enumeration'])
             for LibChild in child['xs:restriction']['xs:enumeration']:
                 term_name = LibChild['@value']
-                #ic(term_name)
+                ic(term_name)
                 if LibChild.get('xs:annotation'):
-                    # ic(LibChild['xs:annotation']['xs:documentation'])
+                    ic(LibChild['xs:annotation']['xs:documentation'])
                     self_child_pointer[term_name] = {}
                     self_child_pointer[term_name]["documentation"] = LibChild['xs:annotation'][
                         'xs:documentation']
 
         for child in simple_level:
+            ic()
             if child.get('@name'):
                 field = child['@name'].removeprefix("type")
             else:
@@ -67,11 +71,9 @@ class SRA_EXPERIMENT_SPEC:
             else:
                 ic("<--TBD-->")
 
+
         self.process_further_expt()
         ic(self.get_targetted_loci_list())
-
-        #exit()
-
         ic()
 
     def process_further_expt(self):
@@ -170,18 +172,22 @@ class SRA_EXPERIMENT_SPEC:
 
 
     def get_library_strategy_list(self):
-        #ic(self.library_strategy)
-        return (list(self.library_strategy.keys()).sort())
+        my_list = list(self.library_strategy.keys())
+        my_list.sort
+        return my_list
 
     def get_library_source_list(self):
-        #ic(self.library_source)
-        return (list(self.library_source.keys()).sort())
+        my_list = list(self.library_source.keys())
+        my_list.sort
+        return my_list
 
     def get_library_selection_list(self):
-        #ic(self.library_selection)
-        return (list(self.library_selection.keys()).sort())
+        my_list = list(self.library_selection.keys())
+        my_list.sort
+        return my_list
 
     def process_platform(self):
+        ic()
         simple_level = self.common_schema_level["xs:simpleType"]
         #ic(simple_level)
         #ic("_____________________________")
@@ -241,9 +247,12 @@ class SRA_EXPERIMENT_SPEC:
             exit()
 
         platforms = self.get_platform_list()
+        # ic(self.get_platform_list())
         all_instruments = list(set(all_instruments)) # get rid of duplicates
         all_instruments.sort()
         self.all_instruments = all_instruments
+        # ic(self.get_instrument_list())
+        ic()
 
     def get_platform(self):
         return(self.platform)
@@ -299,12 +308,13 @@ def get_SRA_XML_baseline():
         # os.system(cmd)
         f = open(outfullfilename)
         my_sra_json = json.load(f)
+        f.close()
         return my_sra_json
 
     outdir = "/Users/woollard/projects/easi-genomics/ExperimentChecklist/data/input/"
     outfile = "SRA.common.json"
-    outfullfilename=outdir + outfile
-    cmd="curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.common.xsd | xq > " + outfullfilename
+    outfullfilename = outdir + outfile
+    cmd = "curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.common.xsd | xq > " + outfullfilename
     outfile = "SRA.experiment.json"
     my_sra_common_json = cmd2json(cmd)
 
@@ -318,13 +328,18 @@ def get_SRA_XML_baseline():
 
 def main():
     sra_obj = get_SRA_XML_baseline()
+
+    # ic(sra_obj.get_platform())
+    # ic(sra_obj.get_platform_list())
+    # ic(sra_obj.get_instrument_list())
+
     ic(sra_obj.get_library_strategy_list())
     ic(sra_obj.get_library_source_list())
     ic(sra_obj.get_library_selection_list())
 
-    ic(sra_obj.get_platform())
-    ic(sra_obj.get_platform_list())
-    ic(sra_obj.get_instrument_list())
+    exit()
+
+
     # print("platform terms")
     # sra_obj.print_platform_md_list()
     # print("\ninstrument terms")
