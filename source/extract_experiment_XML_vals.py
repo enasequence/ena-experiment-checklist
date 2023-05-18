@@ -51,6 +51,9 @@ class SRA_EXPERIMENT_SPEC:
                     self_child_pointer[term_name] = {}
                     self_child_pointer[term_name]["documentation"] = LibChild['xs:annotation'][
                         'xs:documentation']
+                else:
+                    self_child_pointer[term_name] = {}
+                    self_child_pointer[term_name]["documentation"] = ""
 
         for child in simple_level:
             ic()
@@ -326,6 +329,14 @@ def get_SRA_XML_baseline():
     return(sra_obj)
 
 
+def list2string(my_list):
+    """
+    :param my_list:
+    :return: string that is for a alphabetically sorted list and newline delimited
+    """
+    my_list.sort()
+    return '\n'.join(my_list)
+
 def main():
     sra_obj = get_SRA_XML_baseline()
 
@@ -336,6 +347,7 @@ def main():
     ic(sra_obj.get_library_strategy_list())
     ic(sra_obj.get_library_source_list())
     ic(sra_obj.get_library_selection_list())
+    print(list2string(sra_obj.get_library_selection_list()))
 
     exit()
 
