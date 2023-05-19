@@ -217,6 +217,15 @@
       "type": "string",
       "pattern": "(^SAM(E|D|N)[A-Z]?[0-9]+)|(^(E|D|S)RS[0-9]{6,})"
     },
+    "library_layout": {
+      "description": "Reads are unpaired (usual case).[ENA]",
+      "type": "string",
+      "default": "SINGLE",
+      "enum": [
+        "SINGLE",
+        "PAIRED"
+      ]
+    },
     "experiment_name": {
       "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
       "default": "my lovely TRANSCRIPTOMICS experiment",
@@ -228,8 +237,35 @@
       "default": "TRANSCRIPTOMIC",
       "enum": [],
       "dict": {
-        "GENOMIC": "Genomic DNA (includes PCR products from genomic DNA).",
-        "GENOMIC_SINGLE_CELL": "",
+        "GENOMIC": {
+          "description": "Genomic DNA (includes PCR products from genomic DNA).",
+          "library_strategies": ["WGS",
+                                          "WGA",
+                                          "WXS",
+                                          "WCS",
+                                          "CLONE",
+                                          "POOLCLONE",
+                                          "CLONEEND",
+                                          "FINISHING",
+                                          "Bisulfite-Seq",
+                                          "CTS",
+                                          "MRE-Seq",
+                                          "MeDIP-Seq",
+                                          "MBD-Seq",
+                                          "Tn-Seq",
+                                          "VALIDATION",
+                                          "FAIRE-seq",
+                                          "SELEX",
+                                          "RIP-Seq",
+                                          "ChIA-PET",
+                                          "Synthetic-Long-Read",
+                                          "Targeted-Capture",
+                                          "NOMe-Seq",
+                                          "ChM-Seq",
+                                          "GBS",
+                                          "Ribo-Seq",
+                                          "OTHER"]
+        },
         "TRANSCRIPTOMIC": "Transcription products or non genomic DNA (EST, cDNA, RT-PCR, screened libraries).",
         "TRANSCRIPTOMIC SINGLE CELL": "",
         "METATRANSCRIPTOMIC": "Transcription products from community targets",
@@ -316,7 +352,7 @@
       "type": "string"
     },
     "experiment_type": {
-      "description": "The broad type of sequencing experiment performed[PeterMU]",
+      "description": "The broad type of sequencing experiment performed. A mixture of library strategy and source[PeterMU]",
       "default": "",
       "_example": "",
       "type": "string"
