@@ -345,8 +345,11 @@ def main():
     # ic(sra_obj.get_instrument_list())
 
     ic(sra_obj.get_library_strategy_list())
+    ic(sra_obj.get_library_strategy_list())
+    print(list2string(sra_obj.get_library_strategy_list()))
     ic(sra_obj.get_library_source_list())
-    ic(sra_obj.get_library_selection_list())
+    print(list2string(sra_obj.get_library_source_list()))
+    ic(sra_obj.get_library_source_list())
     print(list2string(sra_obj.get_library_selection_list()))
 
     exit()

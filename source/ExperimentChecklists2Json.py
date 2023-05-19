@@ -92,10 +92,6 @@ class ExperimentTypeJsonSchema:
         self._core_dict['coreFields']["library_source"]["enum"] = sra_xml_obj.get_library_source_list()
         self._core_dict['coreFields']["library_selection"]["enum"] = sra_xml_obj.get_library_selection_list()
         self._core_dict['coreFields']["library_strategy"]["enum"] = sra_xml_obj.get_library_strategy_list()
-        ic()
-
-        ic(self._core_dict['coreFields']["library_strategy"])
-        sys.exit()
         ic(self._core_dict.keys())
         #target_loci
 

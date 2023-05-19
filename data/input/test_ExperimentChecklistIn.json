@@ -14,6 +14,8 @@
       "checklist_version": "v1",
       "checklist_group": "METAGENOMIC",
       "experiment_type": "METABARCODING",
+      "experiment_type_definition": "",
+      "experiment_type_ontology_id": "EDAM:",
       "library_source": "METAGENOMIC",
       "target_loci": "",
       "target_subfragment": "",
@@ -27,6 +29,8 @@
       "checklist_version": "v1",
       "checklist_group": "METAGENOMIC",
       "experiment_type": "METAGENOMIC_SEQUENCING",
+      "experiment_type_definition": "Approach which samples, in parallel, all genes in all organisms present in a given sample, e.g. to provide insight into biodiversity and function.",
+      "experiment_type_ontology_id": "EDAM:3837",
       "library_source": "METAGENOMIC",
       "target_loci": "",
       "target_subfragment": "",
@@ -39,6 +43,8 @@
       "checklist_version": "v1",
       "checklist_group": "METAGENOMIC",
       "experiment_type": "METATRANSCRIPTOMIC",
+      "experiment_type_definition": "The study of microbe gene expression within natural environments (i.e. the metatranscriptome).\nMetatranscriptomics methods can be used for whole gene expression profiling of complex microbial communities.[EDAM]",
+      "experiment_type_ontology_id": "EDAM:3941",
       "library_source": "METATRANSCRIPTOMIC",
       "pcr_fields": "",
       "custom_user_fields": ""
@@ -50,17 +56,9 @@
       "checklist_group": "GENOMIC",
       "checklist_version": "v1",
       "experiment_type": "GENOMIC",
+      "experiment_type_definition": "Sequencing of DNA located in the genome and able to be transmitted to the offspring.[adapted from SO]",
+      "experiment_type_ontology_id": "SO:0000991:",
       "library_source": "GENOMIC",
-      "custom_user_fields": ""
-    },
-    {
-      "checklist_id": "EXC000011",
-      "checklist_name": "WGS specific",
-      "_description": "Experiment Metadata Checklist Focused on Whole Genome Sequencing",
-      "checklist_group": "GENOMIC",
-      "checklist_version": "v1",
-      "experiment_type": "WHOLE_SHOTGUN_SEQUENCING",
-      "library_source": "WGS?",
       "custom_user_fields": ""
     },
     {
@@ -70,6 +68,8 @@
       "checklist_group": "GENOMIC",
       "checklist_version": "v1",
       "experiment_type": "VIRAL_RNA_GENOME",
+      "experiment_type_definition": "Adapted from a virus whose genome consists of RNA. Can be single or double-stranded RNA.[NCIT and SO adapted]",
+      "experiment_type_ontology_id": "SO:0001041",
       "library_source": "???",
       "custom_user_fields": ""
     },
@@ -80,6 +80,8 @@
       "checklist_group": "GENOMIC",
       "checklist_version": "v1",
       "experiment_type": "EXOME_SEQUENCING",
+      "experiment_type_definition": "Laboratory technique to sequence all the protein-coding regions in a genome, i.e., the exome.\nExome sequencing is considered a cheap alternative to whole genome sequencing.",
+      "experiment_type_ontology_id": "EDAM:3676",
       "library_source": "???",
       "custom_user_fields": ""
     },
@@ -90,6 +92,8 @@
       "checklist_group": "TEST_group",
       "checklist_version": "v1",
       "experiment_type": "TEST_type",
+      "experiment_type_definition": "TEST DEFINITION",
+      "experiment_type_ontology_id": "EDAM:12345",
       "library_source": "TRANSCRIPTOMIC",
       "pcr_fields": "",
       "target_fields": "",
@@ -104,6 +108,8 @@
       "checklist_group": "TRANSCRIPTOMIC",
       "checklist_version": "v1",
       "experiment_type": "TRANSCRIPTOMIC",
+      "experiment_type_definition": "The analysis of transcriptomes, or a set of all the RNA molecules in a specific cell, tissue etc.",
+      "experiment_type_ontology_id": "EDAM:3308",
       "library_source": "TRANSCRIPTOMIC",
       "custom_user_fields": ""
     },
@@ -114,6 +120,8 @@
       "checklist_group": "TRANSCRIPTOMIC",
       "checklist_version": "v1",
       "experiment_type": "SPATIAL_TRANSCRIPTOMIC",
+      "experiment_type_definition": "assay that allows visualization and quantitative analysis of the transcriptome with spatial resolution in individual tissue sections",
+      "experiment_type_ontology_id": "EFO:0008994",
       "library_source": "TRANSCRIPTOMIC",
       "custom_user_fields": ""
     },
@@ -124,6 +132,8 @@
       "checklist_version": "v1",
       "checklist_group": "GENOTYPING",
       "experiment_type": "DNA_BARCODING",
+      "experiment_type_definition": "Analyse DNA sequences in order to identify a DNA 'barcode'; marker genes or any short fragment(s) of DNA that are useful to diagnose the taxa of biological organisms.",
+      "experiment_type_ontology_id": "EDAM:320",
       "library_source": "GENOMIC???",
       "target_loci": "",
       "target_subfragment": "",
@@ -136,6 +146,8 @@
       "checklist_version": "v1",
       "checklist_group": "GENOTYPING",
       "experiment_type": "GENOTYPING",
+      "experiment_type_definition": "An assay in which variation in a part of or the whole genome is analysed",
+      "experiment_type_ontology_id": "EFO:0000750",
       "library_source": "GENOMIC???",
       "target_loci": "",
       "target_subfragment": "",
@@ -148,6 +160,8 @@
       "checklist_version": "v1",
       "checklist_group": "BEYOND_DNA",
       "experiment_type": "CHROMOSOME_CONFORMATION_CAPTURE",
+      "experiment_type_definition": "",
+      "experiment_type_ontology_id": "EDAM:",
       "library_source": "GENOMIC???",
       "custom_user_fields": ""
     },
@@ -158,16 +172,20 @@
       "checklist_version": "v1",
       "checklist_group": "BEYOND_DNA",
       "experiment_type": "EPIGENOMICS",
+      "experiment_type_definition": "The study of the epigenetic modifications of a whole cell, tissue, organism etc.\nEpigenetics concerns the heritable changes in gene expression owing to mechanisms other than DNA sequence variation.",
+      "experiment_type_ontology_id": "EDAM:3179",
       "library_source": "GENOMIC???",
       "custom_user_fields": ""
     },
     {
       "checklist_id": "EXC000042",
-      "checklist_name": "DNA binding site prediction specific",
-      "_description": "Experiment Metadata Checklist Focused on DNA binding site prediction",
+      "checklist_name": "Chromatin specific",
+      "_description": "Experiment Metadata Checklist Focused on Chromatin, nucleosome and DNA binding site prediction",
       "checklist_version": "v1",
       "checklist_group": "BEYOND_DNA",
-      "experiment_type": "DNA_binding_site_prediction",
+      "experiment_type": "CHROMATIN_RELATED",
+      "experiment_type_definition": "",
+      "experiment_type_ontology_id": "EDAM:",
       "library_source": "GENOMIC???"
     }
   ],
@@ -181,7 +199,9 @@
     }
   },
   "custom_user_fields": {
-    "custom_fields": {
+    "experiment_attribute": {
+      "experiment_context_type": "baseline",
+      "key_experimental_factors": [],
       "_insert_field_a": "",
       "_insert_field_b": "",
       "_insert_field_c": ""
@@ -239,32 +259,34 @@
       "dict": {
         "GENOMIC": {
           "description": "Genomic DNA (includes PCR products from genomic DNA).",
-          "library_strategies": ["WGS",
-                                          "WGA",
-                                          "WXS",
-                                          "WCS",
-                                          "CLONE",
-                                          "POOLCLONE",
-                                          "CLONEEND",
-                                          "FINISHING",
-                                          "Bisulfite-Seq",
-                                          "CTS",
-                                          "MRE-Seq",
-                                          "MeDIP-Seq",
-                                          "MBD-Seq",
-                                          "Tn-Seq",
-                                          "VALIDATION",
-                                          "FAIRE-seq",
-                                          "SELEX",
-                                          "RIP-Seq",
-                                          "ChIA-PET",
-                                          "Synthetic-Long-Read",
-                                          "Targeted-Capture",
-                                          "NOMe-Seq",
-                                          "ChM-Seq",
-                                          "GBS",
-                                          "Ribo-Seq",
-                                          "OTHER"]
+          "library_strategies": [
+            "WGS",
+            "WGA",
+            "WXS",
+            "WCS",
+            "CLONE",
+            "POOLCLONE",
+            "CLONEEND",
+            "FINISHING",
+            "Bisulfite-Seq",
+            "CTS",
+            "MRE-Seq",
+            "MeDIP-Seq",
+            "MBD-Seq",
+            "Tn-Seq",
+            "VALIDATION",
+            "FAIRE-seq",
+            "SELEX",
+            "RIP-Seq",
+            "ChIA-PET",
+            "Synthetic-Long-Read",
+            "Targeted-Capture",
+            "NOMe-Seq",
+            "ChM-Seq",
+            "GBS",
+            "Ribo-Seq",
+            "OTHER"
+          ]
         },
         "TRANSCRIPTOMIC": "Transcription products or non genomic DNA (EST, cDNA, RT-PCR, screened libraries).",
         "TRANSCRIPTOMIC SINGLE CELL": "",
@@ -386,6 +408,24 @@
     "adapters": {
       "description": "Adapters provide priming sequences for both amplification and sequencing of the sample-library fragments. Both adapters should be reported; in uppercase letters.[INSDC]",
       "type": "string"
+    },
+    "experiment_context_type": {
+      "description": "The specific context that this sequence assaying is part of. The details will be in the relevant repositories e.g. Expression Atlas or PRIDE.  values: baseline( does not involve any perturbations) or differential(has pertubans or other experimental facts and  a clear control/reference group) [adapted from Expression Atlas]",
+      "type": "string",
+      "default": "baseline",
+      "enum": [
+        "baseline",
+        "differential",
+        "other"
+      ]
+    },
+    "key_experimental_factor": {
+      "description": "key_experimental_factors as CURIE ontology ids e.g. [CHEBI:24431, EFO:0000568]",
+      "type": "array",
+      "items": {
+        "type": "ontology"
+      },
+      "default": []
     }
   },
   "coreRules": [
