@@ -4,13 +4,17 @@
     "checklist_id": "EXC000010",
     "checklist_name": "GENOMIC specific",
     "checklist_version": "v1",
-    "custom_fields": {
+    "experiment_attribute": {
         "_insert_field_a": "",
         "_insert_field_b": "",
-        "_insert_field_c": ""
+        "_insert_field_c": "",
+        "experiment_context_type": "baseline",
+        "key_experimental_factors": []
     },
     "experiment_name": "",
     "experiment_type": "GENOMIC",
+    "experiment_type_definition": "Sequencing of DNA located in the genome and able to be transmitted to the offspring.[adapted from SO]",
+    "experiment_type_ontology_id": "SO:0000991:",
     "insert_size": 0,
     "instrument_model": "",
     "instrument_platform": "",

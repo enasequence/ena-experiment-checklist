@@ -4,13 +4,17 @@
     "checklist_id": "EXC000040",
     "checklist_name": "CHROMOSOME CONFORMATION CAPTURE specific",
     "checklist_version": "v1",
-    "custom_fields": {
+    "experiment_attribute": {
         "_insert_field_a": "",
         "_insert_field_b": "",
-        "_insert_field_c": ""
+        "_insert_field_c": "",
+        "experiment_context_type": "baseline",
+        "key_experimental_factors": []
     },
     "experiment_name": "",
     "experiment_type": "CHROMOSOME_CONFORMATION_CAPTURE",
+    "experiment_type_definition": "",
+    "experiment_type_ontology_id": "EDAM:",
     "insert_size": 0,
     "instrument_model": "",
     "instrument_platform": "",

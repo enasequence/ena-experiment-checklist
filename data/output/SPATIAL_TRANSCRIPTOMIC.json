@@ -4,13 +4,17 @@
     "checklist_id": "EXC000021",
     "checklist_name": "SPATIAL TRANSCRIPTOMIC specific",
     "checklist_version": "v1",
-    "custom_fields": {
+    "experiment_attribute": {
         "_insert_field_a": "",
         "_insert_field_b": "",
-        "_insert_field_c": ""
+        "_insert_field_c": "",
+        "experiment_context_type": "baseline",
+        "key_experimental_factors": []
     },
     "experiment_name": "",
     "experiment_type": "SPATIAL_TRANSCRIPTOMIC",
+    "experiment_type_definition": "assay that allows visualization and quantitative analysis of the transcriptome with spatial resolution in individual tissue sections",
+    "experiment_type_ontology_id": "EFO:0008994",
     "insert_size": 0,
     "instrument_model": "",
     "instrument_platform": "",
