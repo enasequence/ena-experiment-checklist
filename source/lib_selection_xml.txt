@@ -1,0 +1,31 @@
+5-methylcytidine antibody
+CAGE
+ChIP
+ChIP-Seq
+DNase
+HMPR
+Hybrid Selection
+Inverse rRNA
+Inverse rRNA selection
+MBD2 protein methyl-CpG binding domain
+MDA
+MF
+MNase
+MSLL
+Oligo-dT
+PCR
+PolyA
+RACE
+RANDOM
+RANDOM PCR
+RT-PCR
+Reduced Representation
+Restriction Digest
+cDNA
+cDNA_oligo_dT
+cDNA_randomPriming
+other
+padlock probes capture method
+repeat fractionation
+size fractionation
+unspecified
