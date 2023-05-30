@@ -22,10 +22,11 @@
     "library_layout": "",
     "library_name": "",
     "library_selection": "",
-    "library_source": "GENOMIC???",
+    "library_source": "GENOMIC",
     "library_strategy": "",
     "sample_accession": "",
+    "sequencing_protocol": "",
     "study_id": "",
-    "target_loci": "",
+    "target_loci": "COX1",
     "target_subfragment": ""
 }

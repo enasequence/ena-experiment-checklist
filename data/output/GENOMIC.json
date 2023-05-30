@@ -25,5 +25,6 @@
     "library_source": "GENOMIC",
     "library_strategy": "",
     "sample_accession": "",
+    "sequencing_protocol": "",
     "study_id": ""
 }

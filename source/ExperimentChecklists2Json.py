@@ -45,6 +45,52 @@ from extract_experiment_XML_vals import *
 
 global glob_exp_obj
 
+class ChecklistDoc:
+    """
+    Create md documentation for the experiments type checklists
+
+    """
+    def __init__(self):
+        self.title = '# experiments type checklists'
+        self.intro = '## Introduction\n' + 'These are the checklists for different types of experiments.'
+        self.refs = '## References: metadata model and glossary\n'
+        self.refs += ' * https://ena-docs.readthedocs.io/en/latest/submit/general-guide/metadata.html\n'
+        self.refs += ' * https://ena-docs.readthedocs.io/en/latest/submit/reads/webin-cli.html\n'
+        self.experimentTable = '| ChecklistGroup | ExperimentTypeName |\n'
+        self.experimentTable += '| --- | ------------------ |\n'
+        ic()
+
+    def addExperimentInfo(self, experimentType):
+        ic()
+        ic(experimentType.experiment_type_name)
+        ic(experimentType._core_dict)
+        schema_obj = experimentType.get_json_schema_obj()
+        ic(schema_obj.get_experiment_type_name())
+        ic(schema_obj.get_experiment_specific_dict())
+        schema_obj.get_checklist_name()
+        schema_obj.get_checklist_description()
+        schema_obj.get_checklist_group_default()
+        schema_obj.get_checklist_group_description()
+        #ic(experimentType.
+        #
+        # self.experimentTable += '| ' + experimentType._core_dict['coreFields']['checklist_group'] + ' | '
+        # self.experimentTable +=    experimentType.experiment_type_name + ' |\n'
+        sys.exit()
+
+    def print_checklist_doc(self):
+        output = []
+        output.append(self.title)
+        output.append(self.intro)
+        output.append(self.refs)
+        output.append(self.experimentTable)
+        outstring = '\n'.join(output)
+        ic(outstring)
+        out_filename = '../docs/ExperimentChecklistTables.md'
+        ic(out_filename)
+        text_file = open(out_filename, 'w')
+        text_file.write(outstring)
+        text_file.close()
+        return outstring
 
 class ExperimentTypeJsonSchema:
     """ ExperimentTypeJsonSchema
@@ -61,7 +107,10 @@ class ExperimentTypeJsonSchema:
         self.set_experiment_specific_dict(experiment_type_obj.get_checklist_specific_dict())
         self.set_platform_instrument()
         experiment_type_obj.set_json_schema_obj(self)
+        ic("just set_json_schema_obj")
 
+    def get_experiment_type_obj(self):
+        return self._experimentType
     def get_SRA_obj(self):
         if hasattr(self, 'SRA_obj'):
             ic()
@@ -341,6 +390,22 @@ class ExperimentTypeJsonSchema:
         with open(outfileName, "w") as outfile:
             outfile.write(json_object)
         return json_object
+
+    def get_checklist_name(self):
+        all_checklist_dict = self.get_all_dict()
+        #ic(my_dict['checklist_name']
+        ic(all_checklist_dict)
+        sys.exit()
+
+    def get_checklist_description(self):
+        pass
+
+    def get_checklist_group_default(self):
+        pass
+
+    def get_checklist_group_description(self):
+        pass
+
 
 class ExperimentType:
     """ ExperimentType object
@@ -662,8 +727,11 @@ def create_schema_objects(expt_objects, config_data):
         ic(experiment_type_name)
         experimentType: object = expt_objects[experiment_type_name]
         schema_objects[experiment_type_name] = ExperimentTypeJsonSchema(experimentType, config_data)
-        ic()
-        schema_objects[experiment_type_name].print_json_schema()
+        schema_obj = schema_objects[experiment_type_name]
+        experimentType.set_json_schema_obj(schema_obj)
+        ic(schema_obj)
+        schema_obj.print_json_schema()
+
 
     return schema_objects
 
@@ -685,14 +753,20 @@ def print_all_checklist_json_schemas(expt_objects):
         experimentType.print_ExperimentTypeObj()
 
 
+
 def main():
     ic()
     debug_status = True
     # debug_status = False
 
+
+    checklist_doc = ChecklistDoc()
+
+
     config_data = read_config(debug_status)
     expt_objects_dict = process_and_get_fields(config_data)
     ic(expt_objects_dict)
+
     for experiment_type_name in expt_objects_dict:
         # if experiment_type_name != 'TEST_type':
         #     continue
@@ -700,7 +774,7 @@ def main():
         experimentType = expt_objects_dict[experiment_type_name]
         #ic(experimentType.get_ExperimentTypeObj_values())
         ic()
-        experimentType.print_checklist()
+
         # ic()
 
         # expt_type_obj.print_test_checklist()
@@ -710,11 +784,23 @@ def main():
     #print_all_checklist_json_schemas(expt_objects_dict)
     schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
     for experiment_type_name in schema_obj_dict:
+        ic()
         ic(experiment_type_name)
-        schema_obj = schema_obj_dict[experiment_type_name]
-        # ic(schema_obj.experiment_type_name)
-        # print(schema_obj.print_json_schema())
 
+        schema_obj = schema_obj_dict[experiment_type_name]
+
+        # ic(schema_obj.experiment_type_name)
+        print(schema_obj.print_json_schema())
+
+        experimentType = schema_obj.get_experiment_type_obj()
+        experimentType.print_checklist()
+        experimentType.set_json_schema_obj(schema_obj)
+        checklist_doc.addExperimentInfo(experimentType)
+
+
+
+    checklist_doc.print_checklist_doc()
+    sys.exit()
 
 if __name__ == '__main__':
     main()

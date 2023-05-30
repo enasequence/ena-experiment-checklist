@@ -32,5 +32,6 @@
     },
     "pcr_protocol": "",
     "sample_accession": "",
+    "sequencing_protocol": "",
     "study_id": ""
 }

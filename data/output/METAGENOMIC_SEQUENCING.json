@@ -25,6 +25,7 @@
     "library_source": "METAGENOMIC",
     "library_strategy": "",
     "sample_accession": "",
+    "sequencing_protocol": "",
     "study_id": "",
     "target_loci": "",
     "target_subfragment": ""

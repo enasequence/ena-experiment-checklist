@@ -70,7 +70,7 @@
       "experiment_type": "VIRAL_RNA_GENOME",
       "experiment_type_definition": "Adapted from a virus whose genome consists of RNA. Can be single or double-stranded RNA.[NCIT and SO adapted]",
       "experiment_type_ontology_id": "SO:0001041",
-      "library_source": "???",
+      "library_source": "VIRAL_RNA",
       "custom_user_fields": ""
     },
     {
@@ -82,7 +82,7 @@
       "experiment_type": "EXOME_SEQUENCING",
       "experiment_type_definition": "Laboratory technique to sequence all the protein-coding regions in a genome, i.e., the exome.\nExome sequencing is considered a cheap alternative to whole genome sequencing.",
       "experiment_type_ontology_id": "EDAM:3676",
-      "library_source": "???",
+      "library_source": "GENOMIC",
       "custom_user_fields": ""
     },
     {
@@ -134,8 +134,8 @@
       "experiment_type": "DNA_BARCODING",
       "experiment_type_definition": "Analyse DNA sequences in order to identify a DNA 'barcode'; marker genes or any short fragment(s) of DNA that are useful to diagnose the taxa of biological organisms.",
       "experiment_type_ontology_id": "EDAM:320",
-      "library_source": "GENOMIC???",
-      "target_loci": "",
+      "library_source": "GENOMIC",
+      "target_loci": "COX1",
       "target_subfragment": "",
       "custom_user_fields": ""
     },
@@ -148,8 +148,8 @@
       "experiment_type": "GENOTYPING",
       "experiment_type_definition": "An assay in which variation in a part of or the whole genome is analysed",
       "experiment_type_ontology_id": "EFO:0000750",
-      "library_source": "GENOMIC???",
-      "target_loci": "",
+      "library_source": "GENOMIC",
+      "target_loci": "other",
       "target_subfragment": "",
       "custom_user_fields": ""
     },
@@ -339,6 +339,13 @@
       ],
       "type": "string",
       "_comment": " will get values from the sra.experiment_xml"
+    },
+        "sequencing_protocol": {
+      "description": "A rule which guides how an activity should be performed. This is for the sequencing related[NCIT]",
+      "_example": "https://www.protocols.io/view/environmental-dna-edna-metabarcoding-protocol-for-rm7vzy3q2lx1/v1",
+      "default": "A URL from protocol.io",
+      "type": "string",
+      "_comment": "if multiple protocols. use a pipe to delimited"
     }
   },
   "allSpecificFieldsConfig": {
