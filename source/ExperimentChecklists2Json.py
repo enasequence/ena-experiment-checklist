@@ -56,8 +56,8 @@ class ChecklistDoc:
         self.refs = '## References: metadata model and glossary\n'
         self.refs += ' * https://ena-docs.readthedocs.io/en/latest/submit/general-guide/metadata.html\n'
         self.refs += ' * https://ena-docs.readthedocs.io/en/latest/submit/reads/webin-cli.html\n'
-        self.experimentTable = '| ChecklistGroup | ExperimentTypeName |\n'
-        self.experimentTable += '| --- | ------------------ |\n'
+        self.experimentTable = '| Checklist Group | Checklist Name | Checklist ID | Checklist Description | Checklist Version | Experiment Type Name |\n'
+        self.experimentTable += '| --- | --- | --- | --- | --- | --- |\n'
         ic()
 
     def addExperimentInfo(self, experimentType):
@@ -67,15 +67,23 @@ class ChecklistDoc:
         schema_obj = experimentType.get_json_schema_obj()
         ic(schema_obj.get_experiment_type_name())
         ic(schema_obj.get_experiment_specific_dict())
-        schema_obj.get_checklist_name()
-        schema_obj.get_checklist_description()
-        schema_obj.get_checklist_group_default()
-        schema_obj.get_checklist_group_description()
+        ic(schema_obj.get_checklist_name())
+        ic(schema_obj.get_checklist_id())
+        ic(schema_obj.get_checklist_description())
+        ic(schema_obj.get_checklist_group())
+        # schema_obj.get_checklist_group_description()
         #ic(experimentType.
         #
-        # self.experimentTable += '| ' + experimentType._core_dict['coreFields']['checklist_group'] + ' | '
-        # self.experimentTable +=    experimentType.experiment_type_name + ' |\n'
-        sys.exit()
+        self.experimentTable += '| '
+        self.experimentTable +=  schema_obj.get_checklist_group() + ' | '
+        self.experimentTable += schema_obj.get_checklist_name() + ' | '
+        self.experimentTable += schema_obj.get_checklist_id() + ' | '
+        self.experimentTable += schema_obj.get_checklist_description() + ' | '
+        self.experimentTable += schema_obj.get_checklist_version() + ' | '
+        self.experimentTable +=  experimentType.experiment_type_name + ' |\n'
+        ic()
+        ic(self.experimentTable)
+        # sys.exit()
 
     def print_checklist_doc(self):
         output = []
@@ -392,19 +400,36 @@ class ExperimentTypeJsonSchema:
         return json_object
 
     def get_checklist_name(self):
-        all_checklist_dict = self.get_all_dict()
-        #ic(my_dict['checklist_name']
-        ic(all_checklist_dict)
-        sys.exit()
+        experiment_type_obj = self.get_experiment_type_obj()
+        my_dict = experiment_type_obj.get_all_dict()
+        ic(my_dict)
+        ic(my_dict['checklist_name'])
+        return my_dict['checklist_name']
+
+    def get_checklist_id(self):
+        experiment_type_obj = self.get_experiment_type_obj()
+        my_dict = experiment_type_obj.get_all_dict()
+        return my_dict['checklist_id']
+
+    def get_checklist_version(self):
+        experiment_type_obj = self.get_experiment_type_obj()
+        my_dict = experiment_type_obj.get_all_dict()
+        return my_dict['checklist_version']
+
+    def get_experiment_type_definition(self):
+        experiment_type_obj = self.get_experiment_type_obj()
+        my_dict = experiment_type_obj.get_all_dict()
+        return my_dict['experiment_type_definition']
 
     def get_checklist_description(self):
-        pass
+        experiment_type_obj = self.get_experiment_type_obj()
+        my_dict = experiment_type_obj.get_all_dict()
+        return my_dict['_description']
 
-    def get_checklist_group_default(self):
-        pass
-
-    def get_checklist_group_description(self):
-        pass
+    def get_checklist_group(self):
+        experiment_type_obj = self.get_experiment_type_obj()
+        my_dict = experiment_type_obj.get_all_dict()
+        return my_dict['checklist_group']
 
 
 class ExperimentType:
@@ -482,11 +507,15 @@ class ExperimentType:
 
     def get_all_dict(self):
         ic()
-        all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
-        ic(self.get_checklist_specific_dict())
-        ic(self.get_core_dict())
-        ic(self.get_special_dict())
-        all_dict = self.clean_all_dict(all_dict)
+        if hasattr(self, '_all_dict'):
+            return self._all_dict
+        else:
+            all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
+            ic(self.get_checklist_specific_dict())
+            ic(self.get_core_dict())
+            ic(self.get_special_dict())
+            all_dict = self.clean_all_dict(all_dict)
+            self._all_dict = all_dict
         return all_dict
 
     def clean_all_dict(self, all_dict):
