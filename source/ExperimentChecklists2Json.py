@@ -56,8 +56,8 @@ class ChecklistDoc:
         self.refs = '## References: metadata model and glossary\n'
         self.refs += ' * https://ena-docs.readthedocs.io/en/latest/submit/general-guide/metadata.html\n'
         self.refs += ' * https://ena-docs.readthedocs.io/en/latest/submit/reads/webin-cli.html\n'
-        self.experimentTable = '| Checklist Group | Checklist Name | Checklist ID | Checklist Description | Checklist Version | Experiment Type Name |\n'
-        self.experimentTable += '| --- | --- | --- | --- | --- | --- |\n'
+        self.experimentTable = '| Checklist Group | Checklist Name | Checklist ID | Checklist Description | Checklist Version | Experiment Type Name | Experiment Type Definition | Library Strategy | Library Source |\n'
+        self.experimentTable += '| --- | --- | --- | --- | --- | --- |--- | --- | -- |\n'
         ic()
 
     def addExperimentInfo(self, experimentType):
@@ -65,25 +65,20 @@ class ChecklistDoc:
         ic(experimentType.experiment_type_name)
         ic(experimentType._core_dict)
         schema_obj = experimentType.get_json_schema_obj()
-        ic(schema_obj.get_experiment_type_name())
-        ic(schema_obj.get_experiment_specific_dict())
-        ic(schema_obj.get_checklist_name())
-        ic(schema_obj.get_checklist_id())
-        ic(schema_obj.get_checklist_description())
-        ic(schema_obj.get_checklist_group())
-        # schema_obj.get_checklist_group_description()
-        #ic(experimentType.
-        #
         self.experimentTable += '| '
-        self.experimentTable +=  schema_obj.get_checklist_group() + ' | '
+        self.experimentTable += schema_obj.get_checklist_group() + ' | '
         self.experimentTable += schema_obj.get_checklist_name() + ' | '
         self.experimentTable += schema_obj.get_checklist_id() + ' | '
         self.experimentTable += schema_obj.get_checklist_description() + ' | '
         self.experimentTable += schema_obj.get_checklist_version() + ' | '
-        self.experimentTable +=  experimentType.experiment_type_name + ' |\n'
+        self.experimentTable += experimentType.experiment_type_name + ' | '
+        self.experimentTable += schema_obj.get_experiment_type_definition() + ' | '
+        self.experimentTable += schema_obj.get_library_strategy() + ' | '
+        self.experimentTable += schema_obj.get_library_source() + ' | '
+        self.experimentTable += '\n'
         ic()
         ic(self.experimentTable)
-        # sys.exit()
+        sys.exit()
 
     def print_checklist_doc(self):
         output = []
@@ -431,6 +426,17 @@ class ExperimentTypeJsonSchema:
         my_dict = experiment_type_obj.get_all_dict()
         return my_dict['checklist_group']
 
+    def get_library_source(self):
+        experiment_type_obj = self.get_experiment_type_obj()
+        my_dict = experiment_type_obj.get_all_dict()
+        return my_dict['library_source']
+
+    def get_library_strategy(self):
+        experiment_type_obj = self.get_experiment_type_obj()
+        my_dict = experiment_type_obj.get_all_dict()
+        ic(my_dict['library_strategy'])
+        return my_dict['library_strategy']
+
 
 class ExperimentType:
     """ ExperimentType object
@@ -506,10 +512,11 @@ class ExperimentType:
         return self._core_dict_default_values
 
     def get_all_dict(self):
-        ic()
         if hasattr(self, '_all_dict'):
+            ic()
             return self._all_dict
         else:
+            ic()
             all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
             ic(self.get_checklist_specific_dict())
             ic(self.get_core_dict())
