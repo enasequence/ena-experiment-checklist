@@ -50,7 +50,7 @@ class SRA_EXPERIMENT_SPEC:
                     ic(LibChild['xs:annotation']['xs:documentation'])
                     self_child_pointer[term_name] = {}
                     self_child_pointer[term_name]["documentation"] = LibChild['xs:annotation'][
-                        'xs:documentation']
+                        'xs:documentation'].replace("\n", " ").replace("  ", " ").replace("  ", " ").removesuffix(" ")
                 else:
                     self_child_pointer[term_name] = {}
                     self_child_pointer[term_name]["documentation"] = ""
@@ -173,6 +173,9 @@ class SRA_EXPERIMENT_SPEC:
 
         ic()
 
+    def get_library_strategy_details(self):
+        # e.g. 'ChIA-PET': {'documentation': 'Direct sequencing of proximity-ligated chromatin immunoprecipitates.'},
+        return self.library_strategy
 
     def get_library_strategy_list(self):
         my_list = list(self.library_strategy.keys())
