@@ -51,6 +51,7 @@ def file2json(filename):
     ic(filename)
     f = open(filename, "r")
     json_obj = json.load(f)
+    f.close()
     ic(json_obj)
     return json_obj
 
