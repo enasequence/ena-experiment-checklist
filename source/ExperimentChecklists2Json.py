@@ -35,15 +35,24 @@ import json
 import sys
 
 from mergedeep import merge
+ic.disable()
 from extract_experiment_XML_vals import *
 
 # from ExperimentChecklist import *
-# ic.disable()
+ic.disable()
 
 # from jsonschema import validate
 # import pandas as pd
 
 global glob_exp_obj
+
+
+def file2json(filename):
+    ic(filename)
+    f = open(filename, "r")
+    json_obj = json.load(f)
+    ic(json_obj)
+    return json_obj
 
 class ChecklistDoc:
     """
@@ -60,11 +69,32 @@ class ChecklistDoc:
         self.experimentTable += '| --- | --- | --- | --- | --- | --- |--- | --- | -- |\n'
         ic()
 
+    # ic(sra_obj.get_library_strategy_details())
     def addExperimentInfo(self, experimentType):
         ic()
         ic(experimentType.experiment_type_name)
+        expt_name = experimentType.experiment_type_name
         ic(experimentType._core_dict)
         schema_obj = experimentType.get_json_schema_obj()
+
+        SRA_obj = schema_obj.get_SRA_obj()
+        #ic(SRA_obj.get_library_strategy_details())
+        lib_strat = schema_obj.get_library_strategy()
+        ic(lib_strat)
+        ic(SRA_obj.get_library_strategy_detail(lib_strat))
+
+
+        lib_selection = schema_obj.get_library_selection()
+        ic(lib_selection)
+        ic(SRA_obj.get_library_selection_detail(lib_selection))
+
+        lib_source = schema_obj.get_library_source()
+        ic(lib_source)
+        ic(SRA_obj.get_library_source_detail(lib_source))
+
+
+        sys.exit()
+
         self.experimentTable += '| '
         self.experimentTable += schema_obj.get_checklist_group() + ' | '
         self.experimentTable += schema_obj.get_checklist_name() + ' | '
@@ -118,10 +148,10 @@ class ExperimentTypeJsonSchema:
         if hasattr(self, 'SRA_obj'):
             ic()
         else:
-            ic.disable()
+            #ic.disable()
             sra_xml_obj = get_SRA_XML_baseline()
             self.SRA_obj = sra_xml_obj
-            ic.enable()
+            #ic.enable()
         return self.SRA_obj
 
     def set_platform_instrument(self):
@@ -427,15 +457,33 @@ class ExperimentTypeJsonSchema:
         return my_dict['checklist_group']
 
     def get_library_source(self):
+        """
+
+        :return: term
+        """
         experiment_type_obj = self.get_experiment_type_obj()
         my_dict = experiment_type_obj.get_all_dict()
         return my_dict['library_source']
 
     def get_library_strategy(self):
+        """
+
+        :return: term
+        """
         experiment_type_obj = self.get_experiment_type_obj()
         my_dict = experiment_type_obj.get_all_dict()
         ic(my_dict['library_strategy'])
         return my_dict['library_strategy']
+
+    def get_library_selection(self):
+        """
+
+        :return: term
+        """
+        experiment_type_obj = self.get_experiment_type_obj()
+        my_dict = experiment_type_obj.get_all_dict()
+        ic(my_dict['library_selection'])
+        return my_dict['library_selection']
 
 
 class ExperimentType:
@@ -794,6 +842,9 @@ def main():
     ic()
     debug_status = True
     # debug_status = False
+    schema_json_file = '/Users/woollard/projects/easi-genomics/ExperimentChecklist/data/testing/METABARCODING_schema.json'
+    # json_obj = file2json(schema_json_file)
+    # print(json_obj)
 
 
     checklist_doc = ChecklistDoc()
