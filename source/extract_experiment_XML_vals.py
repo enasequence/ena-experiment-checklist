@@ -177,6 +177,39 @@ class SRA_EXPERIMENT_SPEC:
         # e.g. 'ChIA-PET': {'documentation': 'Direct sequencing of proximity-ligated chromatin immunoprecipitates.'},
         return self.library_strategy
 
+    def get_library_strategy_detail(self, term):
+        if term == "":
+            return ""
+        else:
+            ic(term)
+            ic(self.library_strategy[term])
+            return self.library_strategy[term]['documentation']
+
+
+    def get_library_selection_details(self):
+        # e.g. 'ChIA-PET': {'documentation': 'Direct sequencing of proximity-ligated chromatin immunoprecipitates.'},
+        return self.library_selection
+
+    def get_library_selection_detail(self, term):
+        if term == "":
+            return ""
+        else:
+            ic(term)
+            ic(self.library_selection[term])
+            return self.library_selection[term]['documentation']
+
+    def get_library_source_details(self):
+        # e.g. 'ChIA-PET': {'documentation': 'Direct sequencing of proximity-ligated chromatin immunoprecipitates.'},
+        return self.library_source
+
+    def get_library_source_detail(self, term):
+        if term == "":
+            return ""
+        else:
+            ic(term)
+            ic(self.library_source[term])
+            return self.library_source[term]['documentation']
+
     def get_library_strategy_list(self):
         my_list = list(self.library_strategy.keys())
         my_list.sort
