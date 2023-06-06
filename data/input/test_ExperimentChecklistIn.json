@@ -18,10 +18,12 @@
       "experiment_type_ontology_id": "EDAM:320",
       "library_source": "METAGENOMIC",
       "library_strategy": "AMPLICON",
+      "library_selection": "PCR",
       "target_loci": "",
       "target_subfragment": "",
       "pcr_fields": "",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": "mixed marker barcoding"
     },
     {
       "checklist_id": "EXC000002",
@@ -35,7 +37,8 @@
       "library_source": "METAGENOMIC",
       "target_loci": "",
       "target_subfragment": "",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": ""
     },
     {
       "checklist_id": "EXC000003",
@@ -48,7 +51,8 @@
       "experiment_type_ontology_id": "EDAM:3941",
       "library_source": "METATRANSCRIPTOMIC",
       "pcr_fields": "",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": ""
     },
     {
       "checklist_id": "EXC000010",
@@ -60,7 +64,8 @@
       "experiment_type_definition": "Sequencing of DNA located in the genome and able to be transmitted to the offspring.[adapted from SO]",
       "experiment_type_ontology_id": "SO:0000991:",
       "library_source": "GENOMIC",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": ""
     },
     {
       "checklist_id": "EXC000012",
@@ -72,7 +77,8 @@
       "experiment_type_definition": "Adapted from a virus whose genome consists of RNA. Can be single or double-stranded RNA.[NCIT and SO adapted]",
       "experiment_type_ontology_id": "SO:0001041",
       "library_source": "VIRAL_RNA",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": ""
     },
     {
       "checklist_id": "EXC000013",
@@ -84,7 +90,8 @@
       "experiment_type_definition": "Laboratory technique to sequence all the protein-coding regions in a genome, i.e., the exome.\nExome sequencing is considered a cheap alternative to whole genome sequencing.",
       "experiment_type_ontology_id": "EDAM:3676",
       "library_source": "GENOMIC",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": ""
     },
     {
       "checklist_id": "EXC999999",
@@ -100,7 +107,8 @@
       "target_fields": "",
       "multiplex_fields": "",
       "adapter_fields": "",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": ""
     },
     {
       "checklist_id": "EXC000020",
@@ -112,7 +120,8 @@
       "experiment_type_definition": "The analysis of transcriptomes, or a set of all the RNA molecules in a specific cell, tissue etc.",
       "experiment_type_ontology_id": "EDAM:3308",
       "library_source": "TRANSCRIPTOMIC",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": ""
     },
     {
       "checklist_id": "EXC000021",
@@ -124,7 +133,8 @@
       "experiment_type_definition": "assay that allows visualization and quantitative analysis of the transcriptome with spatial resolution in individual tissue sections",
       "experiment_type_ontology_id": "EFO:0008994",
       "library_source": "TRANSCRIPTOMIC",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+      "design_description": ""
     },
     {
       "checklist_id": "EXC000030",
@@ -138,7 +148,8 @@
       "library_source": "GENOMIC",
       "target_loci": "COX1",
       "target_subfragment": "",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": ""
     },
     {
       "checklist_id": "EXC000031",
@@ -152,7 +163,8 @@
       "library_source": "GENOMIC",
       "target_loci": "other",
       "target_subfragment": "",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": ""
     },
     {
       "checklist_id": "EXC000040",
@@ -164,7 +176,8 @@
       "experiment_type_definition": "",
       "experiment_type_ontology_id": "EDAM:",
       "library_source": "GENOMIC???",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": ""
     },
     {
       "checklist_id": "EXC000041",
@@ -176,7 +189,10 @@
       "experiment_type_definition": "The study of the epigenetic modifications of a whole cell, tissue, organism etc.\nEpigenetics concerns the heritable changes in gene expression owing to mechanisms other than DNA sequence variation.",
       "experiment_type_ontology_id": "EDAM:3179",
       "library_source": "GENOMIC???",
-      "custom_user_fields": ""
+      "custom_user_fields": "",
+    "design_description": "", 
+    "design_description": "" 
+ 
     },
     {
       "checklist_id": "EXC000042",
@@ -246,11 +262,6 @@
         "SINGLE",
         "PAIRED"
       ]
-    },
-      "design_description": {
-        "description": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
-        "type": "string",
-        "example": "multi-marker metabarcoding"
     },
     "experiment_name": {
       "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
@@ -358,6 +369,11 @@
     "_comment": {
       "description": "These are all possible fields not in the core, with their JSON configs",
       "type": "string"
+    },
+    "design_description": {
+      "description": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
+      "type": "string",
+      "example": "multi-marker metabarcoding"
     },
     "checklist_id": {
       "description": "checklist identifier[PeterMU]",
