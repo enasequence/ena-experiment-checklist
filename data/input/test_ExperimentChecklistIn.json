@@ -247,6 +247,11 @@
         "PAIRED"
       ]
     },
+      "design_description": {
+        "description": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
+        "type": "string",
+        "example": "multi-marker metabarcoding"
+    },
     "experiment_name": {
       "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
       "default": "my lovely TRANSCRIPTOMICS experiment",
