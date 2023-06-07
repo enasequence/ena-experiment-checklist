@@ -1,10 +1,36 @@
 # experiments type checklists
 ## Introduction
 These are the checklists for different types of experiments.
-## References: metadata model and glossary
- * https://ena-docs.readthedocs.io/en/latest/submit/general-guide/metadata.html
- * https://ena-docs.readthedocs.io/en/latest/submit/reads/webin-cli.html - includes most controlled vocabularly terms
-N.B. the Experiment Type Name is typically a combination of the overall approach and the molecular type(library_source) under investigation
+## Overall: how and what needs to be submitted
+For experiment metadata one needs a minimal mandatory amount of metadata fields and values.
+* sample_id
+* study_id
+* instrument_model
+* library_name
+* library_source
+* library_strategy
+and one or more:
+* sequence file name and associated checksum
+see https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html
+
+## Current Experiment Types
+
+| Experiment Type | Current example | Comment |
+| --- | --- | --- |
+| METABARCODING |  | |
+| METAGENOMIC_SEQUENCING |  | |
+| METATRANSCRIPTOMIC | https://www.ebi.ac.uk/ena/browser/view/DRX030329 | |
+| GENOMIC |  | |
+| VIRAL_RNA_GENOME |  | |
+| EXOME_SEQUENCING |  | |
+| TEST_type |  | |
+| TRANSCRIPTOMIC |  | |
+| SPATIAL_TRANSCRIPTOMIC |  | |
+| DNA_BARCODING |  | |
+| GENOTYPING | https://www.ebi.ac.uk/ena/browser/view/SRX8470509 | |
+| CHROMOSOME_CONFORMATION_CAPTURE |  | |
+| EPIGENOMICS |  | |
+| CHROMATIN_RELATED |  | |
 
 ## Table of most important fields in each experiment template
 | Checklist Group | Checklist Name | Checklist ID | Checklist Description | Checklist Version | Experiment Type Name | Experiment Type Definition | Experiment Design | Library Strategy | Library Source | Library_Selection |
