@@ -63,12 +63,14 @@ class ChecklistDoc:
     def __init__(self):
         self.title = '# experiments type checklists'
         self.intro = '## Introduction\n' + 'These are the checklists for different types of experiments.'
+        self.intro + "This documentation is automatically built from the templates\n"
         self.refs = '## References: metadata model and glossary\n'
         self.refs += ' * https://ena-docs.readthedocs.io/en/latest/submit/general-guide/metadata.html\n'
         self.refs += ' * https://ena-docs.readthedocs.io/en/latest/submit/reads/webin-cli.html - includes most controlled vocabularly terms\n'
+        self.refs += "N.B. the Experiment Type Name is typically a combination of the overall approach and the molecular type(library_source) under investigation\n"
         self.experimentTable = "## Table of most important fields in each experiment template\n"
-        self.experimentTable += '| Checklist Group | Checklist Name | Checklist ID | Checklist Description | Checklist Version | Experiment Type Name | Experiment Type Definition | Library Strategy | Library Source | Library_Selection |\n'
-        self.experimentTable += '| --- | --- | --- | --- | --- | --- | --- |--- | --- | -- |\n'
+        self.experimentTable += '| Checklist Group | Checklist Name | Checklist ID | Checklist Description | Checklist Version | Experiment Type Name | Experiment Type Definition | Experiment Design | Library Strategy | Library Source | Library_Selection |\n'
+        self.experimentTable += '| --- | --- | --- | --- | --- | --- | --- | --- |--- | --- | -- |\n'
         ic()
 
     # ic(sra_obj.get_library_strategy_details())
@@ -105,6 +107,7 @@ class ChecklistDoc:
         self.experimentTable += schema_obj.get_checklist_version() + ' | '
         self.experimentTable += experimentType.experiment_type_name + ' | '
         self.experimentTable += schema_obj.get_experiment_type_definition() + ' | '
+        self.experimentTable += schema_obj.get_experiment_design_description() + ' | '
         self.experimentTable += schema_obj.get_library_strategy() + ' | '
         self.experimentTable += schema_obj.get_library_source() + ' | '
         self.experimentTable += schema_obj.get_library_selection() + ' | '
@@ -448,6 +451,12 @@ class ExperimentTypeJsonSchema:
         experiment_type_obj = self.get_experiment_type_obj()
         my_dict = experiment_type_obj.get_all_dict()
         return my_dict['experiment_type_definition'].replace("\n"," ")
+
+    def get_experiment_design_description(self):
+        experiment_type_obj = self.get_experiment_type_obj()
+        my_dict = experiment_type_obj.get_all_dict()
+        print(my_dict['checklist_name'])
+        return my_dict.get("design_description", "")
 
     def get_checklist_description(self):
         experiment_type_obj = self.get_experiment_type_obj()
