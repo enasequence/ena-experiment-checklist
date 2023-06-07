@@ -146,10 +146,12 @@
       "experiment_type_definition": "Analyse DNA sequences in order to identify a DNA 'barcode'; marker genes or any short fragment(s) of DNA that are useful to diagnose the taxa of biological organisms.",
       "experiment_type_ontology_id": "EDAM:320",
       "library_source": "GENOMIC",
+      "library_strategy": "AMPLICON",
+      "library_selection": "PCR",
       "target_loci": "COX1",
       "target_subfragment": "",
       "custom_user_fields": "",
-    "design_description": ""
+      "design_description": ""
     },
     {
       "checklist_id": "EXC000031",
