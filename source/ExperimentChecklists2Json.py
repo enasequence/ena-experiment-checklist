@@ -86,20 +86,19 @@ see https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html"""
 
 | Experiment Type | Current example | Comment |
 | --- | --- | --- |
-| METABARCODING |  | |
-| METAGENOMIC_SEQUENCING |  | |
+| METABARCODING | https://www.ebi.ac.uk/ena/browser/view/SRX11512992 | |
+| METAGENOMIC_SEQUENCING | https://www.ebi.ac.uk/ena/browser/view/SRX7572557 | |
 | METATRANSCRIPTOMIC | https://www.ebi.ac.uk/ena/browser/view/DRX030329 | |
-| GENOMIC |  | |
-| VIRAL_RNA_GENOME |  | |
-| EXOME_SEQUENCING |  | |
-| TEST_type |  | |
-| TRANSCRIPTOMIC |  | |
-| SPATIAL_TRANSCRIPTOMIC |  | |
-| DNA_BARCODING |  | |
+| GENOMIC | https://www.ebi.ac.uk/ena/browser/view/SRX659582 | |
+| VIRAL_RNA_GENOME | https://www.ebi.ac.uk/ena/browser/view/ERX5705315 | |
+| EXOME_SEQUENCING | https://www.ebi.ac.uk/ena/browser/view/SRX6455994 | |
+| TRANSCRIPTOMIC | https://www.ebi.ac.uk/ena/browser/view/SRX2885726 | |
+| SPATIAL_TRANSCRIPTOMIC | https://www.ebi.ac.uk/ena/browser/view/ERX9207228 | |
+| DNA_BARCODING | https://www.ebi.ac.uk/ena/browser/view/SRX10353112 | |
 | GENOTYPING | https://www.ebi.ac.uk/ena/browser/view/SRX8470509 | |
-| CHROMOSOME_CONFORMATION_CAPTURE |  | |
-| EPIGENOMICS |  | |
-| CHROMATIN_RELATED |  | |
+| CHROMOSOME_CONFORMATION_CAPTURE | https://www.ebi.ac.uk/ena/browser/view/SRX19055521 | |
+| EPIGENOMIC | https://www.ebi.ac.uk/ena/browser/view/SRX2376117 | |
+| CHROMATIN_RELATED | https://www.ebi.ac.uk/ena/browser/view/SRX6420619 | |
 """
 
         self.experimentTable = "## Table of most important fields in each experiment template\n"
