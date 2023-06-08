@@ -15,7 +15,7 @@ ___start_date___ = 2023-05-03
 __docformat___ = 'reStructuredText'
 
 """
-
+import sys
 
 from icecream import ic
 
@@ -39,6 +39,7 @@ class SRA_EXPERIMENT_SPEC:
         ic("_____________________________")
 
         def process_lib_child(child, self_child_pointer):
+            # print("inside process_lib_child")
             ic()
             ic(self_child_pointer)
             #ic(child['xs:annotation']['xs:documentation'])
@@ -54,7 +55,7 @@ class SRA_EXPERIMENT_SPEC:
                 else:
                     self_child_pointer[term_name] = {}
                     self_child_pointer[term_name]["documentation"] = ""
-
+            #print(f"-->{self_child_pointer}")
         for child in simple_level:
             ic()
             if child.get('@name'):
@@ -62,6 +63,7 @@ class SRA_EXPERIMENT_SPEC:
             else:
                 field = child['xs:restriction'].removeprefix("type")
             ic(field)
+            #print(f"------>{field}<-----")
             if field == "LibraryStrategy":
                 self.library_strategy = {}
                 process_lib_child(child, self.library_strategy)
@@ -177,14 +179,22 @@ class SRA_EXPERIMENT_SPEC:
         # e.g. 'ChIA-PET': {'documentation': 'Direct sequencing of proximity-ligated chromatin immunoprecipitates.'},
         return self.library_strategy
 
-    def get_library_strategy_detail(self, term):
-        if term == "":
+    def get_library_strategy_detail(self, lib_strat):
+        # print("inside get_library_strategy_detail")
+        # print(f"term={lib_strat}")
+        if lib_strat == "":
             return ""
         else:
-            ic(term)
-            ic(self.library_strategy[term])
-            return self.library_strategy[term]['documentation']
+            ic(lib_strat)
+            lib_strat_dict = self.library_strategy
+            my_val = lib_strat_dict.get(lib_strat, "ERROR")
+            # print(f"my lib_strat_dict val={my_val}")
 
+            if (my_val == "ERROR"):
+                print(f"ERROR: an invalid library_strategy term is being used: {lib_strat}", file=sys.stderr)
+            else:
+                ic(self.library_strategy[lib_strat])
+                return self.library_strategy[lib_strat]['documentation']
 
     def get_library_selection_details(self):
         # e.g. 'ChIA-PET': {'documentation': 'Direct sequencing of proximity-ligated chromatin immunoprecipitates.'},
@@ -379,14 +389,20 @@ def main():
     # ic(sra_obj.get_platform())
     # ic(sra_obj.get_platform_list())
     # ic(sra_obj.get_instrument_list())
-
+    loc_count = 0
     ic(sra_obj.get_library_strategy_list())
     ic(sra_obj.get_library_strategy_list())
     print(list2string(sra_obj.get_library_strategy_list()))
+    print(f"++++ {loc_count} ++++")
+    loc_count += 1
     ic(sra_obj.get_library_source_list())
     print(list2string(sra_obj.get_library_source_list()))
+    print(f"++++ {loc_count} ++++")
+    loc_count += 1
     ic(sra_obj.get_library_source_list())
     print(list2string(sra_obj.get_library_selection_list()))
+    print(f"++++ {loc_count} ++++")
+    loc_count += 1
 
     exit()
 

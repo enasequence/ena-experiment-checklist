@@ -108,30 +108,26 @@ see https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html"""
 
     # ic(sra_obj.get_library_strategy_details())
     def addExperimentInfo(self, experimentType):
+        # print(f"inside addExperimentInfo")
         ic()
         ic(experimentType.experiment_type_name)
         expt_name = experimentType.experiment_type_name
-        ic(experimentType._core_dict)
+        # print(f"expt_name={expt_name}<------")
+        # ic(experimentType._core_dict)
         schema_obj = experimentType.get_json_schema_obj()
 
         SRA_obj = schema_obj.get_SRA_obj()
-        #ic(SRA_obj.get_library_strategy_details())
-        lib_strat = schema_obj.get_library_strategy()
+        # ic(SRA_obj.get_library_strategy_details())
+        lib_strat = schema_obj.get_library_strategy
         ic(lib_strat)
+        #print(f"in addExperimentInfo for lib_strategy was defined----->{lib_strat}<------")
         ic(SRA_obj.get_library_strategy_detail(lib_strat))
-
-
         lib_selection = schema_obj.get_library_selection()
         ic(lib_selection)
         ic(SRA_obj.get_library_selection_detail(lib_selection))
-
         lib_source = schema_obj.get_library_source()
         ic(lib_source)
-        #ic(SRA_obj.get_library_source_detail(lib_source))
-        #
-        #
-        # sys.exit()
-        #
+
         self.experimentTable += '| '
         self.experimentTable += schema_obj.get_checklist_group() + ' | '
         self.experimentTable += schema_obj.get_checklist_name() + ' | '
@@ -141,7 +137,7 @@ see https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html"""
         self.experimentTable += experimentType.experiment_type_name + ' | '
         self.experimentTable += schema_obj.get_experiment_type_definition() + ' | '
         self.experimentTable += schema_obj.get_experiment_design_description() + ' | '
-        self.experimentTable += schema_obj.get_library_strategy() + ' | '
+        self.experimentTable += schema_obj.get_library_strategy + ' | '
         self.experimentTable += schema_obj.get_library_source() + ' | '
         self.experimentTable += schema_obj.get_library_selection() + ' | '
         self.experimentTable += '\n'
@@ -489,7 +485,7 @@ class ExperimentTypeJsonSchema:
     def get_experiment_design_description(self):
         experiment_type_obj = self.get_experiment_type_obj()
         my_dict = experiment_type_obj.get_all_dict()
-        print(my_dict['checklist_name'])
+        # ic(my_dict['checklist_name'])
         return my_dict.get("design_description", "")
 
     def get_checklist_description(self):
@@ -511,15 +507,20 @@ class ExperimentTypeJsonSchema:
         my_dict = experiment_type_obj.get_all_dict()
         return my_dict['library_source']
 
+    @property
     def get_library_strategy(self):
         """
-
+        get_library_strategy will only return if field defined!!! Which will ofter not be true, so returns "" in those cases
         :return: term
         """
+        # print("inside schema get_library_strategy")
         experiment_type_obj = self.get_experiment_type_obj()
         my_dict = experiment_type_obj.get_all_dict()
+        # stwing = json.dumps(my_dict, indent=4)
+        # print(f"my_dict={stwing}")
+        # print(my_dict['library_strategy'])
         ic(my_dict['library_strategy'])
-        return my_dict['library_strategy']
+        return my_dict.get('library_strategy',"")
 
     def get_library_selection(self):
         """
@@ -750,6 +751,7 @@ def add_specials(experiment_type: object, config_data: object) -> object:
     """
     local_dict = {}
     special_keys = list(experiment_type.get_special_fields_list())
+    # print(experiment_type.experiment_type_name)
     for jsonKey in special_keys:
         if jsonKey in config_data:
             local_dict = {**local_dict, **config_data[jsonKey]}
@@ -823,6 +825,7 @@ def read_config(debug_status):
         filename = data_loc_dict["input_dir"] + "ExperimentChecklistIn.json"
     else:
         filename = data_loc_dict["input_dir"] + "test_ExperimentChecklistIn.json"
+    print(filename)
     ic(filename)
     f = open(filename)
     data = json.load(f)
@@ -851,6 +854,7 @@ def create_schema_objects(expt_objects, config_data):
         rtn: schema_objects_dict
     """
     ic()
+    print("inside create_schema_objects")
     schema_objects = {}
 
     for experiment_type_name in expt_objects:
@@ -897,39 +901,33 @@ def main():
     expt_objects_dict = process_and_get_fields(config_data)
     ic(expt_objects_dict)
 
+    print("## Create expt_objects_dict for each experiment:")
     for experiment_type_name in expt_objects_dict:
         # if experiment_type_name != 'TEST_type':
         #     continue
-        print(experiment_type_name)
+        #print(experiment_type_name)
         ic(experiment_type_name)
-
         experimentType = expt_objects_dict[experiment_type_name]
         #ic(experimentType.get_ExperimentTypeObj_values())
-        ic()
-        # ic()
-
-        # expt_type_obj.print_test_checklist()
     ic()
 
     #print_all_checklists(expt_objects_dict)
     #
     #print_all_checklist_json_schemas(expt_objects_dict)
     schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
+    print("-" * 100)
     for experiment_type_name in schema_obj_dict:
         ic()
         ic(experiment_type_name)
-
+        print(experiment_type_name)
         schema_obj = schema_obj_dict[experiment_type_name]
-
         # ic(schema_obj.experiment_type_name)
-        print(schema_obj.print_json_schema())
-
+        # print(f".print_json_schema {schema_obj.print_json_schema()}")
         experimentType = schema_obj.get_experiment_type_obj()
         experimentType.print_checklist()
         experimentType.set_json_schema_obj(schema_obj)
         checklist_doc.addExperimentInfo(experimentType)
-
-
+        print("-" * 100)
 
     checklist_doc.print_checklist_doc()
 
