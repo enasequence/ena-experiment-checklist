@@ -40,7 +40,9 @@
       "target_loci": "",
       "target_subfragment": "",
       "custom_user_fields": "",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : "",
+      "aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC000003",
@@ -55,7 +57,8 @@
       "library_selection": "PCR",
       "pcr_fields": "",
       "custom_user_fields": "",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC000010",
@@ -68,7 +71,9 @@
       "experiment_type_ontology_id": "SO:0000991:",
       "library_source": "GENOMIC",
       "custom_user_fields": "",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : "",
+      "aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC000012",
@@ -82,7 +87,9 @@
       "library_source": "VIRAL_RNA",
       "library_strategy": "WGS",
       "custom_user_fields": "",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : "",
+      "aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC000013",
@@ -95,7 +102,9 @@
       "experiment_type_ontology_id": "EDAM:3676",
       "library_source": "GENOMIC",
       "custom_user_fields": "",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : "",
+      "aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC999999",
@@ -112,7 +121,9 @@
       "multiplex_fields": "",
       "adapter_fields": "",
       "custom_user_fields": "",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : "",
+      "aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC000020",
@@ -125,7 +136,8 @@
       "experiment_type_ontology_id": "EDAM:3308",
       "library_source": "TRANSCRIPTOMIC",
       "custom_user_fields": "",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC000021",
@@ -138,7 +150,8 @@
       "experiment_type_ontology_id": "EFO:0008994",
       "library_source": "TRANSCRIPTOMIC",
       "custom_user_fields": "",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC000030",
@@ -155,7 +168,8 @@
       "target_loci": "COX1",
       "target_subfragment": "",
       "custom_user_fields": "",
-      "design_description": "single target locus and single species barcoding"
+      "design_description": "single target locus and single species barcoding",
+      "non_aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC000031",
@@ -170,7 +184,9 @@
       "target_loci": "other",
       "target_subfragment": "",
       "custom_user_fields": "",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : "",
+      "aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC000040",
@@ -181,9 +197,11 @@
       "experiment_type": "CHROMOSOME_CONFORMATION_CAPTURE",
       "experiment_type_definition": "",
       "experiment_type_ontology_id": "EDAM:",
-      "library_source": "GENOMIC???",
+      "library_source": "GENOMIC",
       "custom_user_fields": "",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : "",
+      "aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC000041",
@@ -194,7 +212,7 @@
       "experiment_type": "EPIGENOMIC",
       "experiment_type_definition": "The study of the epigenetic modifications of a whole cell, tissue, organism etc.\nEpigenetics concerns the heritable changes in gene expression owing to mechanisms other than DNA sequence variation.",
       "experiment_type_ontology_id": "EDAM:3179",
-      "library_source": "GENOMIC???",
+      "library_source": "GENOMIC",
       "custom_user_fields": "",
       "design_description": ""
     },
@@ -207,7 +225,7 @@
       "experiment_type": "CHROMATIN_RELATED",
       "experiment_type_definition": "",
       "experiment_type_ontology_id": "EDAM:",
-      "library_source": "GENOMIC???",
+      "library_source": "GENOMIC",
       "design_description": ""
     }
   ],
