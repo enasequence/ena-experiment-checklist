@@ -1,0 +1,125 @@
+{
+    "WGS": {
+        "documentation": "Whole Genome Sequencing - random sequencing of the whole genome (see pubmed 10731132 for details)"
+    },
+    "WGA": {
+        "documentation": "Whole Genome Amplification followed by random sequencing. (see pubmed 1631067,8962113 for details)"
+    },
+    "WXS": {
+        "documentation": "Random sequencing of exonic regions selected from the genome. (see pubmed 20111037 for details)"
+    },
+    "RNA-Seq": {
+        "documentation": "Random sequencing of whole transcriptome, also known as Whole Transcriptome Shotgun Sequencing, or WTSS). (see    pubmed 18611170 for details)"
+    },
+    "ssRNA-seq": {
+        "documentation": "Strand-specific RNA sequencing."
+    },
+    "snRNA-seq": {
+        "documentation": "Single nucleus RNA sequencing is a method for profiling gene expression in cells which are difficult to isolate."
+    },
+    "miRNA-Seq": {
+        "documentation": "Micro RNA sequencing strategy designed to capture post-transcriptional RNA elements and include non-coding    functional elements. (see pubmed 21787409 for details)"
+    },
+    "ncRNA-Seq": {
+        "documentation": "Capture of other non-coding RNA types, including post-translation modification types such as snRNA (small    nuclear RNA) or snoRNA (small nucleolar RNA), or expression regulation types such as siRNA (small interfering RNA) or    piRNA/piwi/RNA (piwi-interacting RNA)."
+    },
+    "FL-cDNA": {
+        "documentation": "Full-length sequencing of cDNA templates"
+    },
+    "EST": {
+        "documentation": "Single pass sequencing of cDNA templates"
+    },
+    "Hi-C": {
+        "documentation": "Chromosome Conformation Capture technique where a biotin-labeled nucleotide is incorporated at the ligation junction, enabling selective purification of chimeric DNA ligation junctions followed by deep sequencing."
+    },
+    "ATAC-seq": {
+        "documentation": "Assay for Transposase-Accessible Chromatin (ATAC) strategy is used to study genome-wide chromatin accessibility. alternative method to DNase-seq that uses an engineered Tn5 transposase to cleave DNA and to integrate primer DNA sequences into the cleaved genomic DNA."
+    },
+    "WCS": {
+        "documentation": "Random sequencing of a whole chromosome or other replicon isolated from a genome."
+    },
+    "RAD-Seq": {
+        "documentation": ""
+    },
+    "CLONE": {
+        "documentation": "Genomic clone based (hierarchical) sequencing."
+    },
+    "POOLCLONE": {
+        "documentation": "Shotgun of pooled clones (usually BACs and Fosmids)."
+    },
+    "AMPLICON": {
+        "documentation": "Sequencing of overlapping or distinct PCR or RT-PCR products. For example, metagenomic community profiling    using SSU rRNA ."
+    },
+    "CLONEEND": {
+        "documentation": "Clone end (5 or both) sequencing."
+    },
+    "FINISHING": {
+        "documentation": "Sequencing intended to finish (close) gaps in existing coverage."
+    },
+    "ChIP-Seq": {
+        "documentation": "ChIP-seq, Chromatin ImmunoPrecipitation, reveals binding sites of specific proteins, typically transcription factors (TFs) using antibodies to extract DNA fragments bound to the target protein."
+    },
+    "MNase-Seq": {
+        "documentation": "Identifies well-positioned nucleosomes. uses Micrococcal Nuclease (MNase) is an endo-exonuclease that processively digests DNA until an obstruction, such as a nucleosome, is reached."
+    },
+    "DNase-Hypersensitivity": {
+        "documentation": "Sequencing of hypersensitive sites, or segments of open chromatin that are more readily cleaved by DNaseI."
+    },
+    "Bisulfite-Seq": {
+        "documentation": "MethylC-seq. Sequencing following treatment of DNA with bisulfite to convert cytosine residues to uracil    depending on methylation status."
+    },
+    "CTS": {
+        "documentation": "Concatenated Tag Sequencing"
+    },
+    "MRE-Seq": {
+        "documentation": "Methylation-Sensitive Restriction Enzyme Sequencing."
+    },
+    "MeDIP-Seq": {
+        "documentation": "Methylated DNA Immunoprecipitation Sequencing."
+    },
+    "MBD-Seq": {
+        "documentation": "Methyl CpG Binding Domain Sequencing."
+    },
+    "Tn-Seq": {
+        "documentation": "Quantitatively determine fitness of bacterial genes based on how many times a purposely seeded transposon gets    inserted into each gene of a colony after some time."
+    },
+    "VALIDATION": {
+        "documentation": "CGHub special request: Independent experiment to re-evaluate putative variants."
+    },
+    "FAIRE-seq": {
+        "documentation": "Formaldehyde Assisted Isolation of Regulatory Elements. Reveals regions of open chromatin."
+    },
+    "SELEX": {
+        "documentation": "Systematic Evolution of Ligands by Exponential enrichment"
+    },
+    "RIP-Seq": {
+        "documentation": "Direct sequencing of RNA immunoprecipitates (includes CLIP-Seq, HITS-CLIP and PAR-CLIP)."
+    },
+    "ChIA-PET": {
+        "documentation": "Direct sequencing of proximity-ligated chromatin immunoprecipitates."
+    },
+    "Synthetic-Long-Read": {
+        "documentation": "binning and barcoding of large DNA fragments to facilitate assembly of the fragment"
+    },
+    "Targeted-Capture": {
+        "documentation": "Enrichment of a targeted subset of loci."
+    },
+    "Tethered Chromatin Conformation Capture": {
+        "documentation": ""
+    },
+    "NOMe-Seq": {
+        "documentation": "Nucleosome Occupancy and Methylome sequencing."
+    },
+    "ChM-Seq": {
+        "documentation": "ChIPmentation combines chromatin immunoprecipitation with sequencing library preparation by Tn5 transposase (see pubmed 26280331 for details)"
+    },
+    "GBS": {
+        "documentation": "Genotyping by sequencing is a method to discover single nucleotide polymorphisms for genotyping studies."
+    },
+    "Ribo-Seq": {
+        "documentation": "Ribosome profiling (also named ribosome footprinting) that uses specialized messenger RNA (mRNA) sequencing to determine which mRNAs are being actively translated. It produces a "global snapshot" of all the ribosomes active in a cell at a particular moment, known as a translatome."
+    },
+    "OTHER": {
+        "documentation": "Library strategy not listed."
+    }
+}

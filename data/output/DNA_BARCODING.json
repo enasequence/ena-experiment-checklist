@@ -1,9 +1,10 @@
 {
     "_description": "Experiment Metadata Checklist Focused on barcoding",
-    "checklist_group": "GENOTYPING",
+    "checklist_group": "BARCODING",
     "checklist_id": "EXC000030",
     "checklist_name": "BARCODING specific",
     "checklist_version": "v1",
+    "design_description": "single target locus and single species barcoding",
     "experiment_attribute": {
         "_insert_field_a": "",
         "_insert_field_b": "",
@@ -15,15 +16,39 @@
     "experiment_type": "DNA_BARCODING",
     "experiment_type_definition": "Analyse DNA sequences in order to identify a DNA 'barcode'; marker genes or any short fragment(s) of DNA that are useful to diagnose the taxa of biological organisms.",
     "experiment_type_ontology_id": "EDAM:320",
+    "fastq": [
+        {
+            "attributes": {
+                "checksum": "",
+                "checksum_method": "MD5",
+                "read_type": [
+                    "paired",
+                    "umi_barcode"
+                ]
+            },
+            "value": ""
+        },
+        {
+            "attributes": {
+                "checksum": "",
+                "checksum_method": "MD5",
+                "read_type": [
+                    "paired",
+                    "umi_barcode"
+                ]
+            },
+            "value": ""
+        }
+    ],
     "insert_size": 0,
     "instrument_model": "",
     "instrument_platform": "",
     "library_description": "",
     "library_layout": "",
     "library_name": "",
-    "library_selection": "",
+    "library_selection": "PCR",
     "library_source": "GENOMIC",
-    "library_strategy": "",
+    "library_strategy": "AMPLICON",
     "sample_accession": "",
     "sequencing_protocol": "",
     "study_id": "",

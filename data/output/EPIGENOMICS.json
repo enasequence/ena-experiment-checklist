@@ -4,6 +4,7 @@
     "checklist_id": "EXC000041",
     "checklist_name": "EPIGENOMICS specific",
     "checklist_version": "v1",
+    "design_description": "",
     "experiment_attribute": {
         "_insert_field_a": "",
         "_insert_field_b": "",

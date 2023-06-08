@@ -214,7 +214,8 @@
       "experiment_type_ontology_id": "EDAM:3179",
       "library_source": "GENOMIC",
       "custom_user_fields": "",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : ""
     },
     {
       "checklist_id": "EXC000042",
@@ -226,7 +227,8 @@
       "experiment_type_definition": "",
       "experiment_type_ontology_id": "EDAM:",
       "library_source": "GENOMIC",
-      "design_description": ""
+      "design_description": "",
+      "non_aligned_sequence_file_fields" : ""
     }
   ],
   "pcr_fields": {

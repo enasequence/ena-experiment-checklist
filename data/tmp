@@ -1,0 +1,34 @@
+/Users/woollard/projects/easi-genomics/ExperimentChecklist/data/input/test_ExperimentChecklistIn.json
+## Create expt_objects_dict for each experiment:
+METABARCODING
+METAGENOMIC_SEQUENCING
+METATRANSCRIPTOMIC
+GENOMIC
+VIRAL_RNA_GENOME
+EXOME_SEQUENCING
+TEST_type
+TRANSCRIPTOMIC
+SPATIAL_TRANSCRIPTOMIC
+DNA_BARCODING
+GENOTYPING
+CHROMOSOME_CONFORMATION_CAPTURE
+EPIGENOMIC
+CHROMATIN_RELATED
+inside create_schema_objects
+in addExperimentInfo AMPLICON
+inside get_library_strategy_detail
+term=AMPLICON
+my lib_strat_dict val={'documentation': 'Sequencing of overlapping or distinct PCR or RT-PCR products. For example, metagenomic community profiling    using SSU rRNA .'}
+in addExperimentInfo 
+inside get_library_strategy_detail
+term=
+in addExperimentInfo 
+inside get_library_strategy_detail
+term=
+in addExperimentInfo 
+inside get_library_strategy_detail
+term=
+in addExperimentInfo GENOMIC
+inside get_library_strategy_detail
+term=GENOMIC
+my lib_strat_dict val=ERROR
