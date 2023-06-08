@@ -891,7 +891,7 @@ def print_all_checklist_json_schemas(expt_objects):
 def main():
     ic()
     debug_status = True
-    # debug_status = False
+    debug_status = False
     schema_json_file = '/Users/woollard/projects/easi-genomics/ExperimentChecklist/data/testing/METABARCODING_schema.json'
     # json_obj = file2json(schema_json_file)
     # print(json_obj)
@@ -916,17 +916,25 @@ def main():
     #print_all_checklist_json_schemas(expt_objects_dict)
     schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
     print("-" * 100)
+    print(f"debug_status = {debug_status}")
     for experiment_type_name in schema_obj_dict:
         ic()
         ic(experiment_type_name)
-        print(experiment_type_name)
+        if debug_status is False and experiment_type_name == "TEST_type":
+            continue
+        else:
+            pass
+        print(f"| {experiment_type_name} | ", end="")
         schema_obj = schema_obj_dict[experiment_type_name]
         # ic(schema_obj.experiment_type_name)
         # print(f".print_json_schema {schema_obj.print_json_schema()}")
         experimentType = schema_obj.get_experiment_type_obj()
         experimentType.print_checklist()
+        print(f"checklist created | ", end="")
         experimentType.set_json_schema_obj(schema_obj)
         checklist_doc.addExperimentInfo(experimentType)
+        print(f"schema created | ", end = "")
+        print("")
         print("-" * 100)
 
     checklist_doc.print_checklist_doc()
