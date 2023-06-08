@@ -17,20 +17,19 @@ see https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html
 
 | Experiment Type | Current example | Comment |
 | --- | --- | --- |
-| METABARCODING |  | |
-| METAGENOMIC_SEQUENCING |  | |
+| METABARCODING | https://www.ebi.ac.uk/ena/browser/view/SRX11512992 | |
+| METAGENOMIC_SEQUENCING | https://www.ebi.ac.uk/ena/browser/view/SRX7572557 | |
 | METATRANSCRIPTOMIC | https://www.ebi.ac.uk/ena/browser/view/DRX030329 | |
-| GENOMIC |  | |
-| VIRAL_RNA_GENOME |  | |
-| EXOME_SEQUENCING |  | |
-| TEST_type |  | |
-| TRANSCRIPTOMIC |  | |
-| SPATIAL_TRANSCRIPTOMIC |  | |
-| DNA_BARCODING |  | |
+| GENOMIC | https://www.ebi.ac.uk/ena/browser/view/SRX659582 | |
+| VIRAL_RNA_GENOME | https://www.ebi.ac.uk/ena/browser/view/ERX5705315 | |
+| EXOME_SEQUENCING | https://www.ebi.ac.uk/ena/browser/view/SRX6455994 | |
+| TRANSCRIPTOMIC | https://www.ebi.ac.uk/ena/browser/view/SRX2885726 | |
+| SPATIAL_TRANSCRIPTOMIC | https://www.ebi.ac.uk/ena/browser/view/ERX9207228 | |
+| DNA_BARCODING | https://www.ebi.ac.uk/ena/browser/view/SRX10353112 | |
 | GENOTYPING | https://www.ebi.ac.uk/ena/browser/view/SRX8470509 | |
-| CHROMOSOME_CONFORMATION_CAPTURE |  | |
-| EPIGENOMICS |  | |
-| CHROMATIN_RELATED |  | |
+| CHROMOSOME_CONFORMATION_CAPTURE | https://www.ebi.ac.uk/ena/browser/view/SRX19055521 | |
+| EPIGENOMICS | https://www.ebi.ac.uk/ena/browser/view/SRX2376117 | |
+| CHROMATIN_RELATED | https://www.ebi.ac.uk/ena/browser/view/SRX6420619 | |
 
 ## Table of most important fields in each experiment template
 | Checklist Group | Checklist Name | Checklist ID | Checklist Description | Checklist Version | Experiment Type Name | Experiment Type Definition | Experiment Design | Library Strategy | Library Source | Library_Selection |
@@ -47,5 +46,5 @@ see https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html
 | GENOTYPING | BARCODING specific | EXC000030 | Experiment Metadata Checklist Focused on barcoding | v1 | DNA_BARCODING | Analyse DNA sequences in order to identify a DNA 'barcode'; marker genes or any short fragment(s) of DNA that are useful to diagnose the taxa of biological organisms. | single target locus and single species barcoding | AMPLICON | GENOMIC | PCR | 
 | GENOTYPING | GENOTYPING specific | EXC000031 | Experiment Metadata Checklist Focused on genotyping | v1 | GENOTYPING | An assay in which variation in a part of or the whole genome is analysed |  |  | GENOMIC |  | 
 | BEYOND_DNA | CHROMOSOME CONFORMATION CAPTURE specific | EXC000040 | Experiment Metadata Checklist Focused on chromosome conformation capture | v1 | CHROMOSOME_CONFORMATION_CAPTURE |  |  |  | GENOMIC??? |  | 
-| BEYOND_DNA | EPIGENOMICS specific | EXC000041 | Experiment Metadata Checklist Focused on epigenomics | v1 | EPIGENOMICS | The study of the epigenetic modifications of a whole cell, tissue, organism etc. Epigenetics concerns the heritable changes in gene expression owing to mechanisms other than DNA sequence variation. |  |  | GENOMIC??? |  | 
-| BEYOND_DNA | Chromatin specific | EXC000042 | Experiment Metadata Checklist Focused on Chromatin, nucleosome and DNA binding site prediction | v1 | CHROMATIN_RELATED |  |  |  | GENOMIC??? |  | 
+| BEYOND_DNA | EPIGENOMICS specific | EXC000041 | Experiment Metadata Checklist Focused on epigenomics | v1 | EPIGENOMIC | The study of the epigenetic modifications of a whole cell, tissue, organism etc. Epigenetics concerns the heritable changes in gene expression owing to mechanisms other than DNA sequence variation. |  |  | GENOMIC??? |  | 
+| EPIGENOMIC | Chromatin specific | EXC000042 | Experiment Metadata Checklist Focused on Chromatin, nucleosome and DNA binding site prediction | v1 | CHROMATIN_RELATED |  |  |  | GENOMIC??? |  | 
