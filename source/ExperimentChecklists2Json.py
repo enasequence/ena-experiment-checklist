@@ -61,24 +61,29 @@ class ChecklistDoc:
 
     """
     def __init__(self):
-        self.title = '# experiments type checklists'
-        self.intro = '## Introduction\n' + 'These are the checklists for different types of experiments.'
-        self.intro + "This documentation is automatically built from the templates\n"
+        self.title = '# experiments type checklists\n'
+        self.intro = '## Introduction\n\n' + 'These are the checklists for different types of experiments.\n'
+        self.intro + "This documentation is automatically built from the templates\n\n"
         self.overall = """## Overall: how and what needs to be submitted
+
 For experiment metadata one needs a minimal mandatory amount of metadata fields and values.
+
 * sample_id
 * study_id
 * instrument_model
 * library_name
 * library_source
 * library_strategy
-and one or more:
-* sequence file name and associated checksum
-see https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html"""
 
-        self.refs = '## References: metadata model and glossary\n'
-        self.refs += ' * https://ena-docs.readthedocs.io/en/latest/submit/general-guide/metadata.html\n'
-        self.refs += ' * https://ena-docs.readthedocs.io/en/latest/submit/reads/webin-cli.html - includes most controlled vocabularly terms\n'
+and one or more:
+
+* sequence file name and associated checksum
+
+see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
+
+        self.refs = '\n## References: metadata model and glossary\n\n'
+        self.refs += ' * <https://ena-docs.readthedocs.io/en/latest/submit/general-guide/metadata.html>\n'
+        self.refs += ' * <https://ena-docs.readthedocs.io/en/latest/submit/reads/webin-cli.html> - includes most controlled vocabularly terms\n'
         self.refs += "N.B. the Experiment Type Name is typically a combination of the overall approach and the molecular type(library_source) under investigation\n"
 
         self.current_expt_types = """
@@ -86,22 +91,22 @@ see https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html"""
 
 | Experiment Type | Current example | Comment |
 | --- | --- | --- |
-| METABARCODING | https://www.ebi.ac.uk/ena/browser/view/SRX11512992 | |
-| METAGENOMIC_SEQUENCING | https://www.ebi.ac.uk/ena/browser/view/SRX7572557 | |
-| METATRANSCRIPTOMIC | https://www.ebi.ac.uk/ena/browser/view/DRX030329 | |
-| GENOMIC | https://www.ebi.ac.uk/ena/browser/view/SRX659582 | |
-| VIRAL_RNA_GENOME | https://www.ebi.ac.uk/ena/browser/view/ERX5705315 | |
-| EXOME_SEQUENCING | https://www.ebi.ac.uk/ena/browser/view/SRX6455994 | |
-| TRANSCRIPTOMIC | https://www.ebi.ac.uk/ena/browser/view/SRX2885726 | |
-| SPATIAL_TRANSCRIPTOMIC | https://www.ebi.ac.uk/ena/browser/view/ERX9207228 | |
-| DNA_BARCODING | https://www.ebi.ac.uk/ena/browser/view/SRX10353112 | |
-| GENOTYPING | https://www.ebi.ac.uk/ena/browser/view/SRX8470509 | |
-| CHROMOSOME_CONFORMATION_CAPTURE | https://www.ebi.ac.uk/ena/browser/view/SRX19055521 | |
-| EPIGENOMIC | https://www.ebi.ac.uk/ena/browser/view/SRX2376117 | |
-| CHROMATIN_RELATED | https://www.ebi.ac.uk/ena/browser/view/SRX6420619 | |
+| METABARCODING | <https://www.ebi.ac.uk/ena/browser/view/SRX11512992> | |
+| METAGENOMIC_SEQUENCING | <https://www.ebi.ac.uk/ena/browser/view/SRX7572557> | |
+| METATRANSCRIPTOMIC | <https://www.ebi.ac.uk/ena/browser/view/DRX030329> | |
+| GENOMIC | <https://www.ebi.ac.uk/ena/browser/view/SRX659582> | |
+| VIRAL_RNA_GENOME | <https://www.ebi.ac.uk/ena/browser/view/ERX5705315> | |
+| EXOME_SEQUENCING | <https://www.ebi.ac.uk/ena/browser/view/SRX6455994> | |
+| TRANSCRIPTOMIC | <https://www.ebi.ac.uk/ena/browser/view/SRX2885726> | |
+| SPATIAL_TRANSCRIPTOMIC | <https://www.ebi.ac.uk/ena/browser/view/ERX9207228> | |
+| DNA_BARCODING | <https://www.ebi.ac.uk/ena/browser/view/SRX10353112> | |
+| GENOTYPING | <https://www.ebi.ac.uk/ena/browser/view/SRX8470509> | |
+| CHROMOSOME_CONFORMATION_CAPTURE | <https://www.ebi.ac.uk/ena/browser/view/SRX19055521> | |
+| EPIGENOMIC | <https://www.ebi.ac.uk/ena/browser/view/SRX2376117> | |
+| CHROMATIN_RELATED | <https://www.ebi.ac.uk/ena/browser/view/SRX6420619> | |
 """
 
-        self.experimentTable = "## Table of most important fields in each experiment template\n"
+        self.experimentTable = "## Table of most important fields in each experiment template\n\n"
         self.experimentTable += '| Checklist Group | Checklist Name | Checklist ID | Checklist Description | Checklist Version | Experiment Type Name | Experiment Type Definition | Experiment Design | Library Strategy | Library Source | Library_Selection |\n'
         self.experimentTable += '| --- | --- | --- | --- | --- | --- | --- | --- |--- | --- | -- |\n'
         ic()
@@ -139,7 +144,7 @@ see https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html"""
         self.experimentTable += schema_obj.get_experiment_design_description() + ' | '
         self.experimentTable += schema_obj.get_library_strategy + ' | '
         self.experimentTable += schema_obj.get_library_source() + ' | '
-        self.experimentTable += schema_obj.get_library_selection() + ' | '
+        self.experimentTable += schema_obj.get_library_selection() + ' |'
         self.experimentTable += '\n'
         # ic()
         # ic(self.experimentTable)
