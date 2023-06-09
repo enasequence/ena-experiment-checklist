@@ -299,7 +299,7 @@
   },
   "coreFields": {
     "_comment": {
-      "description": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
+      "description": "This is an experiment attribute checklist template in JSON format. Please see <https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html> for details of what is mandatory and the allowable controlled vocabulary.",
       "type": "string"
     },
     "_comment2": {
@@ -308,7 +308,7 @@
     },
     "study_id": {
       "description": "",
-      "default": "my study",
+      "default": "ERP1234567",
       "type": "string",
       "pattern": "(^(E|D|S)RP[0-9]{6,})|(^PRJ(E|D|N)[A-Z][0-9]+)"
     },
@@ -422,7 +422,7 @@
     },
     "sequencing_protocol": {
       "description": "A rule which guides how an activity should be performed. This is for the sequencing related[NCIT]",
-      "_example": "https://www.protocols.io/view/environmental-dna-edna-metabarcoding-protocol-for-rm7vzy3q2lx1/v1",
+      "_example": "<https://www.protocols.io/view/environmental-dna-edna-metabarcoding-protocol-for-rm7vzy3q2lx1/v1>",
       "default": "A URL from protocol.io",
       "type": "string",
       "_comment": "if multiple protocols. use a pipe to delimited"
@@ -434,9 +434,9 @@
       "type": "string"
     },
     "design_description": {
-      "description": "This is an experiment attribute checklist template in JSON format. Please see https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html (NEED A PUBLIC URL) for details of what is mandatory and the allowable controlled vocabulary.",
+      "description": "This is an experiment attribute checklist template in JSON format. Please see <https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html> for details of what is mandatory and the allowable controlled vocabulary.",
       "type": "string",
-      "example": "multi-marker metabarcoding"
+      "_example": "multi-marker metabarcoding"
     },
     "checklist_id": {
       "description": "checklist identifier[PeterMU]",
