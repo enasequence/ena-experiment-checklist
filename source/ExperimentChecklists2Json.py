@@ -55,6 +55,12 @@ def file2json(filename):
     ic(json_obj)
     return json_obj
 
+def writeString2file(out_string, out_filename):
+    print(out_filename)
+    text_file = open(out_filename, 'w')
+    text_file.write(out_string)
+    text_file.close()
+
 class ChecklistDoc:
     """
     Create md documentation for the experiments type checklists
@@ -132,7 +138,91 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         ic(SRA_obj.get_library_selection_detail(lib_selection))
         lib_source = schema_obj.get_library_source()
         ic(lib_source)
+        self.setExperimentTableRow(experimentType, schema_obj)
 
+        self.createExperimentTypeDoc(experimentType, schema_obj)
+        # ic()
+        # ic(self.experimentTable)
+        # sys.exit()
+
+    def list2md_row(self,my_list):
+        md_row = "| " + " | ".join(my_list) + " |"
+        return md_row
+    def createExperimentTypeDoc(self, experimentType, schema_obj):
+        print("Inside createExperimentTypeDoc")
+        self.experimentTypeDoc = "# " + experimentType.experiment_type_name + "\n\n"
+        self.experimentTypeDoc += "Automatically generated document describing the population of a the JSON template for the above experiment type\n"
+        self.experimentTypeDoc += "**This is just guidance in one place to help you populate the template.** N.B. It may become out of date or plain wrong. So please refer to official INSDC docs.\n"
+
+        #    ["platform and instrument", json.dumps(schema_obj.get_platform_instrument(), indent = 4), "Comment"]) + " |\n"
+
+        #print(self.experimentTypeDoc)
+        core_dict = schema_obj._core_dict
+        #print(core_dict)
+
+        self.experimentTypeDoc += self.getSpecificExperimentTypeTable(schema_obj, experimentType)
+        self.experimentTypeDoc += self.getCoreExperimentTypeTable(schema_obj, core_dict)
+
+        out_file = base_dir + '/docs/experiment_types/' + experimentType.experiment_type_name + '.md'
+        writeString2file(self.experimentTypeDoc, out_file)
+        exit()
+    def getSpecificExperimentTypeTable(self, schema_obj, experimentType):
+
+        print(json.dumps(schema_obj.get_experiment_specific_dict(), indent = 4))
+
+        print(json.dumps(experimentType.get_checklist_specific_dict(), indent = 4))
+        checklist_specific_dict = experimentType.get_checklist_specific_dict()
+
+        if hasattr(self,"specific_experimentTypeDoc"):
+            return self.specific_experimentTypeDoc
+        else:
+            self.specific_experimentTypeDoc = ""
+        self.specific_experimentTypeDoc += "\n## Experiment Specific Fields\n\n"
+        self.specific_experimentTypeDoc += "| " + " | ".join(
+            ["Field name", "Definition", "Example", "Type", "Controlled Vocab Terms", "Comment"]) + " |\n"
+        self.specific_experimentTypeDoc += "| " + " | ".join(["---", "---", "---", "---", "---", "---"]) + " |\n"
+        my_dict = schema_obj.get_experiment_specific_dict()
+        for field in my_dict:
+            my_local = my_dict[field]
+            enum = ", ".join(my_local.get("enum", ""))
+            if enum == "":
+                enum = ", ".join(my_local.get("pattern", ""))
+
+            my_list = [field, my_local.get("description", ""), str(checklist_specific_dict[field]), my_local.get("type", ""), enum, "Comment"]
+            self.specific_experimentTypeDoc += "| " + " | ".join(my_list) + " |\n"
+
+        print(self.specific_experimentTypeDoc)
+        return self.specific_experimentTypeDoc
+
+    def getCoreExperimentTypeTable(self, schema_obj, core_dict):
+        if hasattr(self,"core_experimentTypeDoc"):
+            return self.core_experimentTypeDoc
+        else:
+            self.core_experimentTypeDoc = ""
+        self.core_experimentTypeDoc += "\n## Core Fields\n\n"
+        self.core_experimentTypeDoc += "| " + " | ".join(
+            ["Field name", "Definition", "Example", "Controlled Vocab Terms", "Comment"]) + " |\n"
+        self.core_experimentTypeDoc += "| " + " | ".join(["---", "---", "---", "---", "---"]) + " |\n"
+        print(list(core_dict))
+        print(list(core_dict["coreFields"]))
+        print(core_dict["coreFields"]["library_layout"])
+        for coreField in core_dict["coreFields"]:
+            my_local = core_dict["coreFields"][coreField]
+            enum = ", ".join(my_local.get("enum", ""))
+            if enum == "":
+                enum = my_local.get("pattern", "")
+                enum = enum.replace("|","\|")
+                # if len(enum) > 2:
+                #     print(enum)
+                #     exit
+
+            my_list = [coreField, my_local.get("description", ""), str(my_local.get("default", "")), enum, "Comment"]
+            self.core_experimentTypeDoc += "| " + " | ".join(my_list) + " |\n"
+
+        print(self.core_experimentTypeDoc)
+        return self.core_experimentTypeDoc
+
+    def setExperimentTableRow(self,experimentType, schema_obj):
         self.experimentTable += '| '
         self.experimentTable += schema_obj.get_checklist_group() + ' | '
         self.experimentTable += schema_obj.get_checklist_name() + ' | '
@@ -146,9 +236,7 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         self.experimentTable += schema_obj.get_library_source() + ' | '
         self.experimentTable += schema_obj.get_library_selection() + ' |'
         self.experimentTable += '\n'
-        # ic()
-        # ic(self.experimentTable)
-        # sys.exit()
+
 
     def print_checklist_doc(self):
         output = []
@@ -159,11 +247,7 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         output.append(self.experimentTable)
         outstring = '\n'.join(output)
         ic(outstring)
-        out_filename = base_dir + '/docs/ExperimentChecklistTables.md'
-        ic(out_filename)
-        text_file = open(out_filename, 'w')
-        text_file.write(outstring)
-        text_file.close()
+        writeString2file(outstring, base_dir + '/docs/ExperimentChecklistTables.md')
         return outstring
 
 class ExperimentTypeJsonSchema:
