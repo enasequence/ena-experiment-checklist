@@ -307,7 +307,7 @@
       "type": "string"
     },
     "study_id": {
-      "description": "",
+      "description": "This is the study accession number that starts with ERP granted after registering a study with the ENA. [ENA]",
       "default": "ERP1234567",
       "type": "string",
       "pattern": "(^(E|D|S)RP[0-9]{6,})|(^PRJ(E|D|N)[A-Z][0-9]+)"
@@ -439,34 +439,34 @@
       "_example": "multi-marker metabarcoding"
     },
     "checklist_id": {
-      "description": "checklist identifier[PeterMU]",
+      "description": "checklist identifier",
       "default": "",
       "_example": "",
       "minLength": 3,
       "type": "string"
     },
     "checklist_name": {
-      "description": "A short descriptive name to human identify [PeterMU]",
+      "description": "A short descriptive name to human identify",
       "default": "",
       "_example": "METABARCODING specific",
       "minLength": 3,
       "type": "string"
     },
     "checklist_version": {
-      "description": "The version of this checklist, allows us to validate the write records against the right checklist version[PeterMU]",
+      "description": "The version of this checklist, allows us to validate the write records against the right checklist version",
       "default": "",
       "_example": "v1",
       "_comment": "Version of the format v[[::digit::]] e..g. v2",
       "type": "integer"
     },
     "checklist_group": {
-      "description": "The collection of the experiment checklists[PeterMU]",
+      "description": "The collection of the experiment checklists",
       "default": "TRANSCRIPTOMIC",
       "_example": "TRANSCRIPTOMIC",
       "type": "string"
     },
     "experiment_type": {
-      "description": "The broad type of sequencing experiment performed. A mixture of library strategy and source[PeterMU]",
+      "description": "The broad type of sequencing experiment performed. A mixture of library strategy and source",
       "default": "",
       "_example": "",
       "type": "string"

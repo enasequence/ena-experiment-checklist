@@ -149,10 +149,20 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         md_row = "| " + " | ".join(my_list) + " |"
         return md_row
     def createExperimentTypeDoc(self, experimentType, schema_obj):
+        """
+
+        :param experimentType:
+        :param schema_obj:
+        :return:
+        """
         print("Inside createExperimentTypeDoc")
         self.experimentTypeDoc = "# " + experimentType.experiment_type_name + "\n\n"
-        self.experimentTypeDoc += "Automatically generated document describing the population of a the JSON template for the above experiment type\n"
-        self.experimentTypeDoc += "**This is just guidance in one place to help you populate the template.** N.B. It may become out of date or plain wrong. So please refer to official INSDC docs.\n"
+        checklist_specific_dict = experimentType.get_checklist_specific_dict()
+        self.experimentTypeDoc += "**Description:** " + checklist_specific_dict.get("_description","sorry no description found!") + "\n\n"
+
+        self.experimentTypeDoc += "This is an automatically generated document designed to help the populating of the JSON template for the above experiment type\n"
+
+        self.experimentTypeDoc += "**This is just guidance in one place to help you populate the template.** N.B. It may become out of date or plain wrong. So please refer to official INSDC docs in case of conflict.\n"
 
         #    ["platform and instrument", json.dumps(schema_obj.get_platform_instrument(), indent = 4), "Comment"]) + " |\n"
 
@@ -165,23 +175,30 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
 
         out_file = base_dir + '/docs/experiment_types/' + experimentType.experiment_type_name + '.md'
         writeString2file(self.experimentTypeDoc, out_file)
-        exit()
+
     def getSpecificExperimentTypeTable(self, schema_obj, experimentType):
+        """
 
-        print(json.dumps(schema_obj.get_experiment_specific_dict(), indent = 4))
+        :param schema_obj:
+        :param experimentType:
+        :return:
+        """
 
-        print(json.dumps(experimentType.get_checklist_specific_dict(), indent = 4))
+        print("get_experiment_specific_dict" + json.dumps(schema_obj.get_experiment_specific_dict(), indent = 4))
+
+        print("get_checklist_specific_dict" + json.dumps(experimentType.get_checklist_specific_dict(), indent = 4))
         checklist_specific_dict = experimentType.get_checklist_specific_dict()
 
         if hasattr(self,"specific_experimentTypeDoc"):
             return self.specific_experimentTypeDoc
         else:
             self.specific_experimentTypeDoc = ""
-        self.specific_experimentTypeDoc += "\n## Experiment Specific Fields\n\n"
+        my_dict = schema_obj.get_experiment_specific_dict()
+        self.specific_experimentTypeDoc += "\n## " + experimentType.experiment_type_name + " Experiment Specific Fields\n\n"
         self.specific_experimentTypeDoc += "| " + " | ".join(
             ["Field name", "Definition", "Example", "Type", "Controlled Vocab Terms", "Comment"]) + " |\n"
         self.specific_experimentTypeDoc += "| " + " | ".join(["---", "---", "---", "---", "---", "---"]) + " |\n"
-        my_dict = schema_obj.get_experiment_specific_dict()
+
         for field in my_dict:
             my_local = my_dict[field]
             enum = ", ".join(my_local.get("enum", ""))

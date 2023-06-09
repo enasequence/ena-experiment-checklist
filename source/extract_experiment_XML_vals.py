@@ -404,16 +404,10 @@ def main():
     print(f"++++ {loc_count} ++++")
     loc_count += 1
 
-    exit()
-
-
     # print("platform terms")
     # sra_obj.print_platform_md_list()
     # print("\ninstrument terms")
-    # sra_obj.print_instrument_md_list()
-
-    ic(sra_obj.get_targetted_loci_list())
-    ic()
+    # sra_obj.print_instrument_md_list())
 
 if __name__ == '__main__':
     ic()
