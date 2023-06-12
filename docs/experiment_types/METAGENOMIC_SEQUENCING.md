@@ -2,21 +2,33 @@
 
 **Description:** Experiment Metadata Checklist Focused on metagenomics
 
-This is an automatically generated document designed to help the populating of the JSON template for the above experiment type
+## Introduction
+
+The purpose of this template is to collect high quality sequencing experiment related metadata.This is an automatically generated document designed to help the populating of the JSON template for the above experiment type.
+The first table is specific to the experiment type, with the second core to all. Some of the fields are:
+
+* mandatory and some optional
+* have controlled terms or specific patterns
+* others are free text
+
+Some of the controlled terms may not be applicable for your particular experiment_type, they are there for completeness.
+
+## Please Note
+
 **This is just guidance in one place to help you populate the template.** N.B. It may become out of date or plain wrong. So please refer to official INSDC docs in case of conflict.
 
-## METABARCODING Experiment Specific Fields
+## METAGENOMIC_SEQUENCING Experiment Specific Fields
 
 | Field name | Definition | Example | Type | Controlled Vocab Terms | Comment |
 | --- | --- | --- | --- | --- | --- |
-| checklist_id | checklist identifier | EXC000001 | string |  | Comment |
-| checklist_name | A short descriptive name to human identify | METABARCODING specific | string |  | Comment |
+| checklist_id | checklist identifier | EXC000002 | string |  | Comment |
+| checklist_name | A short descriptive name to human identify | METAGENOMIC sequencing specific | string |  | Comment |
 | checklist_version | The version of this checklist, allows us to validate the write records against the right checklist version | v1 | integer |  | Comment |
 | checklist_group | The collection of the experiment checklists | METAGENOMIC | string |  | Comment |
-| experiment_type | The broad type of sequencing experiment performed. A mixture of library strategy and source | METABARCODING | string |  | Comment |
+| experiment_type | The broad type of sequencing experiment performed. A mixture of library strategy and source | METAGENOMIC_SEQUENCING | string |  | Comment |
 | target_loci | Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted] |  | string | 16S rRNA, 18S rRNA, 28S rRNA, COX1, ITS1-5.8S-ITS2, RBCL, exome, matK, other | Comment |
 | target_subfragment |  |  | string |  | Comment |
-| design_description | This is an experiment attribute checklist template in JSON format. Please see <https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html> for details of what is mandatory and the allowable controlled vocabulary. | mixed marker barcoding | string |  | Comment |
+| design_description | This is an experiment attribute checklist template in JSON format. Please see <https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html> for details of what is mandatory and the allowable controlled vocabulary. |  | string |  | Comment |
 
 ## Core Fields
 

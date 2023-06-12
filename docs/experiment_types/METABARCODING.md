@@ -2,7 +2,19 @@
 
 **Description:** Experiment Metadata Checklist Focused on metabarcoding
 
-This is an automatically generated document designed to help the populating of the JSON template for the above experiment type
+## Introduction
+
+The purpose of this template is to collect high quality sequencing experiment related metadata.This is an automatically generated document designed to help the populating of the JSON template for the above experiment type.
+The first table is specific to the experiment type, with the second core to all. Some of the fields are:
+
+* mandatory and some optional
+* have controlled terms or specific patterns
+* others are free text
+
+Some of the controlled terms may not be applicable for your particular experiment_type, they are there for completeness.
+
+## Please Note
+
 **This is just guidance in one place to help you populate the template.** N.B. It may become out of date or plain wrong. So please refer to official INSDC docs in case of conflict.
 
 ## METABARCODING Experiment Specific Fields
