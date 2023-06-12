@@ -160,7 +160,17 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         checklist_specific_dict = experimentType.get_checklist_specific_dict()
         self.experimentTypeDoc += "**Description:** " + checklist_specific_dict.get("_description","sorry no description found!") + "\n\n"
 
-        self.experimentTypeDoc += "This is an automatically generated document designed to help the populating of the JSON template for the above experiment type\n"
+        self.experimentTypeDoc += "## Introduction\n\n" \
+                            "The purpose of this template is to collect high quality sequencing experiment related metadata."
+        self.experimentTypeDoc += "This is an automatically generated document designed to help the populating of the JSON template for the above experiment type.\n"
+        self.experimentTypeDoc += "The first table is specific to the experiment type, with the second core to all. " \
+                                  "Some of the fields are:\n\n"
+        self.experimentTypeDoc += "* mandatory and some optional\n"\
+                "* have controlled terms or specific patterns\n" \
+                "* others are free text\n\n" \
+                "Some of the controlled terms may not be applicable for your particular experiment_type, they are there for completeness.\n"
+
+        self.experimentTypeDoc += "\n## Please Note\n\n"
 
         self.experimentTypeDoc += "**This is just guidance in one place to help you populate the template.** N.B. It may become out of date or plain wrong. So please refer to official INSDC docs in case of conflict.\n"
 
@@ -173,8 +183,9 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         self.experimentTypeDoc += self.getSpecificExperimentTypeTable(schema_obj, experimentType)
         self.experimentTypeDoc += self.getCoreExperimentTypeTable(schema_obj, core_dict)
 
-        out_file = base_dir + '/docs/experiment_types/' + experimentType.experiment_type_name + '.md'
+        out_file = base_dir + 'docs/experiment_types/' + experimentType.experiment_type_name + '.md'
         writeString2file(self.experimentTypeDoc, out_file)
+        #sys.exit()
 
     def getSpecificExperimentTypeTable(self, schema_obj, experimentType):
         """
@@ -189,10 +200,7 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         print("get_checklist_specific_dict" + json.dumps(experimentType.get_checklist_specific_dict(), indent = 4))
         checklist_specific_dict = experimentType.get_checklist_specific_dict()
 
-        if hasattr(self,"specific_experimentTypeDoc"):
-            return self.specific_experimentTypeDoc
-        else:
-            self.specific_experimentTypeDoc = ""
+        self.specific_experimentTypeDoc = ""
         my_dict = schema_obj.get_experiment_specific_dict()
         self.specific_experimentTypeDoc += "\n## " + experimentType.experiment_type_name + " Experiment Specific Fields\n\n"
         self.specific_experimentTypeDoc += "| " + " | ".join(
@@ -212,10 +220,7 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         return self.specific_experimentTypeDoc
 
     def getCoreExperimentTypeTable(self, schema_obj, core_dict):
-        if hasattr(self,"core_experimentTypeDoc"):
-            return self.core_experimentTypeDoc
-        else:
-            self.core_experimentTypeDoc = ""
+        self.core_experimentTypeDoc = ""
         self.core_experimentTypeDoc += "\n## Core Fields\n\n"
         self.core_experimentTypeDoc += "| " + " | ".join(
             ["Field name", "Definition", "Example", "Controlled Vocab Terms", "Comment"]) + " |\n"
