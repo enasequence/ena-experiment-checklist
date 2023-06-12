@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Script of 'validate.py' is to '
+"""Script of 'validate.py' is to validate json template files against a schema'
 
 ___author___ = "woollard@ebi.ac.uk"
 ___start_date___ = 2023-04-11
@@ -12,7 +12,7 @@ from icecream import ic
 import json
 #import JsonSchema
 from jsonschema import validate
-import os
+# import os
 import subprocess
 
 def JSONFILE2string(json_file_name):
@@ -69,22 +69,28 @@ def validate_suite(basedir):
     testing_pairs["TRANSCRIPTOMIC_schema.json"].append("TRANSCRIPTOMIC_fails.json")
 
     ic(testing_pairs)
+    # works
+    # node /Users/woollard/projects/biovalidator/biovalidator/src/biovalidator.js  -d /Users/woollard/projects/easi-genomics/ExperimentChecklist/data/output_test/real_testing//TRANSCRIPTOMIC_fails.json -s /Users/woollard/projects/easi-genomics/ExperimentChecklist/data/schema//TRANSCRIPTOMIC_schema.json
+
     for schema_file in testing_pairs:
         for test_file in testing_pairs[schema_file]:
-            test_cmd = "node  /Users/woollard/projects/easi-genomics/biovalidator/validator-cli.js  validator-cli.js -j " \
-                   + test_file_dir + "/" + test_file + " -s " + schema_dir + "/" + schema_file + "| sed -e 's/\x1b\[[0-9;]*m//g';s/^[\]*//g"
-            #ic(test_cmd)
+            # test_cmd = "node  /Users/woollard/projects/easi-genomics/biovalidator/validator-cli.js  validator-cli.js -j " \
+            #        + test_file_dir + "/" + test_file + " -s " + schema_dir + "/" + schema_file + "| sed -e 's/\x1b\[[0-9;]*m//g';s/^[\]*//g"
+            test_cmd = "node  /Users/woollard/projects/biovalidator/biovalidator/src/biovalidator.js  -d " \
+                       + test_file_dir + "/" + test_file + " -s " + schema_dir + "/" + schema_file + "| sed -e 's/\x1b\[[0-9;]*m//g';s/^[\]*//g"
+
+            ic(test_cmd)
             ic(f"{schema_file} {test_file}")
             temp = subprocess.run([test_cmd], shell=True, capture_output=True)
             output = str(temp.stdout)
             if "No validation errors reported" in output:
                 ic("No validation errors reported")
             else:
-                #ic(output)
                 output = output.replace(":\\n \\n", ":").replace("\\n,", "<-------").replace("\\t", "").replace("b' ", "")
                 output = output.replace("\\n \\nValidation finished.", "").replace("\\n", " ").replace("/", "\n/")
                 #ic(output)
                 print(output)
+        sys.exit()
 def main():
     basedir = "/Users/woollard/projects/easi-genomics/ExperimentChecklist/"
     schema_file = basedir + "data/schema/TEST_type_schema2.json"
