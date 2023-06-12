@@ -172,7 +172,8 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
 
         self.experimentTypeDoc += "\n## Please Note\n\n"
 
-        self.experimentTypeDoc += "**This is just guidance in one place to help you populate the template.** N.B. It may become out of date or plain wrong. So please refer to official INSDC docs in case of conflict.\n"
+        self.experimentTypeDoc += "* This template **allows 1 or more experiments' metadata** to be submitted. If >1 experiments: in JSON style, please add a comma at the end of the previous record just after the closing }.\n"\
+            "* **This is just guidance in one place to help you populate the template.** N.B. It may become out of date or plain wrong. So please refer to official INSDC docs in case of conflict.\n"
 
         #    ["platform and instrument", json.dumps(schema_obj.get_platform_instrument(), indent = 4), "Comment"]) + " |\n"
 
@@ -195,17 +196,17 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         :return:
         """
 
-        print("get_experiment_specific_dict" + json.dumps(schema_obj.get_experiment_specific_dict(), indent = 4))
+        # print("get_experiment_specific_dict" + json.dumps(schema_obj.get_experiment_specific_dict(), indent = 4))
 
-        print("get_checklist_specific_dict" + json.dumps(experimentType.get_checklist_specific_dict(), indent = 4))
+        # print("get_checklist_specific_dict" + json.dumps(experimentType.get_checklist_specific_dict(), indent = 4))
         checklist_specific_dict = experimentType.get_checklist_specific_dict()
 
         self.specific_experimentTypeDoc = ""
         my_dict = schema_obj.get_experiment_specific_dict()
         self.specific_experimentTypeDoc += "\n## " + experimentType.experiment_type_name + " Experiment Specific Fields\n\n"
         self.specific_experimentTypeDoc += "| " + " | ".join(
-            ["Field name", "Definition", "Example", "Type", "Controlled Vocab Terms", "Comment"]) + " |\n"
-        self.specific_experimentTypeDoc += "| " + " | ".join(["---", "---", "---", "---", "---", "---"]) + " |\n"
+            ["Field name", "Definition", "Mandatory", "Example", "Type", "Controlled Vocab Terms", "Comment"]) + " |\n"
+        self.specific_experimentTypeDoc += "| " + " | ".join(["---", "---", "---", "---", "---", "---", "---"]) + " |\n"
 
         for field in my_dict:
             my_local = my_dict[field]
@@ -213,35 +214,33 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
             if enum == "":
                 enum = ", ".join(my_local.get("pattern", ""))
 
-            my_list = [field, my_local.get("description", ""), str(checklist_specific_dict[field]), my_local.get("type", ""), enum, "Comment"]
+            my_list = [field, my_local.get("description", ""), str(my_local.get("_required", "")), str(checklist_specific_dict[field]), my_local.get("type", ""), enum, "Comment"]
             self.specific_experimentTypeDoc += "| " + " | ".join(my_list) + " |\n"
 
-        print(self.specific_experimentTypeDoc)
+        # print(self.specific_experimentTypeDoc)
         return self.specific_experimentTypeDoc
 
     def getCoreExperimentTypeTable(self, schema_obj, core_dict):
         self.core_experimentTypeDoc = ""
         self.core_experimentTypeDoc += "\n## Core Fields\n\n"
         self.core_experimentTypeDoc += "| " + " | ".join(
-            ["Field name", "Definition", "Example", "Controlled Vocab Terms", "Comment"]) + " |\n"
-        self.core_experimentTypeDoc += "| " + " | ".join(["---", "---", "---", "---", "---"]) + " |\n"
-        print(list(core_dict))
-        print(list(core_dict["coreFields"]))
-        print(core_dict["coreFields"]["library_layout"])
+            ["Field name", "Definition", "Mandatory", "Example", "Controlled Vocab Terms", "Comment"]) + " |\n"
+        self.core_experimentTypeDoc += "| " + " | ".join(["---", "---", "---", "---", "---", "---"]) + " |\n"
+        # print(list(core_dict))
+        # print(list(core_dict["coreFields"]))
+        # print(core_dict["coreFields"]["library_layout"])
         for coreField in core_dict["coreFields"]:
-            my_local = core_dict["coreFields"][coreField]
-            enum = ", ".join(my_local.get("enum", ""))
-            if enum == "":
-                enum = my_local.get("pattern", "")
-                enum = enum.replace("|","\|")
-                # if len(enum) > 2:
-                #     print(enum)
-                #     exit
+            if not coreField.startswith("_"):
+                # print(f"coreField={coreField}")
+                my_local = core_dict["coreFields"][coreField]
+                enum = ", ".join(my_local.get("enum", ""))
+                if enum == "":
+                    enum = my_local.get("pattern", "")
+                    enum = enum.replace("|","\|")
+                my_list = [coreField, my_local.get("description", ""), str(my_local.get("_required", "N.A.")), str(my_local.get("default", "")), enum, "Comment"]
+                self.core_experimentTypeDoc += "| " + " | ".join(my_list) + " |\n"
 
-            my_list = [coreField, my_local.get("description", ""), str(my_local.get("default", "")), enum, "Comment"]
-            self.core_experimentTypeDoc += "| " + " | ".join(my_list) + " |\n"
-
-        print(self.core_experimentTypeDoc)
+        # print(self.core_experimentTypeDoc)
         return self.core_experimentTypeDoc
 
     def setExperimentTableRow(self,experimentType, schema_obj):
@@ -957,6 +956,7 @@ def print_all_checklists(expt_objects):
         experimentType.print_checklist()
         # experimentType.print_test_checklist()
 
+    # sys.exit()
 
 def create_schema_objects(expt_objects, config_data):
     """ create_schema_objects

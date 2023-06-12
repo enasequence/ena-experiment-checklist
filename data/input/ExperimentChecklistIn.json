@@ -298,8 +298,8 @@
     "adapters": ""
   },
   "coreFields": {
-    "_comment": {
-      "description": "This is an experiment attribute checklist template in JSON format. Please see <https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html> for details of what is mandatory and the allowable controlled vocabulary.",
+    "_comment1": {
+      "description": "This is an experiment attribute checklist template in JSON format. Please see <https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html> for much more background and more details.",
       "type": "string"
     },
     "_comment2": {
@@ -310,12 +310,14 @@
       "description": "This is the study accession number that starts with ERP granted after registering a study with the ENA. [ENA]",
       "default": "ERP1234567",
       "type": "string",
-      "pattern": "(^(E|D|S)RP[0-9]{6,})|(^PRJ(E|D|N)[A-Z][0-9]+)"
+      "pattern": "(^(E|D|S)RP[0-9]{6,})|(^PRJ(E|D|N)[A-Z][0-9]+)",
+      "_required": true
     },
     "sample_accession": {
       "description": "This is the study accession number that starts with ERP granted after registering a study with the ENA. [ENA]",
       "type": "string",
-      "pattern": "(^SAM(E|D|N)[A-Z]?[0-9]+)|(^(E|D|S)RS[0-9]{6,})"
+      "pattern": "(^SAM(E|D|N)[A-Z]?[0-9]+)|(^(E|D|S)RS[0-9]{6,})",
+      "_required": true
     },
     "library_layout": {
       "description": "Reads are unpaired (usual case).[ENA]",
@@ -324,13 +326,15 @@
       "enum": [
         "SINGLE",
         "PAIRED"
-      ]
+      ],
+      "_required": false
     },
     "experiment_name": {
       "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
       "default": "my lovely TRANSCRIPTOMICS experiment",
       "type": "string",
-      "minLength": 5
+      "minLength": 5,
+      "_required": false
     },
     "library_source": {
       "description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
@@ -375,32 +379,38 @@
         "VIRAL RNA": "Viral RNA.",
         "OTHER": "Other, unspecified, or unknown library source material."
       },
-      "type": "string"
+      "type": "string",
+      "_required": true
     },
     "library_strategy": {
       "description": "Sequencing technique intended for this library.[INSDC]",
       "default": "RNA-Seq",
       "enum": [],
-      "type": "string"
+      "type": "string",
+      "_required": true
     },
     "library_selection": {
       "description": "Method used to enrich the target in the sequence library preparation. [INSDC]",
       "default": "unspecified",
       "enum": [],
-      "type": "string"
+      "type": "string",
+      "_required": true
     },
     "library_name": {
       "description": "The name of the nucleotide sequencing library. [NCIT]",
-      "type": "string"
+      "type": "string",
+      "_required": false
     },
     "library_description": {
       "description": "The free description of the nucleotide sequencing library. [NCIT adapted]",
-      "type": "string"
+      "type": "string",
+      "_required": false
     },
     "insert_size": {
       "default": 0,
       "description": "The average insert size found during nucleic acid sequencing. [NCIT]",
-      "type": "number"
+      "type": "number",
+      "_required": false
     },
     "instrument_platform": {
       "description": "The name of the technology platform used to perform nucleic acid sequencing. [NCIT]",
@@ -409,7 +419,8 @@
       "enum": [
       ],
       "type": "string",
-      "_comment": " will get values from the sra.experiment_xml"
+      "_comment": " will get values from the sra.experiment_xml",
+      "_required": true
     },
     "instrument_model": {
       "description": "The name and/or number associated with a specific sequencing instrument model.  [NCIT-adapted]",
@@ -418,106 +429,103 @@
       "enum": [
       ],
       "type": "string",
-      "_comment": " will get values from the sra.experiment_xml"
+      "_comment": " will get values from the sra.experiment_xml",
+      "_required": false
     },
     "sequencing_protocol": {
       "description": "A rule which guides how an activity should be performed. This is for the sequencing related[NCIT]",
       "_example": "<https://www.protocols.io/view/environmental-dna-edna-metabarcoding-protocol-for-rm7vzy3q2lx1/v1>",
       "default": "A URL from protocol.io",
       "type": "string",
-      "_comment": "if multiple protocols. use a pipe to delimited"
+      "_comment": "if multiple protocols. use a pipe to delimited",
+      "_required": false
     }
   },
   "allSpecificFieldsConfig": {
     "_comment": {
       "description": "These are all possible fields not in the core, with their JSON configs",
-      "type": "string"
+      "type": "string",
+      "_required": false
     },
     "design_description": {
-      "description": "This is an experiment attribute checklist template in JSON format. Please see <https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html> for details of what is mandatory and the allowable controlled vocabulary.",
+      "description": "The library design including library properties, layout, protocol, targeting information, and spot and gap descriptors.",
       "type": "string",
-      "_example": "multi-marker metabarcoding"
+      "_example": "multi-marker metabarcoding",
+      "_required": true
     },
     "checklist_id": {
       "description": "checklist identifier",
       "default": "",
       "_example": "",
       "minLength": 3,
-      "type": "string"
+      "type": "string",
+      "_required": true
     },
     "checklist_name": {
       "description": "A short descriptive name to human identify",
       "default": "",
       "_example": "METABARCODING specific",
       "minLength": 3,
-      "type": "string"
+      "type": "string",
+      "_required": false
     },
     "checklist_version": {
       "description": "The version of this checklist, allows us to validate the write records against the right checklist version",
       "default": "",
       "_example": "v1",
       "_comment": "Version of the format v[[::digit::]] e..g. v2",
-      "type": "integer"
+      "type": "integer",
+      "_required": true
     },
     "checklist_group": {
       "description": "The collection of the experiment checklists",
       "default": "TRANSCRIPTOMIC",
       "_example": "TRANSCRIPTOMIC",
-      "type": "string"
+      "type": "string",
+      "_required": false
     },
     "experiment_type": {
       "description": "The broad type of sequencing experiment performed. A mixture of library strategy and source",
       "default": "",
-      "_example": "",
-      "type": "string"
+      "_example": "METABARCODING",
+      "type": "string",
+      "_required": true
     },
     "target_loci": {
       "description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted]",
       "default": "16S rRNA",
       "enum": [
       ],
-      "type": "string"
+      "type": "string",
+      "_required": false
     },
     "target_subfragment": {
       "description": "",
       "ontology": "https://www.ebi.ac.uk/ols/ontologies/XXX",
-      "type": "string"
+      "type": "string",
+      "_required": false
     },
     "pcr_protocol": {
       "description": "PCR is a method for amplifying a DNA base sequence using multiple rounds of heat denaturation of the DNA and annealing of oligonucleotide primers complementary to flanking regions in the presence of a heat-stable polymerase. This results in duplication of the targeted DNA region. Newly synthesized DNA strands can subsequently serve as additional templates for the same primer sequences, so that successive rounds of primer annealing, strand elongation, and dissociation produce rapid and highly specific amplification of the desired sequence. PCR also can be used to detect the existence of the defined sequence in a DNA sample.[NCIT] A PCR protocol is the precise recipe followed for the type of PCR,.",
       "field_type": "uri",
       "domain": "https://protocols.io",
-      "type": "string"
+      "type": "string",
+      "_required": false
     },
     "pcr_primers": {
       "description": "PCR primers that were used to amplify the sequence of the targeted gene, locus or subfragment. This field should contain all the primers used for a single PCR reaction if multiple forward or reverse primers are present in a single PCR reaction. The primer sequence should be reported in uppercase letters.[INSDC]",
-      "type": "string"
+      "type": "string",
+      "_required": false
     },
     "multiplex_identifiers": {
       "description": "The barcoding identifiers used to label DNA fragments during muliplex sequencing",
-      "type": "string"
+      "type": "string",
+      "_required": false
     },
     "adapters": {
       "description": "Adapters provide priming sequences for both amplification and sequencing of the sample-library fragments. Both adapters should be reported; in uppercase letters.[INSDC]",
-      "type": "string"
-    },
-    "experiment_context_type": {
-      "description": "The specific context that this sequence assaying is part of. The details will be in the relevant repositories e.g. Expression Atlas or PRIDE.  values: baseline( does not involve any perturbations) or differential(has pertubans or other experimental facts and  a clear control/reference group) [adapted from Expression Atlas]",
       "type": "string",
-      "default": "baseline",
-      "enum": [
-        "baseline",
-        "differential",
-        "other"
-      ]
-    },
-    "key_experimental_factor": {
-      "description": "key_experimental_factors as CURIE ontology ids e.g. [CHEBI:24431, EFO:0000568]",
-      "type": "array",
-      "items": {
-        "type": "ontology"
-      },
-      "default": []
+      "_required": false
     }
   },
   "coreRules": [
