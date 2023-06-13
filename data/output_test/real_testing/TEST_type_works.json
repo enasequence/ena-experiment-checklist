@@ -4,7 +4,8 @@
     "checklist_id": "EXC00000Z",
     "checklist_name": "TEST_name",
     "checklist_version": "20221129",
-    "experiment_name": "",
+    "design_description": "",
+    "experiment_name": "test experiment name",
     "experiment_type": "TEST_type",
     "insert_size": 0,
     "instrument_model": "Illumina MiSeq",
@@ -14,6 +15,7 @@
     "library_selection": "PCR",
     "library_source": "TRANSCRIPTOMIC",
     "library_strategy": "AMPLICON",
+    "library_layout": "PAIRED",
     "multiplex_identifiers": "",
     "pcr_primers": {
         "fwd_name": "",
@@ -23,6 +25,7 @@
     },
     "pcr_protocol": "",
     "sample_accession": "SAME123456",
+    "sequencing_protocol": "",
     "study_id": "ERP123456",
     "target_loci": "",
     "target_subfragment": ""
