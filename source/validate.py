@@ -74,7 +74,7 @@ def validate_file(test_file, schema_file):
     output = str(temp.stdout)
 
     if "Validation passed successfully" in output:
-            pass
+            output="Validation passed successfully"
     else:
             output = clean_validation(output)
 

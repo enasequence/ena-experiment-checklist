@@ -6,7 +6,7 @@ ___start_date___ = 2023-06-14
 __docformat___ = 'reStructuredText'
 chmod a+x validate_preparation.py
 """
-
+import sys
 
 from icecream import ic
 import os
@@ -32,10 +32,14 @@ def dict2file(my_dict, outfilename):
 
 def get_prefilled_dict():
     key_field_dict = {
+    'experiment_name': "my experiment_name",
     'study_id': "ERP123456",
     'sample_accession': "SAME123456",
     "instrument_platform": "ILLUMINA",
-    "instrument_model": "HiSeq X Ten"
+    "instrument_model": "HiSeq X Ten",
+    "library_layout": "PAIRED",
+    "library_selection": "unspecified",
+    "iibrary_strategy": "WGS"
     }
 
     return key_field_dict
@@ -47,22 +51,16 @@ def fill(template_dir, filled_dir, schema_dir):
         ic(template)
         template_full_name = template_dir + template
         json_obj = file2json(template_full_name)
-        ic(json_obj)
-
         schema_full_name = schema_dir + template.replace(".json", "_schema.json")
-
-        dict2file(json_obj, filled_dir + template)
         prefilled_dict = get_prefilled_dict()
         for field in prefilled_dict:
-            json_obj[field] = prefilled_dict[field]
-
-
-        ic(json_obj)
-
-        output = validate_file(template_full_name, schema_full_name)
+            if field in json_obj and json_obj[field] == "":
+                json_obj[field] = prefilled_dict[field]
+        filled_out_template_file = filled_dir + template
+        dict2file(json_obj, filled_out_template_file)
+        output = validate_file(filled_out_template_file, schema_full_name)
         print(output)
 
-        break
 
 def main():
     basedir = "/Users/woollard/projects/easi-genomics/ExperimentChecklist/"

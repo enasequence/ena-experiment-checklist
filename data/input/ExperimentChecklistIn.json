@@ -82,7 +82,7 @@
       "experiment_type": "VIRAL_RNA_GENOME",
       "experiment_type_definition": "Adapted from a virus whose genome consists of RNA. Can be single or double-stranded RNA.[NCIT and SO adapted]",
       "experiment_type_ontology_id": "SO:0001041",
-      "library_source": "VIRAL_RNA",
+      "library_source": "VIRAL RNA",
       "library_strategy": "WGS",
       "custom_user_fields": "",
       "design_description": "",

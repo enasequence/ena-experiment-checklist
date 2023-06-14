@@ -402,7 +402,20 @@ class ExperimentTypeJsonSchema:
                 ic(f"exclude: {term}")
             else:
                 required_terms.append(term)
+        ic.enable()
+        experiment_type_obj = self.get_experiment_type_obj()
+        special_dict = experiment_type_obj.get_special_dict()
+        ic(special_dict)
+        for term in list(special_dict.keys()):
+            ic(term)
+            if "_comment" in term:
+                ic(f"exclude: {term}")
+            else:
+                required_terms.append(term)
+        print(required_terms)
 
+        # ic.disable()
+        # sys.exit()
         return required_terms
 
     def set_platform_instrument_rules(self):
