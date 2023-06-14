@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Script of 'validate.py' is to validate json template files against a schema'
 
+validate_file(test_file, schema_file) is all you need external
+
 ___author___ = "woollard@ebi.ac.uk"
 ___start_date___ = 2023-04-11
 __docformat___ = 'reStructuredText'
@@ -25,6 +27,58 @@ def JSONFILE2string(json_file_name):
     with open(json_file_name, "r") as myfile:
         jsonData = json.load(myfile)
     return(jsonData)
+
+def clean_validation(output):
+        """
+        Function to clean the biovalidation output.
+        Puts it into md style
+        :param output:
+        :return:
+        """
+        output.replace(":\\n \\n", ":").replace("\\n,", "<-------").replace("\\t", "").replace("b' ", "")
+        output.replace("\\n \\nValidation finished.", "").replace("\\n", " ").replace("/", "\n/").replace("\\'", "'")
+        #   print("FAILED---->" +output)
+        output = re.sub('^.*Validation failed with errors:', 'Validation failed with errors', output)
+        # the next 3 lines clean up things I could not do
+        output = output.replace("\\n", '__nl__')
+        output = output.replace('__nl__', '\n')
+        output = output.replace("\\t", ' ')
+        output = output.replace("\n\n", "\n")
+
+        # get the  one per line
+        output = output.replace("\n\\.", "\n* ")
+        output = output.replace("\n \\.", "\n* ")
+        output = re.sub("\n\\.", "\n* ", output)
+        output = re.sub("\n[ ]\.", "\n* ", output)
+        output = output.replace("\n/", "\n* ")
+        output = output.replace("\n \n", "\n")
+        output = output.replace("\\\'", "\"")
+        output = output.replace("\n should", ": should")
+        output = output.replace("data should", "\n* data should")
+        output = output.replace(", data", "\n* data")
+        output = re.sub("[, ]*\n", "\n", output)
+        output = output.replace("\n Validation", "\n\nValidation")
+
+        # output = output.split("\n")
+        output = re.sub("[\n\' ]*$", "", output)
+        return output
+        # sys.exit()
+def validate_file(test_file, schema_file):
+    ic()
+    test_cmd = "node  /Users/woollard/projects/biovalidator/biovalidator/src/biovalidator.js  -d " \
+                   +  test_file + " -s " + schema_file + "| sed -e 's/\x1b\[[0-9;]*m//g';s/^[\]*//g"
+
+    ic(test_cmd)
+    ic(f"{schema_file} {test_file}")
+    temp = subprocess.run([test_cmd], shell = True, capture_output = True)
+    output = str(temp.stdout)
+
+    if "Validation passed successfully" in output:
+            pass
+    else:
+            output = clean_validation(output)
+
+    return output
 def validate_schema(basedir, schema_file):
     """
 
@@ -69,62 +123,26 @@ def validate_suite(schema_dir, test_file_dir, test_status):
 
     ic(testing_pairs)
 
-    # works
-    # node /Users/woollard/projects/biovalidator/biovalidator/src/biovalidator.js  -d /Users/woollard/projects/easi-genomics/ExperimentChecklist/data/output_test/real_testing//TRANSCRIPTOMIC_fails.json -s /Users/woollard/projects/easi-genomics/ExperimentChecklist/data/schema//TRANSCRIPTOMIC_schema.json
-
-    def clean_output(output):
-        output.replace(":\\n \\n", ":").replace("\\n,", "<-------").replace("\\t", "").replace("b' ", "")
-        output.replace("\\n \\nValidation finished.", "").replace("\\n", " ").replace("/", "\n/").replace("\\'", "'")
-        #   print("FAILED---->" +output)
-        output = re.sub('^.*Validation failed with errors:', 'Validation failed with errors', output)
-        # the next 3 lines clean up things I could not do
-        output = output.replace("\\n", '__nl__')
-        output = output.replace('__nl__', '\n')
-        output = output.replace("\\t", ' ')
-        output = output.replace("\n\n", "\n")
-
-        # get the  one per line
-        output = output.replace("\n\\.", "\n* ")
-        output = output.replace("\n \\.", "\n* ")
-        output = re.sub("\n\\.", "\n* ", output)
-        output = re.sub("\n[ ]\.", "\n* ", output)
-        output = output.replace("\n/", "\n* ")
-        output = output.replace("\n \n", "\n")
-        output = output.replace("\\\'", "\"")
-        output = output.replace("\n should", ": should")
-        output = output.replace("data should", "\n* data should")
-        output = output.replace(", data", "\n* data")
-        output = re.sub("[, ]*\n", "\n", output)
-        output = output.replace("\n Validation", "\n\nValidation")
-
-        # output = output.split("\n")
-        output = re.sub("[\n\' ]*$", "", output)
-        return output
-
     for schema_file in testing_pairs:
         for test_file in testing_pairs[schema_file]:
             # test_cmd = "node  /Users/woollard/projects/easi-genomics/biovalidator/validator-cli.js  validator-cli.js -j " \
             #        + test_file_dir + "/" + test_file + " -s " + schema_dir + "/" + schema_file + "| sed -e 's/\x1b\[[0-9;]*m//g';s/^[\]*//g"
-            test_cmd = "node  /Users/woollard/projects/biovalidator/biovalidator/src/biovalidator.js  -d " \
-                       + test_file_dir + "/" + test_file + " -s " + schema_dir + "/" + schema_file + "| sed -e 's/\x1b\[[0-9;]*m//g';s/^[\]*//g"
-
-
-            ic(test_cmd)
-            ic(f"{schema_file} {test_file}")
-            temp = subprocess.run([test_cmd], shell=True, capture_output=True)
-            output = str(temp.stdout)
-            raw_output = output
+            raw_output = output = validate_file(test_file_dir + test_file, schema_dir + schema_file)
             # print(output)
             if "Validation passed successfully" in output:
                 ic("PASSED---->No validation errors reported")
             else:
-                output = clean_output(output)
+
                 # ic(output)
                 print(f"FAILED---->{test_file}  vs {schema_file}")
                 print(output)
                 print("________________________________________")
 
-        # sys.exit()
+    # works
+    # node /Users/woollard/projects/biovalidator/biovalidator/src/biovalidator.js  -d /Users/woollard/projects/easi-genomics/ExperimentChecklist/data/output_test/real_testing//TRANSCRIPTOMIC_fails.json -s /Users/woollard/projects/easi-genomics/ExperimentChecklist/data/schema//TRANSCRIPTOMIC_schema.json
+
+
+
 def main():
     basedir = "/Users/woollard/projects/easi-genomics/ExperimentChecklist/"
     schema_file = basedir + "data/schema/TEST_type_schema2.json"
