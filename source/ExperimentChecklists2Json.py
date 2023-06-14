@@ -195,7 +195,7 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         :param experimentType:
         :return:
         """
-
+        ic.enable()
         # print("get_experiment_specific_dict" + json.dumps(schema_obj.get_experiment_specific_dict(), indent = 4))
 
         # print("get_checklist_specific_dict" + json.dumps(experimentType.get_checklist_specific_dict(), indent = 4))
@@ -214,10 +214,25 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
             if enum == "":
                 enum = ", ".join(my_local.get("pattern", ""))
 
-            my_list = [field, my_local.get("description", ""), str(my_local.get("_required", "")), str(checklist_specific_dict[field]), my_local.get("type", ""), enum, "Comment"]
+            my_list = [field, my_local.get("description", ""), str(my_local.get("_required", "")), str(checklist_specific_dict[field]), my_local.get("type", ""), enum, my_local.get("_comment", "")]
             self.specific_experimentTypeDoc += "| " + " | ".join(my_list) + " |\n"
 
-        # print(self.specific_experimentTypeDoc)
+        ic(experimentType.get_special_fields_list())
+        my_dict = schema_obj.get_all_specific_fields_json_config()
+        ic(my_dict)
+        for field in my_dict:
+            my_local = my_dict[field]
+            enum = ", ".join(my_local.get("enum", ""))
+            if enum == "":
+                enum = ", ".join(my_local.get("pattern", ""))
+
+            my_list = [field, my_local.get("description", ""), str(my_local.get("_required", "")), "", my_local.get("type", ""), enum, my_local.get("_comment", "")]
+            self.specific_experimentTypeDoc += "| " + " | ".join(my_list) + " |\n"
+
+
+
+        print(self.specific_experimentTypeDoc)
+
         return self.specific_experimentTypeDoc
 
     def getCoreExperimentTypeTable(self, schema_obj, core_dict):
@@ -237,7 +252,7 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
                 if enum == "":
                     enum = my_local.get("pattern", "")
                     enum = enum.replace("|","\|")
-                my_list = [coreField, my_local.get("description", ""), str(my_local.get("_required", "N.A.")), str(my_local.get("default", "")), enum, "Comment"]
+                my_list = [coreField, my_local.get("description", ""), str(my_local.get("_required", "N.A.")), str(my_local.get("default", "")), enum, my_local.get("_comment", "")]
                 self.core_experimentTypeDoc += "| " + " | ".join(my_list) + " |\n"
 
         # print(self.core_experimentTypeDoc)
@@ -862,14 +877,18 @@ def add_specials(experiment_type: object, config_data: object) -> object:
     local_dict = {}
     special_keys = list(experiment_type.get_special_fields_list())
     # print(experiment_type.experiment_type_name)
+    ic.enable()
     for jsonKey in special_keys:
+        ic(jsonKey)
         if jsonKey in config_data:
+            ic(config_data[jsonKey])
             local_dict = {**local_dict, **config_data[jsonKey]}
+            ic(local_dict)
         else:
             ic('WARN "special" key does not exist: "' + jsonKey +
                '" please check the config data in the input JSON file' + ' for *_fields')
     experiment_type.set_special_dict(local_dict)
-
+    # sys.exit()
     return
 
 

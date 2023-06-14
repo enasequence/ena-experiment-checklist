@@ -24,7 +24,7 @@
       "pcr_fields": "",
       "custom_user_fields": "",
       "design_description": "mixed marker barcoding",
-      "non_aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000002",
@@ -41,8 +41,7 @@
       "target_subfragment": "",
       "custom_user_fields": "",
       "design_description": "",
-      "non_aligned_sequence_file_fields" : "",
-      "aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000003",
@@ -58,7 +57,7 @@
       "pcr_fields": "",
       "custom_user_fields": "",
       "design_description": "",
-      "non_aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000010",
@@ -72,8 +71,7 @@
       "library_source": "GENOMIC",
       "custom_user_fields": "",
       "design_description": "",
-      "non_aligned_sequence_file_fields" : "",
-      "aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000012",
@@ -88,8 +86,7 @@
       "library_strategy": "WGS",
       "custom_user_fields": "",
       "design_description": "",
-      "non_aligned_sequence_file_fields" : "",
-      "aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000013",
@@ -103,8 +100,7 @@
       "library_source": "GENOMIC",
       "custom_user_fields": "",
       "design_description": "",
-      "non_aligned_sequence_file_fields" : "",
-      "aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC999999",
@@ -122,8 +118,7 @@
       "adapter_fields": "",
       "custom_user_fields": "",
       "design_description": "",
-      "non_aligned_sequence_file_fields" : "",
-      "aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000020",
@@ -136,8 +131,7 @@
       "experiment_type_ontology_id": "EDAM:3308",
       "library_source": "TRANSCRIPTOMIC",
       "custom_user_fields": "",
-      "design_description": "",
-      "non_aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000021",
@@ -151,7 +145,7 @@
       "library_source": "TRANSCRIPTOMIC",
       "custom_user_fields": "",
       "design_description": "",
-      "non_aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000030",
@@ -169,7 +163,7 @@
       "target_subfragment": "",
       "custom_user_fields": "",
       "design_description": "single target locus and single species barcoding",
-      "non_aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000031",
@@ -185,23 +179,21 @@
       "target_subfragment": "",
       "custom_user_fields": "",
       "design_description": "",
-      "non_aligned_sequence_file_fields" : "",
-      "aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000040",
       "checklist_name": "CHROMOSOME CONFORMATION CAPTURE specific",
       "_description": "Experiment Metadata Checklist Focused on chromosome conformation capture",
       "checklist_version": "v1",
-      "checklist_group": "ç",
+      "checklist_group": "EPIGENOME",
       "experiment_type": "CHROMOSOME_CONFORMATION_CAPTURE",
       "experiment_type_definition": "",
       "experiment_type_ontology_id": "EDAM:",
       "library_source": "GENOMIC",
       "custom_user_fields": "",
       "design_description": "",
-      "non_aligned_sequence_file_fields" : "",
-      "aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000041",
@@ -214,8 +206,7 @@
       "experiment_type_ontology_id": "EDAM:3179",
       "library_source": "GENOMIC",
       "custom_user_fields": "",
-      "design_description": "",
-      "non_aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     },
     {
       "checklist_id": "EXC000042",
@@ -228,7 +219,7 @@
       "experiment_type_ontology_id": "EDAM:",
       "library_source": "GENOMIC",
       "design_description": "",
-      "non_aligned_sequence_file_fields" : ""
+      "all_sequence_file_fields": ""
     }
   ],
   "pcr_fields": {
@@ -249,43 +240,89 @@
       "_insert_field_c": ""
     }
   },
-    "non_aligned_sequence_file_fields": {
+  "non_aligned_sequence_file_fields": {
+    "fastq": [
+      {
+        "value": "",
+        "attributes": {
+          "read_type": [
+            "paired",
+            "umi_barcode"
+          ],
+          "checksum_method": "MD5",
+          "checksum": ""
+        }
+      },
+      {
+        "value": "",
+        "attributes": {
+          "read_type": [
+            "paired",
+            "umi_barcode"
+          ],
+          "checksum_method": "MD5",
+          "checksum": ""
+        }
+      }
+    ]
+  },
+  "aligned_sequence_file_fields": {
+    "bam": {
+      "value": "",
+      "attributes": {
+        "checksum_method": "MD5",
+        "checksum": ""
+      }
+    },
+    "cram": {
+      "value": "",
+      "attributes": {
+        "checksum_method": "MD5",
+        "checksum": ""
+      }
+    }
+  },
+  "all_sequence_file_fields": {
+    "sequence_related": {
       "fastq": [
         {
           "value": "",
           "attributes": {
-            "read_type": ["paired", "umi_barcode"],
-            "checksum_method": "MD5", 
-            "checksum" : ""
+            "read_type": [
+              "paired",
+              "umi_barcode"
+            ],
+            "checksum_method": "MD5",
+            "checksum": ""
           }
         },
         {
           "value": "",
           "attributes": {
-            "read_type": ["paired", "umi_barcode"],
-            "checksum_method": "MD5", 
-            "checksum" : ""
+            "read_type": [
+              "paired",
+              "umi_barcode"
+            ],
+            "checksum_method": "MD5",
+            "checksum": ""
           }
         }
-      ]
-  },
-  "aligned_sequence_file_fields": {
-    "bam": 
-      {
+      ],
+      "bam": {
         "value": "",
         "attributes": {
-          "checksum_method": "MD5", 
-          "checksum" : ""
+          "checksum_method": "MD5",
+          "checksum": ""
         }
       },
-      "cram": 
-      {
+      "cram": {
         "value": "",
         "attributes": {
-          "checksum_method": "MD5", 
-          "checksum" : ""
+          "checksum_method": "MD5",
+          "checksum": ""
         }
       }
+    }
   },
   "target_fields": {
     "target_loci": "",
@@ -510,7 +547,8 @@
       "field_type": "uri",
       "domain": "https://protocols.io",
       "type": "string",
-      "_required": false
+      "_required": false,
+      "_comment": "see the pcr_primers fields too"
     },
     "pcr_primers": {
       "description": "PCR primers that were used to amplify the sequence of the targeted gene, locus or subfragment. This field should contain all the primers used for a single PCR reaction if multiple forward or reverse primers are present in a single PCR reaction. The primer sequence should be reported in uppercase letters.[INSDC]",
@@ -526,6 +564,12 @@
       "description": "Adapters provide priming sequences for both amplification and sequencing of the sample-library fragments. Both adapters should be reported; in uppercase letters.[INSDC]",
       "type": "string",
       "_required": false
+    },
+    "sequence_related": {
+      "description": "sequence format type, filename and checksum[INSDC]",
+      "type": "string",
+      "_required": true,
+      "_comment": "This section allows one to provide sequence file names. The sequences can be in fastq, CRAM and BAM. N.B. BAM filers do not needs to be assemblies and BAM is slightly favoured over fastq as it is more compressed."
     }
   },
   "coreRules": [
