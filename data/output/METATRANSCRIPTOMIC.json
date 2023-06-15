@@ -16,30 +16,6 @@
     "experiment_type": "METATRANSCRIPTOMIC",
     "experiment_type_definition": "The study of microbe gene expression within natural environments (i.e. the metatranscriptome). Metatranscriptomics methods can be used for whole gene expression profiling of complex microbial communities.[EDAM]",
     "experiment_type_ontology_id": "EDAM:3941",
-    "fastq": [
-        {
-            "attributes": {
-                "checksum": "",
-                "checksum_method": "MD5",
-                "read_type": [
-                    "paired",
-                    "umi_barcode"
-                ]
-            },
-            "value": ""
-        },
-        {
-            "attributes": {
-                "checksum": "",
-                "checksum_method": "MD5",
-                "read_type": [
-                    "paired",
-                    "umi_barcode"
-                ]
-            },
-            "value": ""
-        }
-    ],
     "insert_size": 0,
     "instrument_model": "",
     "instrument_platform": "",
@@ -57,6 +33,46 @@
     },
     "pcr_protocol": "",
     "sample_accession": "",
+    "sequence_related": {
+        "bam": {
+            "attributes": {
+                "checksum": "",
+                "checksum_method": "MD5"
+            },
+            "value": ""
+        },
+        "cram": {
+            "attributes": {
+                "checksum": "",
+                "checksum_method": "MD5"
+            },
+            "value": ""
+        },
+        "fastq": [
+            {
+                "attributes": {
+                    "checksum": "",
+                    "checksum_method": "MD5",
+                    "read_type": [
+                        "paired",
+                        "umi_barcode"
+                    ]
+                },
+                "value": ""
+            },
+            {
+                "attributes": {
+                    "checksum": "",
+                    "checksum_method": "MD5",
+                    "read_type": [
+                        "paired",
+                        "umi_barcode"
+                    ]
+                },
+                "value": ""
+            }
+        ]
+    },
     "sequencing_protocol": "",
     "study_id": ""
 }

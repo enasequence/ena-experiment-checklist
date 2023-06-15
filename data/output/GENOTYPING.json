@@ -1,23 +1,9 @@
 {
     "_description": "Experiment Metadata Checklist Focused on genotyping",
-    "bam": {
-        "attributes": {
-            "checksum": "",
-            "checksum_method": "MD5"
-        },
-        "value": ""
-    },
     "checklist_group": "GENOTYPING",
     "checklist_id": "EXC000031",
     "checklist_name": "GENOTYPING specific",
     "checklist_version": "v1",
-    "cram": {
-        "attributes": {
-            "checksum": "",
-            "checksum_method": "MD5"
-        },
-        "value": ""
-    },
     "design_description": "",
     "experiment_attribute": {
         "_insert_field_a": "",
@@ -30,30 +16,6 @@
     "experiment_type": "GENOTYPING",
     "experiment_type_definition": "An assay in which variation in a part of or the whole genome is analysed",
     "experiment_type_ontology_id": "EFO:0000750",
-    "fastq": [
-        {
-            "attributes": {
-                "checksum": "",
-                "checksum_method": "MD5",
-                "read_type": [
-                    "paired",
-                    "umi_barcode"
-                ]
-            },
-            "value": ""
-        },
-        {
-            "attributes": {
-                "checksum": "",
-                "checksum_method": "MD5",
-                "read_type": [
-                    "paired",
-                    "umi_barcode"
-                ]
-            },
-            "value": ""
-        }
-    ],
     "insert_size": 0,
     "instrument_model": "",
     "instrument_platform": "",
@@ -64,6 +26,46 @@
     "library_source": "GENOMIC",
     "library_strategy": "",
     "sample_accession": "",
+    "sequence_related": {
+        "bam": {
+            "attributes": {
+                "checksum": "",
+                "checksum_method": "MD5"
+            },
+            "value": ""
+        },
+        "cram": {
+            "attributes": {
+                "checksum": "",
+                "checksum_method": "MD5"
+            },
+            "value": ""
+        },
+        "fastq": [
+            {
+                "attributes": {
+                    "checksum": "",
+                    "checksum_method": "MD5",
+                    "read_type": [
+                        "paired",
+                        "umi_barcode"
+                    ]
+                },
+                "value": ""
+            },
+            {
+                "attributes": {
+                    "checksum": "",
+                    "checksum_method": "MD5",
+                    "read_type": [
+                        "paired",
+                        "umi_barcode"
+                    ]
+                },
+                "value": ""
+            }
+        ]
+    },
     "sequencing_protocol": "",
     "study_id": "",
     "target_loci": "other",

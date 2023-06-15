@@ -1,10 +1,10 @@
 {
-    "_description": "Experiment Metadata Checklist Focused on metabarcoding",
+    "_description": "Experiment Metadata Checklist Focused on metagenomics",
     "checklist_group": "METAGENOMIC",
-    "checklist_id": "EXC000001",
-    "checklist_name": "METABARCODING specific",
+    "checklist_id": "EXC000002",
+    "checklist_name": "METAGENOMIC sequencing specific",
     "checklist_version": "v1",
-    "design_description": "mixed marker barcoding",
+    "design_description": "",
     "experiment_attribute": {
         "_insert_field_a": "",
         "_insert_field_b": "",
@@ -13,25 +13,18 @@
         "key_experimental_factors": []
     },
     "experiment_name": "my experiment_name",
-    "experiment_type": "METABARCODING",
-    "experiment_type_definition": "Metabarcoding is the barcoding of DNA/RNA (or eDNA/eRNA) in a manner that allows for the simultaneous identification of many taxa within the same sample. The main difference between barcoding and metabarcoding is that metabarcoding does not focus on one specific organism, but instead aims to determine species composition within a sample.[WIKIPEDIA]",
-    "experiment_type_ontology_id": "EDAM:320",
+    "experiment_type": "METAGENOMIC_SEQUENCING",
+    "experiment_type_definition": "Approach which samples, in parallel, all genes in all organisms present in a given sample, e.g. to provide insight into biodiversity and function.",
+    "experiment_type_ontology_id": "EDAM:3837",
     "insert_size": 0,
     "instrument_model": "HiSeq X Ten",
     "instrument_platform": "ILLUMINA",
     "library_description": "",
     "library_layout": "PAIRED",
     "library_name": "",
-    "library_selection": "PCR",
+    "library_selection": "unspecified",
     "library_source": "METAGENOMIC",
     "library_strategy": "AMPLICON",
-    "pcr_primers": {
-        "fwd_name": "",
-        "fwd_seq": "",
-        "rev_name": "",
-        "rev_seq": ""
-    },
-    "pcr_protocol": "",
     "sample_accession": "SAME123456",
     "sequence_related": {
         "bam": {

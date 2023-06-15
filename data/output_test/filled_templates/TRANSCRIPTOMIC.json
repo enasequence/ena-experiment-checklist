@@ -1,10 +1,9 @@
 {
-    "_description": "Experiment Metadata Checklist Focused on metabarcoding",
-    "checklist_group": "METAGENOMIC",
-    "checklist_id": "EXC000001",
-    "checklist_name": "METABARCODING specific",
+    "_description": "Experiment Metadata Checklist Focused on transcriptomics",
+    "checklist_group": "TRANSCRIPTOMIC",
+    "checklist_id": "EXC000020",
+    "checklist_name": "TRANSCRIPTOMIC specific",
     "checklist_version": "v1",
-    "design_description": "mixed marker barcoding",
     "experiment_attribute": {
         "_insert_field_a": "",
         "_insert_field_b": "",
@@ -13,25 +12,18 @@
         "key_experimental_factors": []
     },
     "experiment_name": "my experiment_name",
-    "experiment_type": "METABARCODING",
-    "experiment_type_definition": "Metabarcoding is the barcoding of DNA/RNA (or eDNA/eRNA) in a manner that allows for the simultaneous identification of many taxa within the same sample. The main difference between barcoding and metabarcoding is that metabarcoding does not focus on one specific organism, but instead aims to determine species composition within a sample.[WIKIPEDIA]",
-    "experiment_type_ontology_id": "EDAM:320",
+    "experiment_type": "TRANSCRIPTOMIC",
+    "experiment_type_definition": "The analysis of transcriptomes, or a set of all the RNA molecules in a specific cell, tissue etc.",
+    "experiment_type_ontology_id": "EDAM:3308",
     "insert_size": 0,
     "instrument_model": "HiSeq X Ten",
     "instrument_platform": "ILLUMINA",
     "library_description": "",
     "library_layout": "PAIRED",
     "library_name": "",
-    "library_selection": "PCR",
-    "library_source": "METAGENOMIC",
-    "library_strategy": "AMPLICON",
-    "pcr_primers": {
-        "fwd_name": "",
-        "fwd_seq": "",
-        "rev_name": "",
-        "rev_seq": ""
-    },
-    "pcr_protocol": "",
+    "library_selection": "unspecified",
+    "library_source": "TRANSCRIPTOMIC",
+    "library_strategy": "",
     "sample_accession": "SAME123456",
     "sequence_related": {
         "bam": {
@@ -74,7 +66,5 @@
         ]
     },
     "sequencing_protocol": "",
-    "study_id": "ERP123456",
-    "target_loci": "",
-    "target_subfragment": ""
+    "study_id": "ERP123456"
 }
