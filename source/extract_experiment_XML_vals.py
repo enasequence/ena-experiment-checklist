@@ -23,6 +23,13 @@ import argparse
 import subprocess
 import os
 import json
+import os.path
+import time
+import datetime
+from datetime import timedelta
+from datetime import timezone
+from datetime import datetime
+
 
 class SRA_EXPERIMENT_SPEC:
     def __init__(self, my_sra_experiment_json, my_sra_common_json):
@@ -347,29 +354,94 @@ class SRA_EXPERIMENT_SPEC:
 
 def get_SRA_XML_baseline():
     """
+    Does more than just provided the XML.
+    IT returns an object.
 
-    :return: sra_instance
+    :return: sra_object_instance
     """
     ic()
+    ic("_____inside get_SRA_XML_baseline_____")
 
-    def cmd2json(cmd):
-        ic(cmd)
-        # os.system(cmd)
-        f = open(outfullfilename)
+    def file2json(file_name):
+        f = open(file_name)
         my_sra_json = json.load(f)
         f.close()
+        return(my_sra_json)
+
+    def cmd2file(cmd, outfilename):
+        """
+
+        :param cmd:
+        :param outfilename:
+        :return:
+        """
+        ic()
+        ic(cmd)
+        pid = os.getpid()
+        tmp_outfile = "/tmp/tmp_" + str(pid)
+        tmp_cmd = cmd + " > " + tmp_outfile
+        try:
+            os.system(tmp_cmd)
+        except:
+            print(f"ERROR: command failed: {tmp_cmd}")
+            sys.exit()
+
+        try:
+            os.rename(tmp_outfile, outfilename)
+        except:
+            print(f"ERROR: command failed: 'os.rename(tmp_outfile, outfilename)'")
+            sys.exit()
+
+    def is_file_older_than(file_name, delta):
+        """
+        e.g. is_file_older_than(file_name, timedelta(days=1))
+        :param file_name:
+        :param delta:
+        :return: True or False
+        """
+        if not os.path.exists(file_name):
+            return False
+        # cutoff = datetime.utcnow() - delta
+        cutoff = datetime.now(tz=timezone.utc) - delta
+        ic(f"cutoff={cutoff}")
+        mtime = datetime.fromtimestamp(os.path.getmtime(file_name), tz=timezone.utc)
+        ic(f"mtime={mtime}")
+        if mtime < cutoff:
+            return True
+        return False
+
+    def cmd2json(cmd, outfilename):
+        """
+
+
+        :param cmd:  command without a stdout to a file e.g. curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.experiment.xsd | xq
+        :param outfilename:
+        :return: my_sra_json
+        """
+        ic()
+        ic(cmd)
+        ic(outfilename)
+
+        if is_file_older_than(outfilename, timedelta(days=1)):
+            print(f"{outfilename} is older than 1 day! so re-running.")
+            cmd2file(cmd, outfilename)
+
+        my_sra_json = file2json(outfilename)
+
+        #sys.exit()
         return my_sra_json
 
     outdir = "/Users/woollard/projects/easi-genomics/ExperimentChecklist/data/input/"
     outfile = "SRA.common.json"
     outfullfilename = outdir + outfile
-    cmd = "curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.common.xsd | xq > " + outfullfilename
-    outfile = "SRA.experiment.json"
-    my_sra_common_json = cmd2json(cmd)
+    cmd = "curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.common.xsd | xq "
 
+    my_sra_common_json = cmd2json(cmd, outfullfilename)
+
+    outfile = "SRA.experiment.json"
     outfullfilename = outdir + outfile
-    cmd = "curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.experiment.xsd | xq > " + outfullfilename
-    my_sra_experiment_json = cmd2json(cmd)
+    cmd = "curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.experiment.xsd | xq "
+    my_sra_experiment_json = cmd2json(cmd, outfullfilename)
 
     sra_obj = SRA_EXPERIMENT_SPEC(my_sra_experiment_json, my_sra_common_json)
     return(sra_obj)
@@ -384,6 +456,7 @@ def list2string(my_list):
     return '\n'.join(my_list)
 
 def main():
+    ic.enable()
     sra_obj = get_SRA_XML_baseline()
 
     # ic(sra_obj.get_platform())
@@ -408,6 +481,7 @@ def main():
     # sra_obj.print_platform_md_list()
     # print("\ninstrument terms")
     # sra_obj.print_instrument_md_list())
+    print("End of Main")
 
 if __name__ == '__main__':
     ic()
