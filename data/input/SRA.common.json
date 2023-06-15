@@ -1351,10 +1351,16 @@
           "@base": "xs:string",
           "xs:enumeration": [
             {
+              "@value": "Onso"
+            },
+            {
               "@value": "PacBio RS"
             },
             {
               "@value": "PacBio RS II"
+            },
+            {
+              "@value": "Revio"
             },
             {
               "@value": "Sequel"
