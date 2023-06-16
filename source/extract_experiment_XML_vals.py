@@ -378,7 +378,7 @@ def get_SRA_XML_baseline():
         ic()
         ic(cmd)
         pid = os.getpid()
-        tmp_outfile = "/tmp/tmp_" + str(pid)
+        tmp_outfile = "/tmp/tmp_exp_checklist_" + str(pid)
         tmp_cmd = cmd + " > " + tmp_outfile
         try:
             os.system(tmp_cmd)
