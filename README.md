@@ -23,8 +23,10 @@ User use cases have been collated and some key user and maintenance technical re
 ## In Essence
 * The "everything" JSON template is taken from data/input/ExperimentChecklistIn.json
 * A script runs over this and generates specific JSON templates in data/output for each experiment type.
+* The same script generates experiment type documentation too.
 
 ![](docs/ExperimentChecklistSimple.png)
 ## Further docs
 * [For more technical details](docs/ExperimentChecklistTechnicalDoc.md)
 * [Directory organisation overview](docs/directory_organisation_explanation.md)
+* [Experiment Type Specific Info](docs/experiment_types/)
