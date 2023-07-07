@@ -129,13 +129,13 @@
                 "properties": {
                     "instrument": {
                         "enum": [
+                            "454 GS FLX+",
+                            "454 GS Junior",
                             "454 GS FLX Titanium",
                             "454 GS",
                             "454 GS FLX",
                             "unspecified",
-                            "454 GS 20",
-                            "454 GS FLX+",
-                            "454 GS Junior"
+                            "454 GS 20"
                         ]
                     }
                 }
@@ -153,29 +153,29 @@
                 "properties": {
                     "instrument": {
                         "enum": [
-                            "Illumina Genome Analyzer II",
-                            "Illumina HiSeq 1000",
-                            "Illumina MiSeq",
+                            "HiSeq X Five",
+                            "Illumina HiSeq 1500",
+                            "unspecified",
                             "HiSeq X Ten",
-                            "Illumina iSeq 100",
+                            "Illumina HiSeq 2000",
+                            "Illumina MiniSeq",
+                            "Illumina HiSeq 1000",
+                            "Illumina HiSeq 2500",
                             "Illumina NovaSeq X",
                             "NextSeq 1000",
-                            "Illumina HiSeq 2000",
-                            "Illumina HiSeq 1500",
-                            "Illumina HiSeq 2500",
-                            "Illumina Genome Analyzer IIx",
-                            "NextSeq 500",
-                            "Illumina HiSeq 3000",
-                            "Illumina Genome Analyzer",
-                            "Illumina MiniSeq",
-                            "Illumina HiScanSQ",
-                            "Illumina HiSeq 4000",
-                            "Illumina HiSeq X",
-                            "unspecified",
-                            "NextSeq 2000",
-                            "HiSeq X Five",
+                            "Illumina Genome Analyzer II",
                             "Illumina NovaSeq 6000",
-                            "NextSeq 550"
+                            "Illumina Genome Analyzer",
+                            "Illumina HiScanSQ",
+                            "Illumina HiSeq 3000",
+                            "NextSeq 550",
+                            "Illumina iSeq 100",
+                            "Illumina Genome Analyzer IIx",
+                            "Illumina MiSeq",
+                            "NextSeq 500",
+                            "Illumina HiSeq 4000",
+                            "NextSeq 2000",
+                            "Illumina HiSeq X"
                         ]
                     }
                 }
@@ -193,8 +193,8 @@
                 "properties": {
                     "instrument": {
                         "enum": [
-                            "Helicos HeliScope",
-                            "unspecified"
+                            "unspecified",
+                            "Helicos HeliScope"
                         ]
                     }
                 }
@@ -212,16 +212,16 @@
                 "properties": {
                     "instrument": {
                         "enum": [
+                            "AB SOLiD 4 System",
                             "AB SOLiD PI System",
+                            "AB SOLiD System 3.0",
+                            "AB SOLiD System",
                             "AB 5500xl Genetic Analyzer",
                             "AB SOLiD System 2.0",
-                            "AB SOLiD System 3.0",
                             "AB 5500 Genetic Analyzer",
-                            "unspecified",
                             "AB 5500xl-W Genetic Analysis System",
                             "AB SOLiD 4hq System",
-                            "AB SOLiD 4 System",
-                            "AB SOLiD System",
+                            "unspecified",
                             "AB SOLiD 3 Plus System"
                         ]
                     }
@@ -280,13 +280,13 @@
                     "instrument": {
                         "enum": [
                             "Revio",
+                            "Sequel IIe",
+                            "Onso",
+                            "PacBio RS",
                             "Sequel",
                             "PacBio RS II",
-                            "Sequel IIe",
                             "unspecified",
-                            "Sequel II",
-                            "PacBio RS",
-                            "Onso"
+                            "Sequel II"
                         ]
                     }
                 }
@@ -305,13 +305,13 @@
                     "instrument": {
                         "enum": [
                             "Ion Torrent Genexus",
-                            "Ion Torrent S5",
-                            "unspecified",
-                            "Ion GeneStudio S5",
                             "Ion Torrent PGM",
-                            "Ion GeneStudio S5 Plus",
+                            "Ion Torrent S5",
                             "Ion Torrent S5 XL",
                             "Ion Torrent Proton",
+                            "unspecified",
+                            "Ion GeneStudio S5 Plus",
+                            "Ion GeneStudio S5",
                             "Ion GeneStudio S5 Prime"
                         ]
                     }
@@ -330,14 +330,14 @@
                 "properties": {
                     "instrument": {
                         "enum": [
-                            "AB 310 Genetic Analyzer",
-                            "unspecified",
-                            "AB 3130 Genetic Analyzer",
-                            "AB 3130xL Genetic Analyzer",
-                            "AB 3730xL Genetic Analyzer",
                             "AB 3500xL Genetic Analyzer",
+                            "AB 310 Genetic Analyzer",
                             "AB 3500 Genetic Analyzer",
-                            "AB 3730 Genetic Analyzer"
+                            "AB 3130 Genetic Analyzer",
+                            "AB 3730 Genetic Analyzer",
+                            "unspecified",
+                            "AB 3130xL Genetic Analyzer",
+                            "AB 3730xL Genetic Analyzer"
                         ]
                     }
                 }
@@ -355,10 +355,10 @@
                 "properties": {
                     "instrument": {
                         "enum": [
+                            "DNBSEQ-G400 FAST",
+                            "DNBSEQ-G50",
                             "DNBSEQ-T7",
                             "unspecified",
-                            "DNBSEQ-G50",
-                            "DNBSEQ-G400 FAST",
                             "DNBSEQ-G400"
                         ]
                     }
@@ -378,9 +378,9 @@
                     "instrument": {
                         "enum": [
                             "MinION",
+                            "unspecified",
                             "PromethION",
-                            "GridION",
-                            "unspecified"
+                            "GridION"
                         ]
                     }
                 }
@@ -398,8 +398,8 @@
                 "properties": {
                     "instrument": {
                         "enum": [
-                            "Element AVITI",
-                            "unspecified"
+                            "unspecified",
+                            "Element AVITI"
                         ]
                     }
                 }

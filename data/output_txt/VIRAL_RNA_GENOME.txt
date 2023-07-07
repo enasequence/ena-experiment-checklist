@@ -1,10 +1,10 @@
 {
-    "_description": "Experiment Metadata Checklist Focused on metabarcoding",
-    "checklist_group": "METAGENOMIC",
-    "checklist_id": "EXC000001",
-    "checklist_name": "METABARCODING specific",
+    "_description": "Experiment Metadata Checklist Focused on Viral RNA",
+    "checklist_group": "GENOMIC",
+    "checklist_id": "EXC000012",
+    "checklist_name": "Viral RNA specific",
     "checklist_version": "v1",
-    "design_description": "mixed marker barcoding",
+    "design_description": "",
     "experiment_attribute": {
         "_insert_field_a": "",
         "_insert_field_b": "",
@@ -13,9 +13,9 @@
         "key_experimental_factors": []
     },
     "experiment_name": "",
-    "experiment_type": "METABARCODING",
-    "experiment_type_definition": "Metabarcoding is the barcoding of DNA/RNA (or eDNA/eRNA) in a manner that allows for the simultaneous identification of many taxa within the same sample. The main difference between barcoding and metabarcoding is that metabarcoding does not focus on one specific organism, but instead aims to determine species composition within a sample.[WIKIPEDIA]",
-    "experiment_type_ontology_id": "EDAM:320",
+    "experiment_type": "VIRAL_RNA_GENOME",
+    "experiment_type_definition": "Adapted from a virus whose genome consists of RNA. Can be single or double-stranded RNA.[NCIT and SO adapted]",
+    "experiment_type_ontology_id": "SO:0001041",
     "insert_size": 0,
     "instrument_model": "",
     "instrument_platform": "",
@@ -23,15 +23,8 @@
     "library_layout": "",
     "library_name": "",
     "library_selection": "",
-    "library_source": "METAGENOMIC",
+    "library_source": "VIRAL RNA",
     "library_strategy": "WGS",
-    "pcr_primers": {
-        "fwd_name": "",
-        "fwd_seq": "",
-        "rev_name": "",
-        "rev_seq": ""
-    },
-    "pcr_protocol": "",
     "sample_accession": "",
     "sequence_related": {
         "bam": {
@@ -54,7 +47,8 @@
                     "checksum": "",
                     "checksum_method": "MD5",
                     "read_type": [
-                        "paired"
+                        "paired",
+                        "umi_barcode"
                     ]
                 },
                 "value": ""
@@ -64,7 +58,8 @@
                     "checksum": "",
                     "checksum_method": "MD5",
                     "read_type": [
-                        "paired"
+                        "paired",
+                        "umi_barcode"
                     ]
                 },
                 "value": ""
@@ -72,7 +67,5 @@
         ]
     },
     "sequencing_protocol": "",
-    "study_id": "",
-    "target_loci": "",
-    "target_subfragment": ""
+    "study_id": ""
 }

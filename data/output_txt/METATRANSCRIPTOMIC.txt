@@ -1,10 +1,10 @@
 {
-    "_description": "Experiment Metadata Checklist Focused on metabarcoding",
+    "_description": "Experiment Metadata Checklist Focused on metatranscriptomics",
     "checklist_group": "METAGENOMIC",
-    "checklist_id": "EXC000001",
-    "checklist_name": "METABARCODING specific",
+    "checklist_id": "EXC000003",
+    "checklist_name": "METATRANSCRIPTOMIC specific",
     "checklist_version": "v1",
-    "design_description": "mixed marker barcoding",
+    "design_description": "",
     "experiment_attribute": {
         "_insert_field_a": "",
         "_insert_field_b": "",
@@ -13,18 +13,18 @@
         "key_experimental_factors": []
     },
     "experiment_name": "",
-    "experiment_type": "METABARCODING",
-    "experiment_type_definition": "Metabarcoding is the barcoding of DNA/RNA (or eDNA/eRNA) in a manner that allows for the simultaneous identification of many taxa within the same sample. The main difference between barcoding and metabarcoding is that metabarcoding does not focus on one specific organism, but instead aims to determine species composition within a sample.[WIKIPEDIA]",
-    "experiment_type_ontology_id": "EDAM:320",
+    "experiment_type": "METATRANSCRIPTOMIC",
+    "experiment_type_definition": "The study of microbe gene expression within natural environments (i.e. the metatranscriptome). Metatranscriptomics methods can be used for whole gene expression profiling of complex microbial communities.[EDAM]",
+    "experiment_type_ontology_id": "EDAM:3941",
     "insert_size": 0,
     "instrument_model": "",
     "instrument_platform": "",
     "library_description": "",
     "library_layout": "",
     "library_name": "",
-    "library_selection": "",
-    "library_source": "METAGENOMIC",
-    "library_strategy": "WGS",
+    "library_selection": "PCR",
+    "library_source": "METATRANSCRIPTOMIC",
+    "library_strategy": "",
     "pcr_primers": {
         "fwd_name": "",
         "fwd_seq": "",
@@ -54,7 +54,8 @@
                     "checksum": "",
                     "checksum_method": "MD5",
                     "read_type": [
-                        "paired"
+                        "paired",
+                        "umi_barcode"
                     ]
                 },
                 "value": ""
@@ -64,7 +65,8 @@
                     "checksum": "",
                     "checksum_method": "MD5",
                     "read_type": [
-                        "paired"
+                        "paired",
+                        "umi_barcode"
                     ]
                 },
                 "value": ""
@@ -72,7 +74,5 @@
         ]
     },
     "sequencing_protocol": "",
-    "study_id": "",
-    "target_loci": "",
-    "target_subfragment": ""
+    "study_id": ""
 }

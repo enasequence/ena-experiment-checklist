@@ -22,9 +22,9 @@
     "library_description": "",
     "library_layout": "",
     "library_name": "",
-    "library_selection": "",
+    "library_selection": "PCR",
     "library_source": "METAGENOMIC",
-    "library_strategy": "WGS",
+    "library_strategy": "AMPLICON",
     "pcr_primers": {
         "fwd_name": "",
         "fwd_seq": "",
@@ -54,7 +54,8 @@
                     "checksum": "",
                     "checksum_method": "MD5",
                     "read_type": [
-                        "paired"
+                        "paired",
+                        "umi_barcode"
                     ]
                 },
                 "value": ""
@@ -64,7 +65,8 @@
                     "checksum": "",
                     "checksum_method": "MD5",
                     "read_type": [
-                        "paired"
+                        "paired",
+                        "umi_barcode"
                     ]
                 },
                 "value": ""

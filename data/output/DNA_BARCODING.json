@@ -47,8 +47,7 @@
                     "checksum": "",
                     "checksum_method": "MD5",
                     "read_type": [
-                        "paired",
-                        "umi_barcode"
+                        "paired"
                     ]
                 },
                 "value": ""
@@ -58,8 +57,7 @@
                     "checksum": "",
                     "checksum_method": "MD5",
                     "read_type": [
-                        "paired",
-                        "umi_barcode"
+                        "paired"
                     ]
                 },
                 "value": ""
@@ -68,6 +66,6 @@
     },
     "sequencing_protocol": "",
     "study_id": "",
-    "target_loci": "COX1",
+    "target_loci": "",
     "target_subfragment": ""
 }
