@@ -15,7 +15,7 @@
     "experiment_name": "",
     "experiment_type": "METABARCODING",
     "experiment_type_definition": "Metabarcoding is the barcoding of DNA/RNA (or eDNA/eRNA) in a manner that allows for the simultaneous identification of many taxa within the same sample. The main difference between barcoding and metabarcoding is that metabarcoding does not focus on one specific organism, but instead aims to determine species composition within a sample.[WIKIPEDIA]",
-    "experiment_type_ontology_id": "EDAM:320",
+    "experiment_type_ontology_id": "EDAM:operation_3200",
     "insert_size": 0,
     "instrument_model": "",
     "instrument_platform": "",
