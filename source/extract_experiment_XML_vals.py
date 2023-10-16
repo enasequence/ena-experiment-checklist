@@ -5,8 +5,8 @@
 2) as a command line - If someone needs to repeat getting an alphabetically sorted list of terms for 1) platforms and 2) instruments run this script.
 
 Notes:
-It pulls the information from the SRA.experiment.xml. This XML is the ground truth for metadata for experiments, thus important
-to be in sync with it.
+It pulls the information from the SRA.experiment.xsd. This XSD is the ground truth for metadata for experiments, thus important
+to be in sync with it. The code automatically uses the latest version on the ftp site.
 (BTW I cheat and use a JSON rendition of the XML, as JSON is much easier to use in python.
 Uses the fairly ubiquitous jq/xq utilities. Only needed though when the XML is updated.)
 
