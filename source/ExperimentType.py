@@ -192,25 +192,5 @@ class ExperimentType:
         self.print_checklist_xlsx()
         self.print_checklist_json()
 
-    #
-    # def print_test_checklist(self):
-    #     """ print_test_checklist
-    #     as print_checklist, but uses the default values
-    #     params:
-    #     deprecated
-    #     """
-    #     ic()
-    #     data_loc_dict = get_data_locations()
-    #
-    #     all_checklist_dict = self.get_all_dict_default()
-    #     # ic(all_checklist_dict)
-    #
-    #     outfileName = data_loc_dict["output_test_dir"] + all_checklist_dict['experiment_type'] + '.json'
-    #     ic(outfileName)
-    #
-    #     my_list = all_checklist_dict
-    #     json_object = json.dumps(my_list, indent = 4, sort_keys = True)
-    #     with open(outfileName, "w") as outfile:
-    #         outfile.write(json_object)
-    #     return
+
 
