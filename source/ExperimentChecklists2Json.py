@@ -838,7 +838,6 @@ class ExperimentType:
         return df
 
 
-
     def print_checklist_xlsx(self):
         """
 
@@ -847,10 +846,9 @@ class ExperimentType:
         """
         data_loc_dict = get_data_locations()
 
-        outfileName = data_loc_dict["output_dir"] + self.get_experiment_type() + '.xlsx'
+        outfileName = data_loc_dict["output_xlsx_dir"] + self.get_experiment_type() + '.xlsx'
         df = self.get_checklist_as_df()
-
-
+        df.to_excel(outfileName, index = False)
         ic(outfileName)
 
     def print_checklist(self):
@@ -859,13 +857,9 @@ class ExperimentType:
 
         """
         ic()
-
         self.print_checklist_xlsx()
         sys.exit()
         self.print_checklist_json()
-
-
-
 
     #
     # def print_test_checklist(self):
@@ -1003,20 +997,19 @@ def process_and_get_fields(config_data):
         # ic(experimentType.print_ExperimentTypeObj())
     return expt_objects_dict
 
-
 def get_data_locations():
     """ get_data_locations
     params:
         rtn: data_loc_dict
     """
     data_loc_dict = {"base_dir": "/Users/woollard/projects/easi-genomics/ExperimentChecklist/"}
-    data_loc_dict["input_dir"] = data_loc_dict["base_dir"] + "data/input/"
-    data_loc_dict["output_dir"] = data_loc_dict["base_dir"] + "data/output/"
-    data_loc_dict["output_test_dir"] = data_loc_dict["base_dir"] + "data/output_test/"
-    data_loc_dict["schema_dir"] = data_loc_dict["base_dir"] + "data/schema/"
-
+    data_dir = data_loc_dict["base_dir"] + "data/"
+    data_loc_dict["input_dir"] = data_dir + "input/"
+    data_loc_dict["output_dir"] = data_dir + "output/"
+    data_loc_dict["output_xlsx_dir"] = data_dir + "output_xlsx/"
+    data_loc_dict["output_test_dir"] = data_dir + "output_test/"
+    data_loc_dict["schema_dir"] = data_dir + "schema/"
     return data_loc_dict
-
 
 def read_config(debug_status):
     """ readConfig
@@ -1052,7 +1045,6 @@ def print_all_checklists(expt_objects):
         experimentType = expt_objects[experiment_type_name]
         experimentType.print_checklist()
         # experimentType.print_test_checklist()
-
     # sys.exit()
 
 def create_schema_objects(expt_objects, config_data):
@@ -1073,10 +1065,7 @@ def create_schema_objects(expt_objects, config_data):
         experimentType.set_json_schema_obj(schema_obj)
         ic(schema_obj)
         schema_obj.print_json_schema()
-
-
     return schema_objects
-
 
 def print_all_checklist_json_schemas(expt_objects):
     ic("-" * 100)
@@ -1093,8 +1082,6 @@ def print_all_checklist_json_schemas(expt_objects):
         # print(schema_obj.print_json_schema())
         ic()
         experimentType.print_ExperimentTypeObj()
-
-
 
 def main():
     ic()
