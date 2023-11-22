@@ -801,8 +801,7 @@ class ExperimentType:
         """
         data_loc_dict = get_data_locations()
         checklist_dict = self.get_all_dict()
-        ic(checklist_dict)
-
+        # ic(checklist_dict)
         outfileName = data_loc_dict["output_dir"] + checklist_dict['experiment_type'] + '.json'
         json_object = json.dumps(checklist_dict, indent = 4, sort_keys = True)
         with open(outfileName, "w") as outfile:
@@ -810,32 +809,31 @@ class ExperimentType:
         ic(outfileName)
 
     def get_checklist_as_df(self):
+        if hasattr(self, 'checklist_as_df'):
+            return self.checklist_as_df
 
         checklist_dict = self.get_all_dict()
-        ic(checklist_dict)
-        print('-------------------------------------------------------------------------')
         print_dict = {}
         for key in checklist_dict.keys():
             if key in ['experiment_attribute', 'pcr_primers', 'sequence_related']:
-                if key in ['sequence_related', 'pcr_primers']:
+                if key in ['sequence_related', 'pcr_primers', 'experiment_attribute']:
                     for sub_key in checklist_dict[key]:
                         add_key = key + ":" + sub_key
                         print_dict[add_key] = [str(checklist_dict[key][sub_key])]
-                        print(f"{add_key} {print_dict[add_key]}")
+                        # print(f"{add_key} {print_dict[add_key]}")
+                else:  #may wish to do something more adnvaced
+                    print_dict[key] = [checklist_dict[key]]
             else:
                 print_dict[key] = [checklist_dict[key]]
-                # pass
-        print('-------------------------------------------------------------------------')
-        ic(print_dict)
+        # ic(print_dict)
         # df = pd.DataFrame.from_dict(print_dict, orient='index', columns=['KEY', 'SUB'])
         field_col_name = checklist_dict['experiment_type']
         val_col_name = 'value for ' + checklist_dict['experiment_type']
         df = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = [val_col_name])
         df[field_col_name] = df.index
-        df = df[[field_col_name, val_col_name]]
-        # df = pd.DataFrame.from_dict(print_dict)
-        ic(df)
-        return df
+        self.checklist_as_df = df[[field_col_name, val_col_name]].sort_index()
+        ic(self.checklist_as_df)
+        return self.checklist_as_df
 
 
     def print_checklist_xlsx(self):
