@@ -1,3 +1,15 @@
+
+from icecream import ic
+import re
+import pandas as pd
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)
+from ExperimentUtils import get_data_locations
+import json
+import pandas as pd
+import openpyxl
+
 class ExperimentType:
     """ ExperimentType object
     for handling generating the Json user checklist for each ExperimentType
@@ -7,7 +19,7 @@ class ExperimentType:
     """
 
     def __init__(self, experiment_type_name):
-        ic("inside ExperimentType init class")
+        ic(f"inside ExperimentType init class for {experiment_type_name}")
         self._json_schema_obj = None
         self._special_dict = None
         self._special_fields_list = None
@@ -167,6 +179,7 @@ class ExperimentType:
 
         outfileName = data_loc_dict["output_xlsx_dir"] + self.get_experiment_type() + '.xlsx'
         df = self.get_checklist_as_df()
+        ic(df.head())
         df.to_excel(outfileName, index = False)
         ic(outfileName)
 
