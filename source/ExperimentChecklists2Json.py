@@ -25,6 +25,10 @@ ___start_date___ = "2022-11-29"
 __docformat___ = 'reStructuredText'
 
 """
+import pandas as pd
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)
 # python3 -m pydoc -w ExperimentChecklists2Json
 
 from icecream import ic
@@ -774,7 +778,6 @@ class ExperimentType:
         all_dict = self.clean_all_dict(all_dict)
 
         return all_dict
-
     def get_ExperimentTypeObj_values(self):
         """
 
@@ -783,25 +786,87 @@ class ExperimentType:
         ic()
         return self.get_all_dict()
 
+    def get_experiment_type(self):
+        if hasattr(self, 'experiment_type'):
+            return self.experiment_type
+        checklist_dict = self.get_all_dict()
+        self.experiment_type = checklist_dict['experiment_type']
+        return self.experiment_type
+
+    def print_checklist_json(self):
+        """
+
+        :param checklist_dict:
+        :return:
+        """
+        data_loc_dict = get_data_locations()
+        checklist_dict = self.get_all_dict()
+        ic(checklist_dict)
+
+        outfileName = data_loc_dict["output_dir"] + checklist_dict['experiment_type'] + '.json'
+        json_object = json.dumps(checklist_dict, indent = 4, sort_keys = True)
+        with open(outfileName, "w") as outfile:
+            outfile.write(json_object)
+        ic(outfileName)
+
+    def get_checklist_as_df(self):
+
+        checklist_dict = self.get_all_dict()
+        ic(checklist_dict)
+        print('-------------------------------------------------------------------------')
+        print_dict = {}
+        for key in checklist_dict.keys():
+            if key in ['experiment_attribute', 'pcr_primers', 'sequence_related']:
+                if key in ['sequence_related', 'pcr_primers']:
+                    for sub_key in checklist_dict[key]:
+                        add_key = key + ":" + sub_key
+                        print_dict[add_key] = [str(checklist_dict[key][sub_key])]
+                        print(f"{add_key} {print_dict[add_key]}")
+            else:
+                print_dict[key] = [checklist_dict[key]]
+                # pass
+        print('-------------------------------------------------------------------------')
+        ic(print_dict)
+        # df = pd.DataFrame.from_dict(print_dict, orient='index', columns=['KEY', 'SUB'])
+        field_col_name = checklist_dict['experiment_type']
+        val_col_name = 'value for ' + checklist_dict['experiment_type']
+        df = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = [val_col_name])
+        df[field_col_name] = df.index
+        df = df[[field_col_name, val_col_name]]
+        # df = pd.DataFrame.from_dict(print_dict)
+        ic(df)
+        return df
+
+
+
+    def print_checklist_xlsx(self):
+        """
+
+        :param checklist_dict:
+        :return:
+        """
+        data_loc_dict = get_data_locations()
+
+        outfileName = data_loc_dict["output_dir"] + self.get_experiment_type() + '.xlsx'
+        df = self.get_checklist_as_df()
+
+
+        ic(outfileName)
+
     def print_checklist(self):
         """
         params:
 
         """
         ic()
-        data_loc_dict = get_data_locations()
 
-        all_checklist_dict = self.get_all_dict()
-        ic(all_checklist_dict)
+        self.print_checklist_xlsx()
+        sys.exit()
+        self.print_checklist_json()
 
-        outfileName = data_loc_dict["output_dir"] + all_checklist_dict['experiment_type'] + '.json'
-        ic(outfileName)
 
-        my_list = all_checklist_dict
-        json_object = json.dumps(my_list, indent = 4, sort_keys = True)
-        with open(outfileName, "w") as outfile:
-            outfile.write(json_object)
-        return
+
+
     #
     # def print_test_checklist(self):
     #     """ print_test_checklist
