@@ -347,7 +347,7 @@
       "_required": true
     },
     "sample_accession": {
-      "description": "This is the study accession number that starts with ERP granted after registering a study with the ENA. [ENA]",
+      "description": "The sample accession number is called the BioSample accession and is typically used in journal publications. The sample will also be assigned an alternative accession number that starts with ERS.[ENA]",
       "type": "string",
       "pattern": "(^SAM(E|D|N)[A-Z]?[0-9]+)|(^(E|D|S)RS[0-9]{6,})",
       "_required": true

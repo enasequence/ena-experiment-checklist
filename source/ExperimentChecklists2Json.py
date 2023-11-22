@@ -192,7 +192,8 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         writeString2file(self.experimentTypeDoc, out_file)
         #sys.exit()
 
-    def getSpecificExperimentTypeTable(self, schema_obj, experimentType):
+
+    def getSpecificExperimentTypeDf(self, schema_obj, experimentType):
         """
 
         :param schema_obj:
@@ -205,49 +206,56 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         # print("get_checklist_specific_dict" + json.dumps(experimentType.get_checklist_specific_dict(), indent = 4))
         checklist_specific_dict = experimentType.get_checklist_specific_dict()
 
+        column_names = ["Field name", "Definition", "Mandatory", "Example", "Type", "Controlled Vocab Terms", "Comment"]
+
+        print_dict = {}
+        my_dict = schema_obj.get_experiment_specific_dict()
+        for field in my_dict:
+            my_local = my_dict[field]
+            enum = ", ".join(my_local.get("enum", ""))
+            if enum == "":
+                enum = ", ".join(my_local.get("pattern", ""))
+
+            my_row = [field, my_local.get("description", ""), str(my_local.get("_required", "")), str(checklist_specific_dict[field]), my_local.get("type", ""), enum, my_local.get("_comment", "")]
+            print_dict[field] = my_row
+
+        # ic(experimentType.get_special_fields_list())
+        my_dict = schema_obj.get_all_specific_fields_json_config()
+        # ic(my_dict)
+        for field in my_dict:
+            my_local = my_dict[field]
+            enum = ", ".join(my_local.get("enum", ""))
+            if enum == "":
+                enum = ", ".join(my_local.get("pattern", ""))
+            my_row = [field, my_local.get("description", ""), str(my_local.get("_required", "")), "", my_local.get("type", ""), enum, my_local.get("_comment", "")]
+            print_dict[field] = my_row
+
+        df = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = column_names)
+        # df = pd.df = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = [val_col_name]).from_dict(print_dict, orient = 'index', columns = [val_col_name])
+
+        return df
+    def getSpecificExperimentTypeTable(self, schema_obj, experimentType):
+        """
+
+        :param schema_obj:
+        :param experimentType:
+        :return:
+        """
         self.specific_experimentTypeDoc = ""
         my_dict = schema_obj.get_experiment_specific_dict()
         self.specific_experimentTypeDoc += "\n## " + experimentType.experiment_type_name + " Experiment Specific Fields\n\n"
-        self.specific_experimentTypeDoc += "| " + " | ".join(
-            ["Field name", "Definition", "Mandatory", "Example", "Type", "Controlled Vocab Terms", "Comment"]) + " |\n"
-        self.specific_experimentTypeDoc += "| " + " | ".join(["---", "---", "---", "---", "---", "---", "---"]) + " |\n"
 
-        for field in my_dict:
-            my_local = my_dict[field]
-            enum = ", ".join(my_local.get("enum", ""))
-            if enum == "":
-                enum = ", ".join(my_local.get("pattern", ""))
-
-            my_list = [field, my_local.get("description", ""), str(my_local.get("_required", "")), str(checklist_specific_dict[field]), my_local.get("type", ""), enum, my_local.get("_comment", "")]
-            self.specific_experimentTypeDoc += "| " + " | ".join(my_list) + " |\n"
-
-        ic(experimentType.get_special_fields_list())
-        my_dict = schema_obj.get_all_specific_fields_json_config()
-        ic(my_dict)
-        for field in my_dict:
-            my_local = my_dict[field]
-            enum = ", ".join(my_local.get("enum", ""))
-            if enum == "":
-                enum = ", ".join(my_local.get("pattern", ""))
-
-            my_list = [field, my_local.get("description", ""), str(my_local.get("_required", "")), "", my_local.get("type", ""), enum, my_local.get("_comment", "")]
-            self.specific_experimentTypeDoc += "| " + " | ".join(my_list) + " |\n"
-
-
-
-        print(self.specific_experimentTypeDoc)
+        df = self.getSpecificExperimentTypeDf( schema_obj, experimentType)
+        self.specific_experimentTypeDoc += df.to_markdown()
 
         return self.specific_experimentTypeDoc
 
-    def getCoreExperimentTypeTable(self, schema_obj, core_dict):
-        self.core_experimentTypeDoc = ""
-        self.core_experimentTypeDoc += "\n## Core Fields\n\n"
-        self.core_experimentTypeDoc += "| " + " | ".join(
-            ["Field name", "Definition", "Mandatory", "Example", "Controlled Vocab Terms", "Comment"]) + " |\n"
-        self.core_experimentTypeDoc += "| " + " | ".join(["---", "---", "---", "---", "---", "---"]) + " |\n"
+    def getCoreExperimentTypeDf(self, schema_obj, core_dict):
+        column_names = ["Field name", "Definition", "Mandatory", "Example", "Controlled Vocab Terms", "Comment"]
         # print(list(core_dict))
         # print(list(core_dict["coreFields"]))
         # print(core_dict["coreFields"]["library_layout"])
+        print_dict = {}
         for coreField in core_dict["coreFields"]:
             if not coreField.startswith("_"):
                 # print(f"coreField={coreField}")
@@ -257,7 +265,20 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
                     enum = my_local.get("pattern", "")
                     enum = enum.replace("|","\|")
                 my_list = [coreField, my_local.get("description", ""), str(my_local.get("_required", "N.A.")), str(my_local.get("default", "")), enum, my_local.get("_comment", "")]
-                self.core_experimentTypeDoc += "| " + " | ".join(my_list) + " |\n"
+
+                print_dict[coreField] = my_list
+
+        df = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = column_names)
+        return df
+
+    def getCoreExperimentTypeTable(self, schema_obj, core_dict):
+        self.core_experimentTypeDoc = ""
+        self.core_experimentTypeDoc += "\n\n## Core Fields\n\n"
+        self.getCoreExperimentTypeDf(schema_obj, core_dict)
+        df = self.getCoreExperimentTypeDf( schema_obj, core_dict)
+        ic(df)
+        self.core_experimentTypeDoc += df.to_markdown(index = False)
+        self.core_experimentTypeDoc += "\n\n"
 
         # print(self.core_experimentTypeDoc)
         return self.core_experimentTypeDoc
@@ -286,7 +307,7 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         output.append(self.current_expt_types)
         output.append(self.experimentTable)
         outstring = '\n'.join(output)
-        ic(outstring)
+        # ic(outstring)
         writeString2file(outstring, base_dir + '/docs/ExperimentChecklistTables.md')
         return outstring
 
@@ -605,7 +626,7 @@ class ExperimentTypeJsonSchema:
     def get_checklist_name(self):
         experiment_type_obj = self.get_experiment_type_obj()
         my_dict = experiment_type_obj.get_all_dict()
-        ic(my_dict)
+        # ic(my_dict)
         ic(my_dict['checklist_name'])
         return my_dict['checklist_name']
 
@@ -733,7 +754,6 @@ class ExperimentType:
         return self._special_dict
 
     def get_core_dict(self):
-
         ic()
         tmp = self._core_dict
         ic(tmp.keys())
@@ -750,14 +770,13 @@ class ExperimentType:
 
     def get_all_dict(self):
         if hasattr(self, '_all_dict'):
-            ic()
             return self._all_dict
         else:
             ic()
             all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
-            ic(self.get_checklist_specific_dict())
-            ic(self.get_core_dict())
-            ic(self.get_special_dict())
+            # ic(self.get_checklist_specific_dict())
+            # ic(self.get_core_dict())
+            # ic(self.get_special_dict())
             all_dict = self.clean_all_dict(all_dict)
             self._all_dict = all_dict
         return all_dict
@@ -832,7 +851,7 @@ class ExperimentType:
         df = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = [val_col_name])
         df[field_col_name] = df.index
         self.checklist_as_df = df[[field_col_name, val_col_name]].sort_index()
-        ic(self.checklist_as_df)
+        # ic(self.checklist_as_df)
         return self.checklist_as_df
 
 
@@ -856,7 +875,6 @@ class ExperimentType:
         """
         ic()
         self.print_checklist_xlsx()
-        sys.exit()
         self.print_checklist_json()
 
     #
@@ -1038,11 +1056,16 @@ def print_all_checklists(expt_objects):
         rtn: nowt
     """
     ic()
+    combined_cl_df = pd.DataFrame()
     for experiment_type_name in expt_objects:
         ic(experiment_type_name)
         experimentType = expt_objects[experiment_type_name]
         experimentType.print_checklist()
         # experimentType.print_test_checklist()
+        expt_cl_df = experimentType.get_checklist_as_df()
+        ic(len(expt_cl_df))
+        sys.exit()
+
     # sys.exit()
 
 def create_schema_objects(expt_objects, config_data):
