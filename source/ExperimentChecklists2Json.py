@@ -42,7 +42,7 @@ from mergedeep import merge
 ic.disable()
 from extract_experiment_XML_vals import *
 from ChecklistDoc import ChecklistDoc
-from ExperimentTypeSchema import ExperimentTypeJsonSchema
+from ExperimentTypeJsonSchema import ExperimentTypeJsonSchemaClass
 from ExperimentType import ExperimentType
 
 # from ExperimentChecklist import *
@@ -265,7 +265,7 @@ def create_schema_objects(expt_objects, config_data):
     for experiment_type_name in expt_objects:
         ic(experiment_type_name)
         experimentType: object = expt_objects[experiment_type_name]
-        schema_objects[experiment_type_name] = ExperimentTypeJsonSchema(experimentType, config_data)
+        schema_objects[experiment_type_name] = ExperimentTypeJsonSchemaClass(experimentType, config_data)
         schema_obj = schema_objects[experiment_type_name]
         experimentType.set_json_schema_obj(schema_obj)
         ic(schema_obj)
@@ -311,7 +311,7 @@ def main():
         #ic(experimentType.get_ExperimentTypeObj_values())
     ic()
 
-    print_all_checklists(expt_objects_dict)
+    #print_all_checklists(expt_objects_dict)
     #
     #print_all_checklist_json_schemas(expt_objects_dict)
     schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
