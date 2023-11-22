@@ -56,7 +56,7 @@ class ExperimentType:
 
     def get_checklist_specific_dict(self):
         tmp = self._checklist_dict
-        ic(tmp.keys())
+        # ic(tmp.keys())
         return self._checklist_dict
 
     def set_special_dict(self, special_dict):
@@ -64,13 +64,12 @@ class ExperimentType:
 
     def get_special_dict(self):
         tmp = self._special_dict
-        ic(tmp.keys())
+        # ic(tmp.keys())
         return self._special_dict
 
     def get_core_dict(self):
-        ic()
         tmp = self._core_dict
-        ic(tmp.keys())
+        # ic(tmp.keys())
         return self._core_dict
 
     def set_core_dict(self, core_dict):
@@ -86,7 +85,6 @@ class ExperimentType:
         if hasattr(self, '_all_dict'):
             return self._all_dict
         else:
-            ic()
             all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
             # ic(self.get_checklist_specific_dict())
             # ic(self.get_core_dict())
@@ -100,7 +98,7 @@ class ExperimentType:
         Sometimes the checklist specific was getting overwritten, so forcing this"""
         checklist_specific_dict = self.get_checklist_specific_dict()
         for field in checklist_specific_dict:
-            ic(field, checklist_specific_dict[field])
+            # ic(field, checklist_specific_dict[field])
             if checklist_specific_dict != "":
                 all_dict[field] = checklist_specific_dict[field]
         return all_dict
@@ -130,7 +128,7 @@ class ExperimentType:
         """
 
         :param checklist_dict:
-        :return:
+        :return: outfileName
         """
         data_loc_dict = get_data_locations()
         checklist_dict = self.get_all_dict()
@@ -139,7 +137,7 @@ class ExperimentType:
         json_object = json.dumps(checklist_dict, indent = 4, sort_keys = True)
         with open(outfileName, "w") as outfile:
             outfile.write(json_object)
-        ic(outfileName)
+        return outfileName
 
     def get_checklist_as_df(self):
         if hasattr(self, 'checklist_as_df'):
@@ -173,15 +171,15 @@ class ExperimentType:
         """
 
         :param checklist_dict:
-        :return:
+        :return: outfileName
         """
         data_loc_dict = get_data_locations()
 
         outfileName = data_loc_dict["output_xlsx_dir"] + self.get_experiment_type() + '.xlsx'
         df = self.get_checklist_as_df()
-        ic(df.head())
+        # ic(df.head())
         df.to_excel(outfileName, index = False)
-        ic(outfileName)
+        return outfileName
 
     def print_checklist(self):
         """
@@ -189,8 +187,8 @@ class ExperimentType:
 
         """
         ic()
-        self.print_checklist_xlsx()
-        self.print_checklist_json()
+        ic(self.print_checklist_xlsx())
+        ic(self.print_checklist_json())
 
 
 
