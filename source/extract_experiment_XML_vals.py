@@ -280,6 +280,14 @@ class SRA_EXPERIMENT_SPEC:
                 platform = "ABI_SOLID"
             elif raw_platform == "Helicos":
                 platform = "HELICOS"
+            elif raw_platform == "VelaDiagnostics":
+                platform = "VELA_DIAGNOSTICS"
+            elif raw_platform == "Genapsys":
+                platform = "GENAPSYS"
+            elif raw_platform == "GeneMind":
+                platform = "GENE_MIND"
+            elif raw_platform == "Tapestri":
+                platform = "TAPESTRI"
             else:
                 platform = "not_yet_recognised"
                 # Ultima , Element, Helicos, Complete Genomics, AbiSolid
@@ -298,7 +306,7 @@ class SRA_EXPERIMENT_SPEC:
             all_instruments.extend(instruments)
 
         if len(missing_platforms) > 0:
-            os.write(2, b"WARNING: the following platforms are not recognised yet, please add in before continuing!\n")
+            os.write(2, b"WARNING: the following platforms are not recognised yet, please add in to process_platform() before continuing!\n")
             print(f"Missing platforms: \"{missing_platforms}\"")
             exit()
 
@@ -422,7 +430,7 @@ def get_SRA_XML_baseline():
         ic(cmd)
         ic(outfilename)
 
-        if is_file_older_than(outfilename, timedelta(days=1)):
+        if not os.path.isfile(outfilename) or is_file_older_than(outfilename, timedelta(days=1)):
             print(f"{outfilename} is older than 1 day! so re-running.")
             cmd2file(cmd, outfilename)
 
