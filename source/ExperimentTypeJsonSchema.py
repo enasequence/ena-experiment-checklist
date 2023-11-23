@@ -1,11 +1,16 @@
-class ExperimentTypeJsonSchema:
+
+from mergedeep import merge
+from extract_experiment_XML_vals import get_SRA_XML_baseline
+from ExperimentUtils import get_data_locations
+import json
+
+class ExperimentTypeJsonSchemaClass:
     """ ExperimentTypeJsonSchema
     for handling generating the Json schema to validate each specific ExperimentType
         N.B. Currently many of the sets are not being done as they are slices of the core_dict
     """
 
     def __init__(self, experiment_type_obj: object, core_dict):
-        ic()
         self._experimentType = experiment_type_obj
         self.experiment_type_name = experiment_type_obj.experiment_type_name
         self._core_dict = core_dict
@@ -13,13 +18,17 @@ class ExperimentTypeJsonSchema:
         self.set_experiment_specific_dict(experiment_type_obj.get_checklist_specific_dict())
         self.set_platform_instrument()
         experiment_type_obj.set_json_schema_obj(self)
-        ic("just set_json_schema_obj")
 
     def get_experiment_type_obj(self):
         return self._experimentType
+
+    def get_experiment_type_name(self):
+        experimentType = self._experimentType
+        return experimentType.experiment_type_name
+
     def get_SRA_obj(self):
         if hasattr(self, 'SRA_obj'):
-            ic()
+            self.SRA_obj
         else:
             #ic.disable()
             sra_xml_obj = get_SRA_XML_baseline()
@@ -35,7 +44,6 @@ class ExperimentTypeJsonSchema:
               }
         :return:
         """
-        ic()
         sra_xml_obj = self.get_SRA_obj()
         self.platform_instrument = sra_xml_obj.get_platform()
         # schema_core_dict = {"properties": self.get_core_fields_dict()}
@@ -47,7 +55,6 @@ class ExperimentTypeJsonSchema:
         self._core_dict['coreFields']["library_source"]["enum"] = sra_xml_obj.get_library_source_list()
         self._core_dict['coreFields']["library_selection"]["enum"] = sra_xml_obj.get_library_selection_list()
         self._core_dict['coreFields']["library_strategy"]["enum"] = sra_xml_obj.get_library_strategy_list()
-        ic(self._core_dict.keys())
         #target_loci
 
         self.set_platform_instrument_rules()
@@ -81,11 +88,10 @@ class ExperimentTypeJsonSchema:
 
         :return: list of required_term
         """
-        ic()
         required_terms = []
         for term in self.get_core_fields_dict_keylist():
             if "_comment" in term:
-                ic(f"exclude: {term}")
+                print(f"exclude: {term}")
             else:
                 required_terms.append(term)
         #ic(required_terms)
@@ -111,17 +117,17 @@ class ExperimentTypeJsonSchema:
         required_terms = []
         for term in self.get_experiment_specific_dict_keylist():
             if "_comment" in term:
-                ic(f"exclude: {term}")
+                print(f"exclude: {term}")
             else:
                 required_terms.append(term)
-        ic.enable()
+        # ic.enable()
         experiment_type_obj = self.get_experiment_type_obj()
         special_dict = experiment_type_obj.get_special_dict()
-        ic(special_dict)
+        # ic(special_dict)
         for term in list(special_dict.keys()):
-            ic(term)
+            #ic(term)
             if "_comment" in term:
-                ic(f"exclude: {term}")
+                print(f"exclude: {term}")
             else:
                 required_terms.append(term)
         print(required_terms)
@@ -183,7 +189,6 @@ class ExperimentTypeJsonSchema:
            only a subsection of the non-core fields are needed for each experiment type
            + making use of the default and examples from the specific experiment fields.
         """
-        ic()
         sra_xml_obj = self.get_SRA_obj()
         # ic(experiment_specific_dict)
         all_specific_dict = self.get_all_specific_fields_json_config()
@@ -194,7 +199,7 @@ class ExperimentTypeJsonSchema:
                 my_specific_json_config[field]["default"] = experiment_specific_dict[field]
                 my_specific_json_config[field]["_example"] = my_specific_json_config[field]["default"]
             else:
-                ic("WARNING: need to add json config for ", field)
+                print(f"WARNING: need to add json config for {field}")
         # ic(my_specific_json_config)
 
         #filling in some enums from the SRA_experiment object
@@ -219,7 +224,8 @@ class ExperimentTypeJsonSchema:
         This will ultimately be printed out as a json schema to validate the experiment_type
         return schema_dict
         """
-        ic("get_json_schema")
+        pass
+        # ic("get_json_schema")
 
 
         def dict2objects(my_dict):
@@ -239,10 +245,11 @@ class ExperimentTypeJsonSchema:
             return rtn_dict
 
         if hasattr(self, "_schema_dict"):
-            ic("already has _schema_dict")
+            # ic("already has _schema_dict")
+            pass
         else:
-            ic("=" * 80)
-            ic("need to create a schema")
+            #ic("=" * 80)
+            # ic("need to create a schema")
             schema_core_dict = {"properties": self.get_core_fields_dict()}
             # properties instrument_platform enum LIST
             # properties instrument_model enum LIST
@@ -253,7 +260,6 @@ class ExperimentTypeJsonSchema:
             #ic(experiment_type_specific_dict)
             # cl_metadata_dict["checklists"] = self.get_schema_metadata()
             """N.B. this does a deep merge of the dictionaries, most other methods did not..."""
-            ic()
 
             self._schema_dict = merge(schema_core_dict, self.get_schema_metadata(),
                                       experiment_type_specific_dict)
@@ -263,7 +269,6 @@ class ExperimentTypeJsonSchema:
             for rule in schema_rules_dict['allOf']:
                 #ic(rule)
                 self._schema_dict['allOf'].append(rule)
-            ic()
             self._schema_dict['allOf'].append({"required": self.get_allof_required_term_list()})
             self._schema_dict["required"] = self.get_properties_required_term_list()
             #ic(self._schema_dict['allOf'])
@@ -278,7 +283,6 @@ class ExperimentTypeJsonSchema:
                 :param term_list:
                 :return: term_list[] =
                 """
-                ic(term_list)
                 tmp = {"required": term_list}
                 return tmp
 
@@ -296,12 +300,12 @@ class ExperimentTypeJsonSchema:
         return: json too
 
         """
-        ic()
+        # ic()
         data_loc_dict = get_data_locations()
         json_schema_dict = self.get_json_schema()
         # ic(json_schema_dict)
         outfileName = data_loc_dict["schema_dir"] + self.experiment_type_name + '_schema.json'
-        ic(outfileName)
+        # ic(outfileName)
 
         """Create a list as top level """
         # my_list = [json_schema_dict]
@@ -314,7 +318,7 @@ class ExperimentTypeJsonSchema:
         experiment_type_obj = self.get_experiment_type_obj()
         my_dict = experiment_type_obj.get_all_dict()
         # ic(my_dict)
-        ic(my_dict['checklist_name'])
+        # ic(my_dict['checklist_name'])
         return my_dict['checklist_name']
 
     def get_checklist_id(self):
@@ -369,7 +373,7 @@ class ExperimentTypeJsonSchema:
         # stwing = json.dumps(my_dict, indent=4)
         # print(f"my_dict={stwing}")
         # print(my_dict['library_strategy'])
-        ic(my_dict['library_strategy'])
+        # ic(my_dict['library_strategy'])
         return my_dict.get('library_strategy',"")
 
     def get_library_selection(self):
@@ -379,6 +383,6 @@ class ExperimentTypeJsonSchema:
         """
         experiment_type_obj = self.get_experiment_type_obj()
         my_dict = experiment_type_obj.get_all_dict()
-        ic(my_dict['library_selection'])
+        # ic(my_dict['library_selection'])
         return my_dict['library_selection']
 
