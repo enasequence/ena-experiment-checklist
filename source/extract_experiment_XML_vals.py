@@ -40,6 +40,7 @@ class SRA_EXPERIMENT_SPEC:
         self.process_platform()
 
     def process_experiment(self):
+        ic.disable()
         ic()
         simple_level = self.experiment_schema_level["xs:simpleType"]
         #ic(simple_level)
@@ -85,11 +86,12 @@ class SRA_EXPERIMENT_SPEC:
 
 
         self.process_further_expt()
-        ic(self.get_targetted_loci_list())
-        ic()
+        #ic(self.get_targetted_loci_list())
+        ic.enable()
 
     def process_further_expt(self):
         ic()
+        ic.disable()
         complex_level = self.experiment_schema_level["xs:complexType"]
         #ic(complex_level)
 
@@ -115,7 +117,6 @@ class SRA_EXPERIMENT_SPEC:
 
         self.locus = {}
         ic.enable()
-        ic()
 
     def get_library_strategy_details(self):
         # e.g. 'ChIA-PET': {'documentation': 'Direct sequencing of proximity-ligated chromatin immunoprecipitates.'},
@@ -178,7 +179,6 @@ class SRA_EXPERIMENT_SPEC:
         return my_list
 
     def process_platform(self):
-        ic()
         simple_level = self.common_schema_level["xs:simpleType"]
         #ic(simple_level)
         #ic("_____________________________")
@@ -251,7 +251,6 @@ class SRA_EXPERIMENT_SPEC:
         all_instruments.sort()
         self.all_instruments = all_instruments
         # ic(self.get_instrument_list())
-        ic()
 
     def get_platform(self):
         return(self.platform)
@@ -302,8 +301,7 @@ def get_SRA_XML_baseline():
 
     :return: sra_object_instance
     """
-    ic()
-    ic("_____inside get_SRA_XML_baseline_____")
+    # ic("_____inside get_SRA_XML_baseline_____")
 
     def file2json(file_name):
         f = open(file_name)
@@ -346,9 +344,9 @@ def get_SRA_XML_baseline():
             return False
         # cutoff = datetime.utcnow() - delta
         cutoff = datetime.now(tz=timezone.utc) - delta
-        ic(f"cutoff={cutoff}")
+        # ic(f"cutoff={cutoff}")
         mtime = datetime.fromtimestamp(os.path.getmtime(file_name), tz=timezone.utc)
-        ic(f"mtime={mtime}")
+        # ic(f"mtime={mtime}")
         if mtime < cutoff:
             return True
         return False
@@ -361,9 +359,9 @@ def get_SRA_XML_baseline():
         :param outfilename:
         :return: my_sra_json
         """
-        ic()
-        ic(cmd)
-        ic(outfilename)
+        # ic()
+        #ic(cmd)
+        # ic(outfilename)
 
         if not os.path.isfile(outfilename) or is_file_older_than(outfilename, timedelta(days=1)):
             print(f"{outfilename} is older than 1 day! so re-running.")

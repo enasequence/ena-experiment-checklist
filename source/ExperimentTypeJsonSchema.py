@@ -1,7 +1,7 @@
 
 from mergedeep import merge
 from extract_experiment_XML_vals import get_SRA_XML_baseline
-from ExperimentUtils import get_data_locations
+from ExperimentUtils import get_data_locations, read_config
 import json
 
 class ExperimentTypeJsonSchemaClass:
@@ -89,11 +89,14 @@ class ExperimentTypeJsonSchemaClass:
         :return: list of required_term
         """
         required_terms = []
+        excluding_terms = []
         for term in self.get_core_fields_dict_keylist():
             if "_comment" in term:
-                print(f"exclude: {term}")
+                excluding_terms.append(term)
             else:
                 required_terms.append(term)
+        # if len(excluding_terms) > 0:
+        #     print(f"\tFYI: exclude: {excluding_terms} in {self.experiment_type_name}")
         #ic(required_terms)
         return required_terms
 
@@ -130,7 +133,7 @@ class ExperimentTypeJsonSchemaClass:
                 print(f"exclude: {term}")
             else:
                 required_terms.append(term)
-        print(required_terms)
+        # ic(required_terms)
 
         # ic.disable()
         # sys.exit()
@@ -193,14 +196,17 @@ class ExperimentTypeJsonSchemaClass:
         # ic(experiment_specific_dict)
         all_specific_dict = self.get_all_specific_fields_json_config()
         my_specific_json_config = {}
+        missing_atts = []
         for field in experiment_specific_dict:
             if field in all_specific_dict:
                 my_specific_json_config[field] = all_specific_dict[field]
                 my_specific_json_config[field]["default"] = experiment_specific_dict[field]
                 my_specific_json_config[field]["_example"] = my_specific_json_config[field]["default"]
             else:
-                print(f"WARNING: need to add json config for {field}")
-        # ic(my_specific_json_config)
+                missing_atts.append(field)
+            # ic(my_specific_json_config)
+        # if missing_atts:
+        #     print(f"\tWARNING: need to add json config for {missing_atts} in {self.experiment_type_name}")
 
         #filling in some enums from the SRA_experiment object
         if my_specific_json_config.get('target_loci'):
