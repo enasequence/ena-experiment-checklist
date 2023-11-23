@@ -1,8 +1,16 @@
+
+from icecream import ic
+import pandas as pd
+from ExperimentUtils import get_data_locations, writeString2file, get_base_dir
+from ExperimentType import ExperimentType
+#from schema_obj import get_sra_obj
 class ChecklistDoc:
     """
     Create md documentation for the experiments type checklists
 
     """
+    from icecream import ic
+
     def __init__(self):
         self.title = '# experiments type checklists\n'
         self.intro = '## Introduction\n\n' + 'These are the checklists for different types of experiments.\n'
@@ -93,6 +101,7 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         :return:
         """
         print("Inside createExperimentTypeDoc")
+        data_loc_dict = get_data_locations()
         self.experimentTypeDoc = "# " + experimentType.experiment_type_name + "\n\n"
         checklist_specific_dict = experimentType.get_checklist_specific_dict()
         self.experimentTypeDoc += "**Description:** " + checklist_specific_dict.get("_description","sorry no description found!") + "\n\n"
@@ -115,7 +124,7 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         #print(core_dict)
         self.experimentTypeDoc += self.getSpecificExperimentTypeTable(schema_obj, experimentType)
         self.experimentTypeDoc += self.getCoreExperimentTypeTable(schema_obj, core_dict)
-        out_file = base_dir + 'docs/experiment_types/' + experimentType.experiment_type_name + '.md'
+        out_file = data_loc_dict["base_dir"] + 'docs/experiment_types/' + experimentType.experiment_type_name + '.md'
         writeString2file(self.experimentTypeDoc, out_file)
 
 
@@ -126,6 +135,8 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         :param experimentType:
         :return:
         """
+        ### TODO: refactor the whole class to use functions from ExperimentType object.
+        ### N.B. This is essentially a mirror of the function of th same name in ExperimentType
         ic.enable()
         # print("get_experiment_specific_dict" + json.dumps(schema_obj.get_experiment_specific_dict(), indent = 4))
 
@@ -177,6 +188,8 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         return self.specific_experimentTypeDoc
 
     def getCoreExperimentTypeDf(self, schema_obj, core_dict):
+        ### TODO: refactor the whole class to use functions from ExperimentType object.
+        ### N.B. This is essentially a mirror of the function of th same name in ExperimentType
         column_names = ["Field name", "Definition", "Mandatory", "Example", "Controlled Vocab Terms", "Comment"]
         # print(list(core_dict))
         # print(list(core_dict["coreFields"]))
@@ -235,5 +248,7 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         output.append(self.experimentTable)
         outstring = '\n'.join(output)
         # ic(outstring)
-        writeString2file(outstring, base_dir + '/docs/ExperimentChecklistTables.md')
+        out_file = str(get_base_dir()) + '/docs/ExperimentChecklistTables.md'
+        ic(out_file)
+        writeString2file(outstring, out_file)
         return outstring
