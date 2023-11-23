@@ -32,3 +32,22 @@ def writeString2file(out_string, out_filename):
     text_file = open(out_filename, 'w')
     text_file.write(out_string)
     text_file.close()
+
+def read_config(debug_status):
+    """ readConfig
+    reads the master JSON file
+    This file provides all the JSON data fields etc. that are used to build the different experiment templates
+    params:
+        rtn: JSON
+    """
+
+    data_loc_dict = get_data_locations()
+    if not debug_status:
+        filename = data_loc_dict["input_dir"] + "ExperimentChecklistIn.json"
+    else:
+        filename = data_loc_dict["input_dir"] + "test_ExperimentChecklistIn.json"
+    print(filename)
+    f = open(filename)
+    data = json.load(f)
+    f.close()
+    return data

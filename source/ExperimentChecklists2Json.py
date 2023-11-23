@@ -155,24 +155,6 @@ def process_and_get_fields(config_data):
         add_specials(experimentType, config_data)
     return expt_objects_dict
 
-def read_config(debug_status):
-    """ readConfig
-    reads the master JSON file
-    This file provides all the JSON data fields etc. that are used to build the different experiment templates
-    params:
-        rtn: JSON
-    """
-
-    data_loc_dict = get_data_locations()
-    if not debug_status:
-        filename = data_loc_dict["input_dir"] + "ExperimentChecklistIn.json"
-    else:
-        filename = data_loc_dict["input_dir"] + "test_ExperimentChecklistIn.json"
-    print(filename)
-    f = open(filename)
-    data = json.load(f)
-    f.close()
-    return data
 
 
 def print_all_checklists(expt_objects):
@@ -207,10 +189,8 @@ def create_schema_objects(expt_objects, config_data):
         in: expt_objects, config_data
         rtn: schema_objects_dict
     """
-
-    print("inside create_schema_objects")
+    #ic()
     schema_objects = {}
-
     for experiment_type_name in expt_objects:
         experimentType: object = expt_objects[experiment_type_name]
         schema_objects[experiment_type_name] = ExperimentTypeJsonSchemaClass(experimentType, config_data)
@@ -231,18 +211,32 @@ def print_all_checklist_json_schemas(expt_objects):
         # print(schema_obj.print_json_schema())
         experimentType.print_ExperimentTypeObj()
 
+def get_an_experiment_type_obj():
+    ic()
+    config_data = read_config(False)
+    expt_objects_dict = process_and_get_fields(config_data)
+    schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
+    schema_obj = schema_obj_dict[experiment_type_name]
+
+    experiment_type_name = 'METABARCODING'
+    ic()
+    ic(expt_objects_dict.keys())
+    experimentType = expt_objects_dict[experiment_type_name]
+    experimentType.set_json_schema_obj(schema_obj)
+    return experimentType
+
+
 def main():
+    ic()
     debug_status = True
     debug_status = False
-    schema_json_file = '/Users/woollard/projects/easi-genomics/ExperimentChecklist/data/testing/METABARCODING_schema.json'
-    # json_obj = file2json(schema_json_file)
-    # print(json_obj)
-
     checklist_doc = ChecklistDoc()
     config_data = read_config(debug_status)
     expt_objects_dict = process_and_get_fields(config_data)
     schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
 
+    #experimentType = get_an_experiment_type_obj()
+    #ic(experimentType.getCoreExperimentTypeDf())
     # print("## Create expt_objects_dict for each experiment: (they get used later")
     for experiment_type_name in expt_objects_dict:
         # if experiment_type_name != 'TEST_type':
@@ -250,12 +244,11 @@ def main():
         #print(experiment_type_name)
         ic(experiment_type_name)
         experimentType = expt_objects_dict[experiment_type_name]
-        schema_obj = schema_obj_dict[experiment_type_name]
         schema_obj = experimentType.get_json_schema_obj()
-        ic(schema_obj.get_experiment_type_name)
+        ic(schema_obj.get_experiment_type_name())
         #checklist_doc.addExperimentInfo(experimentType)
         ic(experimentType.getSpecificExperimentTypeDf())
-        ic(experimentType.getCoreExperimentTypeDf())
+
         sys.exit()
         #ic(experimentType.get_ExperimentTypeObj_values())
     #print_all_checklists(expt_objects_dict)
