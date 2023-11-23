@@ -8,7 +8,7 @@ pd.set_option('display.width', 1000)
 from ExperimentUtils import get_data_locations
 import json
 import pandas as pd
-import openpyxl
+import sys
 
 class ExperimentType:
     """ ExperimentType object
@@ -38,6 +38,9 @@ class ExperimentType:
         self._json_schema_obj = schema_obj
 
     def get_json_schema_obj(self):
+        if self._json_schema_obj == None:
+            print("ERROR: self._json_schema_obj has not be set in ExperimentType Object")
+            sys.exit()
         return self._json_schema_obj
 
     def set_checklist_specific_dict(self, checklist_dict):
@@ -138,6 +141,69 @@ class ExperimentType:
         with open(outfileName, "w") as outfile:
             outfile.write(json_object)
         return outfileName
+
+    def getSpecificExperimentTypeDf(self):
+        """
+
+        :param schema_obj:
+        :param experimentType:
+        :return:
+        """
+
+        if hasattr(self, 'specificExperimentTypeDf'):
+            return self.specificExperimentTypeDf
+
+        schema_obj = self.get_json_schema_obj()
+        core_dict = self.get_core_dict()
+        column_names = ["Field name", "Definition", "Mandatory", "Example", "Type", "Controlled Vocab Terms", "Comment"]
+        print_dict = {}
+        my_dict = schema_obj.get_experiment_specific_dict()
+
+        for field in my_dict:
+            my_local = my_dict[field]
+            enum = ", ".join(my_local.get("enum", ""))
+            if enum == "":
+                enum = ", ".join(my_local.get("pattern", ""))
+
+            my_row = [field, my_local.get("description", ""), str(my_local.get("_required", "")), str(my_dict[field]), my_local.get("type", ""), enum, my_local.get("_comment", "")]
+            print_dict[field] = my_row
+
+        my_dict = schema_obj.get_all_specific_fields_json_config()
+        # ic(my_dict)
+        for field in my_dict:
+            my_local = my_dict[field]
+            enum = ", ".join(my_local.get("enum", ""))
+            if enum == "":
+                enum = ", ".join(my_local.get("pattern", ""))
+            my_row = [field, my_local.get("description", ""), str(my_local.get("_required", "")), "", my_local.get("type", ""), enum, my_local.get("_comment", "")]
+            print_dict[field] = my_row
+        self.specificExperimentTypeDf = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = column_names)
+        return self.specificExperimentTypeDf
+
+
+    def getCoreExperimentTypeDf(self):
+        if hasattr(self, 'coreExperimentTypeDf'):
+            return self.coreExperimentTypeDf
+        schema_obj = self.get_json_schema_obj()
+        schema_core_dict = schema_obj.get_core_fields_dict()
+        column_names = ["Field name", "Definition", "Mandatory", "Example", "Controlled Vocab Terms", "Comment"]
+        print_dict = {}
+        ic(schema_core_dict)
+        for coreField in schema_core_dict:
+            if not coreField.startswith("_"):
+                # print(f"coreField={coreField}")
+                my_local = schema_core_dict[coreField]
+                ic(my_local)
+                enum = ", ".join(my_local.get("enum", ""))
+                if enum == "":
+                    enum = my_local.get("pattern", "")
+                    enum = enum.replace("|","\|")
+                enum = my_local
+                my_list = [coreField, my_local.get("description", ""), str(my_local.get("_required", "N.A.")), str(my_local.get("default", "")), enum, my_local.get("_comment", "")]
+                print_dict[coreField] = my_list
+
+        self.coreExperimentTypeDf = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = column_names)
+        return self.coreExperimentTypeDf
 
     def get_checklist_as_df(self):
         if hasattr(self, 'checklist_as_df'):
