@@ -19,7 +19,7 @@ class ExperimentType:
     """
 
     def __init__(self, experiment_type_name):
-        ic(f"inside ExperimentType init class for {experiment_type_name}")
+        # ic(f"inside ExperimentType init class for {experiment_type_name}")
         self._json_schema_obj = None
         self._special_dict = None
         self._special_fields_list = None
@@ -256,5 +256,102 @@ class ExperimentType:
         ic(self.print_checklist_xlsx())
         ic(self.print_checklist_json())
 
+# -------------------
+def process_and_get_fields2expt_type_obj_dict(config_data):
+    """ method to get all the fields and values needed for a particular checklist as JSON
+        in: config_data
+        rtn: Dict of experimentType objects
+    """
+    (coreDict, coreDictDefaultVal) = get_core_dict(config_data)
+    expt_objects_dict = {}
+    for e_type_slice in config_data['experimentTypes']:
+
+        # create a dictionary of ExperimentType objects index on the name of the experimentType
+        experimentType = ExperimentType(e_type_slice["experiment_type"])
+        # if experimentType not in ["TEST"]:
+        #     continue
+        expt_objects_dict[experimentType.experiment_type_name] = experimentType
+
+        # during debugging, concentrate one at a time.
+        # if experimentType.experiment_type == "TEST":
+        #     ic("good! experiment_type=",experimentType.experiment_type)
+        # else:
+        #     ic("not expt type, so skipping", experimentType.experiment_type)
+        #     continue
+        experimentType.set_checklist_specific_dict(e_type_slice)
+        experimentType.set_core_dict(coreDict)
+        experimentType.set_core_dict_default(coreDictDefaultVal)
+        add_specials(experimentType, config_data)
+    return expt_objects_dict
+
+def add_specials(experiment_type: object, config_data: object) -> object:
+    """ method to check for and pull out the json for special field cases in
+        each checklist, from the config_data file.
+        The special fields like pcr_fields pull in a more complex JSON dict from the config_data
+        sets the special fields JSON for each experiment type
+    params:
+        in:
+        :type experiment_type: object,
+        :param config_data:
+
+    """
+    local_dict = {}
+    special_keys = list(experiment_type.get_special_fields_list())
+    # print(experiment_type.experiment_type_name)
+    # ic.enable()
+    for jsonKey in special_keys:
+        #ic(jsonKey)
+        if jsonKey in config_data:
+            #ic(config_data[jsonKey])
+            local_dict = {**local_dict, **config_data[jsonKey]}
+            #ic(local_dict)
+        else:
+            print('WARN "special" key does not exist: "' + jsonKey +
+               '" please check the config data in the input JSON file' + ' for *_fields')
+    experiment_type.set_special_dict(local_dict)
+    return
+
+def get_core_dict(config_data):
+    """
+    extract the core fields as JSON entries
+    params:
+        in: the full config_json
+        rtn: coreDict elements of the config_json
+        and coreDictDefaults, as above, but has the default_values
+    """
+
+    coreDict = {}
+    coreDictDefaultVal = {}
+    for field in config_data['coreFields']:
+        if "_comment" in field:
+            continue
+        # if field not in ["library_source"]:
+        #    continue
+        if isinstance(config_data['coreFields'][field], dict):
+            # ic(field, " in config_data", config_data['coreFields'][field])
+            if config_data['coreFields'][field]['type'] == 'number':
+                # ic(config_data['coreFields'][field])
+                coreDict[field] = config_data['coreFields'][field]['default']
+                """as they are numeric, the JSON wants a number not a string"""
+            else:
+                coreDict[field] = ""
+
+            if (coreDict[field] != "") and ("default" in config_data['coreFields'][field]):
+                coreDictDefaultVal[field] = coreDict[field]
+                # ic("first if:", coreDictDefaultVal[field])
+            elif "default" in config_data['coreFields'][field]:
+                # ic(config_data['coreFields'][field]['default'])
+                coreDictDefaultVal[field] = config_data['coreFields'][field]['default']
+                #ic("el if:", coreDictDefaultVal[field])
+            else:
+                coreDictDefaultVal[field] = ""
+                # ic("else :", coreDictDefaultVal[field])
+            # ic(type(config_data['coreFields'][i]))
+            # ic("dict: " + str(config_data['coreFields'][i]))
+        else:
+            # ic(field, " not in config_data['coreFields']")
+            # ic("!dict:" + str(config_data['coreFields'][i]))
+            coreDictDefaultVal[field] = coreDict[field] = config_data['coreFields'][field]
+    return coreDict, coreDictDefaultVal
 
 

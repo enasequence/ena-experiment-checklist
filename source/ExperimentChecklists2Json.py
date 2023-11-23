@@ -25,6 +25,8 @@ ___start_date___ = "2022-11-29"
 __docformat___ = 'reStructuredText'
 
 """
+import sys
+
 import pandas as pd
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
@@ -42,7 +44,7 @@ from extract_experiment_XML_vals import *
 from ChecklistDoc import ChecklistDoc
 # from ExperimentTypeJsonSchema.ExperimentTypeJsonSchemaClass import ExperimentTypeJsonSchemaClass
 from ExperimentTypeJsonSchema import *
-from ExperimentType import ExperimentType
+from ExperimentType import process_and_get_fields2expt_type_obj_dict
 from ExperimentUtils import get_data_locations, writeString2file
 
 # from ExperimentChecklist import *
@@ -54,106 +56,6 @@ base_dir = '/Users/woollard/projects/easi-genomics/ExperimentChecklist/'
 
 """ ########################"Normal routine"#####################################
 """
-
-
-def get_core_dict(config_data):
-    """
-    extract the core fields as JSON entries
-    params:
-        in: the full config_json
-        rtn: coreDict elements of the config_json
-        and coreDictDefaults, as above, but has the default_values
-    """
-
-    coreDict = {}
-    coreDictDefaultVal = {}
-    for field in config_data['coreFields']:
-        if "_comment" in field:
-            continue
-        # if field not in ["library_source"]:
-        #    continue
-        if isinstance(config_data['coreFields'][field], dict):
-            # ic(field, " in config_data", config_data['coreFields'][field])
-            if config_data['coreFields'][field]['type'] == 'number':
-                # ic(config_data['coreFields'][field])
-                coreDict[field] = config_data['coreFields'][field]['default']
-                """as they are numeric, the JSON wants a number not a string"""
-            else:
-                coreDict[field] = ""
-
-            if (coreDict[field] != "") and ("default" in config_data['coreFields'][field]):
-                coreDictDefaultVal[field] = coreDict[field]
-                # ic("first if:", coreDictDefaultVal[field])
-            elif "default" in config_data['coreFields'][field]:
-                # ic(config_data['coreFields'][field]['default'])
-                coreDictDefaultVal[field] = config_data['coreFields'][field]['default']
-                #ic("el if:", coreDictDefaultVal[field])
-            else:
-                coreDictDefaultVal[field] = ""
-                # ic("else :", coreDictDefaultVal[field])
-            # ic(type(config_data['coreFields'][i]))
-            # ic("dict: " + str(config_data['coreFields'][i]))
-        else:
-            # ic(field, " not in config_data['coreFields']")
-            # ic("!dict:" + str(config_data['coreFields'][i]))
-            coreDictDefaultVal[field] = coreDict[field] = config_data['coreFields'][field]
-    return coreDict, coreDictDefaultVal
-
-
-def add_specials(experiment_type: object, config_data: object) -> object:
-    """ method to check for and pull out the json for special field cases in 
-        each checklist, from the config_data file.
-        The special fields like pcr_fields pull in a more complex JSON dict from the config_data
-        sets the special fields JSON for each experiment type
-    params:
-        in:
-        :type experiment_type: object,
-        :param config_data:
-
-    """
-    local_dict = {}
-    special_keys = list(experiment_type.get_special_fields_list())
-    # print(experiment_type.experiment_type_name)
-    # ic.enable()
-    for jsonKey in special_keys:
-        #ic(jsonKey)
-        if jsonKey in config_data:
-            #ic(config_data[jsonKey])
-            local_dict = {**local_dict, **config_data[jsonKey]}
-            #ic(local_dict)
-        else:
-            print('WARN "special" key does not exist: "' + jsonKey +
-               '" please check the config data in the input JSON file' + ' for *_fields')
-    experiment_type.set_special_dict(local_dict)
-    return
-
-
-def process_and_get_fields(config_data):
-    """ method to get all the fields and values needed for a particular checklist as JSON
-        in: config_data
-        rtn: Dict of experimentType objects
-    """
-    (coreDict, coreDictDefaultVal) = get_core_dict(config_data)
-    expt_objects_dict = {}
-    for e_type_slice in config_data['experimentTypes']:
-
-        # create a dictionary of ExperimentType objects index on the name of the experimentType
-        experimentType = ExperimentType(e_type_slice["experiment_type"])
-        # if experimentType not in ["TEST"]:
-        #     continue
-        expt_objects_dict[experimentType.experiment_type_name] = experimentType
-
-        # during debugging, concentrate one at a time.
-        # if experimentType.experiment_type == "TEST":
-        #     ic("good! experiment_type=",experimentType.experiment_type)
-        # else:
-        #     ic("not expt type, so skipping", experimentType.experiment_type)
-        #     continue
-        experimentType.set_checklist_specific_dict(e_type_slice)
-        experimentType.set_core_dict(coreDict)
-        experimentType.set_core_dict_default(coreDictDefaultVal)
-        add_specials(experimentType, config_data)
-    return expt_objects_dict
 
 
 
@@ -213,13 +115,12 @@ def print_all_checklist_json_schemas(expt_objects):
 
 def get_an_experiment_type_obj():
     ic()
+    experiment_type_name = 'METABARCODING'
+
     config_data = read_config(False)
-    expt_objects_dict = process_and_get_fields(config_data)
+    expt_objects_dict = process_and_get_fields2expt_type_obj_dict(config_data)
     schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
     schema_obj = schema_obj_dict[experiment_type_name]
-
-    experiment_type_name = 'METABARCODING'
-    ic()
     ic(expt_objects_dict.keys())
     experimentType = expt_objects_dict[experiment_type_name]
     experimentType.set_json_schema_obj(schema_obj)
@@ -232,11 +133,14 @@ def main():
     debug_status = False
     checklist_doc = ChecklistDoc()
     config_data = read_config(debug_status)
-    expt_objects_dict = process_and_get_fields(config_data)
+    expt_objects_dict = process_and_get_fields2expt_type_obj_dict(config_data)
     schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
 
-    #experimentType = get_an_experiment_type_obj()
+    experimentType = get_an_experiment_type_obj()
     #ic(experimentType.getCoreExperimentTypeDf())
+
+    sys.exit()
+
     # print("## Create expt_objects_dict for each experiment: (they get used later")
     for experiment_type_name in expt_objects_dict:
         # if experiment_type_name != 'TEST_type':
