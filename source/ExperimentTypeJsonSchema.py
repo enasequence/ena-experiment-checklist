@@ -102,8 +102,7 @@ class ExperimentTypeJsonSchemaClass:
 
     def get_experiment_specific_dict_keylist(self):
         """
-
-        :return: all the experiment_specific terms
+                :return: all the experiment_specific terms
         """
         my_dict = self.get_experiment_specific_dict()
         return list(my_dict.keys())
@@ -221,6 +220,10 @@ class ExperimentTypeJsonSchemaClass:
         """get_experiment_specific_dict
           getting the experiment type specific JSON configuration ( i.e. not the core fields )
           effectively many of the fields are core, but the assigned values are not, hence handling this way.
+
+           N.B. this from the overall schema perspective for ALL experiments.
+        What you will need to do is select just those fields in the checklist_specific, and overwrite the examples.
+
         """
         return self._specific_json_config
 

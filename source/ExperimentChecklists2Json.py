@@ -129,36 +129,52 @@ def get_an_experiment_type_obj():
 
 def main():
     ic()
+    data_loc_dict = get_data_locations()
+    ic(data_loc_dict)
     debug_status = True
     debug_status = False
     checklist_doc = ChecklistDoc()
     config_data = read_config(debug_status)
     expt_objects_dict = process_and_get_fields2expt_type_obj_dict(config_data)
+    # print("-----------------------------------------------------------------------------")
+    # ic()
+    metabarcoding_eT = expt_objects_dict['METABARCODING']
+    # ic(metabarcoding_eT.get_checklist_specific_dict())
+    # print("-----------------------------------------------------------------------------")
     schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
 
+    #getting any experiment_type_onk
     experimentType = get_an_experiment_type_obj()
-    #ic(experimentType.getCoreExperimentTypeDf())
+    outfilename = data_loc_dict['output_xlsx_dir'] + "all_core_experiment_metadata.xlsx"
+    ic(outfilename)
+    experimentType.getCoreExperimentTypeDf().to_excel(outfilename, index=False)
+    # need to fix the controlled vocab terms!
 
-    sys.exit()
-
+    print("-----------------------------------------------------------------------------")
     # print("## Create expt_objects_dict for each experiment: (they get used later")
-    for experiment_type_name in expt_objects_dict:
+    expt_keys = list(expt_objects_dict)
+    ic(expt_keys)
+    for experiment_type_name in expt_keys:
         # if experiment_type_name != 'TEST_type':
         #     continue
         #print(experiment_type_name)
         ic(experiment_type_name)
         experimentType = expt_objects_dict[experiment_type_name]
-        schema_obj = experimentType.get_json_schema_obj()
-        ic(schema_obj.get_experiment_type_name())
-        #checklist_doc.addExperimentInfo(experimentType)
-        ic(experimentType.getSpecificExperimentTypeDf())
+        # ic(experimentType.get_checklist_specific_dict())
+        # ic(experimentType.getSpecificExperimentTypeDf())
 
-        sys.exit()
+        schema_obj = experimentType.get_json_schema_obj()
+        # ic(schema_obj.get_experiment_type_name())
+        #checklist_doc.addExperimentInfo(experimentType)
+
+        outfilename = data_loc_dict['output_xlsx_dir'] + "specific_" + experiment_type_name + ".xlsx"
+        ic(outfilename)
+        experimentType.getSpecificExperimentTypeDf().to_excel(outfilename, index = False)
         #ic(experimentType.get_ExperimentTypeObj_values())
     #print_all_checklists(expt_objects_dict)
     ic()
-    #ic(checklist_doc.getCoreExperimentTypeDf())
-    ic(checklist_doc.getSpecificExperimentTypeDf())
+    # ic(checklist_doc.getCoreExperimentTypeDf())
+    # ic(checklist_doc.getSpecificExperimentTypeDf())
     #
     #print_all_checklist_json_schemas(expt_objects_dict)
 

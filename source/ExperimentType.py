@@ -28,6 +28,7 @@ class ExperimentType:
         self._core_dict_default_values = None
         self.experiment_type_name = experiment_type_name
 
+
     def set_special_fields_list(self, special_fields_list):
         self._special_fields_list = special_fields_list
 
@@ -142,54 +143,66 @@ class ExperimentType:
             outfile.write(json_object)
         return outfileName
 
+    def getSpecificExperimentTypeDict(self):
+        """
+
+        :return: et_specific_dict
+        """
+        schema_obj = self.get_json_schema_obj()
+        core_dict = self.get_core_dict()
+        # my_dict = schema_obj.get_experiment_specific_dict()
+        # ic(my_dict)
+        # self.specificExperimentTypeDf = self.experimentTypeMetaDataDf(my_dict)
+        # ic(self.specificExperimentTypeDf)
+        # sys.exit()
+        # ic("---------ALL SPECIFIC FIELDS----------------")
+        all_specific_dict = schema_obj.get_experiment_specific_dict()
+        # ic(all_specific_dict)
+        checklist_specific_dict = self.get_checklist_specific_dict()
+        et_specific_dict = {}
+        missing_field_list = []
+        for field_in_et in checklist_specific_dict:
+            if field_in_et in all_specific_dict:
+                et_specific_dict[field_in_et] = all_specific_dict[field_in_et]
+                et_specific_dict[field_in_et]['default'] = checklist_specific_dict[field_in_et]
+                et_specific_dict[field_in_et]['_example'] = et_specific_dict[field_in_et]['default']
+            else:
+                missing_field_list.append(field_in_et)
+        if missing_field_list:
+            print(f"INFO: for {self.experiment_type_name} these are not in the schema specific field list {missing_field_list}")
+
+        return et_specific_dict
+
+
     def getSpecificExperimentTypeDf(self):
         """
 
-        :param schema_obj:
-        :param experimentType:
         :return:
         """
-
+        # ic()
+        # ic(self.experiment_type_name)
         if hasattr(self, 'specificExperimentTypeDf'):
             return self.specificExperimentTypeDf
 
-        schema_obj = self.get_json_schema_obj()
-        core_dict = self.get_core_dict()
-        column_names = ["Field name", "Definition", "Mandatory", "Example", "Type", "Controlled Vocab Terms", "Comment"]
-        print_dict = {}
-        my_dict = schema_obj.get_experiment_specific_dict()
+        et_specific_dict = self.getSpecificExperimentTypeDict()
+        self.specificExperimentTypeDf = self.experimentTypeMetaDataDf(et_specific_dict)
+        # ic(self.specificExperimentTypeDf)
 
-        for field in my_dict:
-            my_local = my_dict[field]
-            enum = ", ".join(my_local.get("enum", ""))
-            if enum == "":
-                enum = ", ".join(my_local.get("pattern", ""))
-
-            my_row = [field, my_local.get("description", ""), str(my_local.get("_required", "")), str(my_dict[field]), my_local.get("type", ""), enum, my_local.get("_comment", "")]
-            print_dict[field] = my_row
-
-        my_dict = schema_obj.get_all_specific_fields_json_config()
-        # ic(my_dict)
-        for field in my_dict:
-            my_local = my_dict[field]
-            enum = ", ".join(my_local.get("enum", ""))
-            if enum == "":
-                enum = ", ".join(my_local.get("pattern", ""))
-            my_row = [field, my_local.get("description", ""), str(my_local.get("_required", "")), "", my_local.get("type", ""), enum, my_local.get("_comment", "")]
-            print_dict[field] = my_row
-        self.specificExperimentTypeDf = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = column_names)
         return self.specificExperimentTypeDf
 
-
-    def getCoreExperimentTypeDf(self):
-        if hasattr(self, 'coreExperimentTypeDf'):
-            return self.coreExperimentTypeDf
-        schema_obj = self.get_json_schema_obj()
-        schema_core_dict = schema_obj.get_core_fields_dict()
-        column_names = ["Field name", "Definition", "Mandatory", "Example", "Controlled Vocab Terms", "Comment"]
+    def experimentTypeMetaDataDf(self, schema_core_dict):
+        """
+        does not currently use self
+        :param schema_core_dict:
+        :return: df
+        """
+        ic.disable()
+        ic()
+        column_names = ["Field name", "Definition", "Mandatory", "Example", "Type",
+                        "Controlled Vocab Terms", "Comment"]
         print_dict = {}
-        ic(schema_core_dict)
         for coreField in schema_core_dict:
+            ic(coreField)
             if not coreField.startswith("_"):
                 # print(f"coreField={coreField}")
                 my_local = schema_core_dict[coreField]
@@ -198,11 +211,36 @@ class ExperimentType:
                 if enum == "":
                     enum = my_local.get("pattern", "")
                     enum = enum.replace("|","\|")
-                enum = my_local
-                my_list = [coreField, my_local.get("description", ""), str(my_local.get("_required", "N.A.")), str(my_local.get("default", "")), enum, my_local.get("_comment", "")]
+                example = str(my_local.get("_example", ""))
+                if example == "":
+                    ic("Example is blank so using default")
+                    example = str(my_local.get("default", ""))
+                my_list = [coreField, my_local.get("description", ""),
+                           str(my_local.get("_required", "N.A.")), example,
+                           str(my_local.get("type", "")),  enum,
+                            my_local.get("_comment", "")]
                 print_dict[coreField] = my_list
+        #ic(print_dict)
+        df = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = column_names)
+        ic.enable()
+        # ic(df.head())
+        return df
 
-        self.coreExperimentTypeDf = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = column_names)
+
+    def getCoreExperimentTypeDf(self):
+        ic()
+        ic.enable()
+        if hasattr(self, 'coreExperimentTypeDf'):
+            return self.coreExperimentTypeDf
+        schema_obj = self.get_json_schema_obj()
+        schema_core_dict = schema_obj.get_core_fields_dict()
+
+        self.coreExperimentTypeDf = self.experimentTypeMetaDataDf(schema_core_dict)
+        ic.enable()
+        df = self.coreExperimentTypeDf
+        # ic(df)
+        #ic(df['study_id'])
+        #sys.exit()
         return self.coreExperimentTypeDf
 
     def get_checklist_as_df(self):
@@ -260,14 +298,19 @@ class ExperimentType:
 def process_and_get_fields2expt_type_obj_dict(config_data):
     """ method to get all the fields and values needed for a particular checklist as JSON
         in: config_data
-        rtn: Dict of experimentType objects
+        rtn: Dict of experimentType objects, keyed off the experiment type name
     """
+    # ic()
     (coreDict, coreDictDefaultVal) = get_core_dict(config_data)
     expt_objects_dict = {}
     for e_type_slice in config_data['experimentTypes']:
-
+        # ic()
+        # ic(e_type_slice["experiment_type"])
+        # ic(e_type_slice)
         # create a dictionary of ExperimentType objects index on the name of the experimentType
-        experimentType = ExperimentType(e_type_slice["experiment_type"])
+        my_json_str = e_type_slice["experiment_type"]
+        experimentType = ExperimentType(my_json_str)
+        # ic(experimentType.experiment_type_name)
         # if experimentType not in ["TEST"]:
         #     continue
         expt_objects_dict[experimentType.experiment_type_name] = experimentType
@@ -282,6 +325,13 @@ def process_and_get_fields2expt_type_obj_dict(config_data):
         experimentType.set_core_dict(coreDict)
         experimentType.set_core_dict_default(coreDictDefaultVal)
         add_specials(experimentType, config_data)
+    # print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+    # metabarcoding_eT = expt_objects_dict['METABARCODING']
+    # ic(metabarcoding_eT.get_checklist_specific_dict())
+    # print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+    # metabarcoding_eT = expt_objects_dict['GENOMIC']
+    # ic(metabarcoding_eT.get_checklist_specific_dict())
+
     return expt_objects_dict
 
 def add_specials(experiment_type: object, config_data: object) -> object:
