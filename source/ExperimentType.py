@@ -198,9 +198,10 @@ class ExperimentType:
         """
         ic.disable()
         ic()
-        column_names = ["Field name", "Definition", "Mandatory", "Example", "Type",
+        column_names = ["Field name", "Specificity", "Definition", "Mandatory", "Example", "Type",
                         "Controlled Vocab Terms", "Comment"]
         print_dict = {}
+        specificity = 'core'
         for coreField in schema_core_dict:
             ic(coreField)
             if not coreField.startswith("_"):
@@ -215,7 +216,7 @@ class ExperimentType:
                 if example == "":
                     ic("Example is blank so using default")
                     example = str(my_local.get("default", ""))
-                my_list = [coreField, my_local.get("description", ""),
+                my_list = [coreField, specificity, my_local.get("description", ""),
                            str(my_local.get("_required", "N.A.")), example,
                            str(my_local.get("type", "")),  enum,
                             my_local.get("_comment", "")]
@@ -285,6 +286,14 @@ class ExperimentType:
         df.to_excel(outfileName, index = False)
         return outfileName
 
+    def print_checklist_specific_xlsx(self):
+        data_loc_dict = get_data_locations()
+        outfileName = data_loc_dict['output_xlsx_dir'] + "specific_" + self.get_experiment_type() + ".xlsx"
+        # ic(experimentType.getSpecificExperimentTypeDf())
+        self.getSpecificExperimentTypeDf().to_excel(outfileName, index = False)
+        return outfileName
+
+
     def print_checklist(self):
         """
         params:
@@ -293,6 +302,7 @@ class ExperimentType:
         ic()
         ic(self.print_checklist_xlsx())
         ic(self.print_checklist_json())
+        ic(self.print_checklist_specific_xlsx())
 
 # -------------------
 def process_and_get_fields2expt_type_obj_dict(config_data):

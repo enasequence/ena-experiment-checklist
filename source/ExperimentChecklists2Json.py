@@ -65,7 +65,7 @@ def print_all_checklists(expt_objects):
         in: expt_objects dict
         rtn: nowt
     """
-
+    ic()
     combined_cl_df = pd.DataFrame()
     data_loc_dict = get_data_locations()
     output_dir = data_loc_dict["output_xlsx_dir"]
@@ -82,7 +82,7 @@ def print_all_checklists(expt_objects):
         # experimentType.print_test_checklist()
         expt_cl_df = experimentType.get_checklist_as_df()
         ic()
-        sys.exit()
+        # sys.exit()
 
 
 def create_schema_objects(expt_objects, config_data):
@@ -126,6 +126,52 @@ def get_an_experiment_type_obj():
     experimentType.set_json_schema_obj(schema_obj)
     return experimentType
 
+def generate_checklist_files(expt_objects_dict, schema_obj_dict, checklist_doc, debug_status):
+    """
+
+    :param expt_objects_dict:
+    :param schema_obj_dict:
+    :param debug_status:
+    :return:
+    """
+    data_loc_dict = get_data_locations()
+    # print("## Create expt_objects_dict for each experiment: (they get used later")
+    expt_keys = list(expt_objects_dict)
+    ic(expt_keys)
+    for experiment_type_name in expt_keys:
+        # if experiment_type_name != 'TEST_type':
+        #     continue
+        # print(experiment_type_name)
+        ic(experiment_type_name)
+        experimentType = expt_objects_dict[experiment_type_name]
+        # ic(experimentType.get_checklist_specific_dict())
+        # ic(experimentType.getSpecificExperimentTypeDf())
+
+        schema_obj = experimentType.get_json_schema_obj()
+        # ic(schema_obj.get_experiment_type_name())
+        # checklist_doc.addExperimentInfo(experimentType)
+
+    ic()
+    print("-" * 100)
+    print(f"debug_status = {debug_status}")
+    for experiment_type_name in schema_obj_dict:
+        if debug_status is False and experiment_type_name == "TEST_type":
+            continue
+        else:
+            pass
+        print(f"| {experiment_type_name} | ", end = "")
+        schema_obj = schema_obj_dict[experiment_type_name]
+        # ic(schema_obj.experiment_type_name)
+        # print(f".print_json_schema {schema_obj.print_json_schema()}")
+        experimentType = schema_obj.get_experiment_type_obj()
+        experimentType.print_checklist()
+        print(f"checklist created | ", end = "")
+        experimentType.set_json_schema_obj(schema_obj)
+        checklist_doc.addExperimentInfo(experimentType)
+        print(f"schema created | ", end = "")
+        print("")
+        print("-" * 100)
+
 
 def main():
     ic()
@@ -151,52 +197,10 @@ def main():
     # need to fix the controlled vocab terms!
 
     print("-----------------------------------------------------------------------------")
-    # print("## Create expt_objects_dict for each experiment: (they get used later")
-    expt_keys = list(expt_objects_dict)
-    ic(expt_keys)
-    for experiment_type_name in expt_keys:
-        # if experiment_type_name != 'TEST_type':
-        #     continue
-        #print(experiment_type_name)
-        ic(experiment_type_name)
-        experimentType = expt_objects_dict[experiment_type_name]
-        # ic(experimentType.get_checklist_specific_dict())
-        # ic(experimentType.getSpecificExperimentTypeDf())
 
-        schema_obj = experimentType.get_json_schema_obj()
-        # ic(schema_obj.get_experiment_type_name())
-        #checklist_doc.addExperimentInfo(experimentType)
 
-        outfilename = data_loc_dict['output_xlsx_dir'] + "specific_" + experiment_type_name + ".xlsx"
-        ic(outfilename)
-        experimentType.getSpecificExperimentTypeDf().to_excel(outfilename, index = False)
-        #ic(experimentType.get_ExperimentTypeObj_values())
-    #print_all_checklists(expt_objects_dict)
-    ic()
-    # ic(checklist_doc.getCoreExperimentTypeDf())
-    # ic(checklist_doc.getSpecificExperimentTypeDf())
-    #
-    #print_all_checklist_json_schemas(expt_objects_dict)
+    generate_checklist_files(expt_objects_dict, schema_obj_dict, checklist_doc, debug_status)
 
-    print("-" * 100)
-    print(f"debug_status = {debug_status}")
-    for experiment_type_name in schema_obj_dict:
-        if debug_status is False and experiment_type_name == "TEST_type":
-            continue
-        else:
-            pass
-        print(f"| {experiment_type_name} | ", end="")
-        schema_obj = schema_obj_dict[experiment_type_name]
-        # ic(schema_obj.experiment_type_name)
-        # print(f".print_json_schema {schema_obj.print_json_schema()}")
-        experimentType = schema_obj.get_experiment_type_obj()
-        experimentType.print_checklist()
-        print(f"checklist created | ", end="")
-        experimentType.set_json_schema_obj(schema_obj)
-        checklist_doc.addExperimentInfo(experimentType)
-        print(f"schema created | ", end = "")
-        print("")
-        print("-" * 100)
 
     checklist_doc.print_checklist_doc()
     ic("at the end of main in the initialising script")
