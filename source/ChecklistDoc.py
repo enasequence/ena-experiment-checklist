@@ -64,8 +64,6 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
 
     # ic(sra_obj.get_library_strategy_details())
     def addExperimentInfo(self, experimentType):
-        # print(f"inside addExperimentInfo")
-        ic()
         ic(experimentType.experiment_type_name)
         expt_name = experimentType.experiment_type_name
         # print(f"expt_name={expt_name}<------")
@@ -75,14 +73,14 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         SRA_obj = schema_obj.get_SRA_obj()
         # ic(SRA_obj.get_library_strategy_details())
         lib_strat = schema_obj.get_library_strategy
-        ic(lib_strat)
+        # ic(lib_strat)
         #print(f"in addExperimentInfo for lib_strategy was defined----->{lib_strat}<------")
-        ic(SRA_obj.get_library_strategy_detail(lib_strat))
+        # ic(SRA_obj.get_library_strategy_detail(lib_strat))
         lib_selection = schema_obj.get_library_selection()
-        ic(lib_selection)
-        ic(SRA_obj.get_library_selection_detail(lib_selection))
+        # ic(lib_selection)
+        # ic(SRA_obj.get_library_selection_detail(lib_selection))
         lib_source = schema_obj.get_library_source()
-        ic(lib_source)
+        # ic(lib_source)
         self.setExperimentTableRow(experimentType, schema_obj)
 
         self.createExperimentTypeDoc(experimentType, schema_obj)
@@ -215,8 +213,8 @@ see <https://ena-docs.readthedocs.io/en/latest/submit/reads/interactive.html>"""
         self.core_experimentTypeDoc += "\n\n## Core Fields\n\n"
         self.getCoreExperimentTypeDf(schema_obj, core_dict)
         df = self.getCoreExperimentTypeDf( schema_obj, core_dict)
-        ic()
-        ic(df)
+        # ic()
+        # ic(df)
         self.core_experimentTypeDoc += df.to_markdown(index = False)
         self.core_experimentTypeDoc += "\n\n"
 
