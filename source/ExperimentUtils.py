@@ -17,6 +17,7 @@ def get_data_locations():
     data_loc_dict["input_dir"] = data_dir + "input/"
     data_loc_dict["output_dir"] = data_dir + "output/"
     data_loc_dict["output_xlsx_dir"] = data_dir + "output_xlsx/"
+    data_loc_dict["output_md_dir"] = data_dir + "output_md/"
     data_loc_dict["output_test_dir"] = data_dir + "output_test/"
     data_loc_dict["schema_dir"] = data_dir + "schema/"
     return data_loc_dict
