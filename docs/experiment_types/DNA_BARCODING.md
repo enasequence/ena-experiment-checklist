@@ -27,7 +27,7 @@ Some of the controlled terms may not be applicable for your particular experimen
 | checklist_version | The version of this checklist, allows us to validate the write records against the right checklist version | True | v1 | integer |  | Version of the format v[[::digit::]] e..g. v2 |
 | checklist_group | The collection of the experiment checklists | False | BARCODING | string |  |  |
 | experiment_type | The broad type of sequencing experiment performed. A mixture of library strategy and source | True | DNA_BARCODING | string |  |  |
-| target_loci | Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted] | False | COX1 | string | 16S rRNA, 18S rRNA, 28S rRNA, COX1, ITS1-5.8S-ITS2, RBCL, exome, matK, other |  |
+| target_loci | Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted] | False |  | string | 16S rRNA, 18S rRNA, 28S rRNA, COX1, ITS1-5.8S-ITS2, RBCL, exome, matK, other |  |
 | target_subfragment |  | False |  | string |  |  |
 | design_description | The library design including library properties, layout, protocol, targeting information, and spot and gap descriptors. | True | single target locus and single species barcoding | string |  |  |
 | _comment | These are all possible fields not in the core, with their JSON configs | False |  | string |  |  |

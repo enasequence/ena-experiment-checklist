@@ -17,8 +17,8 @@
       "experiment_type_definition": "Metabarcoding is the barcoding of DNA/RNA (or eDNA/eRNA) in a manner that allows for the simultaneous identification of many taxa within the same sample. The main difference between barcoding and metabarcoding is that metabarcoding does not focus on one specific organism, but instead aims to determine species composition within a sample.[WIKIPEDIA]",
       "experiment_type_ontology_id": "EDAM:operation_3200",
       "library_source": "METAGENOMIC",
-      "library_strategy": "AMPLICON",
-      "library_selection": "PCR",
+      "library_strategy": "WGS",
+      "library_selection": "",
       "target_loci": "",
       "target_subfragment": "",
       "pcr_fields": "",
@@ -155,11 +155,11 @@
       "checklist_group": "BARCODING",
       "experiment_type": "DNA_BARCODING",
       "experiment_type_definition": "Analyse DNA sequences in order to identify a DNA 'barcode'; marker genes or any short fragment(s) of DNA that are useful to diagnose the taxa of biological organisms.",
-      "experiment_type_ontology_id": "EDAM:320",
+      "experiment_type_ontology_id": "EDAM:operation_3200",
       "library_source": "GENOMIC",
       "library_strategy": "AMPLICON",
       "library_selection": "PCR",
-      "target_loci": "COX1",
+      "target_loci": "",
       "target_subfragment": "",
       "custom_user_fields": "",
       "design_description": "single target locus and single species barcoding",
@@ -246,8 +246,7 @@
         "value": "",
         "attributes": {
           "read_type": [
-            "paired",
-            "umi_barcode"
+            "paired"
           ],
           "checksum_method": "MD5",
           "checksum": ""
@@ -257,8 +256,7 @@
         "value": "",
         "attributes": {
           "read_type": [
-            "paired",
-            "umi_barcode"
+            "paired"
           ],
           "checksum_method": "MD5",
           "checksum": ""
@@ -289,8 +287,7 @@
           "value": "",
           "attributes": {
             "read_type": [
-              "paired",
-              "umi_barcode"
+              "paired"
             ],
             "checksum_method": "MD5",
             "checksum": ""
@@ -300,8 +297,7 @@
           "value": "",
           "attributes": {
             "read_type": [
-              "paired",
-              "umi_barcode"
+              "paired"
             ],
             "checksum_method": "MD5",
             "checksum": ""
@@ -351,8 +347,9 @@
       "_required": true
     },
     "sample_accession": {
-      "description": "This is the study accession number that starts with ERP granted after registering a study with the ENA. [ENA]",
+      "description": "The sample accession number is called the BioSample accession and is typically used in journal publications. The sample will also be assigned an alternative accession number that starts with ERS.[ENA]",
       "type": "string",
+      "_example": "SAMEA110358963",
       "pattern": "(^SAM(E|D|N)[A-Z]?[0-9]+)|(^(E|D|S)RS[0-9]{6,})",
       "_required": true
     },
@@ -371,7 +368,8 @@
       "default": "my lovely TRANSCRIPTOMICS experiment",
       "type": "string",
       "minLength": 5,
-      "_required": false
+      "_required": false,
+      "comment": "free text"
     },
     "library_source": {
       "description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
@@ -436,7 +434,8 @@
     "library_name": {
       "description": "The name of the nucleotide sequencing library. [NCIT]",
       "type": "string",
-      "_required": false
+      "_required": false,
+      "comment": "free text"
     },
     "library_description": {
       "description": "The free description of the nucleotide sequencing library. [NCIT adapted]",
@@ -447,7 +446,8 @@
       "default": 0,
       "description": "The average insert size found during nucleic acid sequencing. [NCIT]",
       "type": "number",
-      "_required": false
+      "_required": false,
+      "pattern": "^[0-9]*(\\.[0-9]*)?$"
     },
     "instrument_platform": {
       "description": "The name of the technology platform used to perform nucleic acid sequencing. [NCIT]",
@@ -531,6 +531,7 @@
     "target_loci": {
       "description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted]",
       "default": "16S rRNA",
+      "_example": "18S",
       "enum": [
       ],
       "type": "string",

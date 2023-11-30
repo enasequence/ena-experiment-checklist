@@ -5,8 +5,8 @@
 2) as a command line - If someone needs to repeat getting an alphabetically sorted list of terms for 1) platforms and 2) instruments run this script.
 
 Notes:
-It pulls the information from the SRA.experiment.xml. This XML is the ground truth for metadata for experiments, thus important
-to be in sync with it.
+It pulls the information from the SRA.experiment.xsd. This XSD is the ground truth for metadata for experiments, thus important
+to be in sync with it. The code automatically uses the latest version on the ftp site.
 (BTW I cheat and use a JSON rendition of the XML, as JSON is much easier to use in python.
 Uses the fairly ubiquitous jq/xq utilities. Only needed though when the XML is updated.)
 
@@ -40,6 +40,7 @@ class SRA_EXPERIMENT_SPEC:
         self.process_platform()
 
     def process_experiment(self):
+        ic.disable()
         ic()
         simple_level = self.experiment_schema_level["xs:simpleType"]
         #ic(simple_level)
@@ -69,7 +70,7 @@ class SRA_EXPERIMENT_SPEC:
                 field = child['@name'].removeprefix("type")
             else:
                 field = child['xs:restriction'].removeprefix("type")
-            ic(field)
+            #ic(field)
             #print(f"------>{field}<-----")
             if field == "LibraryStrategy":
                 self.library_strategy = {}
@@ -81,15 +82,16 @@ class SRA_EXPERIMENT_SPEC:
                 self.library_selection = {}
                 process_lib_child(child, self.library_selection)
             else:
-                ic("<--TBD-->")
+                ic(f"WARNING<--TBD--> {field}")
 
 
         self.process_further_expt()
-        ic(self.get_targetted_loci_list())
-        ic()
+        #ic(self.get_targetted_loci_list())
+        ic.enable()
 
     def process_further_expt(self):
         ic()
+        ic.disable()
         complex_level = self.experiment_schema_level["xs:complexType"]
         #ic(complex_level)
 
@@ -114,73 +116,7 @@ class SRA_EXPERIMENT_SPEC:
                     ic(member['xs:annotation']['xs:documentation'])
 
         self.locus = {}
-
-        for child in complex_level:
-            ic()
-            #ic(child)
-            if child.get('@name'):
-                field = child['@name'].removeprefix("type")
-                ic(field)
-                if field == 'SampleDescriptorType':
-                    #ic(child)
-                    self.SampleDescriptor = {}
-                    process_complex(self.SampleDescriptor)
-                elif field == 'LibraryDescriptorType':
-                    ic()
-                    #ic(child)
-                    el_base = child['xs:sequence']['xs:element']
-                    for grandchild in el_base:
-                        #ic(grandchild)
-                        if grandchild['@name'] == 'TARGETED_LOCI':
-                            loci_base = grandchild['xs:complexType']['xs:sequence']['xs:element']['xs:complexType']['xs:attribute']
-                            #ic(loci_base)
-                            for locus in loci_base:
-                                #ic(locus)
-
-                                if locus.get('xs:simpleType'):
-                                    locus_base = locus['xs:simpleType']['xs:restriction']['xs:enumeration']
-                                    for locus_val in locus_base:
-                                        #ic(locus_val)
-                                        value = locus_val['@value']
-                                        #ic(value)
-                                        self.locus[value] = {}
-                                        self.locus[value] = locus_val['xs:annotation']['xs:documentation']
-                                        #ic(self.locus)
-                            ic(self.locus)
-
-
-
-                elif field == 'PoolMemberType':
-                    ic()
-                    self.PoolMemberType = {}
-                    base = child['xs:complexContent']['xs:extension']
-                    #ic(base)
-                    #ic(base['@base'].removeprefix("com"))
-                    for grandchild in base['xs:attribute']:
-                        name = grandchild['@name']
-                        ic(grandchild['@name'])
-                        # ic(grandchild['@type'].removeprefix('xs:'))
-                        # ic(grandchild['xs:annotation']['xs:documentation'])
-                        self.PoolMemberType[name] = {}
-                        self.PoolMemberType[name]['type'] = grandchild['@type'].removeprefix('xs:')
-                        self.PoolMemberType[name]['docs'] = grandchild['xs:annotation']['xs:documentation']
-                        self.PoolMemberType[name]['value'] = ""
-                        for tag in base['xs:sequence']['xs:element']:
-                            #ic(tag)
-
-                            if tag == '@name':
-                                tag_base = base['xs:sequence']['xs:element'][tag]
-                                tag_deep_base = base['xs:sequence']['xs:element']['xs:complexType']['xs:simpleContent']['xs:extension']['xs:attribute']
-                                self.PoolMemberType[name]['sequence'] = {}
-                                self.PoolMemberType[name]['sequence'][tag_deep_base['@name']] = {}
-                                self.PoolMemberType[name]['sequence'][tag_deep_base['@name']]['type'] = tag_deep_base['@type'].removeprefix('xs:')
-                                self.PoolMemberType[name]['sequence'][tag_deep_base['@name']]['value'] = ""
-                                self.PoolMemberType[name]['sequence']['docs'] = tag_deep_base['xs:annotation']['xs:documentation']
-                    ic(self.PoolMemberType)
-            else:
-                ic()
-
-        ic()
+        ic.enable()
 
     def get_library_strategy_details(self):
         # e.g. 'ChIA-PET': {'documentation': 'Direct sequencing of proximity-ligated chromatin immunoprecipitates.'},
@@ -243,7 +179,6 @@ class SRA_EXPERIMENT_SPEC:
         return my_list
 
     def process_platform(self):
-        ic()
         simple_level = self.common_schema_level["xs:simpleType"]
         #ic(simple_level)
         #ic("_____________________________")
@@ -280,6 +215,14 @@ class SRA_EXPERIMENT_SPEC:
                 platform = "ABI_SOLID"
             elif raw_platform == "Helicos":
                 platform = "HELICOS"
+            elif raw_platform == "VelaDiagnostics":
+                platform = "VELA_DIAGNOSTICS"
+            elif raw_platform == "Genapsys":
+                platform = "GENAPSYS"
+            elif raw_platform == "GeneMind":
+                platform = "GENE_MIND"
+            elif raw_platform == "Tapestri":
+                platform = "TAPESTRI"
             else:
                 platform = "not_yet_recognised"
                 # Ultima , Element, Helicos, Complete Genomics, AbiSolid
@@ -298,7 +241,7 @@ class SRA_EXPERIMENT_SPEC:
             all_instruments.extend(instruments)
 
         if len(missing_platforms) > 0:
-            os.write(2, b"WARNING: the following platforms are not recognised yet, please add in before continuing!\n")
+            os.write(2, b"WARNING: the following platforms are not recognised yet, please add in to process_platform() before continuing!\n")
             print(f"Missing platforms: \"{missing_platforms}\"")
             exit()
 
@@ -308,7 +251,6 @@ class SRA_EXPERIMENT_SPEC:
         all_instruments.sort()
         self.all_instruments = all_instruments
         # ic(self.get_instrument_list())
-        ic()
 
     def get_platform(self):
         return(self.platform)
@@ -359,8 +301,7 @@ def get_SRA_XML_baseline():
 
     :return: sra_object_instance
     """
-    ic()
-    ic("_____inside get_SRA_XML_baseline_____")
+    # ic("_____inside get_SRA_XML_baseline_____")
 
     def file2json(file_name):
         f = open(file_name)
@@ -378,7 +319,7 @@ def get_SRA_XML_baseline():
         ic()
         ic(cmd)
         pid = os.getpid()
-        tmp_outfile = "/tmp/tmp_" + str(pid)
+        tmp_outfile = "/tmp/tmp_exp_checklist_" + str(pid)
         tmp_cmd = cmd + " > " + tmp_outfile
         try:
             os.system(tmp_cmd)
@@ -403,9 +344,9 @@ def get_SRA_XML_baseline():
             return False
         # cutoff = datetime.utcnow() - delta
         cutoff = datetime.now(tz=timezone.utc) - delta
-        ic(f"cutoff={cutoff}")
+        # ic(f"cutoff={cutoff}")
         mtime = datetime.fromtimestamp(os.path.getmtime(file_name), tz=timezone.utc)
-        ic(f"mtime={mtime}")
+        # ic(f"mtime={mtime}")
         if mtime < cutoff:
             return True
         return False
@@ -418,11 +359,11 @@ def get_SRA_XML_baseline():
         :param outfilename:
         :return: my_sra_json
         """
-        ic()
-        ic(cmd)
-        ic(outfilename)
+        # ic()
+        #ic(cmd)
+        # ic(outfilename)
 
-        if is_file_older_than(outfilename, timedelta(days=1)):
+        if not os.path.isfile(outfilename) or is_file_older_than(outfilename, timedelta(days=1)):
             print(f"{outfilename} is older than 1 day! so re-running.")
             cmd2file(cmd, outfilename)
 

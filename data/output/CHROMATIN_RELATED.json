@@ -40,8 +40,7 @@
                     "checksum": "",
                     "checksum_method": "MD5",
                     "read_type": [
-                        "paired",
-                        "umi_barcode"
+                        "paired"
                     ]
                 },
                 "value": ""
@@ -51,8 +50,7 @@
                     "checksum": "",
                     "checksum_method": "MD5",
                     "read_type": [
-                        "paired",
-                        "umi_barcode"
+                        "paired"
                     ]
                 },
                 "value": ""

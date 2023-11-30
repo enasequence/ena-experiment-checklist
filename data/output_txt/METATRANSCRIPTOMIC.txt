@@ -1,0 +1,78 @@
+{
+    "_description": "Experiment Metadata Checklist Focused on metatranscriptomics",
+    "checklist_group": "METAGENOMIC",
+    "checklist_id": "EXC000003",
+    "checklist_name": "METATRANSCRIPTOMIC specific",
+    "checklist_version": "v1",
+    "design_description": "",
+    "experiment_attribute": {
+        "_insert_field_a": "",
+        "_insert_field_b": "",
+        "_insert_field_c": "",
+        "experiment_context_type": "baseline",
+        "key_experimental_factors": []
+    },
+    "experiment_name": "",
+    "experiment_type": "METATRANSCRIPTOMIC",
+    "experiment_type_definition": "The study of microbe gene expression within natural environments (i.e. the metatranscriptome). Metatranscriptomics methods can be used for whole gene expression profiling of complex microbial communities.[EDAM]",
+    "experiment_type_ontology_id": "EDAM:3941",
+    "insert_size": 0,
+    "instrument_model": "",
+    "instrument_platform": "",
+    "library_description": "",
+    "library_layout": "",
+    "library_name": "",
+    "library_selection": "PCR",
+    "library_source": "METATRANSCRIPTOMIC",
+    "library_strategy": "",
+    "pcr_primers": {
+        "fwd_name": "",
+        "fwd_seq": "",
+        "rev_name": "",
+        "rev_seq": ""
+    },
+    "pcr_protocol": "",
+    "sample_accession": "",
+    "sequence_related": {
+        "bam": {
+            "attributes": {
+                "checksum": "",
+                "checksum_method": "MD5"
+            },
+            "value": ""
+        },
+        "cram": {
+            "attributes": {
+                "checksum": "",
+                "checksum_method": "MD5"
+            },
+            "value": ""
+        },
+        "fastq": [
+            {
+                "attributes": {
+                    "checksum": "",
+                    "checksum_method": "MD5",
+                    "read_type": [
+                        "paired",
+                        "umi_barcode"
+                    ]
+                },
+                "value": ""
+            },
+            {
+                "attributes": {
+                    "checksum": "",
+                    "checksum_method": "MD5",
+                    "read_type": [
+                        "paired",
+                        "umi_barcode"
+                    ]
+                },
+                "value": ""
+            }
+        ]
+    },
+    "sequencing_protocol": "",
+    "study_id": ""
+}
