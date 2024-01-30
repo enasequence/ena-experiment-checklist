@@ -320,9 +320,8 @@
       }
     }
   },
-  "target_fields": {
-    "target_loci": "",
-    "target_subfragment": ""
+  "target_fields": "",
+  "target_subfragment": ""
   },
   "multiplex_fields": {
     "multiplex_identifiers": ""
@@ -359,10 +358,9 @@
       "description": "Reads are unpaired (usual case).[ENA]",
       "standards_source": "INSDC: term and vocabulary",
       "type": "string",
-      "default": "SINGLE",
+      "default": "",
       "enum": [
-        "SINGLE",
-        "PAIRED"
+       "single","paired","cell_barcode","umi_barcode","feature_barcode","sample_barcode","spatial_barcode",""
       ],
       "_required": false
     },
@@ -485,6 +483,7 @@
       "description": "A rule which guides how an activity should be performed. This is for the sequencing related[NCIT]",
       "_example": "<https://www.protocols.io/view/environmental-dna-edna-metabarcoding-protocol-for-rm7vzy3q2lx1/v1>",
       "default": "A URL from protocol.io",
+      "standards_source": "TBD",
       "type": "string",
       "_comment": "if multiple protocols. use a pipe to delimited",
       "_required": false
@@ -497,9 +496,10 @@
       "_required": false
     },
     "design_description": {
-      "description": "The library design including library properties, layout, protocol, targeting information, and spot and gap descriptors.",
+      "description": "The library design including library properties, layout, protocol, targeting information, and spot and gap descriptors.[INSDC]",
       "type": "string",
       "_example": "multi-marker metabarcoding",
+      "standards_source": "INSDC: term",
       "_required": true
     },
     "checklist_id": {
@@ -508,6 +508,7 @@
       "_example": "METABARCODING Experimental",
       "minLength": 4,
       "type": "pattern",
+      "standards_source": "TBD",
       "pattern":  "EXC[0-9]*",
       "_required": true
     },
@@ -517,6 +518,7 @@
       "_example": "METABARCODING specific",
       "minLength": 3,
       "type": "string",
+      "standards_source": "TBD",
       "_required": false
     },
     "checklist_version": {
@@ -526,6 +528,7 @@
       "_comment": "Version of the format v[0-9]*(\\.[0-9]*)? e.g. v2",
       "type": "pattern",
       "pattern": "[0-9]*(\\.[0-9]*)?",
+      "standards_source": "TBD",
       "_required": true
     },
     "checklist_group": {
@@ -533,6 +536,7 @@
       "default": "TRANSCRIPTOMIC",
       "_example": "TRANSCRIPTOMIC",
       "type": "string",
+      "standards_source": "TBD",
       "_required": false
     },
     "experiment_type": {
@@ -540,15 +544,27 @@
       "default": "",
       "_example": "METABARCODING",
       "type": "string",
+      "standards_source": "TBD",
       "_required": true
     },
     "target_loci": {
-      "description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted]",
-      "default": "16S",
+      "description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC]",
+      "default": "",
       "_example": "18S",
-      "enum": [ "ITS", "18S", "16S"],
-      "_comment": "TBD: Need to generate the full list of genes and RNAs",
+        "enum": [ "16S rRNA","18S rRNA","COX1","ITS1-5.8S-ITS2","RBCL","exome","matK","other"],
+        "description": "Submitter supplied description of alternate locus and auxiliary information.[INSDC]",
+        "all_descriptions":
+{"16S rRNA": {"description":"Bacterial small subunit ribosomal RNA, a locus used for phylogenetic studies of bacteria and as a target for random target PCR in environmental biodiversity screening.[INSDC]"},
+"18S rRNA": {"description":"Eukaryotic small subunit ribosomal RNA, a locus used for phylogenetic studies of eukaryotes and as a target for random target PCR in environmental biodiversity screening.[INSDC]"},
+"RBCL": {"description":"RuBisCO large subunit : ribulose-1,5-bisphosphate carboxylase/oxygenase large subunit, a locus used for phylogenetic studies of plants.[INSDC]"},
+"matK": {"description":"Maturase K gene, a locus used for phylogenetic studies of plants.[INSDC]"},
+"COX1": {"description":"Mitochondrial cytochrome c oxidase 1 gene, a locus used for phylogenetic studies of animals.[INSDC]"},
+"ITS1-5.8S-ITS2": {"description":"Internal transcribed spacers 1 and 2 plus 5.8S rRNA region, a locus used for phylogenetic studies of fungi.[INSDC]"},
+"exome": {"description":"All exonic regions of the genome.[INSDC]"},
+"other": {"description":"Other locus, please describe[INSDC]"}},
+      "_comment": "This is the current full list of target genes and RNAs. It is currently focused on organism ID. It will certainly need to be exanded.",
       "type": "string",
+      "standards_source": "INSDC: term and vocabulary"
       "_required": false
     },
     "target_subfragment": {
@@ -556,7 +572,8 @@
       "ontology": "https://www.ebi.ac.uk/ols/ontologies/XXX",
       "type": "string",
       "_required": false,
-      "_comment": "To work out of this field is really needed"
+      "standards_source": "TBD",
+      "_comment": "TBD work out if this field is really needed"
     },
     "pcr_protocol": {
       "description": "PCR is a method for amplifying a DNA base sequence using multiple rounds of heat denaturation of the DNA and annealing of oligonucleotide primers complementary to flanking regions in the presence of a heat-stable polymerase. This results in duplication of the targeted DNA region. Newly synthesized DNA strands can subsequently serve as additional templates for the same primer sequences, so that successive rounds of primer annealing, strand elongation, and dissociation produce rapid and highly specific amplification of the desired sequence. PCR also can be used to detect the existence of the defined sequence in a DNA sample.[NCIT] A PCR protocol is the precise recipe followed for the type of PCR,.",
@@ -564,6 +581,7 @@
       "domain": "https://protocols.io",
       "type": "string",
       "_required": false,
+       "standards_source": "TBD",
       "_comment": "see the pcr_primers fields too"
     },
     "pcr_primers": {
