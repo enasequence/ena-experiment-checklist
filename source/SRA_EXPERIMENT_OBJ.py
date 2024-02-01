@@ -26,18 +26,20 @@ class SRA_EXPERIMENT_SPEC:
     def __init__(self, my_sra_experiment_json, my_sra_common_json):
         self.common_schema_level = my_sra_common_json["xs:schema"]
         self.experiment_schema_level = my_sra_experiment_json["xs:schema"]
+        self.targeted_loci_dict = {}
         self.process_experiment()
         #ic(self.schema_level)
         self.process_platform()
 
     def process_experiment(self):
-        ic.enable()
+        ic.disable()
         ic()
         simple_level = self.experiment_schema_level["xs:simpleType"]
         #ic(simple_level)
         ic("_____________________________")
 
         def process_lib_child(child, self_child_pointer):
+            ic.disable()
             # print("inside process_lib_child")
             ic()
             ic(self_child_pointer)
@@ -56,7 +58,7 @@ class SRA_EXPERIMENT_SPEC:
                     self_child_pointer[term_name]["documentation"] = ""
             #print(f"-->{self_child_pointer}")
         for child in simple_level:
-            ic()
+            # ic()
             if child.get('@name'):
                 field = child['@name'].removeprefix("type")
             else:
@@ -78,57 +80,53 @@ class SRA_EXPERIMENT_SPEC:
 
         self.process_further_expt()
         #ic(self.get_targetted_loci_list())
+        # ic()
         ic.enable()
 
-    def process_targeted_loci(self):
+    def process_targeted_loci(self, element):
+        """
+        process_targeted_loci is quite complex.
+        :param element:
+        :return: nowt, but do add a dictionary to self.targeted_loci_dict
+
+        """
         ic()
-        ic.enable()
-        complex_level = self.experiment_schema_level["xs:complexType"]
-        ic(complex_level)
-        ic()
-        ic(complex_level.keys())
-        base = complex_level['xs:annotation']['xs:sequence']
-        ic()
-        # ic(base)
-        for element in base:
-            ic(element)
+
+        locus_name_struct=element["xs:complexType"]["xs:sequence"]["xs:element"]["xs:complexType"]["xs:attribute"][0]
+        # print(locus_name_struct["xs:simpleType"])
+        locus_name_enum=locus_name_struct["xs:simpleType"]["xs:restriction"]["xs:enumeration"]
+
+        targeted_loci_dict = { "locus_name": {}}
+        for value in locus_name_enum:
+            # ic(value)
+            targeted_loci_dict['locus_name'][value['@value']] = value['xs:annotation']['xs:documentation']
+        self.targeted_loci_dict = targeted_loci_dict
+
 
 
     def process_further_expt(self):
-        ic()
-        ic.enable()
-        complex_level = self.experiment_schema_level["xs:complexType"]
-        # ic(complex_level)
-        self.process_targeted_loci()
-
-
+        ic.disable()
 
         def process_complex(pointer):
             ic()
-            #ic(pointer)
+            for child in pointer:
+             #ic(child.keys())
+             if "@name" in child:
+                 ic(child["@name"])
+                 if child["@name"] == "LibraryDescriptorType":
+                     ic()
+                     ic(child['xs:sequence'].keys())
+                     base = child['xs:sequence']['xs:element']
+                     for element in base:
+                         if element['@name'] == 'TARGETED_LOCI':
+                             ic(element)
+                             ic(element['@name'])
+                             self.process_targeted_loci(element)
+                     ic()
 
-            base = child['xs:complexContent']['xs:extension']
-            # ic(base)
-            # ic(base['@base'].removeprefix("com"))
-            el_base = base['xs:choice']['xs:element']
-            #ic(el_base)
-            ic(el_base['@name'])
-            ic(el_base['xs:annotation']['xs:documentation'])
-            #ic(el_base['xs:complexType']['xs:sequence']['xs:element'])
-            elements_base = el_base['xs:complexType']['xs:sequence']['xs:element']
-            for member in elements_base:
-                ic(member['@name'])
-                if member['@name'] == 'MEMBER':
-                    ic(member['xs:annotation']['xs:documentation'])
-                elif member['@name'] == 'DEFAULT_MEMBER':
-                    ic(member['xs:annotation']['xs:documentation'])
-                elif member['@name'] == 'TARGETED_LOCI':
-                    ic("YIPPEEE TARGETED_LOCI")
-                    sys.exit()
-            ic()
-        ic()
-        self.locus = {}
-        sys.exit(1)
+        complex_level = self.experiment_schema_level["xs:complexType"]
+        process_complex(complex_level)
+
         ic.enable()
 
     def get_library_strategy_details(self):
@@ -291,14 +289,20 @@ class SRA_EXPERIMENT_SPEC:
         """
         return list(self.all_instruments)
 
-    def get_targetted_loci_dict(self):
-        return self.locus
-    def get_targetted_loci_list(self):
-        ic()
-        ic(self.get_targetted_loci_dict())
-        targetted_loci = list(self.get_targetted_loci_dict().keys())
-        targetted_loci.sort()
-        return targetted_loci
+    def get_targeted_loci_dict(self):
+        """
+        targeted_loci_dict['locus_name'][value['@value']] = value['xs:annotation']['xs:documentation']
+
+        :return:
+        """
+        return self.targeted_loci_dict
+    def get_targeted_loci_list(self):
+        """
+
+        :return:
+        """
+        # ic(list(self.targeted_loci_dict['locus_name'].keys()))
+        return sorted(self.targeted_loci_dict['locus_name'].keys())
 
     def print_platform_md_list(self):
         platforms = self.get_platform_list()
@@ -397,7 +401,7 @@ def get_SRA_XML_baseline():
     # Sorry will run on linux and unix files, and needs jq installed
     HOMEDIR = os.environ.get("HOME")
     outdir = HOMEDIR + "/projects/ExperimentChecklist/data/input/"
-    ic(outdir)
+    # ic(outdir)
     outfile = "SRA.common.json"
     outfullfilename = outdir + outfile
     cmd = "curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.common.xsd | xq "

@@ -27,33 +27,42 @@ class TestSRA_EXPERIMENT_SPEC(unittest.TestCase):
         # print(self.sra_obj.get_targetted_loci_list())
 
     def tearDown(self):
-        ic()
+        # ic()
+        pass
 
     def test_get_library_strategy_list(self):
+        ic()
         # print("test_get_library_strategy_list")
         # print(self.sra_obj.get_library_strategy_list())
         self.assertTrue(len(self.sra_obj.get_library_strategy_list()) > 5)
         self.assertTrue('WGS' in self.sra_obj.get_library_strategy_list())
 
-    def test_get_targetted_loci_list(self):
-        print("test_get_targetted_loci_list")
-        ic(self.sra_obj.get_targetted_loci_list())
-        self.assertTrue(len(self.sra_obj.get_targetted_loci_list()) > 5)
-        self.assertTrue('16S rRNA' in self.sra_obj.get_targetted_loci_list())
+    def test_get_targeted_loci_list(self):
+        ic()
+        # ic("test_get_targeted_loci_list")
+        targeted_loci_list = self.sra_obj.get_targeted_loci_list()
+        # ic(targeted_loci_list)
+        # ic(type(targeted_loci_list))
+        # ic(len(targeted_loci_list))
+        self.assertTrue(len(targeted_loci_list) > 5)
+        self.assertTrue('16S rRNA' in targeted_loci_list)
 
     def test_get_library_source_list(self):
+        ic()
         # print("test get_library_source_list")
         # print(self.sra_obj.get_library_source_list())
         self.assertTrue(len(self.sra_obj.get_library_source_list()) > 5)
         self.assertTrue('TRANSCRIPTOMIC' in self.sra_obj.get_library_source_list())
 
     def test_get_instrument_list(self):
+        ic()
         # print("test get_instrument_list")
         # print(self.sra_obj.get_instrument_list())
         self.assertTrue(len(self.sra_obj.get_instrument_list()) > 5)
         self.assertTrue('Illumina HiSeq 1500' in self.sra_obj.get_instrument_list())
 
     def test_get_platform_list(self):
+        ic()
         # print("test get_platform_list")
         self.assertTrue(len(self.sra_obj.get_platform_list()) > 5)
         self.assertTrue('ILLUMINA' in self.sra_obj.get_platform_list())
