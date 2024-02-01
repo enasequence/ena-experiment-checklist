@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 import unittest
 from icecream import ic
+
+from ExperimentChecklist.source.ExperimentUtils import file2json
+
 ic.disable()
 import sys
 from attr import define

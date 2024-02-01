@@ -63,9 +63,12 @@ def main():
     print("\ninstrument terms")
     sra_obj.print_instrument_md_list()
 
-    print("platform_and_instruments")
+    print("\nplatform_and_instruments")
     pprint.PrettyPrinter(width=100).pprint(sra_obj.get_platform_and_instruments())
-    print("End of Main")
+
+    print("\ntargeted_locus_names:")
+    print(sra_obj.get_targeted_loci_list())
+    print("End of Main\n####################################################")
 
 if __name__ == '__main__':
     ic()
