@@ -9,11 +9,7 @@ __docformat___ = 'reStructuredText'
 """
 
 import unittest
-
 from SRA_EXPERIMENT_OBJ import *
-
-
-# ic.disable()
 
 class TestSRA_EXPERIMENT_SPEC(unittest.TestCase):
 
