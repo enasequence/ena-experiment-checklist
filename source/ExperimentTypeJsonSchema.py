@@ -343,8 +343,11 @@ class ExperimentTypeJsonSchemaClass:
     def get_experiment_type_definition(self):
         experiment_type_obj = self.get_experiment_type_obj()
         my_dict = experiment_type_obj.get_all_dict()
-        return my_dict['experiment_type_definition'].replace("\n"," ")
-
+        if 'experiment_type_definition' in my_dict:
+            return my_dict['experiment_type_definition'].replace("\n"," ")
+        else:
+            print("WARNING: No experiment_type_definition")
+            return ""
     def get_experiment_design_description(self):
         experiment_type_obj = self.get_experiment_type_obj()
         my_dict = experiment_type_obj.get_all_dict()
