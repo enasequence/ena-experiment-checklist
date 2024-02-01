@@ -9,14 +9,11 @@ __docformat___ = 'reStructuredText'
 """
 
 import unittest
-from icecream import ic
-#ic.disable()
-import sys
-from attr import define
 
-import ExperimentChecklists2Json
-from extract_experiment_XML_vals import *
 from SRA_EXPERIMENT_OBJ import *
+
+
+# ic.disable()
 
 class TestSRA_EXPERIMENT_SPEC(unittest.TestCase):
 
@@ -24,7 +21,7 @@ class TestSRA_EXPERIMENT_SPEC(unittest.TestCase):
         self.sra_obj = get_SRA_XML_baseline()
         # print(self.sra_obj.common_schema_level)
         # print(self.sra_obj.get_library_strategy_list())
-        # print(self.sra_obj.get_targetted_loci_list())
+        # print(self.sra_obj.get_targeted_loci_list())
 
     def tearDown(self):
         # ic()
@@ -72,4 +69,3 @@ if __name__ == '__main__':
     print("do some testing of output methods in extract_experiment_XML_vals.py")
     ic.disable()
     unittest.main()
-
