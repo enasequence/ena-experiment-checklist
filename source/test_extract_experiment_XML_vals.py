@@ -16,6 +16,7 @@ from attr import define
 
 import ExperimentChecklists2Json
 from extract_experiment_XML_vals import *
+from SRA_EXPERIMENT_OBJ import *
 
 class TestSRA_EXPERIMENT_SPEC(unittest.TestCase):
 
@@ -35,7 +36,8 @@ class TestSRA_EXPERIMENT_SPEC(unittest.TestCase):
         self.assertTrue('WGS' in self.sra_obj.get_library_strategy_list())
 
     def test_get_targetted_loci_list(self):
-        # print("test_get_targetted_loci_list")
+        print("test_get_targetted_loci_list")
+        ic(self.sra_obj.get_targetted_loci_list())
         self.assertTrue(len(self.sra_obj.get_targetted_loci_list()) > 5)
         self.assertTrue('16S rRNA' in self.sra_obj.get_targetted_loci_list())
 

@@ -1,16 +1,27 @@
 #!/usr/bin/env python3
-"""Script of SRA_EXPERIMENT_OBJ.py is to SRA_EXPERIMENT_OBJ.py
+"""SRA_EXPERIMENT_OBJ.py is a simple object and methods for SRA_EXPERIMENT
+   it also contains the get_SRA_XML_baseline object. This provides much of the raw data
+   needed for the SRA_EXPERIMENT object and indeed calls this.
 
 ___author___ = "woollard@ebi.ac.uk"
 ___start_date___ = 2024-01-31
 __docformat___ = 'reStructuredText'
-chmod a+x SRA_EXPERIMENT_OBJ.py
+
 """
 
+import datetime
+import json
+import os
+import os.path
+import sys
+from datetime import datetime
+from datetime import timedelta
+from datetime import timezone
 
 from icecream import ic
-import os
-import argparse
+from openpyxl.workbook import child
+
+
 class SRA_EXPERIMENT_SPEC:
     def __init__(self, my_sra_experiment_json, my_sra_common_json):
         self.common_schema_level = my_sra_common_json["xs:schema"]
@@ -20,7 +31,7 @@ class SRA_EXPERIMENT_SPEC:
         self.process_platform()
 
     def process_experiment(self):
-        ic.disable()
+        ic.enable()
         ic()
         simple_level = self.experiment_schema_level["xs:simpleType"]
         #ic(simple_level)
@@ -69,11 +80,28 @@ class SRA_EXPERIMENT_SPEC:
         #ic(self.get_targetted_loci_list())
         ic.enable()
 
+    def process_targeted_loci(self):
+        ic()
+        ic.enable()
+        complex_level = self.experiment_schema_level["xs:complexType"]
+        ic(complex_level)
+        ic()
+        ic(complex_level.keys())
+        base = complex_level['xs:annotation']['xs:sequence']
+        ic()
+        # ic(base)
+        for element in base:
+            ic(element)
+
+
     def process_further_expt(self):
         ic()
-        ic.disable()
+        ic.enable()
         complex_level = self.experiment_schema_level["xs:complexType"]
-        #ic(complex_level)
+        # ic(complex_level)
+        self.process_targeted_loci()
+
+
 
         def process_complex(pointer):
             ic()
@@ -94,8 +122,13 @@ class SRA_EXPERIMENT_SPEC:
                     ic(member['xs:annotation']['xs:documentation'])
                 elif member['@name'] == 'DEFAULT_MEMBER':
                     ic(member['xs:annotation']['xs:documentation'])
-
+                elif member['@name'] == 'TARGETED_LOCI':
+                    ic("YIPPEEE TARGETED_LOCI")
+                    sys.exit()
+            ic()
+        ic()
         self.locus = {}
+        sys.exit(1)
         ic.enable()
 
     def get_library_strategy_details(self):
@@ -247,7 +280,10 @@ class SRA_EXPERIMENT_SPEC:
         return platforms
 
     def get_platform_and_instruments(self):
-        ic()
+        """
+        :return:  the current platform and instrument as JSON object
+        """
+        return self.platform
 
     def get_instrument_list(self):
         """
@@ -258,6 +294,8 @@ class SRA_EXPERIMENT_SPEC:
     def get_targetted_loci_dict(self):
         return self.locus
     def get_targetted_loci_list(self):
+        ic()
+        ic(self.get_targetted_loci_dict())
         targetted_loci = list(self.get_targetted_loci_dict().keys())
         targetted_loci.sort()
         return targetted_loci
@@ -277,9 +315,100 @@ class SRA_EXPERIMENT_SPEC:
             print("- " + instrument)
     """=====================END OF SRA OBJ=============================="""
 
-def main():
-    ic()
+def get_SRA_XML_baseline():
+    """
+    updates the local copies of INSDC XML XSD and returns an object
+    :return: sra_object_instance
+    """
+    # ic("_____inside get_SRA_XML_baseline_____")
 
-if __name__ == '__main__':
-    ic()
-    main()
+    def file2json(file_name):
+        f = open(file_name)
+        my_sra_json = json.load(f)
+        f.close()
+        return(my_sra_json)
+
+    def cmd2file(cmd, outfilename):
+        """
+
+        :param cmd:
+        :param outfilename:
+        :return:
+        """
+        ic()
+        ic(cmd)
+        ic(outfilename)
+        pid = os.getpid()
+        tmp_outfile = "/tmp/tmp_exp_checklist_" + str(pid)
+        tmp_cmd = cmd + " > " + tmp_outfile
+        ic(tmp_cmd)
+        try:
+            os.system(tmp_cmd)
+        except:
+            print(f"ERROR: command failed: {tmp_cmd}")
+            sys.exit()
+
+        try:
+            os.rename(tmp_outfile, outfilename)
+        except:
+            print(f"ERROR: command failed: 'os.rename(tmp_outfile, outfilename)'")
+            sys.exit()
+
+    def is_file_older_than(file_name, delta):
+        """
+        e.g. is_file_older_than(file_name, timedelta(days=1))
+        :param file_name:
+        :param delta:
+        :return: True or False
+        """
+        if not os.path.exists(file_name):
+            return False
+        # cutoff = datetime.utcnow() - delta
+        cutoff = datetime.now(tz=timezone.utc) - delta
+        # ic(f"cutoff={cutoff}")
+        mtime = datetime.fromtimestamp(os.path.getmtime(file_name), tz=timezone.utc)
+        # ic(f"mtime={mtime}")
+        if mtime < cutoff:
+            return True
+        return False
+
+    def cmd2json(cmd, outfilename):
+        """
+
+
+        :param cmd:  command without a stdout to a file e.g. curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.experiment.xsd | xq
+        :param outfilename:
+        :return: my_sra_json
+        """
+        # ic()
+        #ic(cmd)
+        # ic(outfilename)
+
+        if not os.path.isfile(outfilename) or is_file_older_than(outfilename, timedelta(days=1)):
+            print(f"{outfilename} is older than 1 day! so re-running.")
+            cmd2file(cmd, outfilename)
+
+        my_sra_json = file2json(outfilename)
+
+        #sys.exit()
+        return my_sra_json
+
+    # Check and do any necessary updates
+    # Sorry will run on linux and unix files, and needs jq installed
+    HOMEDIR = os.environ.get("HOME")
+    outdir = HOMEDIR + "/projects/ExperimentChecklist/data/input/"
+    ic(outdir)
+    outfile = "SRA.common.json"
+    outfullfilename = outdir + outfile
+    cmd = "curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.common.xsd | xq "
+
+    my_sra_common_json = cmd2json(cmd, outfullfilename)
+
+    outfile = "SRA.experiment.json"
+    outfullfilename = outdir + outfile
+    cmd = "curl https://ftp.ebi.ac.uk/pub/databases/ena/doc/xsd/sra_1_5/SRA.experiment.xsd | xq "
+    my_sra_experiment_json = cmd2json(cmd, outfullfilename)
+
+    sra_obj = SRA_EXPERIMENT_SPEC(my_sra_experiment_json, my_sra_common_json)
+    return(sra_obj)
+
