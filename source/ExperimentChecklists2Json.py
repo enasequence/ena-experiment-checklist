@@ -25,9 +25,8 @@ ___start_date___ = "2022-11-29"
 __docformat___ = 'reStructuredText'
 
 """
-
+import sys
 import pandas as pd
-
 from ChecklistDoc import ChecklistDoc
 from ExperimentType import process_and_get_fields2expt_type_obj_dict
 # from ExperimentTypeJsonSchema.ExperimentTypeJsonSchemaClass import ExperimentTypeJsonSchemaClass
@@ -181,6 +180,7 @@ def main():
     # need to fix the controlled vocab terms!
 
     print("-----------------------------------------------------------------------------")
+    sys.exit()
 
     generate_checklist_files(expt_objects_dict, schema_obj_dict, checklist_doc, debug_status)
 

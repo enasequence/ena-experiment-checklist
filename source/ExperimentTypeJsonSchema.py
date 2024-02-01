@@ -212,7 +212,7 @@ class ExperimentTypeJsonSchemaClass:
             #ic()
             #ic(my_specific_json_config.get('target_loci'))
             #ic(sra_xml_obj.get_targetted_loci_list())
-            my_specific_json_config['target_loci']['enum'] = sra_xml_obj.get_targetted_loci_list()
+            my_specific_json_config['target_loci']['enum'] = sra_xml_obj.get_targeted_loci_list()
             #exit()
         self._specific_json_config = my_specific_json_config
 
