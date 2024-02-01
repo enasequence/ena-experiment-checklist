@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-"""Script of 'extract_experiment_XML_vals.py' is to get various experiment related controlled vocabularies and dependencies from the SRA.experiment.xml
+"""Script of 'extract_experiment_XML_vals.py' is to get various experiment related controlled vocabularies
+and dependencies from the SRA.experiment.xml
 
 1) the underlying functions are called  in the ExperimentChecklists2.json.py script
-2) as a command line - If someone needs to repeat getting an alphabetically sorted list of terms for 1) platforms and 2) instruments run this script.
+2) as a command line - If someone needs to repeat getting an alphabetically sorted list of terms for 1) platforms and
+2) instruments run this script.
 
 Notes:
-It pulls the information from the SRA.experiment.xsd. This XSD is the ground truth for metadata for experiments, thus important
+It pulls the information from the SRA.experiment.xsd. This XSD is the ground truth for metadata for experiments,
+ thus important
 to be in sync with it. The code automatically uses the latest version on the ftp site.
 (BTW I cheat and use a JSON rendition of the XML, as JSON is much easier to use in python.
 Uses the fairly ubiquitous jq/xq utilities. Only needed though when the XML is updated.)
@@ -15,23 +18,14 @@ ___start_date___ = 2023-05-03
 __docformat___ = 'reStructuredText'
 
 """
-import sys
-
 from icecream import ic
-
-import argparse
-
 import pprint
-from SRA_EXPERIMENT_OBJ import SRA_EXPERIMENT_SPEC, get_SRA_XML_baseline
-
-
-
-
+from SRA_EXPERIMENT_OBJ import get_SRA_XML_baseline
 
 def list2string(my_list):
     """
     :param my_list:
-    :return: string that is for a alphabetically sorted list and newline delimited
+    :return: string that is for an alphabetically sorted list and newline delimited
     """
     my_list.sort()
     return '\n'.join(my_list)
@@ -69,6 +63,7 @@ def main():
     print("\ntargeted_locus_names:")
     print(sra_obj.get_targeted_loci_list())
     print("End of Main\n####################################################")
+
 
 if __name__ == '__main__':
     ic()
