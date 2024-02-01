@@ -25,27 +25,20 @@ ___start_date___ = "2022-11-29"
 __docformat___ = 'reStructuredText'
 
 """
-import sys
 
 import pandas as pd
+
+from ChecklistDoc import ChecklistDoc
+from ExperimentType import process_and_get_fields2expt_type_obj_dict
+# from ExperimentTypeJsonSchema.ExperimentTypeJsonSchemaClass import ExperimentTypeJsonSchemaClass
+from ExperimentTypeJsonSchema import *
+from ExperimentUtils import get_data_locations
+from extract_experiment_XML_vals import *
+
 pd.set_option('display.max_rows', 500)
 pd.set_option('display.max_columns', 500)
 pd.set_option('display.width', 1000)
 # python3 -m pydoc -w ExperimentChecklists2Json
-
-from icecream import ic
-# import re
-# import os
-# from os.path import join, dirname
-# import json
-# import sys
-# ic.disable()
-from extract_experiment_XML_vals import *
-from ChecklistDoc import ChecklistDoc
-# from ExperimentTypeJsonSchema.ExperimentTypeJsonSchemaClass import ExperimentTypeJsonSchemaClass
-from ExperimentTypeJsonSchema import *
-from ExperimentType import process_and_get_fields2expt_type_obj_dict
-from ExperimentUtils import get_data_locations, writeString2file
 
 # from ExperimentChecklist import *
 # from jsonschema import validate
@@ -58,7 +51,6 @@ base_dir = '/Users/woollard/projects/easi-genomics/ExperimentChecklist/'
 """
 
 
-
 def print_all_checklists(expt_objects):
     """ print_all_checklists
         params:
@@ -66,7 +58,7 @@ def print_all_checklists(expt_objects):
         rtn: nowt
     """
     ic()
-    combined_cl_df = pd.DataFrame()
+    pd.DataFrame()
     data_loc_dict = get_data_locations()
     output_dir = data_loc_dict["output_xlsx_dir"]
     keys = list(expt_objects.keys())
@@ -79,11 +71,6 @@ def print_all_checklists(expt_objects):
     for experiment_type_name in expt_objects:
         experimentType = expt_objects[experiment_type_name]
         experimentType.print_checklist()
-        # experimentType.print_test_checklist()
-        expt_cl_df = experimentType.get_checklist_as_df()
-        ic()
-        # sys.exit()
-
 
 def create_schema_objects(expt_objects, config_data):
     """ create_schema_objects
@@ -91,7 +78,7 @@ def create_schema_objects(expt_objects, config_data):
         in: expt_objects, config_data
         rtn: schema_objects_dict
     """
-    #ic()
+    # ic()
     schema_objects = {}
     for experiment_type_name in expt_objects:
         experimentType: object = expt_objects[experiment_type_name]
@@ -101,17 +88,18 @@ def create_schema_objects(expt_objects, config_data):
         schema_obj.print_json_schema()
     return schema_objects
 
-def print_all_checklist_json_schemas(expt_objects):
 
+def print_all_checklist_json_schemas(expt_objects):
     for experiment_type_name in expt_objects:
         experimentType = expt_objects[experiment_type_name]
-        schema_obj = experimentType.get_json_schema_obj()
+        # schema_obj = experimentType.get_json_schema_obj()
         # ic(schema_obj)
         # print(schema_obj.experiment_type_name)
         # print(schema_obj.get_core_fields_dict())
         # print(schema_obj.get_core_rules_list())
         # print(schema_obj.print_json_schema())
         experimentType.print_ExperimentTypeObj()
+
 
 def get_an_experiment_type_obj():
     ic()
@@ -126,15 +114,16 @@ def get_an_experiment_type_obj():
     experimentType.set_json_schema_obj(schema_obj)
     return experimentType
 
+
 def generate_checklist_files(expt_objects_dict, schema_obj_dict, checklist_doc, debug_status):
     """
 
+    :param checklist_doc:
     :param expt_objects_dict:
     :param schema_obj_dict:
     :param debug_status:
     :return:
     """
-    data_loc_dict = get_data_locations()
     # print("## Create expt_objects_dict for each experiment: (they get used later")
     expt_keys = list(expt_objects_dict)
     ic(expt_keys)
@@ -143,13 +132,9 @@ def generate_checklist_files(expt_objects_dict, schema_obj_dict, checklist_doc, 
         #     continue
         # print(experiment_type_name)
         ic(experiment_type_name)
-        experimentType = expt_objects_dict[experiment_type_name]
+        # experimentType = expt_objects_dict[experiment_type_name]
         # ic(experimentType.get_checklist_specific_dict())
         # ic(experimentType.getSpecificExperimentTypeDf())
-
-        schema_obj = experimentType.get_json_schema_obj()
-        # ic(schema_obj.get_experiment_type_name())
-        # checklist_doc.addExperimentInfo(experimentType)
 
     ic()
     print("-" * 100)
@@ -177,30 +162,27 @@ def main():
     ic()
     data_loc_dict = get_data_locations()
     ic(data_loc_dict)
-    debug_status = True
     debug_status = False
     checklist_doc = ChecklistDoc()
     config_data = read_config(debug_status)
     expt_objects_dict = process_and_get_fields2expt_type_obj_dict(config_data)
     # print("-----------------------------------------------------------------------------")
     # ic()
-    metabarcoding_eT = expt_objects_dict['METABARCODING']
+    # metabarcoding_eT = expt_objects_dict['METABARCODING']
     # ic(metabarcoding_eT.get_checklist_specific_dict())
     # print("-----------------------------------------------------------------------------")
     schema_obj_dict = create_schema_objects(expt_objects_dict, config_data)
 
-    #getting any experiment_type_onk
+    # getting any experiment_type_onk
     experimentType = get_an_experiment_type_obj()
-    outfilename = data_loc_dict['output_xlsx_dir'] + "all_core_experiment_metadata.xlsx"
-    ic(outfilename)
-    experimentType.getCoreExperimentTypeDf().to_excel(outfilename, index=False)
+    out_file_name = data_loc_dict['output_xlsx_dir'] + "all_core_experiment_metadata.xlsx"
+    ic(out_file_name)
+    experimentType.getCoreExperimentTypeDf().to_excel(out_file_name, index = False)
     # need to fix the controlled vocab terms!
 
     print("-----------------------------------------------------------------------------")
 
-
     generate_checklist_files(expt_objects_dict, schema_obj_dict, checklist_doc, debug_status)
-
 
     checklist_doc.print_checklist_doc()
     ic("at the end of main in the initialising script")
