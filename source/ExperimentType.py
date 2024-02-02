@@ -121,6 +121,9 @@ class ExperimentType:
         ic()
         return self.get_all_dict()
 
+    def get_experiment_type_name(self):
+        return self.experiment_type_name
+
     def get_experiment_type(self):
         if hasattr(self, 'experiment_type'):
             return self.experiment_type
