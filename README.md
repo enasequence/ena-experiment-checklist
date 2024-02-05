@@ -22,8 +22,17 @@ User use cases have been collated and some key user and maintenance technical re
 
 ## In Essence
 * The "everything" JSON template is taken from data/input/ExperimentChecklistIn.json
-* A script runs over this and generates specific JSON templates in data/output for each experiment type.
-* The same script generates experiment type documentation too.
+* The ExperimentChecklists2Json.py script runs over this to enerate:
+  * specific JSON templates in data/output for each experiment type
+  * experiment type documentation
+
+## Overall Status
+* This an alpha release
+* The scripts are all in python, a mix of object orientated and functional programming
+* Some unit test were created and are being added, but are not comprehensive
+* The data input are:
+  * uses the INSDC(SRA) XSDs to term values, and flagging some changes e.g. if a new sequencing platform is created
+  * a JSON file thatsecif . Some of the values in this JSON are overwritten by updates from the INSDC XSD files.
 
 ![](docs/ExperimentChecklistSimple.png)
 ## Further docs
