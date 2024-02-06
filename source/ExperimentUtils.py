@@ -47,7 +47,7 @@ def read_config(debug_status):
         filename = data_loc_dict["input_dir"] + "ExperimentChecklistIn.json"
     else:
         filename = data_loc_dict["input_dir"] + "test_ExperimentChecklistIn.json"
-    print(filename)
+    # print(filename)
     f = open(filename)
     data = json.load(f)
     f.close()

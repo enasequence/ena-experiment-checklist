@@ -15,7 +15,6 @@ class ExperimentTypeJsonSchemaClass:
         self._experimentType = experiment_type_obj
         self.experiment_type_name = experiment_type_obj.experiment_type_name
         self._core_dict = core_dict
-        ic(self._core_dict.keys())
         self._specific_json_config = ""
         # below was uncommented in working! But was failing
         # self.set_experiment_specific_dict(experiment_type_obj.get_checklist_specific_dict())
@@ -51,7 +50,7 @@ class ExperimentTypeJsonSchemaClass:
         :return:
         """
         sra_xml_obj = self.get_SRA_obj
-        ic(sra_xml_obj)
+        # ic(sra_xml_obj)
         # self.platform_instrument = sra_xml_obj.get_platform()
         # schema_core_dict = {"properties": self.get_core_fields_dict()}
         # properties instrument_platform enum LIST

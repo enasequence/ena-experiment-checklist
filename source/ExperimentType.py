@@ -43,7 +43,13 @@ class ExperimentType:
         return self._special_fields_list
 
     def set_json_schema_obj(self, schema_obj):
+        """
+        sets up the json_schema_obj attribute and sets up the core_dict at the same time.
+        :param schema_obj:
+        :return:
+        """
         self._json_schema_obj = schema_obj
+        # self.set_core_dict(schema_obj.get_core_fields_dict())
 
     def get_json_schema_obj(self):
         if self._json_schema_obj is None:
@@ -51,8 +57,35 @@ class ExperimentType:
             sys.exit()
         return self._json_schema_obj
 
+    def get_all_core_slice_dict(self, slice_name):
+        # ic()
+        # ic(f"{slice_name}")
+        all_core_dict = self.get_core_dict()
+        # ic(all_core_dict.keys())
+        if slice_name in all_core_dict:
+            return all_core_dict[slice_name]
+        else:
+            print(f"ERROR: {slice_name} is not in all_core_dict")
+
+    def get_just_core_dict(self):
+        return self.get_all_core_slice_dict("coreFields")
+
+    def get_allspecific_dict(self):
+        """
+         i.e. the config field part of the dict that is not core!
+        :return:
+        """
+        return self.get_all_core_slice_dict("allSpecificFieldsConfig")
+
+    def get_allspecific_field_list(self):
+        """
+        i.e. the config field part of the dict that is not core!
+        :return:
+        """
+        my_dict = self.get_schema_allspecific_fields_dict()
+        return sorted(my_dict.keys())
+
     def get_core_field_list(self):
-        ic()
         core_dict = self.get_schema_core_fields_dict()
         return sorted(core_dict.keys())
 
@@ -90,11 +123,20 @@ class ExperimentType:
         return self._special_dict
 
     def get_core_dict(self):
-        tmp = self._core_dict
+        if self._core_dict is None:
+            schema_obj = self.get_json_schema_obj()
+            self._core_dict = schema_obj.get_core_dict()
+            if self._core_dict is None:
+                ic(f"ERROR: self._core_dict is None in ExperimentType, tried, but unable to recover")
+                sys.exit(f"ERROR: self._core_dict is None in ExperimentType, unable to recover")
+        # tmp = self._core_dict
         # ic(tmp.keys())
         return self._core_dict
 
     def set_core_dict(self, core_dict):
+        ic()
+        ic(core_dict.keys())
+        sys.exit
         self._core_dict = core_dict
 
     def set_core_dict_default(self, core_dict_default):
@@ -283,6 +325,52 @@ class ExperimentType:
         schema_obj = self.get_json_schema_obj()
         schema_core_dict = schema_obj.get_core_fields_dict()
         return schema_core_dict
+
+    def get_all_insdc_controlled_field_list(self):
+        my_dict = self.get_all_insdc_controlled_field_dict()
+        return sorted(my_dict['yes'].keys())
+
+    def get_all_insdc_non_controlled_field_list(self):
+        my_dict = self.get_all_insdc_controlled_field_dict()
+        return sorted(my_dict['no'].keys())
+
+    def get_all_insdc_controlled_field_dict(self):
+
+        if hasattr(self, 'insdc_fields_indication'):
+            return self.insdc_fields_indication
+
+        def process_for_insdc(field, sub_dict,  insdc_fields_indication):
+            # ic(field)
+            if sub_dict is None:
+                sys.exit("sub_dict is None")
+            if field in sub_dict:
+                 if '_standards_source' in sub_dict[field]:
+                     if "INSDC" in sub_dict[field]['_standards_source']:
+                         insdc_fields_indication['yes'][field] = sub_dict[field]['_standards_source']
+                     else:
+                        insdc_fields_indication['no'][field] = sub_dict[field]['_standards_source']
+                 else:
+                     insdc_fields_indication['no'][field] = "currently no standard source"
+            else:
+                 print(f"ERROR: {field} is not in schema_core_fields_dict")
+            return insdc_fields_indication
+
+        insdc_fields_indication = { "yes": {}, "no": {}}
+        clean_core_field_list = self.get_core_field_clean_list()
+        # ic(clean_core_field_list)
+        schema_core_dict = self.get_schema_core_fields_dict()
+
+        for field in clean_core_field_list:
+            insdc_fields_indication = process_for_insdc(field, self.get_just_core_dict(), insdc_fields_indication)
+
+
+        for field in self.get_allspecific_dict():
+            if "_comment" in field:
+                continue
+            insdc_fields_indication = process_for_insdc(field, self.get_allspecific_dict(), insdc_fields_indication)
+        self.insdc_fields_indication = insdc_fields_indication
+        return insdc_fields_indication
+
 
     def getCoreExperimentTypeDf(self):
         ic()
