@@ -136,7 +136,6 @@ class ExperimentType:
     def set_core_dict(self, core_dict):
         ic()
         ic(core_dict.keys())
-        sys.exit
         self._core_dict = core_dict
 
     def set_core_dict_default(self, core_dict_default):
@@ -146,9 +145,13 @@ class ExperimentType:
         return self._core_dict_default_values
 
     def get_all_dict(self):
+        ic()
         if hasattr(self, '_all_dict'):
             return self._all_dict
         else:
+            ic()
+            ic(self.get_checklist_specific_dict())
+            ic(self.get_core_dict().keys())
             all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
             # ic(self.get_checklist_specific_dict())
             # ic(self.get_core_dict())

@@ -21,6 +21,7 @@ class ExperimentTypeJsonSchemaClass:
         self.platform_instrument = ""
         self.SRA_obj = ""
         self._schema_dict = {}
+        self._set_platform_instrument_happened = False
         self.set_platform_instrument()
         experiment_type_obj.set_json_schema_obj(self)
 
@@ -41,32 +42,46 @@ class ExperimentTypeJsonSchemaClass:
             # ic.enable()
         return self.SRA_obj
 
+    def set_library_fields_up(self):
+        sra_xml_obj = self.get_SRA_obj
+        self._core_dict['coreFields']["library_source"]["enum"] = sra_xml_obj.get_library_source_list()
+        self._core_dict['coreFields']["library_selection"]["enum"] = sra_xml_obj.get_library_selection_list()
+        self._core_dict['coreFields']["library_strategy"]["enum"] = sra_xml_obj.get_library_strategy_list()
+
     def set_platform_instrument(self):
         """
          gets the platform and instrument JSON configuration ultimately from the experiment_sra_xml
          e.g. {'BGISEQ': ['BGISEQ-500', 'MGISEQ-2000RS', 'BGISEQ-50'],
                 'DNBSEQ': ['DNBSEQ-G50','DNBSEQ-G400 FAST','DNBSEQ-T7', 'unspecified','DNBSEQ-G400']
               }
+              and sets a few other things up.
         :return:
         """
+        if self._set_platform_instrument_happened:
+            return
+
         sra_xml_obj = self.get_SRA_obj
         # ic(sra_xml_obj)
-        # self.platform_instrument = sra_xml_obj.get_platform()
+        self.platform_instrument = sra_xml_obj.get_platform()
         # schema_core_dict = {"properties": self.get_core_fields_dict()}
         # properties instrument_platform enum LIST
         # ic(self._core_dict['coreFields'])
         self._core_dict['coreFields']["instrument_platform"]["enum"] = sra_xml_obj.get_platform_list()
         # properties instrument_model enum LIST
         self._core_dict['coreFields']["instrument_model"]["enum"] = sra_xml_obj.get_instrument_list()
-        self._core_dict['coreFields']["library_source"]["enum"] = sra_xml_obj.get_library_source_list()
-        self._core_dict['coreFields']["library_selection"]["enum"] = sra_xml_obj.get_library_selection_list()
-        self._core_dict['coreFields']["library_strategy"]["enum"] = sra_xml_obj.get_library_strategy_list()
-        # target_loci
 
+        # target_loci
+        self._set_platform_instrument_happened = True
         self.set_platform_instrument_rules()
 
+
     def get_platform_instrument(self):
-        # dict of platform as keys and an array of instruments for each platform
+        """
+        :return:  # dict of platform as keys and an array of instruments for each platform
+        """
+
+        if not type(self.platform_instrument) is dict:
+            self.set_platform_instrument()
         return self.platform_instrument
 
     def get_experiment_type_name(self):
@@ -167,9 +182,10 @@ class ExperimentTypeJsonSchemaClass:
         self._core_dict['coreRules'].extend(pi_rules)
         # ic(self._core_dict['coreRules'])
         # print(self._core_dict['coreRules'])
+        self._pi_rules = pi_rules
 
     def get_instrument_platform_rules(self):
-        pass
+        return self._pi_rules
 
     def get_core_rules_list(self):
         """get_core_fields_dict
@@ -328,11 +344,15 @@ class ExperimentTypeJsonSchemaClass:
         return json_object
 
     def get_checklist_name(self):
+        if hasattr(self, 'checklist_name'):
+            return self.checklist_name
         experiment_type_obj = self.get_experiment_type_obj()
+        ic()
         my_dict = experiment_type_obj.get_all_dict()
         # ic(my_dict)
         # ic(my_dict['checklist_name'])
-        return my_dict['checklist_name']
+        self.checklist_name = my_dict["checklist_name"]
+        return self.checklist_name
 
     def get_checklist_id(self):
         experiment_type_obj = self.get_experiment_type_obj()
