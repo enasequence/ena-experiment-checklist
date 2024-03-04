@@ -1,14 +1,22 @@
+#!/usr/bin/env python3
+
+"""  ExperimentType.py
+
+___author___ = "woollard@ebi.ac.uk"
+___start_date___ = 2023-05-15
+__docformat___ = 'reStructuredText'
+"""
 
 from icecream import ic
 import re
-import pandas as pd
-pd.set_option('display.max_rows', 500)
-pd.set_option('display.max_columns', 500)
-pd.set_option('display.width', 1000)
 from ExperimentUtils import get_data_locations
 import json
 import pandas as pd
 import sys
+import pandas as pd
+pd.set_option('display.max_rows', 500)
+pd.set_option('display.max_columns', 500)
+pd.set_option('display.width', 1000)
 
 class ExperimentType:
     """ ExperimentType object
@@ -28,7 +36,6 @@ class ExperimentType:
         self._core_dict_default_values = None
         self.experiment_type_name = experiment_type_name
 
-
     def set_special_fields_list(self, special_fields_list):
         self._special_fields_list = special_fields_list
 
@@ -36,13 +43,57 @@ class ExperimentType:
         return self._special_fields_list
 
     def set_json_schema_obj(self, schema_obj):
+        """
+        sets up the json_schema_obj attribute and sets up the core_dict at the same time.
+        :param schema_obj:
+        :return:
+        """
         self._json_schema_obj = schema_obj
+        # self.set_core_dict(schema_obj.get_core_fields_dict())
 
     def get_json_schema_obj(self):
-        if self._json_schema_obj == None:
+        if self._json_schema_obj is None:
             print("ERROR: self._json_schema_obj has not be set in ExperimentType Object")
             sys.exit()
         return self._json_schema_obj
+
+    def get_all_core_slice_dict(self, slice_name):
+        # ic()
+        # ic(f"{slice_name}")
+        all_core_dict = self.get_core_dict()
+        # ic(all_core_dict.keys())
+        if slice_name in all_core_dict:
+            return all_core_dict[slice_name]
+        else:
+            print(f"ERROR: {slice_name} is not in all_core_dict")
+
+    def get_just_core_dict(self):
+        return self.get_all_core_slice_dict("coreFields")
+
+    def get_allspecific_dict(self):
+        """
+         i.e. the config field part of the dict that is not core!
+        :return:
+        """
+        return self.get_all_core_slice_dict("allSpecificFieldsConfig")
+
+    def get_allspecific_field_list(self):
+        """
+        i.e. the config field part of the dict that is not core!
+        :return:
+        """
+        my_dict = self.get_schema_allspecific_fields_dict()
+        return sorted(my_dict.keys())
+
+    def get_core_field_list(self):
+        core_dict = self.get_schema_core_fields_dict()
+        return sorted(core_dict.keys())
+
+    def get_core_field_clean_list(self):
+        all_core_field_list = self.get_core_field_list()
+        all_core_field_list.remove('_comment1')
+        all_core_field_list.remove('_comment2')
+        return all_core_field_list
 
     def set_checklist_specific_dict(self, checklist_dict):
         """ set_checklist_specific_dict
@@ -72,11 +123,19 @@ class ExperimentType:
         return self._special_dict
 
     def get_core_dict(self):
-        tmp = self._core_dict
+        if self._core_dict is None:
+            schema_obj = self.get_json_schema_obj()
+            self._core_dict = schema_obj.get_core_dict()
+            if self._core_dict is None:
+                ic(f"ERROR: self._core_dict is None in ExperimentType, tried, but unable to recover")
+                sys.exit(f"ERROR: self._core_dict is None in ExperimentType, unable to recover")
+        # tmp = self._core_dict
         # ic(tmp.keys())
         return self._core_dict
 
     def set_core_dict(self, core_dict):
+        ic()
+        ic(core_dict.keys())
         self._core_dict = core_dict
 
     def set_core_dict_default(self, core_dict_default):
@@ -86,9 +145,13 @@ class ExperimentType:
         return self._core_dict_default_values
 
     def get_all_dict(self):
+        ic()
         if hasattr(self, '_all_dict'):
             return self._all_dict
         else:
+            ic()
+            ic(self.get_checklist_specific_dict())
+            ic(self.get_core_dict().keys())
             all_dict = {**self.get_checklist_specific_dict(), **self.get_core_dict(), **self.get_special_dict()}
             # ic(self.get_checklist_specific_dict())
             # ic(self.get_core_dict())
@@ -113,6 +176,7 @@ class ExperimentType:
         all_dict = self.clean_all_dict(all_dict)
 
         return all_dict
+
     def get_ExperimentTypeObj_values(self):
         """
 
@@ -120,6 +184,9 @@ class ExperimentType:
         """
         ic()
         return self.get_all_dict()
+
+    def get_experiment_type_name(self):
+        return self.experiment_type_name
 
     def get_experiment_type(self):
         if hasattr(self, 'experiment_type'):
@@ -130,9 +197,7 @@ class ExperimentType:
 
     def print_checklist_json(self):
         """
-
-        :param checklist_dict:
-        :return: outfileName
+            determines the outfile names using the experiment type name
         """
         data_loc_dict = get_data_locations()
         checklist_dict = self.get_all_dict()
@@ -150,6 +215,8 @@ class ExperimentType:
         """
         schema_obj = self.get_json_schema_obj()
         core_dict = self.get_core_dict()
+        ic(core_dict)
+        # sys.exit()
         # my_dict = schema_obj.get_experiment_specific_dict()
         # ic(my_dict)
         # self.specificExperimentTypeDf = self.experimentTypeMetaDataDf(my_dict)
@@ -159,20 +226,24 @@ class ExperimentType:
         all_specific_dict = schema_obj.get_experiment_specific_dict()
         # ic(all_specific_dict)
         checklist_specific_dict = self.get_checklist_specific_dict()
+        ic(checklist_specific_dict)
+        ic(all_specific_dict["checklist_version"])
         et_specific_dict = {}
         missing_field_list = []
         for field_in_et in checklist_specific_dict:
             if field_in_et in all_specific_dict:
                 et_specific_dict[field_in_et] = all_specific_dict[field_in_et]
-                et_specific_dict[field_in_et]['default'] = checklist_specific_dict[field_in_et]
-                et_specific_dict[field_in_et]['_example'] = et_specific_dict[field_in_et]['default']
+                et_specific_dict[field_in_et]['_default'] = checklist_specific_dict[field_in_et]
+                et_specific_dict[field_in_et]['_example'] = et_specific_dict[field_in_et]['_default']
             else:
+                ic(field_in_et)
                 missing_field_list.append(field_in_et)
+                if field_in_et not in core_dict:
+                    et_specific_dict[field_in_et] = {"_description": checklist_specific_dict[field_in_et]}
         if missing_field_list:
             print(f"INFO: for {self.experiment_type_name} these are not in the schema specific field list {missing_field_list}")
 
         return et_specific_dict
-
 
     def getSpecificExperimentTypeDf(self):
         """
@@ -184,24 +255,49 @@ class ExperimentType:
         if hasattr(self, 'specificExperimentTypeDf'):
             return self.specificExperimentTypeDf
 
-        et_specific_dict = self.getSpecificExperimentTypeDict()
-        self.specificExperimentTypeDf = self.experimentTypeMetaDataDf(et_specific_dict)
+        self.specificExperimentTypeDf = self.experimentTypeMetaDataDf("specific")
         # ic(self.specificExperimentTypeDf)
 
         return self.specificExperimentTypeDf
 
-    def experimentTypeMetaDataDf(self, schema_core_dict):
+    def getTotalDetailExperimentTypeDf(self):
+        ic()
+        print("-----------------------------------------------------------------------")
+        specificExperimentTypeDf = self.getSpecificExperimentTypeDf()
+        ic(specificExperimentTypeDf['Field name'])
+        print(specificExperimentTypeDf.head(2).to_markdown())
+        print("-----------------------------------------------------------------------")
+        coreExperimentTypeDf = self.getCoreExperimentTypeDf()
+        print(coreExperimentTypeDf.head(2).to_markdown())
+        self._totalDetailExperimentTypeDf = pd.concat([specificExperimentTypeDf, coreExperimentTypeDf, ])
+        print(self._totalDetailExperimentTypeDf.head(20).to_markdown())
+
+        return self._totalDetailExperimentTypeDf
+
+    def experimentTypeMetaDataDf(self, schemaType):
         """
-        does not currently use self
-        :param schema_core_dict:
+        :param schemaType: one of "core" or "specific"
         :return: df
         """
+        ic()
+        ic(schemaType)
+        if schemaType == "core":
+            schema_core_dict = self.get_schema_core_fields_dict()
+        elif schemaType == "specific":
+            schema_core_dict = self.getSpecificExperimentTypeDict()
+        else:
+            ic()
+            print(f"ERROR: {schemaType} is not known")
+            sys.exit()
+
+        # if hasattr(self, '_experimentTypeMetaDataDf'):
+        #    return self._experimentTypeMetaDataDf
         ic.disable()
         ic()
         column_names = ["Field name", "Specificity", "Definition", "Mandatory", "Example", "Type",
                         "Controlled Vocab Terms", "Comment"]
         print_dict = {}
-        specificity = 'core'
+        specificity = schemaType
         for coreField in schema_core_dict:
             ic(coreField)
             if not coreField.startswith("_"):
@@ -211,7 +307,7 @@ class ExperimentType:
                 enum = ", ".join(my_local.get("enum", ""))
                 if enum == "":
                     enum = my_local.get("pattern", "")
-                    enum = enum.replace("|","\|")
+                    enum = enum.replace("|", r"\|")
                 example = str(my_local.get("_example", ""))
                 if example == "":
                     ic("Example is blank so using default")
@@ -219,13 +315,64 @@ class ExperimentType:
                 my_list = [coreField, specificity, my_local.get("description", ""),
                            str(my_local.get("_required", "N.A.")), example,
                            str(my_local.get("type", "")),  enum,
-                            my_local.get("_comment", "")]
+                           my_local.get("_comment", "")]
                 print_dict[coreField] = my_list
-        #ic(print_dict)
+        # ic(print_dict)
         df = pd.DataFrame.from_dict(print_dict, orient = 'index', columns = column_names)
         ic.enable()
         # ic(df.head())
-        return df
+        self._experimentTypeMetaDataDf = df
+        return self._experimentTypeMetaDataDf
+
+    def get_schema_core_fields_dict(self):
+        schema_obj = self.get_json_schema_obj()
+        schema_core_dict = schema_obj.get_core_fields_dict()
+        return schema_core_dict
+
+    def get_all_insdc_controlled_field_list(self):
+        my_dict = self.get_all_insdc_controlled_field_dict()
+        return sorted(my_dict['yes'].keys())
+
+    def get_all_insdc_non_controlled_field_list(self):
+        my_dict = self.get_all_insdc_controlled_field_dict()
+        return sorted(my_dict['no'].keys())
+
+    def get_all_insdc_controlled_field_dict(self):
+
+        if hasattr(self, 'insdc_fields_indication'):
+            return self.insdc_fields_indication
+
+        def process_for_insdc(field, sub_dict,  insdc_fields_indication):
+            # ic(field)
+            if sub_dict is None:
+                sys.exit("sub_dict is None")
+            if field in sub_dict:
+                 if '_standards_source' in sub_dict[field]:
+                     if "INSDC" in sub_dict[field]['_standards_source']:
+                         insdc_fields_indication['yes'][field] = sub_dict[field]['_standards_source']
+                     else:
+                        insdc_fields_indication['no'][field] = sub_dict[field]['_standards_source']
+                 else:
+                     insdc_fields_indication['no'][field] = "currently no standard source"
+            else:
+                 print(f"ERROR: {field} is not in schema_core_fields_dict")
+            return insdc_fields_indication
+
+        insdc_fields_indication = { "yes": {}, "no": {}}
+        clean_core_field_list = self.get_core_field_clean_list()
+        # ic(clean_core_field_list)
+        schema_core_dict = self.get_schema_core_fields_dict()
+
+        for field in clean_core_field_list:
+            insdc_fields_indication = process_for_insdc(field, self.get_just_core_dict(), insdc_fields_indication)
+
+
+        for field in self.get_allspecific_dict():
+            if "_comment" in field:
+                continue
+            insdc_fields_indication = process_for_insdc(field, self.get_allspecific_dict(), insdc_fields_indication)
+        self.insdc_fields_indication = insdc_fields_indication
+        return insdc_fields_indication
 
 
     def getCoreExperimentTypeDf(self):
@@ -233,15 +380,16 @@ class ExperimentType:
         ic.enable()
         if hasattr(self, 'coreExperimentTypeDf'):
             return self.coreExperimentTypeDf
-        schema_obj = self.get_json_schema_obj()
-        schema_core_dict = schema_obj.get_core_fields_dict()
+        # schema_obj = self.get_json_schema_obj()
+        # schema_core_dict = schema_obj.get_core_fields_dict()
+        schema_core_dict = self.get_schema_core_fields_dict()
 
-        self.coreExperimentTypeDf = self.experimentTypeMetaDataDf(schema_core_dict)
+        self.coreExperimentTypeDf = self.experimentTypeMetaDataDf("core")
         ic.enable()
         df = self.coreExperimentTypeDf
         # ic(df)
-        #ic(df['study_id'])
-        #sys.exit()
+        # ic(df['study_id'])
+        # sys.exit()
         return self.coreExperimentTypeDf
 
     def get_checklist_as_df(self):
@@ -257,7 +405,7 @@ class ExperimentType:
                         add_key = key + ":" + sub_key
                         print_dict[add_key] = [str(checklist_dict[key][sub_key])]
                         # print(f"{add_key} {print_dict[add_key]}")
-                else:  #may wish to do something more adnvaced
+                else:  # may wish to do something more adnvaced
                     print_dict[key] = [checklist_dict[key]]
             else:
                 print_dict[key] = [checklist_dict[key]]
@@ -271,19 +419,34 @@ class ExperimentType:
         # ic(self.checklist_as_df)
         return self.checklist_as_df
 
-
-    def print_checklist_xlsx(self):
+    def print_checklist_summary_xlsx(self):
         """
 
-        :param checklist_dict:
-        :return: outfileName
+        """
+        data_loc_dict = get_data_locations()
+        df = self.get_checklist_as_df()
+
+        outfileName = data_loc_dict["output_xlsx_dir"] + "summary_" + self.get_experiment_type() + '.xlsx'
+        df.to_excel(outfileName, index = False)
+
+        outfileName = data_loc_dict["output_md_dir"] + "summary_" + self.get_experiment_type() + '.md'
+        df.to_markdown(outfileName, index = False)
+        return outfileName
+
+    def print_checklist_detail_xlsx(self):
+        """
         """
         data_loc_dict = get_data_locations()
 
         outfileName = data_loc_dict["output_xlsx_dir"] + self.get_experiment_type() + '.xlsx'
-        df = self.get_checklist_as_df()
-        # ic(df.head())
-        df.to_excel(outfileName, index = False)
+
+        total_df = self.getTotalDetailExperimentTypeDf()
+        ic(total_df.head())
+        total_df.to_excel(outfileName, index = False)
+
+        outfileName = data_loc_dict["output_md_dir"] + self.get_experiment_type() + '.md'
+        total_df.to_markdown(outfileName, index = False)
+
         return outfileName
 
     def print_checklist_specific_xlsx(self):
@@ -293,14 +456,14 @@ class ExperimentType:
         self.getSpecificExperimentTypeDf().to_excel(outfileName, index = False)
         return outfileName
 
-
     def print_checklist(self):
         """
         params:
 
         """
         ic()
-        ic(self.print_checklist_xlsx())
+        ic(self.print_checklist_detail_xlsx())
+        ic(self.print_checklist_summary_xlsx())
         ic(self.print_checklist_json())
         ic(self.print_checklist_specific_xlsx())
 
@@ -360,14 +523,12 @@ def add_specials(experiment_type: object, config_data: object) -> object:
     # print(experiment_type.experiment_type_name)
     # ic.enable()
     for jsonKey in special_keys:
-        #ic(jsonKey)
+        # ic(jsonKey)
         if jsonKey in config_data:
-            #ic(config_data[jsonKey])
             local_dict = {**local_dict, **config_data[jsonKey]}
-            #ic(local_dict)
         else:
             print('WARN "special" key does not exist: "' + jsonKey +
-               '" please check the config data in the input JSON file' + ' for *_fields')
+                  '" please check the config data in the input JSON file' + ' for *_fields')
     experiment_type.set_special_dict(local_dict)
     return
 
@@ -391,7 +552,7 @@ def get_core_dict(config_data):
             # ic(field, " in config_data", config_data['coreFields'][field])
             if config_data['coreFields'][field]['type'] == 'number':
                 # ic(config_data['coreFields'][field])
-                coreDict[field] = config_data['coreFields'][field]['default']
+                coreDict[field] = config_data['coreFields'][field]['_default']
                 """as they are numeric, the JSON wants a number not a string"""
             else:
                 coreDict[field] = ""
@@ -400,9 +561,9 @@ def get_core_dict(config_data):
                 coreDictDefaultVal[field] = coreDict[field]
                 # ic("first if:", coreDictDefaultVal[field])
             elif "default" in config_data['coreFields'][field]:
-                # ic(config_data['coreFields'][field]['default'])
-                coreDictDefaultVal[field] = config_data['coreFields'][field]['default']
-                #ic("el if:", coreDictDefaultVal[field])
+                # ic(config_data['coreFields'][field]['_default'])
+                coreDictDefaultVal[field] = config_data['coreFields'][field]['_default']
+                # ic("el if:", coreDictDefaultVal[field])
             else:
                 coreDictDefaultVal[field] = ""
                 # ic("else :", coreDictDefaultVal[field])
@@ -413,5 +574,3 @@ def get_core_dict(config_data):
             # ic("!dict:" + str(config_data['coreFields'][i]))
             coreDictDefaultVal[field] = coreDict[field] = config_data['coreFields'][field]
     return coreDict, coreDictDefaultVal
-
-

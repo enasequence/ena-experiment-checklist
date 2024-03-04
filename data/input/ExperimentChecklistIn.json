@@ -3,7 +3,7 @@
     "$id": "https://www.ebi.ac.uk/exeriment.checklist.ena.schema.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "PROTOTYPE Experimental Checklists JSON schema",
-    "description": "Contained herein are the specific ENA experimental JSON schema describing what is need to validate specific checklists",
+    "_description": "Contained herein are the specific ENA experimental JSON schema describing what is need to validate specific checklists",
     "type": "object"
   },
   "experimentTypes": [
@@ -14,12 +14,12 @@
       "checklist_version": "v1",
       "checklist_group": "METAGENOMIC",
       "experiment_type": "METABARCODING",
-      "experiment_type_definition": "Metabarcoding is the barcoding of DNA/RNA (or eDNA/eRNA) in a manner that allows for the simultaneous identification of many taxa within the same sample. The main difference between barcoding and metabarcoding is that metabarcoding does not focus on one specific organism, but instead aims to determine species composition within a sample.[WIKIPEDIA]",
+      "_experiment_type_definition": "Metabarcoding is the barcoding of DNA/RNA (or eDNA/eRNA) in a manner that allows for the simultaneous identification of many taxa within the same sample. The main difference between barcoding and metabarcoding is that metabarcoding does not focus on one specific organism, but instead aims to determine species composition within a sample.[WIKIPEDIA]",
       "experiment_type_ontology_id": "EDAM:operation_3200",
       "library_source": "METAGENOMIC",
       "library_strategy": "WGS",
       "library_selection": "",
-      "target_loci": "",
+      "target_loci": "16S",
       "target_subfragment": "",
       "pcr_fields": "",
       "custom_user_fields": "",
@@ -33,7 +33,7 @@
       "checklist_version": "v1",
       "checklist_group": "METAGENOMIC",
       "experiment_type": "METAGENOMIC_SEQUENCING",
-      "experiment_type_definition": "Approach which samples, in parallel, all genes in all organisms present in a given sample, e.g. to provide insight into biodiversity and function.",
+      "_experiment_type_definition": "Approach which samples, in parallel, all genes in all organisms present in a given sample, e.g. to provide insight into biodiversity and function.",
       "experiment_type_ontology_id": "EDAM:3837",
       "library_source": "METAGENOMIC",
       "library_strategy": "AMPLICON",
@@ -50,7 +50,7 @@
       "checklist_version": "v1",
       "checklist_group": "METAGENOMIC",
       "experiment_type": "METATRANSCRIPTOMIC",
-      "experiment_type_definition": "The study of microbe gene expression within natural environments (i.e. the metatranscriptome). Metatranscriptomics methods can be used for whole gene expression profiling of complex microbial communities.[EDAM]",
+      "_experiment_type_definition": "The study of microbe gene expression within natural environments (i.e. the metatranscriptome). Metatranscriptomics methods can be used for whole gene expression profiling of complex microbial communities.[EDAM]",
       "experiment_type_ontology_id": "EDAM:3941",
       "library_source": "METATRANSCRIPTOMIC",
       "library_selection": "PCR",
@@ -66,7 +66,7 @@
       "checklist_group": "GENOMIC",
       "checklist_version": "v1",
       "experiment_type": "GENOMIC",
-      "experiment_type_definition": "Sequencing of DNA located in the genome and able to be transmitted to the offspring.[adapted from SO]",
+      "_experiment_type_definition": "Sequencing of DNA located in the genome and able to be transmitted to the offspring.[adapted from SO]",
       "experiment_type_ontology_id": "SO:0000991:",
       "library_source": "GENOMIC",
       "custom_user_fields": "",
@@ -80,7 +80,7 @@
       "checklist_group": "GENOMIC",
       "checklist_version": "v1",
       "experiment_type": "VIRAL_RNA_GENOME",
-      "experiment_type_definition": "Adapted from a virus whose genome consists of RNA. Can be single or double-stranded RNA.[NCIT and SO adapted]",
+      "_experiment_type_definition": "Adapted from a virus whose genome consists of RNA. Can be single or double-stranded RNA.[NCIT and SO adapted]",
       "experiment_type_ontology_id": "SO:0001041",
       "library_source": "VIRAL RNA",
       "library_strategy": "WGS",
@@ -95,7 +95,7 @@
       "checklist_group": "GENOMIC",
       "checklist_version": "v1",
       "experiment_type": "EXOME_SEQUENCING",
-      "experiment_type_definition": "Laboratory technique to sequence all the protein-coding regions in a genome, i.e., the exome.\nExome sequencing is considered a cheap alternative to whole genome sequencing.",
+      "_experiment_type_definition": "Laboratory technique to sequence all the protein-coding regions in a genome, i.e., the exome.\nExome sequencing is considered a cheap alternative to whole genome sequencing.",
       "experiment_type_ontology_id": "EDAM:3676",
       "library_source": "GENOMIC",
       "custom_user_fields": "",
@@ -109,7 +109,7 @@
       "checklist_group": "TEST_group",
       "checklist_version": "v1",
       "experiment_type": "TEST_type",
-      "experiment_type_definition": "TEST DEFINITION",
+      "_experiment_type_definition": "TEST DEFINITION",
       "experiment_type_ontology_id": "EDAM:12345",
       "library_source": "TRANSCRIPTOMIC",
       "pcr_fields": "",
@@ -127,7 +127,7 @@
       "checklist_group": "TRANSCRIPTOMIC",
       "checklist_version": "v1",
       "experiment_type": "TRANSCRIPTOMIC",
-      "experiment_type_definition": "The analysis of transcriptomes, or a set of all the RNA molecules in a specific cell, tissue etc.",
+      "_experiment_type_definition": "The analysis of transcriptomes, or a set of all the RNA molecules in a specific cell, tissue etc.",
       "experiment_type_ontology_id": "EDAM:3308",
       "library_source": "TRANSCRIPTOMIC",
       "custom_user_fields": "",
@@ -140,7 +140,7 @@
       "checklist_group": "TRANSCRIPTOMIC",
       "checklist_version": "v1",
       "experiment_type": "SPATIAL_TRANSCRIPTOMIC",
-      "experiment_type_definition": "assay that allows visualization and quantitative analysis of the transcriptome with spatial resolution in individual tissue sections",
+      "_experiment_type_definition": "assay that allows visualization and quantitative analysis of the transcriptome with spatial resolution in individual tissue sections",
       "experiment_type_ontology_id": "EFO:0008994",
       "library_source": "TRANSCRIPTOMIC",
       "custom_user_fields": "",
@@ -154,7 +154,7 @@
       "checklist_version": "v1",
       "checklist_group": "BARCODING",
       "experiment_type": "DNA_BARCODING",
-      "experiment_type_definition": "Analyse DNA sequences in order to identify a DNA 'barcode'; marker genes or any short fragment(s) of DNA that are useful to diagnose the taxa of biological organisms.",
+      "_experiment_type_definition": "Analyse DNA sequences in order to identify a DNA 'barcode'; marker genes or any short fragment(s) of DNA that are useful to diagnose the taxa of biological organisms.",
       "experiment_type_ontology_id": "EDAM:operation_3200",
       "library_source": "GENOMIC",
       "library_strategy": "AMPLICON",
@@ -172,10 +172,10 @@
       "checklist_version": "v1",
       "checklist_group": "GENOTYPING",
       "experiment_type": "GENOTYPING",
-      "experiment_type_definition": "An assay in which variation in a part of or the whole genome is analysed",
+      "_experiment_type_definition": "An assay in which variation in a part of or the whole genome is analysed",
       "experiment_type_ontology_id": "EFO:0000750",
       "library_source": "GENOMIC",
-      "target_loci": "other",
+      "target_loci": "",
       "target_subfragment": "",
       "custom_user_fields": "",
       "design_description": "",
@@ -188,7 +188,7 @@
       "checklist_version": "v1",
       "checklist_group": "EPIGENOME",
       "experiment_type": "CHROMOSOME_CONFORMATION_CAPTURE",
-      "experiment_type_definition": "",
+      "_experiment_type_definition": "",
       "experiment_type_ontology_id": "EDAM:",
       "library_source": "GENOMIC",
       "custom_user_fields": "",
@@ -202,7 +202,7 @@
       "checklist_version": "v1",
       "checklist_group": "EPIGENOME",
       "experiment_type": "EPIGENOMIC",
-      "experiment_type_definition": "The study of the epigenetic modifications of a whole cell, tissue, organism etc.\nEpigenetics concerns the heritable changes in gene expression owing to mechanisms other than DNA sequence variation.",
+      "_experiment_type_definition": "The study of the epigenetic modifications of a whole cell, tissue, organism etc.\nEpigenetics concerns the heritable changes in gene expression owing to mechanisms other than DNA sequence variation.",
       "experiment_type_ontology_id": "EDAM:3179",
       "library_source": "GENOMIC",
       "custom_user_fields": "",
@@ -215,7 +215,7 @@
       "checklist_version": "v1",
       "checklist_group": "EPIGENOME",
       "experiment_type": "CHROMATIN_RELATED",
-      "experiment_type_definition": "",
+      "_experiment_type_definition": "",
       "experiment_type_ontology_id": "EDAM:",
       "library_source": "GENOMIC",
       "design_description": "",
@@ -246,7 +246,7 @@
         "value": "",
         "attributes": {
           "read_type": [
-            "paired"
+            "paired", "single"
           ],
           "checksum_method": "MD5",
           "checksum": ""
@@ -256,7 +256,7 @@
         "value": "",
         "attributes": {
           "read_type": [
-            "paired"
+            "paired", "single"
           ],
           "checksum_method": "MD5",
           "checksum": ""
@@ -287,7 +287,7 @@
           "value": "",
           "attributes": {
             "read_type": [
-              "paired"
+              "paired", "single"
             ],
             "checksum_method": "MD5",
             "checksum": ""
@@ -297,7 +297,7 @@
           "value": "",
           "attributes": {
             "read_type": [
-              "paired"
+              "paired", "single"
             ],
             "checksum_method": "MD5",
             "checksum": ""
@@ -311,7 +311,7 @@
           "checksum": ""
         }
       },
-      "cram": {
+      "cran": {
         "value": "",
         "attributes": {
           "checksum_method": "MD5",
@@ -332,52 +332,56 @@
   },
   "coreFields": {
     "_comment1": {
-      "description": "This is an experiment attribute checklist template in JSON format. Please see <https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html> for much more background and more details.",
+      "_description": "This is an experiment attribute checklist template in JSON format. Please see <https://github.com/Woolly-at-EBI/ExperimentChecklist/blob/main/docs/ExperimentChecklistDoc.html> for much more background and more details.",
       "type": "string"
     },
     "_comment2": {
-      "description": "This template allows 1 or more experiments' metadata to be submitted. If >1 experiments: in JSON style, please add a comma at the end of the previous record just after the closing }.",
+      "_description": "This template allows 1 or more experiments' metadata to be submitted. If >1 experiments: in JSON style, please add a comma at the end of the previous record just after the closing }.",
       "type": "string"
     },
     "study_id": {
-      "description": "This is the study accession number that starts with ERP granted after registering a study with the ENA. [ENA]",
-      "default": "ERP1234567",
+      "_description": "This is the study accession number that starts with ERP granted after registering a study with the ENA. [ENA]",
+      "_standards_source": "INSDC: term and vocabulary",
+      "_default": "ERP1234567",
       "type": "string",
       "pattern": "(^(E|D|S)RP[0-9]{6,})|(^PRJ(E|D|N)[A-Z][0-9]+)",
-      "_required": true
+      "required": true
     },
     "sample_accession": {
-      "description": "The sample accession number is called the BioSample accession and is typically used in journal publications. The sample will also be assigned an alternative accession number that starts with ERS.[ENA]",
+      "_description": "The sample accession number is called the BioSample accession and is typically used in journal publications. The sample will also be assigned an alternative accession number that starts with ERS.[ENA]",
+      "_standards_source": "INSDC: term and vocabulary",
       "type": "string",
       "_example": "SAMEA110358963",
       "pattern": "(^SAM(E|D|N)[A-Z]?[0-9]+)|(^(E|D|S)RS[0-9]{6,})",
-      "_required": true
+      "required": true
     },
     "library_layout": {
-      "description": "Reads are unpaired (usual case).[ENA]",
+      "_description": "Reads are unpaired (usual case).[ENA]",
+      "_standards_source": "INSDC: term and vocabulary",
       "type": "string",
-      "default": "SINGLE",
+      "_default": "",
       "enum": [
-        "SINGLE",
-        "PAIRED"
+       "single","paired","cell_barcode","umi_barcode","feature_barcode","sample_barcode","spatial_barcode",""
       ],
-      "_required": false
+      "required": false
     },
     "experiment_name": {
-      "description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
-      "default": "my lovely TRANSCRIPTOMICS experiment",
+      "_description": "A unique name of the experiment within your study. An experiment is the sequencing activity that generates one or more sequencing runs on a specific sample. [ENA]",
+      "_standards_source": "",
+      "_default": "my lovely TRANSCRIPTOMICS experiment",
       "type": "string",
       "minLength": 5,
-      "_required": false,
-      "comment": "free text"
+      "required": false,
+      "_comment": "free text"
     },
     "library_source": {
-      "description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
-      "default": "TRANSCRIPTOMIC",
+      "_description": "The LIBRARY_SOURCE specifies the type of source material that is being sequenced. [INSDC]",
+      "_default": "TRANSCRIPTOMIC",
+      "_standards_source": "INSDC: term and vocabulary",
       "enum": [],
       "dict": {
         "GENOMIC": {
-          "description": "Genomic DNA (includes PCR products from genomic DNA).",
+          "_description": "Genomic DNA (includes PCR products from genomic DNA).",
           "library_strategies": [
             "WGS",
             "WGA",
@@ -415,161 +419,194 @@
         "OTHER": "Other, unspecified, or unknown library source material."
       },
       "type": "string",
-      "_required": true
+      "required": true
     },
     "library_strategy": {
-      "description": "Sequencing technique intended for this library.[INSDC]",
-      "default": "RNA-Seq",
+      "_description": "Sequencing technique intended for this library.[INSDC]",
+      "_default": "RNA-Seq",
+      "_standards_source": "INSDC: term and vocabulary",
       "enum": [],
       "type": "string",
-      "_required": true
+      "required": true
     },
     "library_selection": {
-      "description": "Method used to enrich the target in the sequence library preparation. [INSDC]",
-      "default": "unspecified",
+      "_description": "Method used to enrich the target in the sequence library preparation. [INSDC]",
+      "_default": "unspecified",
+      "_standards_source": "INSDC: term and vocabulary",
       "enum": [],
       "type": "string",
-      "_required": true
+      "required": true
     },
     "library_name": {
-      "description": "The name of the nucleotide sequencing library. [NCIT]",
+      "_description": "The name of the nucleotide sequencing library. [NCIT]",
+      "_standards_source": "INSDC: term only",
       "type": "string",
-      "_required": false,
-      "comment": "free text"
+      "required": false,
+      "_comment": "free text"
     },
     "library_description": {
-      "description": "The free description of the nucleotide sequencing library. [NCIT adapted]",
+      "_description": "The free description of the nucleotide sequencing library. [NCIT adapted]",
+      "_standards_source": "INSDC: term only",
       "type": "string",
-      "_required": false
+      "required": false
     },
     "insert_size": {
-      "default": 0,
-      "description": "The average insert size found during nucleic acid sequencing. [NCIT]",
+      "_default": 0,
+      "_description": "The average insert size found during nucleic acid sequencing. [NCIT]",
+      "_standards_source": "",
       "type": "number",
-      "_required": false,
+      "required": false,
       "pattern": "^[0-9]*(\\.[0-9]*)?$"
     },
     "instrument_platform": {
-      "description": "The name of the technology platform used to perform nucleic acid sequencing. [NCIT]",
+      "_description": "The name of the technology platform used to perform nucleic acid sequencing. [NCIT]",
+      "_standards_source": "INSDC: term and vocabulary",
       "_example": "ILLUMINA",
-      "default": "ILLUMINA",
+      "_default": "ILLUMINA",
       "enum": [
       ],
       "type": "string",
       "_comment": " will get values from the sra.experiment_xml",
-      "_required": true
+      "required": true
     },
     "instrument_model": {
-      "description": "The name and/or number associated with a specific sequencing instrument model.  [NCIT-adapted]",
+      "_description": "The name and/or number associated with a specific sequencing instrument model.  [NCIT-adapted]",
+      "_standards_source": "INSDC: term and vocabulary",
       "_example": "Illumina MiSeq",
-      "default": "unspecified",
+      "_default": "unspecified",
       "enum": [
       ],
       "type": "string",
       "_comment": " will get values from the sra.experiment_xml",
-      "_required": false
+      "required": false
     },
     "sequencing_protocol": {
-      "description": "A rule which guides how an activity should be performed. This is for the sequencing related[NCIT]",
+      "_description": "A rule which guides how an activity should be performed. This is for the sequencing related[NCIT]",
       "_example": "<https://www.protocols.io/view/environmental-dna-edna-metabarcoding-protocol-for-rm7vzy3q2lx1/v1>",
-      "default": "A URL from protocol.io",
+      "_default": "A URL from protocol.io",
+      "_standards_source": "TBD",
       "type": "string",
       "_comment": "if multiple protocols. use a pipe to delimited",
-      "_required": false
+      "required": false
     }
   },
   "allSpecificFieldsConfig": {
     "_comment": {
-      "description": "These are all possible fields not in the core, with their JSON configs",
+      "_description": "These are all possible fields not in the core, with their JSON configs",
       "type": "string",
-      "_required": false
+      "required": false
     },
     "design_description": {
-      "description": "The library design including library properties, layout, protocol, targeting information, and spot and gap descriptors.",
+      "_description": "The library design including library properties, layout, protocol, targeting information, and spot and gap descriptors.[INSDC]",
       "type": "string",
       "_example": "multi-marker metabarcoding",
-      "_required": true
+      "_standards_source": "INSDC: term",
+      "required": true
     },
     "checklist_id": {
-      "description": "checklist identifier",
-      "default": "",
-      "_example": "",
-      "minLength": 3,
-      "type": "string",
-      "_required": true
+      "_description": "checklist identifier",
+      "_default": "",
+      "_example": "METABARCODING Experimental",
+      "minLength": 4,
+      "type": "pattern",
+      "_standards_source": "TBD",
+      "pattern":  "EXC[0-9]*",
+      "required": true
     },
     "checklist_name": {
-      "description": "A short descriptive name to human identify",
-      "default": "",
+      "_description": "A short descriptive name to human identify",
+      "_default": "",
       "_example": "METABARCODING specific",
       "minLength": 3,
       "type": "string",
-      "_required": false
+      "_standards_source": "TBD",
+      "required": false
     },
     "checklist_version": {
-      "description": "The version of this checklist, allows us to validate the write records against the right checklist version",
-      "default": "",
+      "_description": "The version of this checklist, allows us to validate the write records against the right checklist version",
+      "_default": "",
       "_example": "v1",
-      "_comment": "Version of the format v[[::digit::]] e..g. v2",
-      "type": "integer",
-      "_required": true
+      "_comment": "Version of the format v[0-9]*(\\.[0-9]*)? e.g. v2",
+      "type": "pattern",
+      "pattern": "[0-9]*(\\.[0-9]*)?",
+      "_standards_source": "TBD",
+      "required": true
     },
     "checklist_group": {
-      "description": "The collection of the experiment checklists",
-      "default": "TRANSCRIPTOMIC",
+      "_description": "The collection of the experiment checklists",
+      "_default": "TRANSCRIPTOMIC",
       "_example": "TRANSCRIPTOMIC",
       "type": "string",
-      "_required": false
+      "_standards_source": "TBD",
+      "required": false
     },
     "experiment_type": {
-      "description": "The broad type of sequencing experiment performed. A mixture of library strategy and source",
-      "default": "",
+      "_description": "The broad type of sequencing experiment performed. A mixture of library strategy and source",
+      "_default": "",
       "_example": "METABARCODING",
       "type": "string",
-      "_required": true
+      "_standards_source": "TBD",
+      "required": true
     },
     "target_loci": {
-      "description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC adapted]",
-      "default": "16S rRNA",
+      "_description": "Names the gene(s) or locus(loci) or other genomic feature(s) targeted by the sequence.[INSDC]",
+      "_default": "",
       "_example": "18S",
-      "enum": [
-      ],
+      "enum": [ "16S rRNA","18S rRNA","COX1","ITS1-5.8S-ITS2","RBCL","exome","matK","other"],
+      "all_descriptions":
+          {"16S rRNA": {"_description":"Bacterial small subunit ribosomal RNA, a locus used for phylogenetic studies of bacteria and as a target for random target PCR in environmental biodiversity screening.[INSDC]"},
+      "18S rRNA": {"_description":"Eukaryotic small subunit ribosomal RNA, a locus used for phylogenetic studies of eukaryotes and as a target for random target PCR in environmental biodiversity screening.[INSDC]"},
+      "RBCL": {"_description":"RuBisCO large subunit : ribulose-1,5-bisphosphate carboxylase/oxygenase large subunit, a locus used for phylogenetic studies of plants.[INSDC]"},
+      "matK": {"_description":"Maturase K gene, a locus used for phylogenetic studies of plants.[INSDC]"},
+      "COX1": {"_description":"Mitochondrial cytochrome c oxidase 1 gene, a locus used for phylogenetic studies of animals.[INSDC]"},
+      "ITS1-5.8S-ITS2": {"_description":"Internal transcribed spacers 1 and 2 plus 5.8S rRNA region, a locus used for phylogenetic studies of fungi.[INSDC]"},
+      "exome": {"_description":"All exonic regions of the genome.[INSDC]"},
+      "other": {"_description":"Other locus, please describe[INSDC]"}},
+      "_comment": "This is the current full list of target genes and RNAs. It is currently focused on organism ID. It will certainly need to be exanded.",
       "type": "string",
-      "_required": false
+      "_standards_source": "INSDC: term and vocabulary",
+      "required": false
     },
     "target_subfragment": {
-      "description": "",
+      "_description": "TBD:",
       "ontology": "https://www.ebi.ac.uk/ols/ontologies/XXX",
       "type": "string",
-      "_required": false
+      "required": false,
+      "_standards_source": "TBD",
+      "_comment": "TBD work out if this field is really needed"
     },
     "pcr_protocol": {
-      "description": "PCR is a method for amplifying a DNA base sequence using multiple rounds of heat denaturation of the DNA and annealing of oligonucleotide primers complementary to flanking regions in the presence of a heat-stable polymerase. This results in duplication of the targeted DNA region. Newly synthesized DNA strands can subsequently serve as additional templates for the same primer sequences, so that successive rounds of primer annealing, strand elongation, and dissociation produce rapid and highly specific amplification of the desired sequence. PCR also can be used to detect the existence of the defined sequence in a DNA sample.[NCIT] A PCR protocol is the precise recipe followed for the type of PCR,.",
+      "_description": "PCR is a method for amplifying a DNA base sequence using multiple rounds of heat denaturation of the DNA and annealing of oligonucleotide primers complementary to flanking regions in the presence of a heat-stable polymerase. This results in duplication of the targeted DNA region. Newly synthesized DNA strands can subsequently serve as additional templates for the same primer sequences, so that successive rounds of primer annealing, strand elongation, and dissociation produce rapid and highly specific amplification of the desired sequence. PCR also can be used to detect the existence of the defined sequence in a DNA sample.[NCIT] A PCR protocol is the precise recipe followed for the type of PCR,.",
       "field_type": "uri",
       "domain": "https://protocols.io",
       "type": "string",
-      "_required": false,
+      "required": false,
+       "_standards_source": "TBD",
       "_comment": "see the pcr_primers fields too"
     },
     "pcr_primers": {
-      "description": "PCR primers that were used to amplify the sequence of the targeted gene, locus or subfragment. This field should contain all the primers used for a single PCR reaction if multiple forward or reverse primers are present in a single PCR reaction. The primer sequence should be reported in uppercase letters.[INSDC]",
+      "_description": "PCR primers that were used to amplify the sequence of the targeted gene, locus or subfragment. This field should contain all the primers used for a single PCR reaction if multiple forward or reverse primers are present in a single PCR reaction. The primer sequence should be reported in uppercase letters.[INSDC]",
       "type": "string",
-      "_required": false
+      "_standards_source": "TBD",
+      "required": false
     },
     "multiplex_identifiers": {
-      "description": "The barcoding identifiers used to label DNA fragments during muliplex sequencing",
+      "_description": "The barcoding identifiers used to label DNA fragments during muliplex sequencing",
       "type": "string",
-      "_required": false
+      "_standards_source": "TBD",
+      "required": false
     },
     "adapters": {
-      "description": "Adapters provide priming sequences for both amplification and sequencing of the sample-library fragments. Both adapters should be reported; in uppercase letters.[INSDC]",
+      "_description": "Adapters provide priming sequences for both amplification and sequencing of the sample-library fragments. Both adapters should be reported; in uppercase letters.[]",
       "type": "string",
-      "_required": false
+      "_standards_source": "TBD",
+      "required": false
     },
     "sequence_related": {
-      "description": "sequence format type, filename and checksum[INSDC]",
+      "_description": "sequence format type, filename and checksum[INSDC]",
       "type": "string",
-      "_required": true,
+      "required": true,
+      "_standards_source": "TBD",
       "_comment": "This section allows one to provide sequence file names. The sequences can be in fastq, CRAM and BAM. N.B. BAM filers do not needs to be assemblies and BAM is slightly favoured over fastq as it is more compressed."
     }
   },
