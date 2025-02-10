@@ -1,106 +1,106 @@
 {
     "LS454": [
-        "unspecified",
-        "454 GS FLX",
-        "454 GS",
-        "454 GS 20",
         "454 GS FLX Titanium",
         "454 GS FLX+",
-        "454 GS Junior"
+        "454 GS Junior",
+        "454 GS 20",
+        "454 GS FLX",
+        "unspecified",
+        "454 GS"
     ],
     "ILLUMINA": [
-        "Illumina Genome Analyzer IIx",
-        "Illumina iSeq 100",
-        "Illumina Genome Analyzer",
-        "HiSeq X Five",
-        "Illumina Genome Analyzer II",
-        "HiSeq X Ten",
-        "Illumina HiSeq X",
+        "NextSeq 550",
+        "Illumina HiSeq 2000",
         "Illumina NovaSeq X",
         "Illumina HiSeq 3000",
-        "NextSeq 2000",
-        "Illumina HiScanSQ",
-        "Illumina NovaSeq 6000",
-        "Illumina MiniSeq",
-        "unspecified",
+        "Illumina Genome Analyzer",
         "Illumina HiSeq 1500",
-        "NextSeq 550",
-        "NextSeq 500",
-        "Illumina MiSeq",
-        "NextSeq 1000",
-        "Illumina HiSeq 1000",
-        "Illumina HiSeq 2000",
         "Illumina HiSeq 4000",
-        "Illumina HiSeq 2500"
+        "Illumina MiSeq",
+        "Illumina Genome Analyzer II",
+        "Illumina iSeq 100",
+        "Illumina MiniSeq",
+        "Illumina HiSeq 2500",
+        "NextSeq 2000",
+        "NextSeq 1000",
+        "NextSeq 500",
+        "Illumina HiScanSQ",
+        "HiSeq X Five",
+        "Illumina NovaSeq 6000",
+        "Illumina HiSeq 1000",
+        "Illumina HiSeq X",
+        "unspecified",
+        "HiSeq X Ten",
+        "Illumina Genome Analyzer IIx"
     ],
     "HELICOS": [
-        "unspecified",
-        "Helicos HeliScope"
+        "Helicos HeliScope",
+        "unspecified"
     ],
     "ABI_SOLID": [
-        "AB SOLiD 4hq System",
-        "unspecified",
-        "AB SOLiD System 2.0",
-        "AB SOLiD System",
-        "AB SOLiD 3 Plus System",
-        "AB 5500xl Genetic Analyzer",
-        "AB SOLiD 4 System",
-        "AB 5500xl-W Genetic Analysis System",
         "AB SOLiD System 3.0",
+        "AB 5500xl Genetic Analyzer",
+        "AB SOLiD PI System",
+        "AB 5500xl-W Genetic Analysis System",
+        "AB SOLiD 3 Plus System",
+        "AB SOLiD 4 System",
+        "unspecified",
+        "AB SOLiD System",
         "AB 5500 Genetic Analyzer",
-        "AB SOLiD PI System"
+        "AB SOLiD System 2.0",
+        "AB SOLiD 4hq System"
     ],
     "COMPLETE_GENOMICS": [
         "unspecified",
         "Complete Genomics"
     ],
     "BGISEQ": [
-        "BGISEQ-50",
         "MGISEQ-2000RS",
-        "BGISEQ-500"
+        "BGISEQ-500",
+        "BGISEQ-50"
     ],
     "PACBIO_SMRT": [
-        "unspecified",
-        "Onso",
-        "PacBio RS II",
-        "Sequel II",
-        "PacBio RS",
-        "Revio",
         "Sequel",
-        "Sequel IIe"
+        "Revio",
+        "Sequel II",
+        "unspecified",
+        "PacBio RS II",
+        "PacBio RS",
+        "Sequel IIe",
+        "Onso"
     ],
     "ION_TORRENT": [
-        "unspecified",
-        "Ion Torrent Genexus",
-        "Ion Torrent S5 XL",
-        "Ion GeneStudio S5 Plus",
         "Ion Torrent S5",
-        "Ion Torrent Proton",
         "Ion Torrent PGM",
         "Ion GeneStudio S5",
-        "Ion GeneStudio S5 Prime"
+        "Ion GeneStudio S5 Prime",
+        "Ion GeneStudio S5 Plus",
+        "Ion Torrent Proton",
+        "unspecified",
+        "Ion Torrent S5 XL",
+        "Ion Torrent Genexus"
     ],
     "CAPILLARY": [
+        "AB 3130xL Genetic Analyzer",
+        "AB 3730xL Genetic Analyzer",
+        "AB 3500 Genetic Analyzer",
+        "AB 3730 Genetic Analyzer",
+        "unspecified",
         "AB 310 Genetic Analyzer",
         "AB 3500xL Genetic Analyzer",
-        "unspecified",
-        "AB 3730 Genetic Analyzer",
-        "AB 3130xL Genetic Analyzer",
-        "AB 3500 Genetic Analyzer",
-        "AB 3130 Genetic Analyzer",
-        "AB 3730xL Genetic Analyzer"
+        "AB 3130 Genetic Analyzer"
     ],
     "DNBSEQ": [
-        "unspecified",
         "DNBSEQ-G50",
-        "DNBSEQ-G400 FAST",
+        "DNBSEQ-G400",
+        "unspecified",
         "DNBSEQ-T7",
-        "DNBSEQ-G400"
+        "DNBSEQ-G400 FAST"
     ],
     "OXFORD_NANOPORE": [
-        "GridION",
         "unspecified",
         "PromethION",
+        "GridION",
         "MinION"
     ],
     "ELEMENT": [
@@ -116,15 +116,15 @@
         "Sentosa SQ301"
     ],
     "GENAPSYS": [
-        "unspecified",
         "GS111",
+        "unspecified",
         "GENIUS",
         "Genapsys Sequencer"
     ],
     "GENE_MIND": [
+        "GenoLab M",
         "unspecified",
         "FASTASeq 300",
-        "GenoLab M",
         "GenoCare 1600"
     ],
     "TAPESTRI": [
