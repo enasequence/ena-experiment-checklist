@@ -1,0 +1,134 @@
+{
+    "LS454": [
+        "unspecified",
+        "454 GS FLX",
+        "454 GS",
+        "454 GS 20",
+        "454 GS FLX Titanium",
+        "454 GS FLX+",
+        "454 GS Junior"
+    ],
+    "ILLUMINA": [
+        "Illumina Genome Analyzer IIx",
+        "Illumina iSeq 100",
+        "Illumina Genome Analyzer",
+        "HiSeq X Five",
+        "Illumina Genome Analyzer II",
+        "HiSeq X Ten",
+        "Illumina HiSeq X",
+        "Illumina NovaSeq X",
+        "Illumina HiSeq 3000",
+        "NextSeq 2000",
+        "Illumina HiScanSQ",
+        "Illumina NovaSeq 6000",
+        "Illumina MiniSeq",
+        "unspecified",
+        "Illumina HiSeq 1500",
+        "NextSeq 550",
+        "NextSeq 500",
+        "Illumina MiSeq",
+        "NextSeq 1000",
+        "Illumina HiSeq 1000",
+        "Illumina HiSeq 2000",
+        "Illumina HiSeq 4000",
+        "Illumina HiSeq 2500"
+    ],
+    "HELICOS": [
+        "unspecified",
+        "Helicos HeliScope"
+    ],
+    "ABI_SOLID": [
+        "AB SOLiD 4hq System",
+        "unspecified",
+        "AB SOLiD System 2.0",
+        "AB SOLiD System",
+        "AB SOLiD 3 Plus System",
+        "AB 5500xl Genetic Analyzer",
+        "AB SOLiD 4 System",
+        "AB 5500xl-W Genetic Analysis System",
+        "AB SOLiD System 3.0",
+        "AB 5500 Genetic Analyzer",
+        "AB SOLiD PI System"
+    ],
+    "COMPLETE_GENOMICS": [
+        "unspecified",
+        "Complete Genomics"
+    ],
+    "BGISEQ": [
+        "BGISEQ-50",
+        "MGISEQ-2000RS",
+        "BGISEQ-500"
+    ],
+    "PACBIO_SMRT": [
+        "unspecified",
+        "Onso",
+        "PacBio RS II",
+        "Sequel II",
+        "PacBio RS",
+        "Revio",
+        "Sequel",
+        "Sequel IIe"
+    ],
+    "ION_TORRENT": [
+        "unspecified",
+        "Ion Torrent Genexus",
+        "Ion Torrent S5 XL",
+        "Ion GeneStudio S5 Plus",
+        "Ion Torrent S5",
+        "Ion Torrent Proton",
+        "Ion Torrent PGM",
+        "Ion GeneStudio S5",
+        "Ion GeneStudio S5 Prime"
+    ],
+    "CAPILLARY": [
+        "AB 310 Genetic Analyzer",
+        "AB 3500xL Genetic Analyzer",
+        "unspecified",
+        "AB 3730 Genetic Analyzer",
+        "AB 3130xL Genetic Analyzer",
+        "AB 3500 Genetic Analyzer",
+        "AB 3130 Genetic Analyzer",
+        "AB 3730xL Genetic Analyzer"
+    ],
+    "DNBSEQ": [
+        "unspecified",
+        "DNBSEQ-G50",
+        "DNBSEQ-G400 FAST",
+        "DNBSEQ-T7",
+        "DNBSEQ-G400"
+    ],
+    "OXFORD_NANOPORE": [
+        "GridION",
+        "unspecified",
+        "PromethION",
+        "MinION"
+    ],
+    "ELEMENT": [
+        "unspecified",
+        "Element AVITI"
+    ],
+    "ULTIMA": [
+        "unspecified",
+        "UG 100"
+    ],
+    "VELA_DIAGNOSTICS": [
+        "unspecified",
+        "Sentosa SQ301"
+    ],
+    "GENAPSYS": [
+        "unspecified",
+        "GS111",
+        "GENIUS",
+        "Genapsys Sequencer"
+    ],
+    "GENE_MIND": [
+        "unspecified",
+        "FASTASeq 300",
+        "GenoLab M",
+        "GenoCare 1600"
+    ],
+    "TAPESTRI": [
+        "unspecified",
+        "Tapestri"
+    ]
+}
